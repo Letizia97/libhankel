@@ -24,7 +24,7 @@ double compute_hankel_FBT(int nu, double (*intern_fct)(double, double (*)[50]), 
         - N: constant controlling ....
         - h: constant controlling ...
     */
-    FBT FBT_instance = FBT(nu, n_method, N, h);
+    FBT FBT_instance = FBT(nu, N, h, n_method);
     // return FBT_instance.fbt(std::_Bind_helper<false, double (*&)(double, double (*)[50]), const std::_Placeholder<1>&, void*&>::type, x);
 	return FBT_instance.fbt(std::bind(intern_fct, std::placeholders::_1, fparams),x);
 } 
