@@ -1,0 +1,77 @@
+name: CI (Meson C Library)
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-test:
+    # Build on Linux only for now; test with GCC
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        compiler: [gcc]
+    runs-on: ${{ matrix.os }}
+
+    env:
+      # Meson build directory
+      BUILD_DIR: builddir
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python (Meson/Ninja need Python)
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+
+      # --------------------------
+      # OS-specific dependencies
+      # --------------------------
+      - name: Install Meson & Ninja (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3-pip ninja-build
+          pip install --upgrade meson
+
+      # --------------------------
+      # Compiler selection (Linux/macOS)
+      # --------------------------
+      - name: Select compiler (GCC/Clang)
+        if: runner.os != 'Windows'
+        shell: bash
+        run: |
+          if [ "${{ matrix.compiler }}" = "gcc" ]; then
+            echo "CC=gcc"   >> $GITHUB_ENV
+            echo "CXX=g++"  >> $GITHUB_ENV
+          else
+            echo "CC=clang" >> $GITHUB_ENV
+            echo "CXX=clang++" >> $GITHUB_ENV
+          fi
+
+      # --------------------------
+      # Configure, build, test
+      # --------------------------
+      - name: Configure (meson setup)
+        run: meson setup "$BUILD_DIR" --backend ninja
+      - name: Build (meson compile)
+        run: meson compile -C "$BUILD_DIR"
+      - name: Test (meson test)
+        run: meson test -C "$BUILD_DIR" --print-errorlogs
+
+      # --------------------------
+      # Package artifacts (library + headers)
+      # --------------------------
+      - name: Install to staging (pkg-config, headers, .a/.so/.dylib/.lib)
+        run: |
+          DESTDIR="$PWD/staging" meson install -C "$BUILD_DIR"
+          ls -R staging
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: "${{ runner.os }}-${{ matrix.compiler }}-install"
