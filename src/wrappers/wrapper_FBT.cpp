@@ -24,7 +24,10 @@ double compute_hankel_FBT(int nu, double (*intern_fct)(double, double (*)[50]), 
         - N: constant controlling ....
         - h: constant controlling ...
     */
+
+    // This maybe is a bit of a hack, but it seems that it's needed to avoid issues when calling ogata functions
+    gsl_set_error_handler_off();
+
     FBT FBT_instance = FBT(nu, n_method, N, h);
-    // return FBT_instance.fbt(std::_Bind_helper<false, double (*&)(double, double (*)[50]), const std::_Placeholder<1>&, void*&>::type, x);
 	return FBT_instance.fbt(std::bind(intern_fct, std::placeholders::_1, fparams),x);
 } 
