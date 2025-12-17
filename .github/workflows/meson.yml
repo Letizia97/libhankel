@@ -76,11 +76,11 @@ jobs:
       # --------------------------
       # Package artifacts (library + headers)
       # --------------------------
-      - name: Install to staging (pkg-config, headers, .a/.so/.dylib/.lib)
-        run: |
-          DESTDIR="$PWD/staging" meson install -C "$BUILD_DIR"
-          ls -R staging
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: "${{ runner.os }}-${{ matrix.compiler }}-install"
+      # - name: Install to staging (pkg-config, headers, .a/.so/.dylib/.lib)
+      #   run: |
+      #     DESTDIR="$PWD/staging" meson install -C "$BUILD_DIR"
+      #     ls -R staging
+      # - name: Upload build artifacts
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: "${{ runner.os }}-${{ matrix.compiler }}-install"
