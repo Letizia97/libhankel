@@ -55,6 +55,7 @@ double form_factor_sphere(double q, double (*params)[50]) {
 		interm = ETA*4.0*M_PI*(sin(q*R) - q*R*cos(q*R))/gsl_pow_3(q);
 	}
     return gsl_pow_2(interm);
+
 };
 
 
