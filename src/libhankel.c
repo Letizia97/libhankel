@@ -1,12 +1,12 @@
 
-#include "libhankel.h"
+#include "include/libhankel.h"
 
-#include "strateg6_const.h"
-#include "strateg7_const.h"
-#include "strateg8_const.h"
-#include "strateg9_const.h"
-#include "strateg10_const.h"
-#include "strateg11_const.h"
+#include "include/strateg6_const.h"
+#include "include/strateg7_const.h"
+#include "include/strateg8_const.h"
+#include "include/strateg9_const.h"
+#include "include/strateg10_const.h"
+#include "include/strateg11_const.h"
 
 #include <math.h>
 #include <stdio.h>
@@ -58,7 +58,7 @@ double form_factor_sphere(double q, double (*params)[50]) {
 };
 
 
-double hankel_transform_FBT(double nu, double (*f)(double, double (*)[50]), double x, double (*fparams)[50], double n_ogata, double h_ogata, int n_strategy){
+double hankel_transform_FBT(int nu, double (*f)(double, double (*)[50]), double x, double (*fparams)[50], double N_ogata, double h_ogata, int n_method){
     /* 
     Computes Hankel transform, using FBT.
     Requires additional params - say which - and performance is highly dependent on params.
@@ -71,13 +71,16 @@ double hankel_transform_FBT(double nu, double (*f)(double, double (*)[50]), doub
         n_ogata    ... ?
         h_ogata    ... ?
         n_strategy FBT strategy to use --- 1 to 3?
-    */
+    */ 
+    double res; 
+    res = compute_hankel_FBT(nu, f, x, fparams, n_method, N_ogata, h_ogata);
+    return res;
 
 };
 
 
 
-double hankel_transform_no_params(double nu, double (*f)(double, double (*)[50]), double x, double (*fparams)[50], int n_strategy){
+double hankel_transform_no_params(int nu, double (*f)(double, double (*)[50]), double x, double (*fparams)[50], int n_strategy){
     /*
     Computes Hankel transform, and does not require additional params.
     Tend to perform well for simple form factors, but it does struggle with oscillatory ones.

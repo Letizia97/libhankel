@@ -82,12 +82,26 @@ double sasfit_ff_sphere(double q, double (*params)[50]);
 
 
 double hankel_transform_no_params(
-	double nu, 
+	int nu, 
 	double (*f)(double, double (*)[50]), 
 	double x, 
 	double (*fparams)[50], 
 	int n_strategy
 );
 
+// double compute_hankel_FBT(double x, double (*intern_fct)(double, void *), void * fparams, double nu, int n_method, int N, double h);
+
+double compute_hankel_FBT(
+	int nu, 
+	double (*f)(double, double (*)[50]), 
+	double x, 
+	double (*fparams)[50], 
+	int n_method,
+	int N, 
+	double h
+);
+
+double form_factor_g_dab(double q, double (*params)[50]); 
+double form_factor_sphere(double q, double (*params)[50]);
 #endif // HANKELCIB_H
 
