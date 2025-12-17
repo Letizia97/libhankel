@@ -39,6 +39,15 @@ jobs:
           sudo apt-get install -y python3-pip ninja-build
           pip install --upgrade meson
 
+
+      # --------------------------
+      # Project-specific dependencies
+      # --------------------------
+      - name: Install GSL on Linux
+        run: |
+          sudo apt-get update
+          sudo apt-get
+
       # --------------------------
       # Compiler selection (Linux/macOS)
       # --------------------------
