@@ -2,23 +2,6 @@
 #ifndef HANKELCLIB_H
 #define HANKELCLIB_H
 
-
-/**
- * Constants
- */
-// #define MAXPAR 50
-
-// Declarations: visible to other files
-// extern const double aJ0, sJ0, aJ1, sJ1;
-// extern const double aJ1Fast, sJ1Fast, aJ0Fast, sJ0Fast;
-// extern const double WJ0[120];
-// extern const double WJ1[140];
-// extern const double WJ0Fast[61];
-// extern const double WJ1Fast[47];
-// extern const double KK51Hankel[51][3];
-// extern const double KK101Hankel[101][3];
-// extern const double KK201Hankel[201][3];
-
 /**
  * Prototypes
  */
@@ -48,37 +31,6 @@
 double sasfit_ff_g_dab(double q, double (*params)[50]);
 double sasfit_ff_sphere(double q, double (*params)[50]);
 
-// // function declaration for hankel tr, strategy 9
-// double hankel_strategy_7(
-// 	double nu, 
-// 	double (*f)(double, double (*)[50]), 
-// 	double x, 
-// 	double (*fparams)[50]
-// );
-
-// // function declaration for hankel tr, strategy 9
-// double hankel_strategy_8(
-// 	double nu, 
-// 	double (*f)(double, double (*)[50]), 
-// 	double x, 
-// 	double (*fparams)[50]
-// );
-
-// // function declaration for hankel tr, strategy 9
-// double hankel_strategy_9(
-// 	double nu, 
-// 	double (*f)(double, double (*)[50]), 
-// 	double x, 
-// 	double (*fparams)[50]
-// );
-
-// // function declaration for hankel tr, strategy 10
-// double hankel_strategy_10(
-// 	double nu, 
-// 	double (*f)(double, double (*)[50]), 
-// 	double x, 
-// 	double (*fparams)[50]
-// );
 
 
 double hankel_transform_no_params(
@@ -88,8 +40,6 @@ double hankel_transform_no_params(
 	double (*fparams)[50], 
 	int n_strategy
 );
-
-// double compute_hankel_FBT(double x, double (*intern_fct)(double, void *), void * fparams, double nu, int n_method, int N, double h);
 
 double compute_hankel_FBT(
 	int nu, 
