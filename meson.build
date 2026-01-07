@@ -49,7 +49,7 @@ wrapper_dep = declare_dependency(
 )
 
 # ---- Your main C library that calls the C ABI ----
-libhankel_c = files('src/libhankel.c')
+libhankel_c = files('src/libhankel.c', 'src/form_factors.c')
 
 libhankel = library(
   'libhankel',                             # builds liblibhankel.so/.a

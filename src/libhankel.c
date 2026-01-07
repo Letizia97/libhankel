@@ -1,6 +1,5 @@
 
 #include "include/libhankel.h"
-
 #include "include/strateg6_const.h"
 #include "include/strateg7_const.h"
 #include "include/strateg8_const.h"
@@ -15,70 +14,28 @@
 #include <gsl/gsl_sf_bessel.h>
 
 
-double form_factor_g_dab(double q, double (*params)[50]) {
-    /*
-    Compute the g_dab form factor. 
-
-    Receives: 
-        - double q          value at which to compute the Hankel t
-        - double (*params)  pointer to an array of params for the function
-
-    */
-    double XI = (*params)[0];
-    double H = (*params)[1];
-    double ETA = (*params)[2];
-    double numer, denom;
-
-    numer = gsl_pow_2(gsl_pow_3(2*XI)*gsl_sf_poch(H,1.5)*ETA)*gsl_pow_3(M_PI);
-    denom = pow(1+gsl_pow_2(q*XI),1.5+H);
-    return numer / denom;
-};
-
-
-
-double form_factor_sphere(double q, double (*params)[50]) {
-    /*
-    Compute the sphere form factor. 
-
-    Receives: 
-        - double q          value at which to compute the Hankel t
-        - double (*params)  pointer to an array of params for the function
-
-    */
-    double R = (*params)[0];
-    double ETA = (*params)[1];
-    double interm;
-
-	if (q * R < 1e-4) {
-		interm = ETA*4.0/3.0*M_PI*R*R*R*(1 - gsl_pow_2(q*R)/10. + gsl_pow_4(q*R)/280. - gsl_pow_6(q*R)/15120.);
-	} else {
-		interm = ETA*4.0*M_PI*(sin(q*R) - q*R*cos(q*R))/gsl_pow_3(q);
-	}
-    return gsl_pow_2(interm);
-
-};
-
 
 double hankel_transform_FBT(int nu, double (*f)(double, double (*)[50]), double x, double (*fparams)[50], double N_ogata, double h_ogata, int n_method){
     /* 
     Computes Hankel transform, using FBT.
-    Requires additional params - say which - and performance is highly dependent on params.
+    Requires additional params - specifically number of function evaluations and starting 
+    guess for maximum in form factor - and performance is highly dependent on params.
     Requires knowledge of the form factor function to properly set params. 
+    Correspond to strategies 2,3,4 in SASfit (specify through n_method 0,1,2 in inputs)
     Receives:
         nu         order of bessel function
         *f         pointer to form factor function
         x          value at which to compute the transform
         *fparams   params for form factor
-        n_ogata    ... ?
-        h_ogata    ... ?
-        n_strategy FBT strategy to use --- 1 to 3?
+        N_ogata    integer indicating number of function evaluations
+        h_ogata    float indicating starting guess for maximum in form factor 
+        n_method   FBT method to use among 0,1,2 (modified, unmodified, fixed h Ogata)
     */ 
     double res; 
     res = compute_hankel_FBT(nu, f, x, fparams, n_method, N_ogata, h_ogata);
     return res;
 
 };
-
 
 
 double hankel_transform_no_params(int nu, double (*f)(double, double (*)[50]), double x, double (*fparams)[50], int n_strategy){

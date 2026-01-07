@@ -27,12 +27,8 @@
 // // Pointer-to-array type
 // typedef double (*arr50_t)[50];
 
-// function declaration for form factor functions
-double sasfit_ff_g_dab(double q, double (*params)[50]);
-double sasfit_ff_sphere(double q, double (*params)[50]);
 
-
-
+// corresponding to strategies 6-11
 double hankel_transform_no_params(
 	int nu, 
 	double (*f)(double, double (*)[50]), 
@@ -41,6 +37,7 @@ double hankel_transform_no_params(
 	int n_strategy
 );
 
+// corresponding to strategies 2-4
 double compute_hankel_FBT(
 	int nu, 
 	double (*f)(double, double (*)[50]), 
@@ -51,6 +48,9 @@ double compute_hankel_FBT(
 	double h
 );
 
+
+
+// function declaration for form factor functions
 double form_factor_g_dab(double q, double (*params)[50]); 
 double form_factor_sphere(double q, double (*params)[50]);
 #endif // HANKELCIB_H
