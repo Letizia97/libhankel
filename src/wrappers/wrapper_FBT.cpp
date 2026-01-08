@@ -20,14 +20,14 @@ double compute_hankel_FBT(int nu, double (*intern_fct)(double, double (*)[50]), 
         - (*intern_fct)(double, void *):    function to use for computing the transform
         - * fparams:    parameters for the function
         - nu: order of Bessel function
-        - n_method: integer between 0 and 2
-        - N: constant controlling ....
-        - h: constant controlling ...
+        - n_method: integer among 0,1,2 for : modified, unmodified, fixed h Ogata
+        - N: constant corresponding to number of function calls 
+        - h: constant corresponding to initial guess where function has maximum   
     */
 
-    // This maybe is a bit of a hack, but it seems that it's needed to avoid issues when calling ogata functions
+    // This is a bit of a hack, but it's needed to avoid issues when calling ogata functions
     gsl_set_error_handler_off();
 
     FBT FBT_instance = FBT(nu, n_method, N, h);
-	return FBT_instance.fbt(std::bind(intern_fct, std::placeholders::_1, fparams),x);
+	return FBT_instance.fbt(std::bind(intern_fct, std::placeholders::_1, fparams), x);
 } 
