@@ -1,4 +1,3 @@
-
 #include "include/libhankel.h"
 
 #include <math.h>
@@ -8,6 +7,19 @@
 #include <gsl/gsl_sf_bessel.h>
 
 
+/*
+This file contains functions corresponding to strategies 1-4 in SASfit. 
+They have been grouped together as written by Ogata originally.
+Specifically:
+- HANKEL_OGATA_2005
+- HANKEL_FBT0
+- HANKEL_FBT1
+- HANKEL_FBT2
+
+The first is implemented through function "hankel_transform_DE_Ogata".
+The last 3 are implemented through the same function "hankel_transform_FBT".
+*/
+
 
 double hankel_transform_FBT(int nu, double (*f)(double, double (*)[50]), double x, double (*fparams)[50], int n_method, double N_ogata, double h_ogata){
     /* 
@@ -15,7 +27,7 @@ double hankel_transform_FBT(int nu, double (*f)(double, double (*)[50]), double 
     Requires additional params - specifically number of function evaluations and starting 
     guess for maximum in form factor - and performance is highly dependent on params.
     Requires knowledge of the form factor function to properly set params. 
-    Correspond to strategies 2,3,4 in SASfit (specify through n_method 0,1,2 in inputs)
+    Corresponds to strategies 2,3,4 in SASfit or HANKEL_FBT0, etc (specify through n_method 0,1,2 in inputs)
     Receives:
         nu         order of bessel function
         *f         pointer to form factor function

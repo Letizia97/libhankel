@@ -7,6 +7,12 @@
 #include <gsl/gsl_sf.h>
 #include <gsl/gsl_sf_bessel.h>
 
+/*
+This file contains only one Hankel function, corresponding to strategy 0 in SASfit, i.e. HANKEL_OOURA_DEO .
+*/
+
+
+
 typedef struct
 {
 	void *fparams; 
@@ -29,6 +35,7 @@ double intdeo_FBT(double r, void *FBTparams) {
 double hankel_transform_DE_Quadrature(int nu, double (*f)(double, double (*)[50]), double x, double (*fparams)[50], double N_ogata, double eps_nriq){
     /* 
     Computes Hankel transform, using de-quadrature.
+    Corresponds to strategy 0 in SASfit, or HANKEL_OOURA_DEO.
     */
     int lenaw=4000;
     int rounded_N;
