@@ -72,6 +72,16 @@ double hankel_transform_DE_Quadrature(
 	double eps_nriq
 );
 
+// Needed for sasfit strategy 1 (DE QUADRATURE)
+double hankel_transform_DE_Ogata(
+	int nu, 
+	double (*f)(double, double (*)[50]), 
+	double x, 
+	double (*fparams)[50], 
+	double N_ogata, 
+	double h_ogata
+);
+
 // function declaration for form factor functions
 double form_factor_g_dab(double q, double (*params)[50]); 
 double form_factor_sphere(double q, double (*params)[50]);

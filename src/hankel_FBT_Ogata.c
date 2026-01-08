@@ -42,3 +42,52 @@ double hankel_transform_FBT(int nu, double (*f)(double, double (*)[50]), double 
     return res;
 
 };
+
+
+double DEtransform(double t) {
+    /* 
+    Function descr
+    */ 
+    return t * tanh(M_PI_2 * sinh(t));
+}
+
+double deriv_DEtransform(double t){
+    /* 
+    Function descr
+    */ 
+    double res;
+    res = 1. / cosh(M_PI_2 * sinh(t));
+    res = M_PI_2 * t * cosh(t) * res * res + tanh(M_PI_2 * sinh(t));
+    return res;
+}
+
+double hankel_transform_DE_Ogata(int nu, double (*f)(double, double (*)[50]), double x, double (*fparams)[50], double N_ogata, double h_ogata){
+    /* 
+    Function descr
+    Corresponds to strategy 1 in SASfit or HANKEL_OGATA_2005.
+    */ 
+    double res, zeros_PI, phi_dot, y_k, w_nv_k, J_nv, sum, nv;
+    int i;
+    sum = 0.0;
+    nv = abs(nu);
+
+    for (i=1; i<=N_ogata; i++) {
+        zeros_PI = gsl_sf_bessel_zero_Jnu(nv,i) / M_PI;
+        phi_dot = deriv_DEtransform(h_ogata * zeros_PI);
+        y_k = DEtransform(h_ogata * zeros_PI) * M_PI / h_ogata;
+        w_nv_k = 2./ (gsl_pow_2(M_PI * gsl_sf_bessel_Jnu(nv + 1, zeros_PI * M_PI)) * zeros_PI);
+        J_nv = gsl_sf_bessel_Jnu(nv, y_k);
+        res =  w_nv_k * y_k * (*f)(y_k / x, fparams) * J_nv * phi_dot;
+        sum = sum + res;
+    }
+
+    sum = M_PI / gsl_pow_2(x) * sum;
+    if (nv==0) {
+        res = sum;
+    } else {
+        res = sum * pow(GSL_SIGN(nu),nu);
+    }
+    return res;
+
+};
+
