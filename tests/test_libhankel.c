@@ -10,7 +10,7 @@ int main() {
     double nu = 0;
     double q = 0.1;
     double params[50] = {0};
-    int int_strategy = 1;//6; //1;
+    int int_strategy = 2; // 6; //1;
 
     // g_dab params
     // params[0] = 10.0;
@@ -26,11 +26,16 @@ int main() {
     
     printf("Result of calling hankel: \n");
     for (double i = 1; i < 25; i++) {
-        //printf(" %f, ",  hankel_transform_no_params(nu, form_factor_sphere, i, &params, int_strategy));
-        printf(" %f, ",  compute_hankel_FBT(nu, form_factor_sphere, i, &params, int_strategy, 250, 1e-3));
+        // printf(" %f, ",  hankel_transform_no_params(nu, form_factor_sphere, i, &params, int_strategy));
+        // printf(" %f, ",  hankel_transform_FBT(nu, form_factor_sphere, i, &params, int_strategy, 250, 1e-3));
+        // printf(" %f, ",  hankel_transform_DE_Quadrature(nu, form_factor_sphere, i, &params, 250, 1e-9));
+        // printf(" %f, ",  hankel_transform_DE_Ogata(nu, form_factor_sphere, i, &params, 250, 1e-3));
+        printf(" %.17f, ",  hankel_transform_QWE_Key(nu, form_factor_sphere, i, &params, 350, 1e-9));
     };
 
     return 0;
 
 }
+
+// Seems that the fbt transform is not working correctly because i ge valeus different from those in python
 
