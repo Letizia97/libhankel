@@ -19,9 +19,7 @@ This file contains functions corresponding to strategies 6-11 in SASfit
 
 They have been grouped together under one function, as they are very similar, and
 changing the n_strategy parameter allows to switch between them
-
 */
-
 
 
 double hankel_transform_no_params(int nu, double (*f)(double, double (*)[50]), double x, double (*fparams)[50], int n_strategy){

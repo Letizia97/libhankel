@@ -8,15 +8,15 @@ project('libhankel', ['c', 'cpp'],
 
 gsl_dep = dependency('gsl', required: true, method: 'pkg-config')
 
-# Include and library directories for your local external_libs
+# Include and library directories for your local external_libs_based_work
 inc = include_directories('include')
-ogata_inc = include_directories('external_libs/Ogata')
+ogata_inc = include_directories('external_libs_based_work/Ogata')
 
 
 # ---- Ogata C++ sources ----
 ogata_cpp_src = files(
   # List the actual Ogata .cpp files you want to compile
-  'external_libs/Ogata/FTB.cpp',
+  'external_libs_based_work/Ogata/FTB.cpp',
 )
 
 # Compile them as a static or object library (object library avoids archive)
@@ -49,7 +49,11 @@ wrapper_dep = declare_dependency(
 )
 
 # ---- Your main C library that calls the C ABI ----
-libhankel_c = files('src/libhankel.c', 'src/form_factors.c', 'src/hankel_FBT_Ogata.c', 'src/hankel_de_quadrature.c', 'external_libs/DE-Quadrature/intde.c')
+  'src/hankel_DHT.c', 
+  'src/form_factors.c', 
+  'src/hankel_FBT_Ogata.c', 
+  'src/hankel_DE_quadrature.c', 
+  'external_libs_based_work/DE-quadrature/intde.c', 
 
 libhankel = library(
   'libhankel',                             # builds liblibhankel.so/.a
@@ -60,7 +64,7 @@ libhankel = library(
   install: true,
 )
 
-install_headers('external_libs/Ogata/FBT.h', subdir: 'libhankel')
+install_headers('external_libs_based_work/Ogata/FBT.h', subdir: 'libhankel')
 
 
 
