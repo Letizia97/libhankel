@@ -30,12 +30,16 @@ POSSIBILITY OF SUCH DAMAGE.
 */
 
 
-#include "include/libhankel.h"
+#include "external_libs_based_work/qwe/qwe.h"
 
 #include <float.h>
 #include <gsl/gsl_math.h>
 #include <gsl/gsl_sf.h>
 #include <stdbool.h>
+
+#include "src/utils/sasfit_integrate.h"
+
+// #include "include/libhankel.h"
 
 double Zeroj(int nzero,double order) {
     //Computes the approximate zero of bessel function of the first kind of

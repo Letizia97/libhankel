@@ -56,10 +56,10 @@ libhankel_c = files(
   'src/hankel_DE_quadrature.c', 
   'src/hankel_QWE.c', 
   'external_libs_based_work/DE-quadrature/intde.c', 
-  'external_libs_based_work/QWE/qwe_Chave.c', 
-  'external_libs_based_work/QWE/qwe_Key.c', 
+  'external_libs_based_work/qwe/qwe_Chave.c', 
+  'external_libs_based_work/qwe/qwe_Key.c', 
   'src/utils/sasfit_integrate.c',
-  'external_libs_based_work/QWE/tanhsinh.c'
+  'external_libs_based_work/qwe/tanhsinh.c'
 )
 
 libhankel = library(

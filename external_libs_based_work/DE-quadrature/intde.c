@@ -189,12 +189,14 @@ intdeo
                               greater than eps.
 */
 
-#include "include/libhankel.h"
+#include "external_libs_based_work/DE-quadrature/intde.h"
 
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+// #include "include/libhankel.h"
 
 #ifdef MACOSX
 #include <sys/malloc.h>

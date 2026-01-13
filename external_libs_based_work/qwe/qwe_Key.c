@@ -172,12 +172,15 @@ function T = qwe(rtol,atol,nIntervalsMax,func,varargin)
 end % function qwe
 */
 
-#include "include/libhankel.h"
+#include "external_libs_based_work/qwe/qwe.h"
 
 #include <float.h>
 #include <gsl/gsl_math.h>
 #include <gsl/gsl_sf.h>
 #include <stdbool.h>
+
+#include "src/utils/sasfit_integrate.h"
+// #include "include/libhankel.h"
 
 
 double sasfit_qwe(double nu, double (*f)(double, double (*)[50]), double x, void *fparams, int nIntervalsMax, double rtol, double atol) {

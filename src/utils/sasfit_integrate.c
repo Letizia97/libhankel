@@ -1,12 +1,17 @@
+#include "src/utils/sasfit_integrate.h"
+
 #include <gsl/gsl_integration.h>
 #include <gsl/gsl_errno.h>
 #include <gsl/gsl_rng.h>
 #include <gsl/gsl_sf_bessel.h>
 #include <stdio.h>
+
 #include "include/libhankel.h"
+#include "external_libs_based_work/qwe/qwe.h"
+
 
 static gsl_integration_workspace *workspace = NULL; 
-typedef double  sasfit_func_one_t (double, hankel_inputs *);
+typedef double sasfit_func_one_t (double, hankel_inputs *);
 
 typedef struct {
     hankel_inputs *param;
@@ -60,9 +65,11 @@ double sasfit_integrate_ctm(
 	return res;
 }
 
+// Used in both sasfit_HankelChave and sasfit_qwe
 double FrJnu(double r, hankel_inputs * inputs) {
     double Q,nu;
     nu = inputs->other_inputs[0];
     Q  = inputs->other_inputs[1];
     return r*gsl_sf_bessel_Jnu(nu,Q*r)*inputs->function(r,inputs->fparams);
 }
+

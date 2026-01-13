@@ -26,7 +26,7 @@ int main() {
     
     printf("Result of calling hankel: \n");
     for (double i = 1; i < 25; i++) {
-        // printf(" %f, ",  hankel_transform_no_params(nu, form_factor_sphere, i, &params, int_strategy));
+        // printf(" %f, ",  hankel_transform_DHT(nu, form_factor_sphere, i, &params, int_strategy));
         // printf(" %f, ",  hankel_transform_FBT(nu, form_factor_sphere, i, &params, int_strategy, 250, 1e-3));
         // printf(" %f, ",  hankel_transform_DE_Quadrature(nu, form_factor_sphere, i, &params, 250, 1e-9));
         // printf(" %f, ",  hankel_transform_DE_Ogata(nu, form_factor_sphere, i, &params, 250, 1e-3));
