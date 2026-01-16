@@ -59,7 +59,8 @@ libhankel_c = files(
   'external_libs_based_work/qwe/qwe_Chave.c', 
   'external_libs_based_work/qwe/qwe_Key.c', 
   'src/utils/sasfit_integrate.c',
-  'external_libs_based_work/qwe/tanhsinh.c'
+  'external_libs_based_work/qwe/tanhsinh.c',
+  'tests/analytical_form_factors.c'
 )
 
 libhankel = library(
@@ -89,4 +90,4 @@ test_exe = executable(
 )
 
 # run with meson test -C build
-test('mylib works', test_exe)
+test('mylib works', test_exe, args: [meson.current_source_dir() / 'tests/data.csv'])

@@ -89,7 +89,7 @@ double hankel_transform_DE_Quadrature(
         n_eval     integer indicating number of function evaluations (N_ogata in SASfit)
         eps_rel    relative error allowed e.g. 1e-9 (eps_nriq in SASfit)
     */ 
-    int lenaw=4000;
+    int lenaw = 4000;
     int rounded_N;
     double res0, err0, res, err, a, *aw, nv;
     rounded_N = lround(n_eval);
