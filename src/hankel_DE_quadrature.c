@@ -15,35 +15,53 @@ This file contains only 2 Hankel strategies, both DE quadrature algorithms, corr
 */
 
 
-typedef struct
-{
-	void *fparams; 
-	double (* function) (double, double (*)[50]); //(double x, void *);
-	double nu;
-	double Q;
+typedef struct {
+	void *fparams;  // parameters for the supplied function 
+	double (* function) (double, double (*)[50]);  // function to integrate
+	double nu;  // order of the Bessel function
+	double Q;   // radial Fourier variable, i.e. conjugate wavenumber to radius r
 } params_struct;
 
 
 double intdeo_FBT(double r, void *FBTparams) {
     /* 
-    Auxiliary function
+    Auxiliary function that computes the value of the 
+    Hankel‑transform integrand at the current radius r.
+    Computes a product between the radius r, the Bessel 
+    function of the first kind of order nu, and a function
+    supplied through FBTparams.
+
+    Receives:
+      r           radius
+      *FBTparams  pointer to a struct containing nu, Q and function to integrate
     */
     params_struct *FBTparam_struct;
     FBTparam_struct = (params_struct *) FBTparams;
     if (r==0) return 0;
-    return r*gsl_sf_bessel_Jnu(FBTparam_struct->nu,FBTparam_struct->Q*r) * FBTparam_struct->function(r,FBTparam_struct->fparams);
+
+    double nu = FBTparam_struct->nu;
+    double Q  = FBTparam_struct->Q;
+
+    double bessel = gsl_sf_bessel_Jnu(nu, Q * r);
+    double fval   = FBTparam_struct->function(r, FBTparam_struct->fparams);
+
+    return r * bessel * fval;
 }
 
 double DEtransform(double t) {
     /* 
-    Auxiliary function
-    */ 
+    Auxiliary function computing the 
+    double‑exponential (DE) / tanh–sinh transform.
+    */
     return t * tanh(M_PI_2 * sinh(t));
 }
 
 double deriv_DEtransform(double t){
     /* 
-    Auxiliary function
+    Auxiliary function that computes the derivative of a 
+    “double‑exponential (DE) change of variables”, that is 
+    commonly used in numerical integration (quadrature).
+    Specifically, this is the tanh–sinh (double exponential) transformation.
     */ 
     double res;
     res = 1. / cosh(M_PI_2 * sinh(t));
@@ -142,5 +160,5 @@ double hankel_transform_DE_Ogata(
     }
     return res;
 
-};
+}
 

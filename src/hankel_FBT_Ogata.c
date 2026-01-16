@@ -43,5 +43,4 @@ double hankel_transform_FBT(
     double res; 
     res = compute_hankel_FBT(nu, f, x, fparams, n_method, n_eval, f_max);
     return res;
-
-};
+}

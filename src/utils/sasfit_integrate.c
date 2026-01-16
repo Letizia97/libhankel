@@ -19,11 +19,15 @@ typedef struct {
 } int_cub;
 
 double Kernel_1D(double x, void *pam) {
-	hankel_inputs * param;
-	int_cub *cub;
-	cub = (int_cub *) pam;
-	param = (hankel_inputs *) cub->param;
-	return (*cub->Kernel1D_fct)(x,param);
+    /* 
+    Auxiliary function. 
+    Adapts a SASfit kernel function to the generic interface 
+    required by the integration routine, forwarding x and the 
+    real SASfit parameter structure to the actual kernel function. 
+    */
+	int_cub *cub = (int_cub *) pam;
+    hankel_inputs *param = (hankel_inputs *) cub->param;
+	return cub->Kernel1D_fct(x,param);
 }
 
 double sasfit_integrate_ctm(
@@ -47,8 +51,7 @@ double sasfit_integrate_ctm(
 
     // nothing to integrate
     if ( gsl_finite(int_start) && gsl_finite(int_end) &&
-	     (int_end - int_start) == 0.0 )
-	{
+	     (int_end - int_start) == 0.0 ) {
 		return 0.0;
 	}
 

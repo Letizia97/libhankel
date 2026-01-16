@@ -44,7 +44,7 @@ double hankel_transform_QWE_Key(
         eps_rel*10,
         DBL_MIN);
     return res;
-    }
+}
 
 double hankel_transform_QWE_Chave(
     int nu, 
@@ -74,4 +74,4 @@ double hankel_transform_QWE_Chave(
         eps_rel*10,
         DBL_MIN);
     return res;
-    }
+}
