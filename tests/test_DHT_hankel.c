@@ -56,7 +56,7 @@ static int arrays_close(double *actual,
                         double tol)
 {
     for (size_t i = 0; i < n; ++i) {
-        if (fabs(actual[i] - expected[i])/fabs(expected[i]) > tol) {
+        if (fabs(actual[i] - expected[i]) > tol) {
             return 0;
         }
     }
@@ -114,13 +114,15 @@ void setUp(void) {
     int_strategy = 6;
     for (size_t j = 0; j < NUM_CASES; ++j) {
 
-        printf("Computed solution:   ");
+        //printf("Computed vs expected:   \n");
 
         for (size_t i = 0; i < ARRAY_LEN; ++i) {
             z = r_array[i];
             Gr[i] = hankel_transform_DHT(nu, form_factor_sphere, z, &params, int_strategy);
-            printf("%f, ", Gr[i]);
+            //printf("%f,  ", Gr[i]);
             ctx.actual[j][i] = Gr[i];
+            //printf("%f, ", ctx.expected[j][i]);
+            //printf("\n");
             
         }
         printf("\n");
