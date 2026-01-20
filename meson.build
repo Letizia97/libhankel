@@ -76,6 +76,24 @@ install_headers('external_libs_based_work/Ogata/FBT.h', subdir: 'libhankel')
 
 
 
+# UNITY
+
+unity_inc = include_directories('submodules/unity/src')
+
+unity_lib = static_library(
+  'unity',
+  'submodules/unity/src/unity.c',
+  include_directories : unity_inc,
+  c_args : ['-DUNITY_INCLUDE_DOUBLE']
+)
+
+unity_dep = declare_dependency(
+  link_with : unity_lib,
+  include_directories : unity_inc
+)
+
+
+
 # Export for tests/consumers:
 libhankel_dep = declare_dependency(
   link_with: libhankel,
@@ -83,11 +101,22 @@ libhankel_dep = declare_dependency(
   dependencies: [gsl_dep],     # <-- carries -lgsl -lgslcblas -lm
 )
 
-test_exe = executable(
-  'test_libhankel',
-  ['tests/test_libhankel.c'],
-  dependencies: [libhankel_dep],
-)
+
+tests = [
+  'tests/test_DHT_hankel.c', 
+  'tests/test_analytical.c',
+]
+
+foreach t : tests
+  exe = executable(
+    t.replace('.c', '').replace('tests/', ''),
+    t,
+    dependencies : [libhankel_dep, unity_dep]
+  )
+  test(t, exe)
+endforeach
+
+
 
 # run with meson test -C build
-test('mylib works', test_exe, args: [meson.current_source_dir() / 'tests/data.csv'])
+#test('mylib works', test_exe, args: [meson.current_source_dir() / 'tests/data.csv'])
