@@ -60,7 +60,7 @@ libhankel_c = files(
   'external_libs_based_work/qwe/qwe_Key.c', 
   'src/utils/sasfit_integrate.c',
   'external_libs_based_work/qwe/tanhsinh.c',
-  'tests/analytical_form_factors.c'
+  'src/utils/analytical_form_factors.c'
 )
 
 libhankel = library(
