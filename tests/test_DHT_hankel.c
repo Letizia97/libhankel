@@ -170,7 +170,7 @@ void test_hankel_DHT_throws_error_when_nu_equal_2(void) {
     start_capture_stderr();
     int res = hankel_transform_DHT(nu, form_factor_sphere, z, &params, int_strategy);
     stop_capture_stderr(captured, sizeof(captured));
-    TEST_ASSERT_EQUAL_INT_MESSAGE(1, res, "");
+    TEST_ASSERT_EQUAL_INT_MESSAGE(-1, res, "");
     TEST_ASSERT_EQUAL_STRING(captured, "nu needs to be 0 or 1 in order to use the selected strategy\n");
 }
 
@@ -187,7 +187,7 @@ void test_hankel_DHT_throws_error_when_int_strategy_wrong(void) {
     start_capture_stderr();
     int res = hankel_transform_DHT(nu, form_factor_sphere, z, &params, 1);
     stop_capture_stderr(captured, sizeof(captured));
-    TEST_ASSERT_EQUAL_INT_MESSAGE(1, res, "");
+    TEST_ASSERT_EQUAL_INT_MESSAGE(-1, res, "");
     TEST_ASSERT_EQUAL_STRING(captured, "Strategy number must be integer between 6 and 11\n");
 }
 
