@@ -1,4 +1,4 @@
-#include "src/utils/analytical_form_factors.h"
+#include "tests/test_DHT_hankel.h"  
 
 #include <stdio.h>
 #include <stddef.h>
@@ -6,6 +6,8 @@
 #include <stdbool.h>
 #include "unity_config.h"
 #include "unity.h"
+#include <unistd.h>
+#include <fcntl.h>
 #include <string.h>
 
 #include "include/libhankel.h"
@@ -21,9 +23,10 @@
 #define MAX_COLS 25
 #define MAX_ROWS 6
 
-double nu = 0;
+double nu;
+double z;
 size_t int_strategy;
-int z;
+
 double params[50];
 double r_array[ARRAY_LEN];
 
@@ -50,6 +53,35 @@ TestContext ctx = {
 };
 
 
+static int saved_stderr = -1;
+static int pipefd[2] = {-1, -1};
+
+static void start_capture_stderr(void)
+{
+    fflush(stderr);
+    saved_stderr = dup(STDERR_FILENO);
+    TEST_ASSERT_NOT_EQUAL(-1, saved_stderr);
+
+    TEST_ASSERT_EQUAL(0, pipe(pipefd));
+    // Redirect stderr to pipe write end
+    TEST_ASSERT_NOT_EQUAL(-1, dup2(pipefd[1], STDERR_FILENO));
+    close(pipefd[1]); // not needed by this process anymore
+}
+
+static void stop_capture_stderr(char *buffer, size_t bufsize)
+{
+    // Restore stderr
+    fflush(stderr);
+    dup2(saved_stderr, STDERR_FILENO);
+    close(saved_stderr);
+
+    // Read what was captured
+    ssize_t n = read(pipefd[0], buffer, bufsize - 1);
+    if (n < 0) n = 0;
+    buffer[n] = '\0';
+    close(pipefd[0]);
+}
+
 static int arrays_close(double *actual,
                         double *expected,
                         size_t n,
@@ -64,8 +96,48 @@ static int arrays_close(double *actual,
 }
 
 
-void test_all_arrays_are_close(void)
-{
+void setUp(void) {
+    /*
+    Function that runs before tests, for a shared set-up.
+    Anything computed inside it is available in tests
+    because previously declared outside the function.        
+    */
+    
+    // sphere params
+    params[0] = 10; 
+    params[1] = 1;
+
+    // setup the x (or r) array
+    double r_array[ARRAY_LEN] = {
+        1.0,  2.0,  3.0,  4.0,  5.0,
+        6.0,  7.0,  8.0,  9.0, 10.0,
+        11.0, 12.0, 13.0, 14.0, 15.0,
+        16.0, 17.0, 18.0, 19.0, 20.0,
+        21.0, 22.0, 23.0, 24.0, 25.0
+    };
+
+    nu = 0;
+    int_strategy = 6;
+    for (size_t j = 0; j < NUM_CASES; ++j) {
+
+        for (size_t i = 0; i < ARRAY_LEN; ++i) {
+            z = r_array[i];
+            Gr[i] = hankel_transform_DHT(nu, form_factor_sphere, z, &params, int_strategy);
+            printf("%f,  ", Gr[i]);
+            ctx.actual[j][i] = Gr[i]; 
+        }
+        printf("\n");
+        int_strategy = int_strategy+1;
+    }
+}
+
+
+void tearDown(void) {}
+
+void test_hankel_DHT_regression(void) {
+    /*
+    Regression test for DHT strategies.
+    */
     int failures = 0;
 
     for (size_t i = 0; i < NUM_CASES; ++i) {
@@ -85,60 +157,44 @@ void test_all_arrays_are_close(void)
     );
 }
 
-
-void setUp(void) {
+void test_hankel_DHT_throws_error_when_nu_equal_2(void) {
     /*
-    Function that runs before tests, for set-up. It:
-        - defines spheres params.
-        - defines r_array where Hankel will be computed.
-        - computes analytical hankel for spheres.
-        - computes G0.
-    Anything computed inside it is available in tests
-    because previously declared outside the function.        
+    Tests that hankel_transform_DHT throws expected
+    error when nu is not zero nor 1.
     */
-    
-    // sphere params
-    params[0] = 10; 
-    params[1] = 1;
+    nu = 2;
+    z = 10.0;
+    int_strategy = 7;
+    char captured[1024];
 
-    // setup the x (or r) array
-    double r_array[ARRAY_LEN] = {
-        1.0,  2.0,  3.0,  4.0,  5.0,
-        6.0,  7.0,  8.0,  9.0, 10.0,
-        11.0, 12.0, 13.0, 14.0, 15.0,
-        16.0, 17.0, 18.0, 19.0, 20.0,
-        21.0, 22.0, 23.0, 24.0, 25.0
-    };
-
-    // Compute sesans
-    int_strategy = 6;
-    for (size_t j = 0; j < NUM_CASES; ++j) {
-
-        //printf("Computed vs expected:   \n");
-
-        for (size_t i = 0; i < ARRAY_LEN; ++i) {
-            z = r_array[i];
-            Gr[i] = hankel_transform_DHT(nu, form_factor_sphere, z, &params, int_strategy);
-            printf("%f,  ", Gr[i]);
-            ctx.actual[j][i] = Gr[i];
-            //printf("%f, ", ctx.expected[j][i]);
-            //printf("\n");
-            
-        }
-        printf("\n");
-        int_strategy = int_strategy+1;
-    }
+    start_capture_stderr();
+    int res = hankel_transform_DHT(nu, form_factor_sphere, z, &params, int_strategy);
+    stop_capture_stderr(captured, sizeof(captured));
+    TEST_ASSERT_EQUAL_INT_MESSAGE(1, res, "");
+    TEST_ASSERT_EQUAL_STRING(captured, "nu needs to be 0 or 1 in order to use the selected strategy\n");
 }
 
+void test_hankel_DHT_throws_error_when_int_strategy_wrong(void) {
+    /*
+    Tests that hankel_transform_DHT throws expected
+    error when when int_strategy is not between 6 and 11.
+    */
+    nu = 0;
+    z = 10.0;
+    int_strategy = 1;
+    char captured[1024];
 
-void tearDown(void) {}
-
-void test_hankel(void) {
-    test_all_arrays_are_close();
+    start_capture_stderr();
+    int res = hankel_transform_DHT(nu, form_factor_sphere, z, &params, 1);
+    stop_capture_stderr(captured, sizeof(captured));
+    TEST_ASSERT_EQUAL_INT_MESSAGE(1, res, "");
+    TEST_ASSERT_EQUAL_STRING(captured, "Strategy number must be integer between 6 and 11\n");
 }
 
 int main(void) {
     UNITY_BEGIN();
-    RUN_TEST(test_hankel);
+    RUN_TEST(test_hankel_DHT_regression);
+    RUN_TEST(test_hankel_DHT_throws_error_when_nu_equal_2);
+    RUN_TEST(test_hankel_DHT_throws_error_when_int_strategy_wrong);
     return UNITY_END();
 }
