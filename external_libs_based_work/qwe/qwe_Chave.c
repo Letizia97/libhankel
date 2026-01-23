@@ -39,93 +39,141 @@ POSSIBILITY OF SUCH DAMAGE.
 
 #include "src/utils/sasfit_integrate.h"
 
-// #include "include/libhankel.h"
 
-double Zeroj(int nzero,double order) {
-    //Computes the approximate zero of bessel function of the first kind of
-    //order 0 or 1
-    //   If nzero < 7 the algorithm in J. Comp. Phys., 42, 403-405, 1981 is used
-    //   If nzero >= 7, McMahon's asymptotic expansion is used
+double bessel_j_zero(int nzero, double order) {
+    /*
+    This function is called Zeroj in SASfit.
+    Computes an approximation to the nth positive zero of the Bessel function
+    of the first kind, for the special cases where the order is 0 or 1
+      If nzero < 7 the algorithm in J. Comp. Phys., 42, 403-405, 1981 is used
+      If nzero >= 7, McMahon's asymptotic expansion is used
 
-    //Input variables
-    //nzero--index of the zero, integer >= 1
-    //order--order of the bessel function, must be 0 or 1
+    Receives:
+        nzero  index of the zero, integer >= 1
+        order  order of the bessel function, must be 0 or 1    
+    */
+    double j_zero, beta, t, b;
 
-    double Zero,beta, t,b;
+    if (nzero < 1) {
+        fprintf(stderr, 
+            "nzero, that is the index of the zero to be computed,"
+            " must be greater than or equal to 1\n"
+        );
+        return -1;
+    }
+
     if (nzero < 7) {
-        beta = (nzero + order/2.0 - 0.25)*M_PI;
+        beta = (nzero + order/2.0 - 0.25) * M_PI;
+
         if (order == 0) {
-            t = 0.0682894897349453 + 0.131420807470708*beta*beta +
-                0.0245988241803681 *gsl_pow_4(beta) +
-                0.000813005721543268 *gsl_pow_6(beta);
-            b = beta + 1.16837242570470*gsl_pow_3(beta) +
-                0.200991122197811*gsl_pow_5(beta) + 0.00650404577261471*gsl_pow_7(beta);
-            Zero = beta + t/b;
-            return Zero;
+            t = 0.0682894897349453
+                + 0.131420807470708 * beta * beta
+                + 0.0245988241803681 * gsl_pow_4(beta)
+                + 0.000813005721543268 * gsl_pow_6(beta);
+            b = beta
+                + 1.16837242570470 * gsl_pow_3(beta)
+                + 0.200991122197811 * gsl_pow_5(beta) 
+                + 0.00650404577261471 * gsl_pow_7(beta);
+            j_zero = beta + t/b;
+            return j_zero;
+
         } else if (order == 1) {
-            t = -0.362804405737084 + 0.120341279038597*gsl_pow_3(beta)+
-                0.0439454547101171*gsl_pow_4(beta) + 0.00159340088474713*gsl_pow_6(beta);
-            b = beta - 0.325641790801361*gsl_pow_3(beta) -
-                0.117453445968927*gsl_pow_5(beta) - 0.424906902601794*gsl_pow_7(beta);
-            Zero = beta + t/b;
-            return Zero;
+            t = - 0.362804405737084 
+                + 0.120341279038597 * gsl_pow_3(beta)
+                + 0.0439454547101171 * gsl_pow_4(beta) 
+                + 0.00159340088474713 * gsl_pow_6(beta);
+            b = beta 
+                - 0.325641790801361 * gsl_pow_3(beta) 
+                - 0.117453445968927 * gsl_pow_5(beta) 
+                - 0.424906902601794 * gsl_pow_7(beta);
+            j_zero = beta + t/b;
+            return j_zero;
         }
+
     } else {
+
         if (order == 0) {
-            beta = (nzero - 0.25)*M_PI;
-            Zero = beta + 1.0/(8.0*beta) - 124.0/(1536.0*gsl_pow_3(beta)) +
-                120928.0/(491520.0*gsl_pow_5(beta)) -
-                401743168.0/(220200960.0*gsl_pow_7(beta));
-            return Zero;
+            beta = (nzero - 0.25) * M_PI;
+            j_zero = beta 
+                   + 1.0 / (8.0 * beta) 
+                   - 124.0 / (1536.0 * gsl_pow_3(beta)) 
+                   + 120928.0 / (491520.0 * gsl_pow_5(beta)) 
+                   - 401743168.0 / (220200960.0 * gsl_pow_7(beta));
+            return j_zero;
+
         } else if (order == 1) {
-            beta = (nzero + 0.25)*M_PI;
-            Zero = beta - 3.0/(8.0*beta) + 36.0/(1536.0*gsl_pow_3(beta)) -
-                113184.0/(491520.0*gsl_pow_5(beta)) +
-                1951209.0/(220200960.0*gsl_pow_7(beta));
-            return Zero;
+            beta = (nzero + 0.25) * M_PI;
+            j_zero = beta 
+                   - 3.0 / (8.0 * beta) 
+                   + 36.0 / (1536.0 * gsl_pow_3(beta)) 
+                   - 113184.0 / (491520.0 * gsl_pow_5(beta)) 
+                   + 1951209.0 / (220200960.0 * gsl_pow_7(beta));
+            return j_zero;
         }
     }
-    return gsl_sf_bessel_zero_Jnu(order,nzero);
+    // FIXME: I think this should be removed completely, and 
+    // just support order 0 or 1 (and so add an if statement
+    // at the start for this)
+    return gsl_sf_bessel_zero_Jnu(order, nzero);
 }
 
 
-double Padesum(double *s, int n) {
-    //Computes sum from 1 to n of s(i) using Pade approximant implemented with
-    //continued fraction expansion; see Z. Naturforschung, 33a, 402-417, 1978.
+double pade_sum(double *s, int n) {
+    /*
+    Computes sum from 1 to n of s(i) using Padé approximant implemented with
+    continued fraction expansion; see Z. Naturforschung, 33a, 402-417, 1978.
 
-    //Input variable
-    //s--series of values to be summed, may be complex
-    //Output variable
-    //Cf--sum of the series
+    Receives:
+        s    series of values to be summed, may be complex   //FIXME : here we say complex, bue really we are only allowing double
+        n    end of summation
+    Outputs:
+        sum_cf   sum of the series    
+    */
 
+    //FIXME: change variable names, e.g.,  D → moments and d → cf_coef
     double *D, *d, *x, *t;
-    double Cf;
-    int i,k,L;
-    D = calloc(n+1,sizeof(double));
-    x = calloc(n+1,sizeof(double));
-    d = calloc(n+1,sizeof(double));
-    t = calloc(n+1,sizeof(double));
+    double sum_cf;
+    int i, k, L;
+
+    if (n < 1) {
+        fprintf(stderr, "n passed as input to pade_sum must be >= 1.\n");
+        return -1;
+    }
+
+    D = calloc(n + 1, sizeof(double));
+    x = calloc(n + 1, sizeof(double));
+    d = calloc(n + 1, sizeof(double));
+    t = calloc(n + 1, sizeof(double));
+
+
+    if (!D || !d || !x || !t) {
+        // Allocation failed, free any successful allocations
+        free(D); free(d); free(x); free(t);
+        fprintf(stderr, "Failed to allocate internal variables in function pade_sum.\n");
+        return -1;    
+    }
+
     D[1] = s[1];
     d[1] = D[1];
     if (n == 1) {
-        Cf = d[1];
-        goto exitPadesum;
+        sum_cf = d[1];
+        goto cleanup_and_exit;
     }
     D[2] = s[2];
     d[2] = -D[2]/D[1];
     if (n == 2) {
-        Cf = d[1]/(1 + d[2]);
-        goto exitPadesum;
+        sum_cf = d[1] / (1 + d[2]);
+        goto cleanup_and_exit;
     }
-    for (i=3;i<=n;i++) {
-        L = 2*lround(floor((i-1.)/2.));
+    for (i=3; i<=n; i++) {
+        L = 2 * lround(floor((i-1.)/2.));
         //update x vector
-        for (k=L;k>=4;k=k-2) {
-            x[k] = x[k-1] + d[i-1]*x[k-2];
+        for (k=L; k>=4; k=k-2) {
+            x[k] = x[k-1] + d[i-1] * x[k-2];
         }
         x[2] = x[1] + d[i - 1];
         // interchange odd and even parts
-        for (k=1;k<=L-1;k=k+2) {
+        for (k=1; k<=L-1; k=k+2) {
             t[k] = x[k];
             x[k] = x[k+1];
             x[k+1] = t[k];
@@ -133,31 +181,31 @@ double Padesum(double *s, int n) {
 
         // compute cf coefficient
         D[i] = s[i];
-        for (k=0;k<=L/2-1;k++) {
-            D[i] = D[i] + s[i-1-k]*x[1+2*k];
+        for (k=0; k<=L/2-1; k++) {
+            D[i] = D[i] + s[i-1-k] * x[1 + 2*k];
         }
         //    D[i] = s[i] + s[i-1:-1:i-L/2]*x[1:2:L-1];
-        d[i] = -D[i]/D[i-1];
+        d[i] = -D[i]/D[i-1];   //FIXME: need to check there is no division by zero here, what should the fallback be?
     }
     //evaluate continued fraction
-    Cf = 1;
-    for (k=n;k>=2;k--) {
-        Cf = 1 + d[k]/Cf;
+    sum_cf = 1;
+    for (k=n; k>=2; k--) {
+        sum_cf = 1 + d[k]/sum_cf;
     }
 
-    Cf = d[1]/Cf;
-exitPadesum:
+    sum_cf = d[1]/sum_cf;
+cleanup_and_exit:
     free(D);
     free(d);
     free(x);
     free(t);
-    return Cf;
+    return sum_cf;
 }
 
 
 
 
-double sasfit_HankelChave(double order, double (*f)(double, double (*)[50]), double r, void *fparams, int nIntervalsMax, double rerr, double aerr) {
+double sasfit_HankelChave(double order, double (*f)(double, double (*)[50]), double r, void *fparams, int n_iters, double rerr, double aerr) {
     /*
     Computes Hankel transform integral from 0 to inf J_sub_order(x*r)*f(x) by integration
     between zero crossings of the Bessel function followed by summation
@@ -171,35 +219,45 @@ double sasfit_HankelChave(double order, double (*f)(double, double (*)[50]), dou
         aerr    absolute error
 
     Output variable
-        Sum     computed integral
+        res     computed integral
     */
-    double Sum,a,b,last,*s;
+    double res, a, b, last_res, *s, req_accuracy;
     int nzero;
 	bool converged;
 	hankel_inputs inputs;
 	converged = false;
+    last_res = 0;
+
+    // FIXME: add a guard to check order is 0 or 1 ?
+
 	inputs.function = f;
 	inputs.other_inputs[0] = order;
 	inputs.other_inputs[1] = r;
-    inputs.fparams=fparams;
-    b=0;
-    b=Zeroj(1,order)/r*rerr;
-    last=0;
-    s=calloc(nIntervalsMax+1,sizeof(double));
-    for (nzero = 1;nzero<=nIntervalsMax;nzero++) {     //upper limit is arbitrary and should never be reached
+    inputs.fparams = fparams;
+
+    b = bessel_j_zero(1, order) / r*rerr;    
+    s = calloc(n_iters+1, sizeof(double));
+
+    // FIXME: are we sure this is safe?
+    for (nzero=1; nzero<=n_iters; nzero++) {     //upper limit is arbitrary and should never be reached
         a = b;
-        b = Zeroj(nzero,order)/r;
-        s[nzero] = sasfit_integrate_ctm(a, b,&FrJnu,&inputs, 10000, aerr, rerr);
-        Sum = Padesum(s,nzero);
-        if (fabs(Sum - last) <= rerr*fabs(Sum) + aerr) {
+        b = bessel_j_zero(nzero, order) / r;
+        s[nzero] = sasfit_integrate_ctm(a, b, &FrJnu, &inputs, 10000, aerr, rerr);
+        res = pade_sum(s, nzero);
+
+        req_accuracy = rerr*fabs(res) + aerr;
+        if (fabs(res-last_res) <= req_accuracy) {
             converged = true;
-            return Sum;
+            return res;
         }
-        last=Sum;
+        last_res = res;
     }
     free(s);
 
-    // FIXME: proper error handling
-    if (!converged) printf("HankelChave algorithm did not converge after maximum allowed intervals: %d\n",nIntervalsMax);
-    return Sum;
+    if (!converged) {
+        fprintf("HankelChave algorithm did not converge after maximum allowed intervals: %d\n",n_iters);
+        return -1;
+    };
+
+    return res;
 }
