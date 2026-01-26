@@ -27,7 +27,7 @@ double hankel_transform_QWE_Key(
     Computes Hankel transform using the Quadrature With Extrapolation method by Key.
     Corresponds to strategy 12 in SASfit.
     Receives:
-        nu         order of bessel function (typically 0)
+        nu         order of bessel function  
         *f         pointer to form factor function
         x          value at which to compute the transform
         *fparams   params for form factor
@@ -57,7 +57,7 @@ double hankel_transform_QWE_Chave(
     Computes Hankel transform using the Quadrature With Extrapolation method by Key.
     Corresponds to strategy 13 in SASfit.
     Receives:
-        nu         order of bessel function (typically 0)
+        nu         order of bessel function (typically 0)  // FIXME: should we ask for nu to be only 0 or 1?
         *f         pointer to form factor function
         x          value at which to compute the transform
         *fparams   params for form factor

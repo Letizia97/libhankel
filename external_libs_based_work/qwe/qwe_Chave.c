@@ -124,14 +124,15 @@ double pade_sum(double *s, int n) {
     continued fraction expansion; see Z. Naturforschung, 33a, 402-417, 1978.
 
     Receives:
-        s    series of values to be summed, may be complex   //FIXME : here we say complex, bue really we are only allowing double
+        s    series of values to be summed, may be complex   //FIXME : says complex, but only doubles allowed
         n    end of summation
     Outputs:
         sum_cf   sum of the series    
     */
 
-    //FIXME: change variable names, e.g.,  D → moments and d → cf_coef
-    double *D, *d, *x, *t;
+    double *D;     // intermediate “modified moments” (linear combinations of the input terms)
+    double *d;     // continued‑fraction coefficients
+    double *x, *t; // temporary workspaces used to update polynomial/CF terms
     double sum_cf;
     int i, k, L;
 
@@ -160,6 +161,15 @@ double pade_sum(double *s, int n) {
         goto cleanup_and_exit;
     }
     D[2] = s[2];
+
+    if (D[1] == 0) {
+        fprintf(stderr, 
+            "Division by 0 encountered in pade_sum!"
+            " s[1] must be different from 0. \n"
+        );
+        return -1;  
+    }
+
     d[2] = -D[2]/D[1];
     if (n == 2) {
         sum_cf = d[1] / (1 + d[2]);
@@ -185,7 +195,13 @@ double pade_sum(double *s, int n) {
             D[i] = D[i] + s[i-1-k] * x[1 + 2*k];
         }
         //    D[i] = s[i] + s[i-1:-1:i-L/2]*x[1:2:L-1];
-        d[i] = -D[i]/D[i-1];   //FIXME: need to check there is no division by zero here, what should the fallback be?
+
+        // FIXME: is this fine or should there be a fallback?
+        if (D[i-1] == 0) {
+            fprintf(stderr, "Division by 0 encountered in pade_sum!\n");
+            return -1;  
+        }
+        d[i] = -D[i]/D[i-1];   
     }
     //evaluate continued fraction
     sum_cf = 1;
@@ -205,7 +221,15 @@ cleanup_and_exit:
 
 
 
-double sasfit_HankelChave(double order, double (*f)(double, double (*)[50]), double r, void *fparams, int n_iters, double rerr, double aerr) {
+double sasfit_HankelChave(
+    double order, 
+    double (*f)(double, double (*)[50]), 
+    double r, 
+    void *fparams, 
+    int n_iters, 
+    double rerr, 
+    double aerr
+) {
     /*
     Computes Hankel transform integral from 0 to inf J_sub_order(x*r)*f(x) by integration
     between zero crossings of the Bessel function followed by summation
@@ -237,6 +261,12 @@ double sasfit_HankelChave(double order, double (*f)(double, double (*)[50]), dou
 
     b = bessel_j_zero(1, order) / r*rerr;    
     s = calloc(n_iters+1, sizeof(double));
+
+    if (!s) {
+        // Allocation failed
+        fprintf(stderr, "Failed to allocate internal variables in function sasfit_HankelChave.\n");
+        return -1;    
+    }
 
     // FIXME: are we sure this is safe?
     for (nzero=1; nzero<=n_iters; nzero++) {     //upper limit is arbitrary and should never be reached
