@@ -35,7 +35,7 @@ double hankel_transform_QWE_Key(
         eps_rel    relative error allowed e.g. 1e-9 (eps_nriq in SASfit)
     */ 
     double res;
-    res = sasfit_qwe(
+    res = qwe_Key(
         nu, 
         f, 
         x, 
@@ -65,7 +65,7 @@ double hankel_transform_QWE_Chave(
         eps_rel    relative error allowed e.g. 1e-9 (eps_nriq in SASfit)
     */ 
     double res;
-    res = sasfit_HankelChave(
+    res = qwe_Chave(
         nu, 
         f,
         x, 

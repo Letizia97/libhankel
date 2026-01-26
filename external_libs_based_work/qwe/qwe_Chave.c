@@ -221,14 +221,14 @@ cleanup_and_exit:
 
 
 
-double sasfit_HankelChave(
-    double order, 
+double qwe_Chave(
+    double nu, 
     double (*f)(double, double (*)[50]), 
     double r, 
     void *fparams, 
     int n_iters, 
-    double rerr, 
-    double aerr
+    double rtol, 
+    double atol
 ) {
     /*
     Computes Hankel transform integral from 0 to inf J_sub_order(x*r)*f(x) by integration
@@ -236,12 +236,14 @@ double sasfit_HankelChave(
     using Pade approximant to speed up convergence
 
     Input variables
-        order   order of the Bessel function, either 0 or 1
-        r       argument of the Hankel transform
-        f       function to compute kernel called as f(x,fparams)
-        rerr    relative error
-        aerr    absolute error
-
+        nu       order of the Bessel function, either 0 or 1
+        f        function to compute kernel called as f(x,fparams)
+        r        x where to compute the Hankel transform
+        fparams  input params for f
+        n_iters  max number of partial integral intervals
+        rtol     relative error
+        atol     absolute error
+ 
     Output variable
         res     computed integral
     */
@@ -252,14 +254,14 @@ double sasfit_HankelChave(
 	converged = false;
     last_res = 0;
 
-    // FIXME: add a guard to check order is 0 or 1 ?
+    // FIXME: add a guard to check nu is 0 or 1 ?
 
 	inputs.function = f;
-	inputs.other_inputs[0] = order;
+	inputs.other_inputs[0] = nu;
 	inputs.other_inputs[1] = r;
     inputs.fparams = fparams;
 
-    b = bessel_j_zero(1, order) / r*rerr;    
+    b = bessel_j_zero(1, nu) / r*rtol;    
     s = calloc(n_iters+1, sizeof(double));
 
     if (!s) {
@@ -271,11 +273,11 @@ double sasfit_HankelChave(
     // FIXME: are we sure this is safe?
     for (nzero=1; nzero<=n_iters; nzero++) {     //upper limit is arbitrary and should never be reached
         a = b;
-        b = bessel_j_zero(nzero, order) / r;
-        s[nzero] = sasfit_integrate_ctm(a, b, &FrJnu, &inputs, 10000, aerr, rerr);
+        b = bessel_j_zero(nzero, nu) / r;
+        s[nzero] = sasfit_integrate_ctm(a, b, &FrJnu, &inputs, 10000, atol, rtol);
         res = pade_sum(s, nzero);
 
-        req_accuracy = rerr*fabs(res) + aerr;
+        req_accuracy = rtol*fabs(res) + atol;
         if (fabs(res-last_res) <= req_accuracy) {
             converged = true;
             return res;

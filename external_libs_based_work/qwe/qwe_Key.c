@@ -183,7 +183,7 @@ end % function qwe
 // #include "include/libhankel.h"
 
 
-double sasfit_qwe(double nu, double (*f)(double, double (*)[50]), double x, void *fparams, int nIntervalsMax, double rtol, double atol) {
+double qwe_Key(double nu, double (*f)(double, double (*)[50]), double x, void *fparams, int nIntervalsMax, double rtol, double atol) {
 	int nDelay;
 	int nTerms, i,k,n;
 	double *S, *extrap, *relErr, *absErr;

@@ -13,8 +13,8 @@ double TanhSinhQuad(
 	double *err
 );
 
-// Needed for sasfit strategy 12
-double sasfit_qwe(
+// sasfit strategy 12
+double qwe_Key(
 	double nu, 
 	double (*f)(double, double (*)[50]), 
 	double x, 
@@ -24,15 +24,15 @@ double sasfit_qwe(
 	double atol
 ); 
 
-// Needed for sasfit strategy 13
-double sasfit_HankelChave(
-	double order, 
-	double (*f)(double, double (*)[50]), 
-	double r, 
-	void *fparams, 
-	int nIntervalsMax, 
-	double rerr, 
-	double aerr
+// sasfit strategy 13
+double qwe_Chave(
+    double nu, 
+    double (*f)(double, double (*)[50]), 
+    double r, 
+    void *fparams, 
+    int n_iters, 
+    double rtol, 
+    double atol
 );
 
 
