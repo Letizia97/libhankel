@@ -27,8 +27,6 @@ unity_dep = declare_dependency(
 subdir('src')
 subdir('include')
 
-
-
 hankel_dep = declare_dependency(
   link_with: libhankel,
   include_directories: inc_root,

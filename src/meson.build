@@ -50,7 +50,7 @@ sources = files(
   '../external_libs_based_work/qwe/qwe_Key.c', 
   'utils/sasfit_integrate.c',
   '../external_libs_based_work/qwe/tanhsinh.c',
-  'utils/analytical_form_factors.c'
+  'utils/analytical_form_factors.c',
 )
 
 libhankel = library(
