@@ -12,10 +12,6 @@
 #include "src/utils/sasfit_integrate.h"
 
 
-
-#include "unity.h"
-
-
 #define NUM_CASES 6
 #define ARRAY_LEN 25
 
@@ -82,7 +78,7 @@ void setUp(void) {
 
 void tearDown(void) {}
 
-void test_anaytical(void) {
+void test_analytical(void) {
     for (size_t i = 0; i < ARRAY_LEN; ++i) {
         TEST_ASSERT_DOUBLE_WITHIN(1e-4, ctx.expected[i], ctx.actual[i]);
     }
@@ -90,6 +86,6 @@ void test_anaytical(void) {
 
 int main(void) {
     UNITY_BEGIN();
-    RUN_TEST(test_anaytical);
+    RUN_TEST(test_analytical);
     return UNITY_END();
 }
