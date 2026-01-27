@@ -1,11 +1,12 @@
 
-tests = ['test_analytical.c', ]
+tests = ['test_analytical.c', 'test_DHT_hankel.c']
 test_inc = include_directories('.')   
 
 
 test_common_lib = static_library(
   'test_common',
   'test_common.c',
+  dependencies : [unity_dep],
   include_directories: test_inc,
 )
 
