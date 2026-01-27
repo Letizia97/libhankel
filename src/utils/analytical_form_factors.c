@@ -6,6 +6,11 @@
 #include "include/libhankel.h"
 
 
+#include <gsl/gsl_sf_gamma.h>
+#include <gsl/gsl_sf_bessel.h>
+#include <gsl/gsl_sf_hyperg.h>
+#include <gsl/gsl_sf_gamma.h>
+#include <stdbool.h>
 
 double compute_analytical_spheres(double (*params)[50], double *arr_z, double *G, size_t n) {
     /*
@@ -82,4 +87,88 @@ double compute_analytical_spheres(double (*params)[50], double *arr_z, double *G
     } else {
         return 0;      // added
     }
+}
+
+
+double compute_analytical_gdab(double (*params)[50], double *arr_z, double *out, size_t n) {
+    const double A = (*params)[0];
+    const double H = (*params)[1];
+    const double ETA = (*params)[2];
+
+    // Parameter checks 
+    if (A < 0.0) {
+        fprintf(stderr, "Error: A(%f) < 0\n", A);
+        return -1;
+    };
+
+    if (H <= -0.5) {
+        fprintf(stderr, "Error: H(%f) <= -1/2\n", H);
+        return -1;
+    };
+
+    // Precompute scalars 
+    double V = pow(2.0 * A, 3.0)
+             * M_PI
+             * sqrt(M_PI)
+             * gsl_sf_poch(H, 1.5);
+
+    double denom = gsl_sf_gamma(1.5 + H)
+                 * 2.0 * M_PI * (A * A);
+
+    double common_prefactor = ETA * ETA;
+
+    // Loop over z
+    for (size_t i = 0; i < n; i++) {
+        double zi = arr_z[i];
+
+        // Invalid input: negative z
+        if (zi < 0.0) {
+            fprintf(stderr, "Negative value found in z_arr");
+            return -1;
+        }
+
+        // z == 0 -> return 0 (Python scalar behavior extended to array)
+        if (zi == 0.0) {
+            out[i] = 0.0;
+            continue;
+        }
+
+        double u = zi / A;
+
+        double G0 = (V * V) / (2.0 * M_PI * (A * A) * (1.0 + 2.0 * H));
+
+        // Determine if (H + 0.5) is an integer -------------------------------
+        bool is_integer_case =
+            fabs((0.5 + H) - round(0.5 + H)) < 1e-12;
+
+        double KH;
+
+        if (is_integer_case) {
+            int n_int = (int)round(H + 0.5);
+
+            // GSL Bessel K_v: here v = n_int
+            KH = gsl_sf_bessel_Knu((double)n_int, u);
+        } else {
+            // KH = sqrt(pi) * (2u)^(H + 0.5) * exp(-u) * U(H+1, 2H+2, 2u)
+            double power = pow(2.0 * u, H + 0.5);
+            double U = gsl_sf_hyperg_U(H + 1.0, 2.0*H + 2.0, 2.0*u);
+
+            KH = sqrt(M_PI) * power * exp(-u) * U;
+        }
+
+        // Handle invalid KH ---------------------------------------------------
+        if (!isfinite(KH)) {
+            KH = 0.0;
+        }
+
+        // Compute Gz ----------------------------------------------------------
+        double Gz = KH * V * V * pow(u / 2.0, 0.5 + H) / denom;
+
+        // Final result
+        out[i] = common_prefactor * (Gz - G0);
+
+    }
+
+    return 1;
+
 }
