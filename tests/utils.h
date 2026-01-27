@@ -1,5 +1,5 @@
-#ifndef TEST_COMMON_H
-#define TEST_COMMON_H
+#ifndef UTILS_H
+#define UTILS_H
 
 #include <stddef.h>
 
@@ -16,4 +16,4 @@ void stop_capture_stderr(
     size_t bufsize
 );
 
-#endif // TEST_COMMON_H
+#endif // UTILS_H

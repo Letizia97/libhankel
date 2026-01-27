@@ -1,20 +1,14 @@
-#include "tests/test_DHT_hankel.h"  
+#include "test_hankel_DHT.h"  
 
 #include <stdio.h>
 #include <stddef.h>
 #include <math.h>
 #include <stdbool.h>
 #include "unity_config.h"
-#include "unity.h"
-#include <unistd.h>
-#include <fcntl.h>
-#include <string.h>
 
+#include "test_common.h"  
 #include "include/libhankel.h"
 #include "src/utils/sasfit_integrate.h"
-
-
-
 #include "unity.h"
 
 
@@ -51,22 +45,6 @@ TestContext ctx = {
     },
     .actual = { { 0 } },  // initializes expected[0][0], zeros everything else
 };
-
-
-
-static int arrays_close(double *actual,
-                        double *expected,
-                        size_t n,
-                        double tol)
-{
-    for (size_t i = 0; i < n; ++i) {
-        if (fabs(actual[i] - expected[i]) > tol) {
-            return 0;
-        }
-    }
-    return 1;
-}
-
 
 void setUp(void) {
     /*

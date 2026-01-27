@@ -1,11 +1,15 @@
 
-tests = ['test_analytical.c', 'test_DHT_hankel.c']
+tests = [
+  'test_analytical.c', 
+  'test_hankel_DHT.c', 
+  'test_hankel_QWE.c'
+]
 test_inc = include_directories('.')   
 
 
-test_common_lib = static_library(
-  'test_common',
-  'test_common.c',
+utils_lib = static_library(
+  'utils',
+  'utils.c',
   dependencies : [unity_dep],
   include_directories: test_inc,
 )
@@ -16,7 +20,7 @@ foreach t : tests
     t,
     dependencies : [hankel_dep, unity_dep],
     include_directories: test_inc,
-    link_with: test_common_lib,
+    link_with: utils_lib,
   )
   test(t, exe)
 endforeach
