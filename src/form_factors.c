@@ -12,7 +12,11 @@ double form_factor_g_dab(double q, double (*params)[50]) {
     Receives: 
         - double q          value at which to compute the Hankel t
         - double (*params)  pointer to an array of params for the function
-
+    
+        Params must contain :
+            -   XI
+            -   H
+            -   ETA
     */
     double XI = (*params)[0];
     double H = (*params)[1];
@@ -35,7 +39,10 @@ double form_factor_sphere(double q, double (*params)[50]) {
     Receives: 
         - double q          value at which to compute the Hankel t
         - double (*params)  pointer to an array of params for the function
-
+        
+        Params must contain :
+            -   R
+            -   ETA
     */
     double R = (*params)[0];
     double ETA = (*params)[1];
@@ -49,5 +56,29 @@ double form_factor_sphere(double q, double (*params)[50]) {
 		interm = ETA * 4.0 * M_PI * factor / gsl_pow_3(q);
 	}
     return gsl_pow_2(interm);
+}
 
+
+double form_factor_broad_peak(double q, double (*params)[50]) {
+    /*
+    Compute the broad peak form factor. 
+
+    Receives: 
+        - double q          value at which to compute the Hankel t
+        - double (*params)  pointer to an array of params for the function
+        Params must contain :
+            -   I0
+            -   XI
+            -   Q0
+            -   M
+            -   P
+    */
+    double I0 = (*params)[0];
+    double XI = (*params)[1];
+    double Q0 = (*params)[2];
+    double M = (*params)[3];
+    double P = (*params)[4];
+
+    double interm = 1.0 + pow(fabs(q-Q0) * XI, M);
+	return I0 / pow(interm, P);
 }
