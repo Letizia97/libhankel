@@ -103,7 +103,7 @@ void setUp(void) {
     };
 
     // Read broad peak expected values from file
-    const char *filename = "/home/letizia/libhankel/tests/data/broadpeakHT.txt";
+    const char *filename = "../tests/data/broadpeakHT.txt";
     const char *column   = "xi1000";
     size_t n             = sizeof(r_array_broad_peak) / sizeof(r_array_broad_peak[0]);
     read_values_by_rows(filename, column, r_array_broad_peak, n, ctx.expected_broad_peak);
