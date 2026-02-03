@@ -22,7 +22,9 @@ int z;
 double params_spheres[50];
 double params_gdab[50];
 
-double r_array[ARRAY_LEN];
+double r_array_spheres[ARRAY_LEN];
+double r_array_gdab[ARRAY_LEN];
+
 double G_analytic_spheres[ARRAY_LEN];
 double G_analytic_gdab[ARRAY_LEN];
 
@@ -50,11 +52,11 @@ TestContext ctx = {
         -62729.468960, -62729.468960, -62729.468960, -62729.468960, -62729.468960, 
     },  
     .expected_gdab = {
-        -7.34656e-05, -0.000225217, -0.000418221, -0.000634643, -0.000863458, 
-        -0.00109729, -0.00133104, -0.00156112, -0.00178503, -0.00200103, -0.00220798, 
-        -0.00240515, -0.00259213, -0.00276877, -0.00293509, -0.00309126, -0.00323752, 
-        -0.00337421, -0.00350172, -0.00362046, -0.00373087, -0.00383338, -0.00392845, 
-        -0.00401652, -0.00409801, 
+        -0.00293509, -0.0034444, -0.00384158, -0.00414579, -0.00437582, -0.0045481, 
+        -0.00467618, -0.00477084, -0.00484045, -0.00489145, -0.00492869, -0.0049558, 
+        -0.00497548, -0.00498974, -0.00500006, -0.00500751, -0.00501288, -0.00501674, 
+        -0.00501952, -0.00502152, -0.00502295, -0.00502397, -0.00502471, -0.00502523, 
+        -0.00502561, 
     },  
 };
 
@@ -63,8 +65,8 @@ void setUp(void) {
     /*
     Function that runs before tests, for set-up.    
     */
-    
-    // sphere params
+
+    // set params
     params_spheres[0] = 10; 
     params_spheres[1] = 1;
 
@@ -73,7 +75,7 @@ void setUp(void) {
     params_gdab[2] = 1e-4;
 
     // setup the x (or r) array
-    double r_array[ARRAY_LEN] = {
+    double r_array_spheres[ARRAY_LEN] = {
         1.0,  2.0,  3.0,  4.0,  5.0,
         6.0,  7.0,  8.0,  9.0, 10.0,
         11.0, 12.0, 13.0, 14.0, 15.0,
@@ -81,17 +83,26 @@ void setUp(void) {
         21.0, 22.0, 23.0, 24.0, 25.0
     };
 
-    compute_analytical_spheres(&params_spheres, r_array, G_analytic_spheres, ARRAY_LEN);
+    double r_array_gdab[ARRAY_LEN] = {
+        15.,          18.54166667,  22.08333333,  25.625,       29.16666667,
+        32.70833333,  36.25,        39.79166667,  43.33333333,  46.875,
+        50.41666667,  53.95833333,  57.5,         61.04166667,  64.58333333,
+        68.125,       71.66666667,  75.20833333,  78.75,        82.29166667,
+        85.83333333,  89.375,       92.91666667,  96.45833333,  100.,         
+    };
+
+
+    compute_analytical_spheres(&params_spheres, r_array_spheres, G_analytic_spheres, ARRAY_LEN);
     memcpy(ctx.actual_spheres, G_analytic_spheres, sizeof ctx.actual_spheres);
 
-    compute_analytical_gdab(&params_gdab, r_array, G_analytic_gdab, ARRAY_LEN);
+    compute_analytical_gdab(&params_gdab, r_array_gdab, G_analytic_gdab, ARRAY_LEN);
     memcpy(ctx.actual_gdab, G_analytic_gdab, sizeof ctx.actual_gdab);
 
-    // printf("Analitycal solution:   ");
-    // for (size_t i = 0; i < ARRAY_LEN; i++) {
-    //     printf("%.6g, ", (G_analytic_gdab[i]));
-    // };
-    // printf("\n");
+    printf("Analitycal solution:   ");
+    for (size_t i = 0; i < ARRAY_LEN; i++) {
+        printf("%.8g, ", (G_analytic_gdab[i]));
+    };
+    printf("\n");
 }
 
 
