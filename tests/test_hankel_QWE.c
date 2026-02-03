@@ -25,6 +25,7 @@ double r_array_gdab[ARRAY_LEN];
 
 hankel_inputs inputs;
 double Gr[ARRAY_LEN];
+double G0_spheres;
 
 // For running the tests
 typedef struct {
@@ -53,6 +54,10 @@ TestContext ctx = {
     .actual_gdab = { 0 }, 
 };
 
+// Needed for computing G0
+// double spheres_ff_at_0(double q, hankel_inputs *params){
+//     return q * form_factor_sphere(q, params->fparams);
+// }
 
 
 void setUp(void) {
@@ -87,13 +92,34 @@ void setUp(void) {
         85.83333333,  89.375,       92.91666667,  96.45833333,  100.,         
     };
 
+
+    
     nu = 0;
 
-    // printf("QWE Chave on spheres \n");
+    // Compute G0
+    // inputs.function = form_factor_sphere;
+	// inputs.other_inputs[0] = nu;
+	// inputs.other_inputs[1] = 0;
+    // inputs.fparams=params_spheres;
+
+    // G0_spheres = sasfit_integrate_ctm(
+    //     0,
+    //     INFINITY,
+    //     spheres_ff_at_0,
+    //     &inputs,
+    //     10000,
+    //     0.001,
+    //     1e-20
+    // );
+    // printf("&&&&&&&&&&&&&&&&&     G0 %f, ", G0_spheres);
+
+
+
+    // printf("QWE Chave, Gr-G0 on spheres \n");
     for (size_t i = 0; i < ARRAY_LEN; ++i) {
         z = r_array_spheres[i];
         Gr[i] = hankel_transform_QWE_Chave(nu, form_factor_sphere, z, &params_spheres, 250, 1e-9);
-        // printf("%.15g,  ", Gr[i]);
+        // printf("%.15g,  \n", (Gr[i]-G0_spheres)/ (2 * M_PI));
         ctx.actual_spheres[i] = Gr[i]; 
     }
     // printf("\n");

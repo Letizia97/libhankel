@@ -5,6 +5,7 @@ tests = [
   'test_analytical.c', 
   'test_hankel_DHT.c', 
   'test_hankel_QWE.c',
+  'test_integrate_ctm.c'
 ]
 test_inc = include_directories('.')   
 
