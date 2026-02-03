@@ -11,21 +11,20 @@
 #include "utils/test_utils.h" 
 
 #define ARRAY_LEN 25
-#define MAX_COLS 25
-#define MAX_ROWS 6
 
 double nu;
 double z;
 
 double params_spheres[50];
 double params_gdab[50];
+double params_broad_peak[50];
 
 double r_array_spheres[ARRAY_LEN];
 double r_array_gdab[ARRAY_LEN];
+double r_array_broad_peak[ARRAY_LEN];
 
 hankel_inputs inputs;
 double Gr[ARRAY_LEN];
-double G0_spheres;
 
 // For running the tests
 typedef struct {
@@ -33,6 +32,8 @@ typedef struct {
     double expected_spheres[ARRAY_LEN];
     double actual_gdab[ARRAY_LEN];
     double expected_gdab[ARRAY_LEN];
+    double actual_broad_peak[ARRAY_LEN];
+    double expected_broad_peak[ARRAY_LEN];
 } TestContext;
 
 TestContext ctx = {
@@ -52,12 +53,10 @@ TestContext ctx = {
         2.2626149e-05,  1.617712e-05,  1.1558453e-05,  8.2532795e-06,  5.8897925e-06,  
     },
     .actual_gdab = { 0 }, 
+    .expected_broad_peak =  { 0 }, 
+    .actual_broad_peak = { 0 }, 
 };
 
-// Needed for computing G0
-// double spheres_ff_at_0(double q, hankel_inputs *params){
-//     return q * form_factor_sphere(q, params->fparams);
-// }
 
 
 void setUp(void) {
@@ -66,7 +65,8 @@ void setUp(void) {
     Anything computed inside it is available in tests
     because previously declared outside the function.        
     */
-    
+    nu = 0;
+
     // set params
     params_spheres[0] = 10; 
     params_spheres[1] = 1;
@@ -75,12 +75,16 @@ void setUp(void) {
     params_gdab[1] = 0.5;
     params_gdab[2] = 1e-4;
 
+    params_broad_peak[0] = 10e5;
+    params_broad_peak[1] = 1000;
+    params_broad_peak[2] = 0.01;
+    params_broad_peak[3] = 2;
+    params_broad_peak[4] = 2;
+
     // setup the x (or r) array
     double r_array_spheres[ARRAY_LEN] = {
-        1.0,  2.0,  3.0,  4.0,  5.0,
-        6.0,  7.0,  8.0,  9.0, 10.0,
-        11.0, 12.0, 13.0, 14.0, 15.0,
-        16.0, 17.0, 18.0, 19.0, 20.0,
+        1.0,  2.0,  3.0,  4.0,  5.0,  6.0,  7.0,  8.0,  9.0,  10.0,
+        11.0, 12.0, 13.0, 14.0, 15.0, 16.0, 17.0, 18.0, 19.0, 20.0,
         21.0, 22.0, 23.0, 24.0, 25.0
     };
 
@@ -92,28 +96,20 @@ void setUp(void) {
         85.83333333,  89.375,       92.91666667,  96.45833333,  100.,         
     };
 
+    double r_array_broad_peak[ARRAY_LEN] = {
+        30.,   49.,   69.,   88.,   108.,  127.,  147.,  167.,  186.,  206.,  225., 
+        225.,  245.,  265.,  284.,  304.,  323.,  343.,  362.,  382.,  402.,  421.,  
+        441.,  460.,  480.,      
+    };
+
+    // Read broad peak expected values from file
+    const char *filename = "/home/letizia/libhankel/tests/data/broadpeakHT.txt";
+    const char *column   = "xi1000";
+    size_t n             = sizeof(r_array_broad_peak) / sizeof(r_array_broad_peak[0]);
+    read_values_by_rows(filename, column, r_array_broad_peak, n, ctx.expected_broad_peak);
 
     
-    nu = 0;
-
-    // Compute G0
-    // inputs.function = form_factor_sphere;
-	// inputs.other_inputs[0] = nu;
-	// inputs.other_inputs[1] = 0;
-    // inputs.fparams=params_spheres;
-
-    // G0_spheres = sasfit_integrate_ctm(
-    //     0,
-    //     INFINITY,
-    //     spheres_ff_at_0,
-    //     &inputs,
-    //     10000,
-    //     0.001,
-    //     1e-20
-    // );
-    // printf("&&&&&&&&&&&&&&&&&     G0 %f, ", G0_spheres);
-
-
+    // COMPUTATIONS 
 
     // printf("QWE Chave, Gr-G0 on spheres \n");
     for (size_t i = 0; i < ARRAY_LEN; ++i) {
@@ -122,8 +118,6 @@ void setUp(void) {
         // printf("%.15g,  \n", (Gr[i]-G0_spheres)/ (2 * M_PI));
         ctx.actual_spheres[i] = Gr[i]; 
     }
-    // printf("\n");
-
     
     for (size_t i = 0; i < ARRAY_LEN; ++i) {
         z = r_array_gdab[i];
@@ -131,6 +125,11 @@ void setUp(void) {
         ctx.actual_gdab[i] = Gr[i]; 
     }
 
+    for (size_t i = 0; i < ARRAY_LEN; ++i) {
+        z = r_array_broad_peak[i];
+        Gr[i] = hankel_transform_QWE_Chave(nu, form_factor_broad_peak, z, &params_broad_peak, 150, 1e-9);
+        ctx.actual_broad_peak[i] = Gr[i]; 
+    }  
 }
 
 
@@ -138,7 +137,7 @@ void tearDown(void) {}
 
 void test_hankel_QWE_regression_spheres(void) {
     /*
-    Regression test for DHT strategies.
+    Regression test for QWE on spheres.
     */
     for (size_t i = 0; i < ARRAY_LEN; ++i) {
         TEST_ASSERT_DOUBLE_WITHIN(1e-4, ctx.expected_spheres[i], ctx.actual_spheres[i]);
@@ -147,17 +146,30 @@ void test_hankel_QWE_regression_spheres(void) {
 
 void test_hankel_QWE_regression_gdab(void) {
     /*
-    Regression test for DHT strategies.
+    Regression test for QWE on gdab.
     */
     for (size_t i = 0; i < ARRAY_LEN; ++i) {
         TEST_ASSERT_DOUBLE_WITHIN(1e-4, ctx.expected_gdab[i], ctx.actual_gdab[i]);
     }
 }
 
+void test_hankel_QWE_regression_broad_peak(void) {
+    /*
+    Regression test for QWE on broad peak.
+    */
+    for (size_t i = 0; i < ARRAY_LEN; ++i) {
+        TEST_ASSERT_DOUBLE_WITHIN(
+            1e-4, 
+            ctx.expected_broad_peak[i], 
+            ctx.actual_broad_peak[i]
+        );
+    }
+}
 
 int main(void) {
     UNITY_BEGIN();
     RUN_TEST(test_hankel_QWE_regression_spheres);
     RUN_TEST(test_hankel_QWE_regression_gdab);
+    RUN_TEST(test_hankel_QWE_regression_broad_peak);
     return UNITY_END();
 }

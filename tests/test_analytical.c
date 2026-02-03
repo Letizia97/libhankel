@@ -11,10 +11,8 @@
 #include "include/libhankel.h"
 #include "src/utils/sasfit_integrate.h"
 
-
 #define NUM_CASES 6
 #define ARRAY_LEN 25
-
 
 double nu = 0;
 size_t int_strategy;

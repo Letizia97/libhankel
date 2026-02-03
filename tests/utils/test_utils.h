@@ -16,4 +16,10 @@ void stop_capture_stderr(
     size_t bufsize
 );
 
+double* read_values_by_rows(const char *filename,
+                            const char *column_name,
+                            const double *rows,
+                            size_t nrows,
+                            double *out);
+
 #endif // UTILS_H

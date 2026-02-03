@@ -75,6 +75,7 @@ double hankel_transform_QWE_Chave(
 // function declaration for form factor functions
 double form_factor_g_dab(double q, double (*params)[50]); 
 double form_factor_sphere(double q, double (*params)[50]);
+double form_factor_broad_peak(double q, double (*params)[50]);
 
 #endif // LIBHANKEL_H
 

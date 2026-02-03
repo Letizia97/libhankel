@@ -14,8 +14,6 @@
 
 #define NUM_CASES 6
 #define ARRAY_LEN 25
-#define MAX_COLS 25
-#define MAX_ROWS 6
 
 double nu;
 double z;
