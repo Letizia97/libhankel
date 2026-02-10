@@ -1,4 +1,4 @@
-#include "include/libhankel.h"
+#include "include/form_factors.h"
 #include <math.h>
 #include <stdio.h>
 #include <gsl/gsl_math.h>
@@ -8,15 +8,6 @@
 double form_factor_g_dab(double q, double (*params)[50]) {
     /*
     Compute the g_dab form factor. 
-
-    Receives: 
-        - double q          value at which to compute the Hankel t
-        - double (*params)  pointer to an array of params for the function
-    
-        Params must contain :
-            -   XI
-            -   H
-            -   ETA
     */
     double XI = (*params)[0];
     double H = (*params)[1];
@@ -35,14 +26,6 @@ double form_factor_g_dab(double q, double (*params)[50]) {
 double form_factor_sphere(double q, double (*params)[50]) {
     /*
     Compute the sphere form factor. 
-
-    Receives: 
-        - double q          value at which to compute the Hankel t
-        - double (*params)  pointer to an array of params for the function
-        
-        Params must contain :
-            -   R
-            -   ETA
     */
     double R = (*params)[0];
     double ETA = (*params)[1];
@@ -62,16 +45,6 @@ double form_factor_sphere(double q, double (*params)[50]) {
 double form_factor_broad_peak(double q, double (*params)[50]) {
     /*
     Compute the broad peak form factor. 
-
-    Receives: 
-        - double q          value at which to compute the Hankel t
-        - double (*params)  pointer to an array of params for the function
-        Params must contain :
-            -   I0
-            -   XI
-            -   Q0
-            -   M
-            -   P
     */
     double I0 = (*params)[0];
     double XI = (*params)[1];

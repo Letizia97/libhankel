@@ -7,6 +7,7 @@
 #include <string.h>
 
 #include "include/libhankel.h"
+#include "include/form_factors.h"
 #include "src/utils/sasfit_integrate.h"
 #include "utils/test_utils.h" 
 
