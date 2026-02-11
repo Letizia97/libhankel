@@ -1,4 +1,4 @@
-#include "include/libhankel.h"
+#include "libhankel.h"
 
 #include <math.h>
 #include <stdio.h>
@@ -6,7 +6,7 @@
 #include <gsl/gsl_sf.h>
 #include <gsl/gsl_sf_bessel.h>
 
-#include "external_libs_based_work/qwe/qwe.h"
+#include "../external_libs_based_work/qwe/qwe.h"
 
 /*
 This file contains functions corresponding to strategies 12 and 13 in SASfit. 

@@ -3,7 +3,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <stddef.h>
-#include "include/libhankel.h"
+#include "libhankel.h"
 
 
 #include <gsl/gsl_sf_gamma.h>
