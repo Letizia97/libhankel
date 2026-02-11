@@ -49,7 +49,7 @@ double hankel_transform_DHT(
     double (*fparams)[50], 
     int n_strategy) {
 
-    double res;
+    double res = 0;
     double lambda;
     unsigned int i;
     unsigned int ind;
@@ -70,7 +70,6 @@ double hankel_transform_DHT(
 
         case 6:{
             // HANKEL_GUPTASARMA_97
-            res = 0;
             if (nu==0) {
                 for (i=0; i<120; i++) {
                     lambda = pow(10.0E0, (aJ0 + i*sJ0)) / x;
@@ -101,7 +100,6 @@ double hankel_transform_DHT(
         }
         case 8:{
             // HANKEL_KEY_51
-            res = 0;
             for (i=0; i<51; i++) {
                 lambda = KK51Hankel[i][0] / x;
                 res = res + (*f)(lambda, fparams) * lambda * KK51Hankel[i][ind] / x;
@@ -110,7 +108,6 @@ double hankel_transform_DHT(
         }
         case 9:{
             // HANKEL_KEY_101
-            res = 0;
             for (i=0; i<101; i++) {
                 lambda = KK101Hankel[i][0]/x;
                 res = res + (*f)(lambda, fparams) * lambda * KK101Hankel[i][ind] / x;
@@ -119,7 +116,6 @@ double hankel_transform_DHT(
         }
         case 10:{
             // HANKEL_KEY_201
-            res = 0;
             for (i=0; i<201; i++) {
                 lambda = KK201Hankel[i][0] / x;
                 res = res + (*f)(lambda, fparams) * lambda * KK201Hankel[i][ind] / x;
@@ -128,7 +124,6 @@ double hankel_transform_DHT(
         }
         case 11:{
             // HANKEL_ANDERSON_801
-            res = 0;
             for (i=0; i<801; i++) {
                 lambda = WA801Hankel[i][0] / x;
                 res = res + (*f)(lambda, fparams) * lambda * WA801Hankel[i][ind] / x;
