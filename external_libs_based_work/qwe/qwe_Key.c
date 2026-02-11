@@ -183,64 +183,109 @@ end % function qwe
 // #include "include/libhankel.h"
 
 
-double qwe_Key(double nu, double (*f)(double, double (*)[50]), double x, void *fparams, int nIntervalsMax, double rtol, double atol) {
-	int nDelay;
-	int nTerms, i,k,n;
-	double *S, *extrap, *relErr, *absErr;
-	double prev,amin,amax,rmin, Fi, aux2, aux1, ddff,res;
-	hankel_inputs inputs;
-	bool converged;
+double qwe_Key(
+    double nu, 
+    double (*f)(double, double (*)[50]), 
+    double x, 
+    void *fparams, 
+    int n_max_iters, 
+    double rtol, 
+    double atol
+) {
+
+	int idx_of_zero = 1; // index of the zero to compute, must be >= 1, but 1 is usually sufficient
+	int n_terms;  // maximum number of terms in extrapolation
+	double last_res = 0;  //latest res in iters
+	double *S; // array used for the recursion coefficients for the Epsilon algorithm
+    double *extrap;  // extrapolated result for each order of the expansion
+    double *rel_err, *abs_err; // real and abs error for each order
+    double r_min, r_max; // start and end of integration range 
+    int i, k, n;
+    double f_i, aux2, aux1, diff, res;
+	bool converged = false;
+
+    if (!(nu==0 || nu==1)) {
+        fprintf(stderr, 
+            "nu needs to be 0 or 1 in order to use "
+            "the selected strategy\n"
+        );
+        return -1;
+    }
+
+    hankel_inputs inputs;
 	inputs.function = f;
 	inputs.other_inputs[0] = nu;
 	inputs.other_inputs[1] = x;
     inputs.fparams=fparams;
-	prev=0;
-	nDelay = 1;
-	amax=gsl_sf_bessel_zero_Jnu(nu,nDelay)/inputs.other_inputs[1];
-	amin=DBL_MIN;
-	amin=amax*(rtol/10);
-	prev = prev + sasfit_integrate_ctm(amin,amax,&FrJnu,&inputs, 10000, atol, rtol);
-	nTerms   = nIntervalsMax-nDelay-1;
-	rmin     = DBL_MIN;
-	S      = calloc(nTerms+1,sizeof(double));
-	extrap = calloc(nTerms+1,sizeof(double));
-	relErr = calloc(nTerms+1,sizeof(double));
-	absErr = calloc(nTerms+1,sizeof(double));
-    converged = false;
-	for (i=nDelay+1;i<=nTerms;i++) {
-        amin=amax;
-        amax=gsl_sf_bessel_zero_Jnu(nu,i)/inputs.other_inputs[1];
-        Fi = sasfit_integrate_ctm(amin,amax,&FrJnu,&inputs, 10000, atol, rtol);
 
-        n = i-nDelay;
-        S[n+1] = S[n]+Fi;
+	r_max = gsl_sf_bessel_zero_Jnu(nu, idx_of_zero) / inputs.other_inputs[1];
+	r_min = r_max * (rtol / 10);
+
+    // First compute idx_of_zero partial integrals before starting the Shanks transformation iters
+	last_res = last_res + sasfit_integrate_ctm(r_min, r_max, &FrJnu, &inputs, 10000, atol, rtol);
+	n_terms = n_max_iters - idx_of_zero - 1; 
+
+	S = calloc(n_terms+1,sizeof(double));
+	extrap = calloc(n_terms+1,sizeof(double));
+	rel_err = calloc(n_terms+1,sizeof(double));
+	abs_err = calloc(n_terms+1,sizeof(double));
+
+    if (!S || !extrap || !rel_err || !abs_err) {
+        // Allocation failed, free any successful allocations
+        free(S); free(extrap); free(rel_err); free(abs_err);
+        fprintf(stderr, 
+            "Failed to allocate internal variables "
+            "in function pade_sum.\n"
+        );
+        return -1;    
+    }
+
+    for (i=idx_of_zero+1; i<=n_terms; i++) {
+        r_min = r_max;
+        r_max = gsl_sf_bessel_zero_Jnu(nu, i) / inputs.other_inputs[1];
+
+        // compute Guass quadrature of this interval
+        f_i = sasfit_integrate_ctm(r_min, r_max, &FrJnu, &inputs, 10000, atol, rtol);
+
+        n = i - idx_of_zero; // order of the expansion
+        S[n+1] = S[n] + f_i;
+
+        // Compute the Shanks transform using the Epsilon algorithm:
+        // Structured after Weniger (1989, p26)
         aux2 = 0.0;
-        for (k=n+1;k>=2;k--) {
-            aux1=aux2;
-            aux2=S[k-1];
-            ddff=S[k]-aux2;
-            if (fabs(ddff)<rmin) {
-                S[k-1]=DBL_MAX;
+        for (k=n+1; k>=2; k--) {
+            aux1 = aux2;
+            aux2 = S[k-1];
+            diff = S[k] - aux2;
+            if (fabs(diff) < DBL_MIN) {
+                S[k-1] = DBL_MAX;
             } else {
-                S[k-1]=aux1+1./ddff;
+                S[k-1] = aux1 + 1./diff;
             }
         }
-        extrap[n] = S[(n % 2)+1]+prev;
+        
+        extrap[n] = S[(n % 2)+1] + last_res;
         res = extrap[n];
+
         if (n > 1) {
-                absErr[n] = fabs( extrap[n] - extrap[n-1]);
-                relErr[n] = absErr[n] / fabs(extrap[n]) ;
-                if (relErr[n] < rtol + atol/fabs(extrap[n]))
-                    converged = true;
+            abs_err[n] = fabs( extrap[n] - extrap[n-1]);
+            rel_err[n] = abs_err[n] / fabs(extrap[n]) ;
+            if (rel_err[n] < rtol + atol/fabs(extrap[n]))
+                converged = true;
         }
         if (converged) break;
     }
 	free(S);
 	free(extrap);
-	free(relErr);
-	free(absErr);
-    // FIXME: proper error handling
-	if (!converged) printf("QWE algorithm did not converged after maximum allowed intervals: %d\n",nIntervalsMax);
+	free(rel_err);
+	free(abs_err);
+
+    if (!converged) {
+        printf(
+            "qwe_Key algorithm did not converged "
+            "after maximum allowed intervals: %d\n",n_max_iters
+        );
+    };
 	return res;
 }
 

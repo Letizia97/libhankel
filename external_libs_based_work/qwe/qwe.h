@@ -19,7 +19,7 @@ double qwe_Key(
 	double (*f)(double, double (*)[50]), 
 	double x, 
 	void *fparams, 
-	int nIntervalsMax, 
+	int n_max_iters, 
 	double rtol, 
 	double atol
 ); 
@@ -30,7 +30,7 @@ double qwe_Chave(
     double (*f)(double, double (*)[50]), 
     double r, 
     void *fparams, 
-    int n_iters, 
+    int n_max_iters, 
     double rtol, 
     double atol
 );

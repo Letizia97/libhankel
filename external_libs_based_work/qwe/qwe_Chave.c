@@ -221,29 +221,27 @@ cleanup_and_exit:
  *        by integration between zero crossings of the Bessel function followed 
  *        by summation using Pade approximant to speed up convergence
  * 
- * @param nu       order of the Bessel function, either 0 or 1
- * @param f        function to compute kernel called as f(x,fparams)
- * @param r        x where to compute the Hankel transform
- * @param fparams  input params for f
- * @param n_iters  max number of partial integral intervals
- * @param rtol     relative error
- * @param atol     absolute error
+ * @param nu           order of the Bessel function, either 0 or 1
+ * @param f            function to compute kernel called as f(x,fparams)
+ * @param r            x where to compute the Hankel transform
+ * @param fparams      input params for f
+ * @param n_max_iters  max number of partial integral intervals
+ * @param rtol         relative error
+ * @param atol         absolute error
  */
 double qwe_Chave(
     double nu, 
     double (*f)(double, double (*)[50]), 
     double r, 
     void *fparams, 
-    int n_iters, 
+    int n_max_iters, 
     double rtol, 
     double atol
 ) {
 
     double res, a, b, last_res, *s, req_accuracy;
     int nzero;
-	bool converged;
-	hankel_inputs inputs;
-	converged = false;
+	bool converged = false;
     last_res = 0;
 
     if (!(nu==0 || nu==1)) {
@@ -254,13 +252,14 @@ double qwe_Chave(
         return -1;
     }
 
+    hankel_inputs inputs;
 	inputs.function = f;
 	inputs.other_inputs[0] = nu;
 	inputs.other_inputs[1] = r;
     inputs.fparams = fparams;
 
     b = bessel_j_zero(1, nu) / r*rtol;    
-    s = calloc(n_iters+1, sizeof(double));
+    s = calloc(n_max_iters+1, sizeof(double));
 
     if (!s) {
         // Allocation failed
@@ -271,8 +270,8 @@ double qwe_Chave(
         return -1;    
     }
 
-    //upper limit (n_iters) is arbitrary and should never be reached
-    for (nzero=1; nzero<=n_iters; nzero++) {     
+    //upper limit (n_max_iters) is arbitrary and should never be reached
+    for (nzero=1; nzero<=n_max_iters; nzero++) {     
         a = b;
         b = bessel_j_zero(nzero, nu) / r;
         s[nzero] = sasfit_integrate_ctm(a, b, &FrJnu, &inputs, 10000, atol, rtol);
@@ -289,8 +288,8 @@ double qwe_Chave(
 
     if (!converged) {
         fprintf(
-            "HankelChave algorithm did not converge "
-            "after maximum allowed intervals: %d\n", n_iters
+            "qwe_Chave algorithm did not converge "
+            "after maximum allowed intervals: %d\n", n_max_iters
         );
         return -1;
     };

@@ -2,6 +2,7 @@
 install_headers(
   files([
     'libhankel.h',
+    'form_factors.h'
     'strateg6_const.h',
     'strateg7_const.h',
     'strateg8_const.h',
