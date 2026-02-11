@@ -39,25 +39,29 @@ POSSIBILITY OF SUCH DAMAGE.
 
 #include "src/utils/sasfit_integrate.h"
 
-
+/** 
+ * @brief This function is called Zeroj in SASfit.
+ * @note Computes an approximation to the nth positive zero of the Bessel function
+ *       of the first kind, for the special cases where the order is 0 or 1
+ *       If nzero < 7 the algorithm in J. Comp. Phys., 42, 403-405, 1981 is used
+ *       If nzero >= 7, McMahon's asymptotic expansion is used
+ * 
+ * @param nzero  index of the zero, integer >= 1
+ * @param order  order of the bessel function, must be 0 or 1    
+ */
 double bessel_j_zero(int nzero, double order) {
-    /*
-    This function is called Zeroj in SASfit.
-    Computes an approximation to the nth positive zero of the Bessel function
-    of the first kind, for the special cases where the order is 0 or 1
-      If nzero < 7 the algorithm in J. Comp. Phys., 42, 403-405, 1981 is used
-      If nzero >= 7, McMahon's asymptotic expansion is used
 
-    Receives:
-        nzero  index of the zero, integer >= 1
-        order  order of the bessel function, must be 0 or 1    
-    */
     double j_zero, beta, t, b;
+
+    if (!(order==0 || order==1)) {
+        fprintf(stderr, "order needs to be 0 or 1 in order to use bessel_j_zero\n");
+        return -1;
+    }
 
     if (nzero < 1) {
         fprintf(stderr, 
-            "nzero, that is the index of the zero to be computed,"
-            " must be greater than or equal to 1\n"
+            "nzero, that is the index of the zero to be computed, "
+            "must be greater than or equal to 1\n"
         );
         return -1;
     }
@@ -111,26 +115,17 @@ double bessel_j_zero(int nzero, double order) {
             return j_zero;
         }
     }
-    // FIXME: I think this should be removed completely, and 
-    // just support order 0 or 1 (and so add an if statement
-    // at the start for this)
-    return gsl_sf_bessel_zero_Jnu(order, nzero);
 }
 
-
+/** 
+ * @brief Computes sum from 1 to n of s(i) using Padé approximant implemented with
+ *        continued fraction expansion; see Z. Naturforschung, 33a, 402-417, 1978.
+ * 
+ * @param s    series of values to be summed
+ * @param n    end of summation
+ */
 double pade_sum(double *s, int n) {
-    /*
-    Computes sum from 1 to n of s(i) using Padé approximant implemented with
-    continued fraction expansion; see Z. Naturforschung, 33a, 402-417, 1978.
-
-    Receives:
-        s    series of values to be summed, may be complex   //FIXME : says complex, but only doubles allowed
-        n    end of summation
-    Outputs:
-        sum_cf   sum of the series    
-    */
-
-    double *D;     // intermediate “modified moments” (linear combinations of the input terms)
+    double *D;     // intermediate “modified moments” (linear combinations of the inputs)
     double *d;     // continued‑fraction coefficients
     double *x, *t; // temporary workspaces used to update polynomial/CF terms
     double sum_cf;
@@ -150,7 +145,10 @@ double pade_sum(double *s, int n) {
     if (!D || !d || !x || !t) {
         // Allocation failed, free any successful allocations
         free(D); free(d); free(x); free(t);
-        fprintf(stderr, "Failed to allocate internal variables in function pade_sum.\n");
+        fprintf(stderr, 
+            "Failed to allocate internal variables "
+            "in function pade_sum.\n"
+        );
         return -1;    
     }
 
@@ -196,7 +194,6 @@ double pade_sum(double *s, int n) {
         }
         //    D[i] = s[i] + s[i-1:-1:i-L/2]*x[1:2:L-1];
 
-        // FIXME: is this fine or should there be a fallback?
         if (D[i-1] == 0) {
             fprintf(stderr, "Division by 0 encountered in pade_sum!\n");
             return -1;  
@@ -219,8 +216,19 @@ cleanup_and_exit:
 }
 
 
-
-
+/** 
+ * @brief Computes Hankel transform integral from 0 to inf J_sub_order(x*r)*f(x)
+ *        by integration between zero crossings of the Bessel function followed 
+ *        by summation using Pade approximant to speed up convergence
+ * 
+ * @param nu       order of the Bessel function, either 0 or 1
+ * @param f        function to compute kernel called as f(x,fparams)
+ * @param r        x where to compute the Hankel transform
+ * @param fparams  input params for f
+ * @param n_iters  max number of partial integral intervals
+ * @param rtol     relative error
+ * @param atol     absolute error
+ */
 double qwe_Chave(
     double nu, 
     double (*f)(double, double (*)[50]), 
@@ -230,23 +238,7 @@ double qwe_Chave(
     double rtol, 
     double atol
 ) {
-    /*
-    Computes Hankel transform integral from 0 to inf J_sub_order(x*r)*f(x) by integration
-    between zero crossings of the Bessel function followed by summation
-    using Pade approximant to speed up convergence
 
-    Input variables
-        nu       order of the Bessel function, either 0 or 1
-        f        function to compute kernel called as f(x,fparams)
-        r        x where to compute the Hankel transform
-        fparams  input params for f
-        n_iters  max number of partial integral intervals
-        rtol     relative error
-        atol     absolute error
- 
-    Output variable
-        res     computed integral
-    */
     double res, a, b, last_res, *s, req_accuracy;
     int nzero;
 	bool converged;
@@ -254,7 +246,13 @@ double qwe_Chave(
 	converged = false;
     last_res = 0;
 
-    // FIXME: add a guard to check nu is 0 or 1 ?
+    if (!(nu==0 || nu==1)) {
+        fprintf(stderr, 
+            "nu needs to be 0 or 1 in order to use "
+            "the selected strategy\n"
+        );
+        return -1;
+    }
 
 	inputs.function = f;
 	inputs.other_inputs[0] = nu;
@@ -266,12 +264,15 @@ double qwe_Chave(
 
     if (!s) {
         // Allocation failed
-        fprintf(stderr, "Failed to allocate internal variables in function sasfit_HankelChave.\n");
+        fprintf(stderr, 
+            "Failed to allocate internal variables in "
+            "function sasfit_HankelChave.\n"
+        );
         return -1;    
     }
 
-    // FIXME: are we sure this is safe?
-    for (nzero=1; nzero<=n_iters; nzero++) {     //upper limit is arbitrary and should never be reached
+    //upper limit (n_iters) is arbitrary and should never be reached
+    for (nzero=1; nzero<=n_iters; nzero++) {     
         a = b;
         b = bessel_j_zero(nzero, nu) / r;
         s[nzero] = sasfit_integrate_ctm(a, b, &FrJnu, &inputs, 10000, atol, rtol);
@@ -287,7 +288,10 @@ double qwe_Chave(
     free(s);
 
     if (!converged) {
-        fprintf("HankelChave algorithm did not converge after maximum allowed intervals: %d\n",n_iters);
+        fprintf(
+            "HankelChave algorithm did not converge "
+            "after maximum allowed intervals: %d\n", n_iters
+        );
         return -1;
     };
 
