@@ -263,7 +263,7 @@ double qwe_Key(
                 S[k-1] = aux1 + 1./diff;
             }
         }
-        
+
         extrap[n] = S[(n % 2)+1] + last_res;
         res = extrap[n];
 
@@ -282,7 +282,7 @@ double qwe_Key(
 
     if (!converged) {
         printf(
-            "qwe_Key algorithm did not converged "
+            "qwe_Key algorithm did not converge "
             "after maximum allowed intervals: %d\n",n_max_iters
         );
     };

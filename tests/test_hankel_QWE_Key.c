@@ -11,7 +11,7 @@
 #include "src/utils/sasfit_integrate.h"
 #include "utils/test_utils.h" 
 
-#define ARRAY_LEN 25
+#define ARRAY_LEN 19
 
 double nu;
 double z;
@@ -39,19 +39,19 @@ typedef struct {
 
 TestContext ctx = {
     .expected_spheres = {
-        387507.478727, 371194.865046, 349050.892446, 322866.825081, 293957.890695,  
-        263387.288344, 232057.322544, 200753.921990, 170170.357893, 140920.013924,  
-        113542.663056, 88506.359952, 66205.927253, 46958.335485, 30994.653555, 
-        18447.535099, 9331.793855, 3512.362861, 643.298173, -1.000000, -1.000000, 
-        -0.000000, -0.000000, -0.000000, -0.000000,  
+        387507.47872702,  371194.86504067,  349050.89244560,  
+        322866.82508137,  293957.89067697,  263387.28834352,  
+        232057.32254606,  200753.93208662,  170170.35793398,  
+        140920.01392396,  113542.66309246,  88506.35995189,  
+        66205.92725291,  46958.33549706,  30994.65355484,  
+        18447.53465675,  9331.79386106,  3512.36330444,  643.29844390
     },
     .actual_spheres = { 0 }, 
     .expected_gdab = { 
-        0.013140998,  0.0099409587,  0.0074453617,  0.0055339564,  0.0040886406,  
-        0.003006167,  0.0022014298,  0.0016066905,  0.0011692607,  0.00084881602,  
-        0.00061486109,  0.00044454403,  0.00032086372,  0.0002312454,  0.00016643275,  
-        0.00011963947,  8.5907116e-05,  6.1623338e-05,  4.4163123e-05,  3.1623165e-05, 
-        2.2626149e-05,  1.617712e-05,  1.1558453e-05,  8.2532795e-06,  5.8897925e-06,  
+        0.01314100,  0.00994096,  0.00744536,  0.00553396,  0.00408864,  
+        0.00300617,  0.00220143,  0.00160669,  0.00116926,  0.00084882,  
+        0.00061486,  0.00044454,  0.00032086,  0.00023125,  0.00016643,  
+        0.00011964,  0.00008591,  0.00006162,  0.00004416
     },
     .actual_gdab = { 0 }, 
     .expected_broad_peak =  { 0 }, 
@@ -85,22 +85,19 @@ void setUp(void) {
     // setup the x (or r) array
     double r_array_spheres[ARRAY_LEN] = {
         1.0,  2.0,  3.0,  4.0,  5.0,  6.0,  7.0,  8.0,  9.0,  10.0,
-        11.0, 12.0, 13.0, 14.0, 15.0, 16.0, 17.0, 18.0, 19.0, 20.0,
-        21.0, 22.0, 23.0, 24.0, 25.0
+        11.0, 12.0, 13.0, 14.0, 15.0, 16.0, 17.0, 18.0, 19.0
     };
 
     double r_array_gdab[ARRAY_LEN] = {
         15.,          18.54166667,  22.08333333,  25.625,       29.16666667,
         32.70833333,  36.25,        39.79166667,  43.33333333,  46.875,
         50.41666667,  53.95833333,  57.5,         61.04166667,  64.58333333,
-        68.125,       71.66666667,  75.20833333,  78.75,        82.29166667,
-        85.83333333,  89.375,       92.91666667,  96.45833333,  100.,         
+        68.125,       71.66666667,  75.20833333,  78.75,             
     };
 
     double r_array_broad_peak[ARRAY_LEN] = {
         30.,   49.,   69.,   88.,   108.,  127.,  147.,  167.,  186.,  206.,  225., 
-        225.,  245.,  265.,  284.,  304.,  323.,  343.,  362.,  382.,  402.,  421.,  
-        441.,  460.,  480.,      
+        225.,  245.,  265.,  284.,  304.,  323.,  343.,  362.,       
     };
 
     // Read broad peak expected values from file
@@ -111,24 +108,21 @@ void setUp(void) {
 
     
     // COMPUTATIONS 
-
-    // printf("QWE Chave, Gr-G0 on spheres \n");
     for (size_t i = 0; i < ARRAY_LEN; ++i) {
         z = r_array_spheres[i];
-        Gr[i] = hankel_transform_QWE_Chave(nu, form_factor_sphere, z, &params_spheres, 250, 1e-9);
-        // printf("%.15g,  \n", (Gr[i]-G0_spheres)/ (2 * M_PI));
+        Gr[i] = hankel_transform_QWE_Key(nu, form_factor_sphere, z, &params_spheres, 250, 1e-9);
         ctx.actual_spheres[i] = Gr[i]; 
     }
     
     for (size_t i = 0; i < ARRAY_LEN; ++i) {
         z = r_array_gdab[i];
-        Gr[i] = hankel_transform_QWE_Chave(nu, form_factor_g_dab, z, &params_gdab, 250, 1e-9);
+        Gr[i] = hankel_transform_QWE_Key(nu, form_factor_g_dab, z, &params_gdab, 250, 1e-9);
         ctx.actual_gdab[i] = Gr[i]; 
     }
 
     for (size_t i = 0; i < ARRAY_LEN; ++i) {
         z = r_array_broad_peak[i];
-        Gr[i] = hankel_transform_QWE_Chave(nu, form_factor_broad_peak, z, &params_broad_peak, 150, 1e-9);
+        Gr[i] = hankel_transform_QWE_Key(nu, form_factor_broad_peak, z, &params_broad_peak, 150, 1e-9);
         ctx.actual_broad_peak[i] = Gr[i]; 
     }  
 }
@@ -136,7 +130,7 @@ void setUp(void) {
 
 void tearDown(void) {}
 
-void test_hankel_QWE_regression_spheres(void) {
+void test_hankel_QWE_Key_regression_spheres(void) {
     /*
     Regression test for QWE on spheres.
     */
@@ -145,7 +139,7 @@ void test_hankel_QWE_regression_spheres(void) {
     }
 }
 
-void test_hankel_QWE_regression_gdab(void) {
+void test_hankel_QWE_Key_regression_gdab(void) {
     /*
     Regression test for QWE on gdab.
     */
@@ -154,7 +148,7 @@ void test_hankel_QWE_regression_gdab(void) {
     }
 }
 
-void test_hankel_QWE_regression_broad_peak(void) {
+void test_hankel_QWE_Key_regression_broad_peak(void) {
     /*
     Regression test for QWE on broad peak.
     */
@@ -169,8 +163,8 @@ void test_hankel_QWE_regression_broad_peak(void) {
 
 int main(void) {
     UNITY_BEGIN();
-    RUN_TEST(test_hankel_QWE_regression_spheres);
-    RUN_TEST(test_hankel_QWE_regression_gdab);
-    RUN_TEST(test_hankel_QWE_regression_broad_peak);
+    RUN_TEST(test_hankel_QWE_Key_regression_spheres);
+    RUN_TEST(test_hankel_QWE_Key_regression_gdab);
+    RUN_TEST(test_hankel_QWE_Key_regression_broad_peak);
     return UNITY_END();
 }

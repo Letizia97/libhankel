@@ -72,10 +72,10 @@ void setUp(void) {
         for (size_t i = 0; i < ARRAY_LEN; ++i) {
             z = r_array[i];
             Gr[i] = hankel_transform_DHT(nu, form_factor_sphere, z, &params, int_strategy);
-            printf("%f,  ", Gr[i]);
+            //printf("%f,  ", Gr[i]);
             ctx.actual[j][i] = Gr[i]; 
         }
-        printf("\n");
+        //printf("\n");
         int_strategy = int_strategy+1;
     }
 }

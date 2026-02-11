@@ -98,11 +98,11 @@ void setUp(void) {
     compute_analytical_gdab(&params_gdab, r_array_gdab, G_analytic_gdab, ARRAY_LEN);
     memcpy(ctx.actual_gdab, G_analytic_gdab, sizeof ctx.actual_gdab);
 
-    printf("Analitycal solution:   ");
-    for (size_t i = 0; i < ARRAY_LEN; i++) {
-        printf("%.8g, ", (G_analytic_gdab[i]));
-    };
-    printf("\n");
+    // printf("Analitycal solution:   ");
+    // for (size_t i = 0; i < ARRAY_LEN; i++) {
+    //     printf("%.8g, ", (G_analytic_gdab[i]));
+    // };
+    // printf("\n");
 }
 
 
