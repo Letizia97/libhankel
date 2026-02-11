@@ -26,8 +26,9 @@ changing the n_strategy parameter allows to switch between them
 
 /** 
  * @brief Computes Hankel transform, using digital filters.
+ * @note Corresponds to strategies 6-11 in SASfit.
  * @note Does not allow any error control.
- *       Perform wells for simple form factors, but it does struggle 
+ * @note Perform wells for simple form factors, but it does struggle 
  *       with oscillatory ones. For oscillatory form factors, it is 
  *       advisable to start with this method for a rough Hankel transform
  *       computation, and then refine it with "hankel_transform_QWE_Chave"

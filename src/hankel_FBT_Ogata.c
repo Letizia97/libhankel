@@ -16,6 +16,21 @@ Specifically:
 - HANKEL_FBT2 4
 */
 
+/** 
+ * @brief Computes Hankel transform using FBT.
+ * @note Corresponds to strategies 2,3,4 in SASfit or HANKEL_FBT0, etc 
+ * @note Requires knowledge of the form factor function, as one of the parameters 
+ *       passed (f_max) is a starting guess for maximum in form factor. 
+ *       Performance is highly dependent on params.
+ *       
+ * @param nu         order of bessel function - must be 0 or 1
+ * @param f          pointer to form factor function
+ * @param x          value at which to compute the transform
+ * @param fparams    params for form factor
+ * @param n_eval     integer indicating number of function evaluations (N_ogata in SASfit)
+ * @param f_max      float indicating starting guess for maximum in form factor (h_ogata in SASfit)
+ * @param n_method   FBT method to use among 0,1,2 (modified, unmodified, fixed h Ogata)
+ */ 
 double hankel_transform_FBT(
     int nu, 
     double (*f)(double, double (*)[50]), 
@@ -24,22 +39,7 @@ double hankel_transform_FBT(
     int n_method, 
     double n_eval, 
     double f_max) {
-    /* 
-    Computes Hankel transform using FBT.
-    Requires knowledge of the form factor function, as one of the parameters passed (f_max)
-    is a starting guess for maximum in form factor.
-    Also requires number of function evaluations (n_eval).
-    Performance is highly dependent on params.
-    Corresponds to strategies 2,3,4 in SASfit or HANKEL_FBT0, etc (specify through n_method 0,1,2 in inputs)
-    Receives:
-        nu         order of bessel function (typically 0)
-        *f         pointer to form factor function
-        x          value at which to compute the transform
-        *fparams   params for form factor
-        n_eval     integer indicating number of function evaluations (N_ogata in SASfit)
-        f_max      float indicating starting guess for maximum in form factor (h_ogata in SASfit)
-        n_method   FBT method to use among 0,1,2 (modified, unmodified, fixed h Ogata)
-    */ 
+
     double res; 
     res = compute_hankel_FBT(nu, f, x, fparams, n_method, n_eval, f_max);
     return res;

@@ -23,18 +23,17 @@ typedef struct {
 } params_struct;
 
 
+/** 
+ * @brief Auxiliary function that computes the value of the 
+ *        Hankel‑transform integrand at the current radius r.
+ *        Computes a product between the radius r, the Bessel 
+ *        function of the first kind of order nu, and a function
+ *        supplied through FBTparams.
+ * 
+ * @param r          radius
+ * @param FBTparams  pointer to a struct containing nu, Q and function to integrate
+ */
 double intdeo_FBT(double r, void *FBTparams) {
-    /* 
-    Auxiliary function that computes the value of the 
-    Hankel‑transform integrand at the current radius r.
-    Computes a product between the radius r, the Bessel 
-    function of the first kind of order nu, and a function
-    supplied through FBTparams.
-
-    Receives:
-      r           radius
-      *FBTparams  pointer to a struct containing nu, Q and function to integrate
-    */
     params_struct *FBTparam_struct;
     FBTparam_struct = (params_struct *) FBTparams;
     if (r==0) return 0;
@@ -48,28 +47,39 @@ double intdeo_FBT(double r, void *FBTparams) {
     return r * bessel * fval;
 }
 
+/** 
+ * @brief Auxiliary function computing the 
+ *        double‑exponential (DE) / tanh–sinh transform.
+ */
 double DEtransform(double t) {
-    /* 
-    Auxiliary function computing the 
-    double‑exponential (DE) / tanh–sinh transform.
-    */
     return t * tanh(M_PI_2 * sinh(t));
 }
 
+/** 
+ * @brief Auxiliary function that computes the derivative of a 
+ *        “double‑exponential (DE) change of variables”, that is 
+ *        commonly used in numerical integration (quadrature).
+ *        Specifically, this is the tanh–sinh (double exponential) 
+ *        transformation.
+ */
 double deriv_DEtransform(double t){
-    /* 
-    Auxiliary function that computes the derivative of a 
-    “double‑exponential (DE) change of variables”, that is 
-    commonly used in numerical integration (quadrature).
-    Specifically, this is the tanh–sinh (double exponential) transformation.
-    */ 
     double res;
     res = 1. / cosh(M_PI_2 * sinh(t));
     res = M_PI_2 * t * cosh(t) * res * res + tanh(M_PI_2 * sinh(t));
     return res;
 }
 
-
+/** 
+ * @brief Computes Hankel transform, using de-quadrature.
+ * @note Corresponds to strategy 0 in SASfit, or HANKEL_OOURA_DEO.
+ *        
+ * @param nu         order of bessel function - must be 0 or 1
+ * @param f          pointer to form factor function
+ * @param x          value at which to compute the transform
+ * @param fparams    params for form factor
+ * @param n_eval     integer indicating number of function evaluations (N_ogata in SASfit)
+ * @param eps_rel    relative error allowed e.g. 1e-9 (eps_nriq in SASfit)
+ */ 
 double hankel_transform_DE_Quadrature(
     int nu, 
     double (*f)(double, double (*)[50]), 
@@ -77,18 +87,7 @@ double hankel_transform_DE_Quadrature(
     double (*fparams)[50], 
     double n_eval, 
     double eps_rel) {
-    /* 
-    Computes Hankel transform, using de-quadrature.
-    Corresponds to strategy 0 in SASfit, or HANKEL_OOURA_DEO.
 
-    Receives:
-        nu         order of bessel function (typically 0)
-        *f         pointer to form factor function
-        x          value at which to compute the transform
-        *fparams   params for form factor
-        n_eval     integer indicating number of function evaluations (N_ogata in SASfit)
-        eps_rel    relative error allowed e.g. 1e-9 (eps_nriq in SASfit)
-    */ 
     int lenaw = 4000;
     int rounded_N;
     double res0, err0, res, err, a, *aw, nv;
@@ -117,7 +116,17 @@ double hankel_transform_DE_Quadrature(
     return res;
 }
 
-
+/** 
+ * @brief Computes Hankel transform, using de-quadrature.
+ * @note Corresponds to strategy 1 in SASfit or HANKEL_OGATA_2005.
+ * 
+ * @param nu         order of bessel function - must be 0 or 1
+ * @param f          pointer to form factor function
+ * @param x          value at which to compute the transform
+ * @param fparams    params for form factor
+ * @param n_eval     integer indicating number of function evaluations (N_ogata in SASfit)
+ * @param f_max      float indicating starting guess for max in form factor (h_ogata in SASfit)
+ */ 
 double hankel_transform_DE_Ogata(
     int nu, 
     double (*f)(double, double (*)[50]), 
@@ -125,18 +134,7 @@ double hankel_transform_DE_Ogata(
     double (*fparams)[50], 
     double n_eval, 
     double f_max) {
-    /* 
-    Function descr
-    Corresponds to strategy 1 in SASfit or HANKEL_OGATA_2005.
 
-    Receives:
-        nu         order of bessel function (typically 0)
-        *f         pointer to form factor function
-        x          value at which to compute the transform
-        *fparams   params for form factor
-        n_eval     integer indicating number of function evaluations (N_ogata in SASfit)
-        f_max      float indicating starting guess for max in form factor (h_ogata in SASfit)
-    */ 
     double res, zeros_PI, phi_dot, y_k, w_nv_k, J_nv, sum, nv;
     int i;
     sum = 0.0;
