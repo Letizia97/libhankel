@@ -15,11 +15,14 @@ This file contains only 2 Hankel strategies, both DE quadrature algorithms, corr
 */
 
 
+/**
+ * @brief Struct of parameters to be used in DE hankel functions.
+ */
 typedef struct {
-	void *fparams;  // parameters for the supplied function 
-	double (* function) (double, double (*)[50]);  // function to integrate
-	double nu;  // order of the Bessel function
-	double Q;   // radial Fourier variable, i.e. conjugate wavenumber to radius r
+	void *fparams;  /**< parameters for the supplied function */
+	double (* function) (double, double (*)[50]);  /**< function to integrate */
+	double nu;  /**< order of the Bessel function */
+	double Q;   /**< radial Fourier variable, i.e. conj wavenumber to radius r */
 } params_struct;
 
 

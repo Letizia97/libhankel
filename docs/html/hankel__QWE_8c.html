@@ -97,8 +97,10 @@ Include dependency graph for hankel_QWE.c:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a8c95338695ae44cb2cfda15df70a6d4d"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hankel__QWE_8c.html#a8c95338695ae44cb2cfda15df70a6d4d">hankel_transform_QWE_Key</a> (int nu, double(*f)(double, double(*)[50]), double x, double(*fparams)[50], double n_eval, double eps_rel)</td></tr>
+<tr class="memdesc:a8c95338695ae44cb2cfda15df70a6d4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes Hankel transform using the Quadrature With Extrapolation method by Key.  <a href="hankel__QWE_8c.html#a8c95338695ae44cb2cfda15df70a6d4d">More...</a><br /></td></tr>
 <tr class="separator:a8c95338695ae44cb2cfda15df70a6d4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afad73fe3da299188a01ce2caa1135cdf"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hankel__QWE_8c.html#afad73fe3da299188a01ce2caa1135cdf">hankel_transform_QWE_Chave</a> (int nu, double(*f)(double, double(*)[50]), double x, double(*fparams)[50], double n_eval, double eps_rel)</td></tr>
+<tr class="memdesc:afad73fe3da299188a01ce2caa1135cdf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes Hankel transform using the Quadrature With Extrapolation method by Chave.  <a href="hankel__QWE_8c.html#afad73fe3da299188a01ce2caa1135cdf">More...</a><br /></td></tr>
 <tr class="separator:afad73fe3da299188a01ce2caa1135cdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
@@ -152,6 +154,20 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Computes Hankel transform using the Quadrature With Extrapolation method by Chave. </p>
+<dl class="section note"><dt>Note</dt><dd>Corresponds to strategy 13 in SASfit.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nu</td><td>order of bessel function - must be 0 or 1 </td></tr>
+    <tr><td class="paramname">f</td><td>pointer to form factor function </td></tr>
+    <tr><td class="paramname">x</td><td>value at which to compute the transform </td></tr>
+    <tr><td class="paramname">fparams</td><td>params for form factor </td></tr>
+    <tr><td class="paramname">n_eval</td><td>integer indicating number of function evaluations (N_ogata in SASfit) </td></tr>
+    <tr><td class="paramname">eps_rel</td><td>relative error allowed e.g. 1e-9 (eps_nriq in SASfit) </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="a8c95338695ae44cb2cfda15df70a6d4d"></a>
@@ -203,6 +219,20 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Computes Hankel transform using the Quadrature With Extrapolation method by Key. </p>
+<dl class="section note"><dt>Note</dt><dd>Corresponds to strategy 12 in SASfit.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nu</td><td>order of bessel function - must be 0 or 1 </td></tr>
+    <tr><td class="paramname">f</td><td>pointer to form factor function </td></tr>
+    <tr><td class="paramname">x</td><td>value at which to compute the transform </td></tr>
+    <tr><td class="paramname">fparams</td><td>params for form factor </td></tr>
+    <tr><td class="paramname">n_eval</td><td>integer indicating number of function evaluations (N_ogata in SASfit) </td></tr>
+    <tr><td class="paramname">eps_rel</td><td>relative error allowed e.g. 1e-9 (eps_nriq in SASfit) </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

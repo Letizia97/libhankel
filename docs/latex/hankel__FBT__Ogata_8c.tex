@@ -6,8 +6,7 @@
 {\ttfamily \#include $<$gsl/gsl\+\_\+math.\+h$>$}\newline
 {\ttfamily \#include $<$gsl/gsl\+\_\+sf.\+h$>$}\newline
 {\ttfamily \#include $<$gsl/gsl\+\_\+sf\+\_\+bessel.\+h$>$}\newline
-Include dependency graph for hankel\+\_\+\+FBT\+\_\+\+Ogata.\+c\+:
-\nopagebreak
+Include dependency graph for hankel\+\_\+\+FBT\+\_\+\+Ogata.\+c\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -18,7 +17,7 @@ Include dependency graph for hankel\+\_\+\+FBT\+\_\+\+Ogata.\+c\+:
 \begin{DoxyCompactItemize}
 \item 
 double \mbox{\hyperlink{hankel__FBT__Ogata_8c_a0e43b79dab5a642c0cbcd31509d4bea8}{hankel\+\_\+transform\+\_\+\+FBT}} (int nu, double($\ast$f)(double, double($\ast$)\mbox{[}50\mbox{]}), double x, double($\ast$fparams)\mbox{[}50\mbox{]}, int n\+\_\+method, double n\+\_\+eval, double f\+\_\+max)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Computes Hankel transform using FBT. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Function Documentation}
@@ -28,3 +27,29 @@ double \mbox{\hyperlink{hankel__FBT__Ogata_8c_a0e43b79dab5a642c0cbcd31509d4bea8}
 \doxysubsubsection{\texorpdfstring{hankel\_transform\_FBT()}{hankel\_transform\_FBT()}}
 {\footnotesize\ttfamily double hankel\+\_\+transform\+\_\+\+FBT (\begin{DoxyParamCaption}\item[{int}]{nu,  }\item[{double($\ast$)(double, double($\ast$)\mbox{[}50\mbox{]})}]{f,  }\item[{double}]{x,  }\item[{double($\ast$)}]{fparams\mbox{[}50\mbox{]},  }\item[{int}]{n\+\_\+method,  }\item[{double}]{n\+\_\+eval,  }\item[{double}]{f\+\_\+max }\end{DoxyParamCaption})}
 
+
+
+Computes Hankel transform using FBT. 
+
+\begin{DoxyNote}{Note}
+Corresponds to strategies 2,3,4 in SASfit or HANKEL\+\_\+\+FBT0, etc 
+
+Requires knowledge of the form factor function, as one of the parameters passed (f\+\_\+max) is a starting guess for maximum in form factor. Performance is highly dependent on params.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em nu} & order of bessel function -\/ must be 0 or 1 \\
+\hline
+{\em f} & pointer to form factor function \\
+\hline
+{\em x} & value at which to compute the transform \\
+\hline
+{\em fparams} & params for form factor \\
+\hline
+{\em n\+\_\+eval} & integer indicating number of function evaluations (N\+\_\+ogata in SASfit) \\
+\hline
+{\em f\+\_\+max} & float indicating starting guess for maximum in form factor (h\+\_\+ogata in SASfit) \\
+\hline
+{\em n\+\_\+method} & FBT method to use among 0,1,2 (modified, unmodified, fixed h Ogata) \\
+\hline
+\end{DoxyParams}

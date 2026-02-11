@@ -98,19 +98,25 @@ Include dependency graph for hankel_DE_quadrature.c:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structparams__struct.html">params_struct</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Struct of parameters to be used in DE hankel functions.  <a href="structparams__struct.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ae18ef418501c82562c9865b3f40af2a5"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hankel__DE__quadrature_8c.html#ae18ef418501c82562c9865b3f40af2a5">intdeo_FBT</a> (double r, void *FBTparams)</td></tr>
+<tr class="memdesc:ae18ef418501c82562c9865b3f40af2a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Auxiliary function that computes the value of the Hankel‑transform integrand at the current radius r. Computes a product between the radius r, the Bessel function of the first kind of order nu, and a function supplied through FBTparams.  <a href="hankel__DE__quadrature_8c.html#ae18ef418501c82562c9865b3f40af2a5">More...</a><br /></td></tr>
 <tr class="separator:ae18ef418501c82562c9865b3f40af2a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0b592bbf4d81eb176017f3cdf7c74d51"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hankel__DE__quadrature_8c.html#a0b592bbf4d81eb176017f3cdf7c74d51">DEtransform</a> (double t)</td></tr>
+<tr class="memdesc:a0b592bbf4d81eb176017f3cdf7c74d51"><td class="mdescLeft">&#160;</td><td class="mdescRight">Auxiliary function computing the double‑exponential (DE) / tanh–sinh transform.  <a href="hankel__DE__quadrature_8c.html#a0b592bbf4d81eb176017f3cdf7c74d51">More...</a><br /></td></tr>
 <tr class="separator:a0b592bbf4d81eb176017f3cdf7c74d51"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae1b03fc133041f7c13160312b02afc8c"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hankel__DE__quadrature_8c.html#ae1b03fc133041f7c13160312b02afc8c">deriv_DEtransform</a> (double t)</td></tr>
+<tr class="memdesc:ae1b03fc133041f7c13160312b02afc8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Auxiliary function that computes the derivative of a “double‑exponential (DE) change of variables”, that is commonly used in numerical integration (quadrature). Specifically, this is the tanh–sinh (double exponential) transformation.  <a href="hankel__DE__quadrature_8c.html#ae1b03fc133041f7c13160312b02afc8c">More...</a><br /></td></tr>
 <tr class="separator:ae1b03fc133041f7c13160312b02afc8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6d29eb44a2ce2ea6d9d90b65595fb374"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hankel__DE__quadrature_8c.html#a6d29eb44a2ce2ea6d9d90b65595fb374">hankel_transform_DE_Quadrature</a> (int nu, double(*f)(double, double(*)[50]), double x, double(*fparams)[50], double n_eval, double eps_rel)</td></tr>
+<tr class="memdesc:a6d29eb44a2ce2ea6d9d90b65595fb374"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes Hankel transform, using de-quadrature.  <a href="hankel__DE__quadrature_8c.html#a6d29eb44a2ce2ea6d9d90b65595fb374">More...</a><br /></td></tr>
 <tr class="separator:a6d29eb44a2ce2ea6d9d90b65595fb374"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2a0938de00b596b1721faa3b7baf28c6"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hankel__DE__quadrature_8c.html#a2a0938de00b596b1721faa3b7baf28c6">hankel_transform_DE_Ogata</a> (int nu, double(*f)(double, double(*)[50]), double x, double(*fparams)[50], double n_eval, double f_max)</td></tr>
+<tr class="memdesc:a2a0938de00b596b1721faa3b7baf28c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes Hankel transform, using de-quadrature.  <a href="hankel__DE__quadrature_8c.html#a2a0938de00b596b1721faa3b7baf28c6">More...</a><br /></td></tr>
 <tr class="separator:a2a0938de00b596b1721faa3b7baf28c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
@@ -130,6 +136,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Auxiliary function that computes the derivative of a “double‑exponential (DE) change of variables”, that is commonly used in numerical integration (quadrature). Specifically, this is the tanh–sinh (double exponential) transformation. </p>
+
 </div>
 </div>
 <a id="a0b592bbf4d81eb176017f3cdf7c74d51"></a>
@@ -147,6 +155,8 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Auxiliary function computing the double‑exponential (DE) / tanh–sinh transform. </p>
 
 </div>
 </div>
@@ -200,6 +210,20 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Computes Hankel transform, using de-quadrature. </p>
+<dl class="section note"><dt>Note</dt><dd>Corresponds to strategy 1 in SASfit or HANKEL_OGATA_2005.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nu</td><td>order of bessel function - must be 0 or 1 </td></tr>
+    <tr><td class="paramname">f</td><td>pointer to form factor function </td></tr>
+    <tr><td class="paramname">x</td><td>value at which to compute the transform </td></tr>
+    <tr><td class="paramname">fparams</td><td>params for form factor </td></tr>
+    <tr><td class="paramname">n_eval</td><td>integer indicating number of function evaluations (N_ogata in SASfit) </td></tr>
+    <tr><td class="paramname">f_max</td><td>float indicating starting guess for max in form factor (h_ogata in SASfit) </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="a6d29eb44a2ce2ea6d9d90b65595fb374"></a>
@@ -252,6 +276,20 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Computes Hankel transform, using de-quadrature. </p>
+<dl class="section note"><dt>Note</dt><dd>Corresponds to strategy 0 in SASfit, or HANKEL_OOURA_DEO.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nu</td><td>order of bessel function - must be 0 or 1 </td></tr>
+    <tr><td class="paramname">f</td><td>pointer to form factor function </td></tr>
+    <tr><td class="paramname">x</td><td>value at which to compute the transform </td></tr>
+    <tr><td class="paramname">fparams</td><td>params for form factor </td></tr>
+    <tr><td class="paramname">n_eval</td><td>integer indicating number of function evaluations (N_ogata in SASfit) </td></tr>
+    <tr><td class="paramname">eps_rel</td><td>relative error allowed e.g. 1e-9 (eps_nriq in SASfit) </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="ae18ef418501c82562c9865b3f40af2a5"></a>
@@ -279,6 +317,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Auxiliary function that computes the value of the Hankel‑transform integrand at the current radius r. Computes a product between the radius r, the Bessel function of the first kind of order nu, and a function supplied through FBTparams. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">r</td><td>radius </td></tr>
+    <tr><td class="paramname">FBTparams</td><td>pointer to a struct containing nu, Q and function to integrate </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

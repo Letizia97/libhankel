@@ -7,8 +7,7 @@
 {\ttfamily \#include $<$gsl/gsl\+\_\+sf.\+h$>$}\newline
 {\ttfamily \#include $<$gsl/gsl\+\_\+sf\+\_\+bessel.\+h$>$}\newline
 {\ttfamily \#include \char`\"{}external\+\_\+libs\+\_\+based\+\_\+work/\+DE-\/quadrature/intde.\+h\char`\"{}}\newline
-Include dependency graph for hankel\+\_\+\+DE\+\_\+quadrature.\+c\+:
-\nopagebreak
+Include dependency graph for hankel\+\_\+\+DE\+\_\+quadrature.\+c\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -19,20 +18,20 @@ Include dependency graph for hankel\+\_\+\+DE\+\_\+quadrature.\+c\+:
 \begin{DoxyCompactItemize}
 \item 
 struct \mbox{\hyperlink{structparams__struct}{params\+\_\+struct}}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Struct of parameters to be used in DE hankel functions. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 double \mbox{\hyperlink{hankel__DE__quadrature_8c_ae18ef418501c82562c9865b3f40af2a5}{intdeo\+\_\+\+FBT}} (double r, void $\ast$FBTparams)
-\item 
+\begin{DoxyCompactList}\small\item\em Auxiliary function that computes the value of the Hankel‑transform integrand at the current radius r. Computes a product between the radius r, the Bessel function of the first kind of order nu, and a function supplied through FBTparams. \end{DoxyCompactList}\item 
 double \mbox{\hyperlink{hankel__DE__quadrature_8c_a0b592bbf4d81eb176017f3cdf7c74d51}{DEtransform}} (double t)
-\item 
+\begin{DoxyCompactList}\small\item\em Auxiliary function computing the double‑exponential (DE) / tanh–sinh transform. \end{DoxyCompactList}\item 
 double \mbox{\hyperlink{hankel__DE__quadrature_8c_ae1b03fc133041f7c13160312b02afc8c}{deriv\+\_\+\+DEtransform}} (double t)
-\item 
+\begin{DoxyCompactList}\small\item\em Auxiliary function that computes the derivative of a “double‑exponential (DE) change of variables”, that is commonly used in numerical integration (quadrature). Specifically, this is the tanh–sinh (double exponential) transformation. \end{DoxyCompactList}\item 
 double \mbox{\hyperlink{hankel__DE__quadrature_8c_a6d29eb44a2ce2ea6d9d90b65595fb374}{hankel\+\_\+transform\+\_\+\+DE\+\_\+\+Quadrature}} (int nu, double($\ast$f)(double, double($\ast$)\mbox{[}50\mbox{]}), double x, double($\ast$fparams)\mbox{[}50\mbox{]}, double n\+\_\+eval, double eps\+\_\+rel)
-\item 
+\begin{DoxyCompactList}\small\item\em Computes Hankel transform, using de-\/quadrature. \end{DoxyCompactList}\item 
 double \mbox{\hyperlink{hankel__DE__quadrature_8c_a2a0938de00b596b1721faa3b7baf28c6}{hankel\+\_\+transform\+\_\+\+DE\+\_\+\+Ogata}} (int nu, double($\ast$f)(double, double($\ast$)\mbox{[}50\mbox{]}), double x, double($\ast$fparams)\mbox{[}50\mbox{]}, double n\+\_\+eval, double f\+\_\+max)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Computes Hankel transform, using de-\/quadrature. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Function Documentation}
@@ -42,11 +41,19 @@ double \mbox{\hyperlink{hankel__DE__quadrature_8c_a2a0938de00b596b1721faa3b7baf2
 \doxysubsubsection{\texorpdfstring{deriv\_DEtransform()}{deriv\_DEtransform()}}
 {\footnotesize\ttfamily double deriv\+\_\+\+DEtransform (\begin{DoxyParamCaption}\item[{double}]{t }\end{DoxyParamCaption})}
 
+
+
+Auxiliary function that computes the derivative of a “double‑exponential (DE) change of variables”, that is commonly used in numerical integration (quadrature). Specifically, this is the tanh–sinh (double exponential) transformation. 
+
 \mbox{\Hypertarget{hankel__DE__quadrature_8c_a0b592bbf4d81eb176017f3cdf7c74d51}\label{hankel__DE__quadrature_8c_a0b592bbf4d81eb176017f3cdf7c74d51}} 
 \index{hankel\_DE\_quadrature.c@{hankel\_DE\_quadrature.c}!DEtransform@{DEtransform}}
 \index{DEtransform@{DEtransform}!hankel\_DE\_quadrature.c@{hankel\_DE\_quadrature.c}}
 \doxysubsubsection{\texorpdfstring{DEtransform()}{DEtransform()}}
 {\footnotesize\ttfamily double DEtransform (\begin{DoxyParamCaption}\item[{double}]{t }\end{DoxyParamCaption})}
+
+
+
+Auxiliary function computing the double‑exponential (DE) / tanh–sinh transform. 
 
 \mbox{\Hypertarget{hankel__DE__quadrature_8c_a2a0938de00b596b1721faa3b7baf28c6}\label{hankel__DE__quadrature_8c_a2a0938de00b596b1721faa3b7baf28c6}} 
 \index{hankel\_DE\_quadrature.c@{hankel\_DE\_quadrature.c}!hankel\_transform\_DE\_Ogata@{hankel\_transform\_DE\_Ogata}}
@@ -54,15 +61,70 @@ double \mbox{\hyperlink{hankel__DE__quadrature_8c_a2a0938de00b596b1721faa3b7baf2
 \doxysubsubsection{\texorpdfstring{hankel\_transform\_DE\_Ogata()}{hankel\_transform\_DE\_Ogata()}}
 {\footnotesize\ttfamily double hankel\+\_\+transform\+\_\+\+DE\+\_\+\+Ogata (\begin{DoxyParamCaption}\item[{int}]{nu,  }\item[{double($\ast$)(double, double($\ast$)\mbox{[}50\mbox{]})}]{f,  }\item[{double}]{x,  }\item[{double($\ast$)}]{fparams\mbox{[}50\mbox{]},  }\item[{double}]{n\+\_\+eval,  }\item[{double}]{f\+\_\+max }\end{DoxyParamCaption})}
 
+
+
+Computes Hankel transform, using de-\/quadrature. 
+
+\begin{DoxyNote}{Note}
+Corresponds to strategy 1 in SASfit or HANKEL\+\_\+\+OGATA\+\_\+2005.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em nu} & order of bessel function -\/ must be 0 or 1 \\
+\hline
+{\em f} & pointer to form factor function \\
+\hline
+{\em x} & value at which to compute the transform \\
+\hline
+{\em fparams} & params for form factor \\
+\hline
+{\em n\+\_\+eval} & integer indicating number of function evaluations (N\+\_\+ogata in SASfit) \\
+\hline
+{\em f\+\_\+max} & float indicating starting guess for max in form factor (h\+\_\+ogata in SASfit) \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{hankel__DE__quadrature_8c_a6d29eb44a2ce2ea6d9d90b65595fb374}\label{hankel__DE__quadrature_8c_a6d29eb44a2ce2ea6d9d90b65595fb374}} 
 \index{hankel\_DE\_quadrature.c@{hankel\_DE\_quadrature.c}!hankel\_transform\_DE\_Quadrature@{hankel\_transform\_DE\_Quadrature}}
 \index{hankel\_transform\_DE\_Quadrature@{hankel\_transform\_DE\_Quadrature}!hankel\_DE\_quadrature.c@{hankel\_DE\_quadrature.c}}
 \doxysubsubsection{\texorpdfstring{hankel\_transform\_DE\_Quadrature()}{hankel\_transform\_DE\_Quadrature()}}
 {\footnotesize\ttfamily double hankel\+\_\+transform\+\_\+\+DE\+\_\+\+Quadrature (\begin{DoxyParamCaption}\item[{int}]{nu,  }\item[{double($\ast$)(double, double($\ast$)\mbox{[}50\mbox{]})}]{f,  }\item[{double}]{x,  }\item[{double($\ast$)}]{fparams\mbox{[}50\mbox{]},  }\item[{double}]{n\+\_\+eval,  }\item[{double}]{eps\+\_\+rel }\end{DoxyParamCaption})}
 
+
+
+Computes Hankel transform, using de-\/quadrature. 
+
+\begin{DoxyNote}{Note}
+Corresponds to strategy 0 in SASfit, or HANKEL\+\_\+\+OOURA\+\_\+\+DEO.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em nu} & order of bessel function -\/ must be 0 or 1 \\
+\hline
+{\em f} & pointer to form factor function \\
+\hline
+{\em x} & value at which to compute the transform \\
+\hline
+{\em fparams} & params for form factor \\
+\hline
+{\em n\+\_\+eval} & integer indicating number of function evaluations (N\+\_\+ogata in SASfit) \\
+\hline
+{\em eps\+\_\+rel} & relative error allowed e.\+g. 1e-\/9 (eps\+\_\+nriq in SASfit) \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{hankel__DE__quadrature_8c_ae18ef418501c82562c9865b3f40af2a5}\label{hankel__DE__quadrature_8c_ae18ef418501c82562c9865b3f40af2a5}} 
 \index{hankel\_DE\_quadrature.c@{hankel\_DE\_quadrature.c}!intdeo\_FBT@{intdeo\_FBT}}
 \index{intdeo\_FBT@{intdeo\_FBT}!hankel\_DE\_quadrature.c@{hankel\_DE\_quadrature.c}}
 \doxysubsubsection{\texorpdfstring{intdeo\_FBT()}{intdeo\_FBT()}}
 {\footnotesize\ttfamily double intdeo\+\_\+\+FBT (\begin{DoxyParamCaption}\item[{double}]{r,  }\item[{void $\ast$}]{FBTparams }\end{DoxyParamCaption})}
 
+
+
+Auxiliary function that computes the value of the Hankel‑transform integrand at the current radius r. Computes a product between the radius r, the Bessel function of the first kind of order nu, and a function supplied through FBTparams. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em r} & radius \\
+\hline
+{\em FBTparams} & pointer to a struct containing nu, Q and function to integrate \\
+\hline
+\end{DoxyParams}

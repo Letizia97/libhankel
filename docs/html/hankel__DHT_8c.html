@@ -107,6 +107,7 @@ Include dependency graph for hankel_DHT.c:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a3b699bda7ed1067959b929aa57815226"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hankel__DHT_8c.html#a3b699bda7ed1067959b929aa57815226">hankel_transform_DHT</a> (int nu, double(*f)(double, double(*)[50]), double x, double(*fparams)[50], int n_strategy)</td></tr>
+<tr class="memdesc:a3b699bda7ed1067959b929aa57815226"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes Hankel transform, using digital filters.  <a href="hankel__DHT_8c.html#a3b699bda7ed1067959b929aa57815226">More...</a><br /></td></tr>
 <tr class="separator:a3b699bda7ed1067959b929aa57815226"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
@@ -153,6 +154,23 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Computes Hankel transform, using digital filters. </p>
+<dl class="section note"><dt>Note</dt><dd>Corresponds to strategies 6-11 in SASfit. </dd>
+<dd>
+Does not allow any error control. </dd>
+<dd>
+Perform wells for simple form factors, but it does struggle with oscillatory ones. For oscillatory form factors, it is advisable to start with this method for a rough Hankel transform computation, and then refine it with "hankel_transform_QWE_Chave" or "hankel_transform_QWE_Key".</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nu</td><td>order of bessel function - must be 0 or 1 </td></tr>
+    <tr><td class="paramname">f</td><td>pointer to form factor function </td></tr>
+    <tr><td class="paramname">x</td><td>value at which to compute the transform </td></tr>
+    <tr><td class="paramname">fparams</td><td>params for form factor </td></tr>
+    <tr><td class="paramname">n_strategy</td><td>an integer number between 6 and 11 (determines which weightings to use for the transform and corresponds to SASfit strategies 6-11) </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
