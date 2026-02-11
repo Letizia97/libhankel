@@ -9,7 +9,7 @@
  * @param q          value at which to compute the Hankel t
  * @param params     pointer to an array of params for the function
  * 
- * Params must contain :
+ * @note Params must contain :
  *      -   XI
  *      -   H
  *      -   ETA
@@ -24,7 +24,7 @@ double form_factor_g_dab(double q, double (*params)[50]);
  * @param q          value at which to compute the Hankel t
  * @param params     pointer to an array of params for the function
  * 
- * Params must contain :
+ * @note Params must contain :
  *      -   R
  *      -   ETA
  */    
@@ -38,7 +38,7 @@ double form_factor_sphere(double q, double (*params)[50]);
  * @param q          value at which to compute the Hankel t
  * @param params     pointer to an array of params for the function
  * 
- * Params must contain :
+ * @note Params must contain :
  *      -   I0
  *      -   XI
  *      -   Q0

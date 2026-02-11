@@ -1,0 +1,104 @@
+\hypertarget{form__factors_8c}{}\doxysection{src/form\+\_\+factors.c File Reference}
+\label{form__factors_8c}\index{src/form\_factors.c@{src/form\_factors.c}}
+{\ttfamily \#include \char`\"{}include/form\+\_\+factors.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$gsl/gsl\+\_\+math.\+h$>$}\newline
+{\ttfamily \#include $<$gsl/gsl\+\_\+sf.\+h$>$}\newline
+{\ttfamily \#include $<$gsl/gsl\+\_\+sf\+\_\+bessel.\+h$>$}\newline
+Include dependency graph for form\+\_\+factors.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{form__factors_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+double \mbox{\hyperlink{form__factors_8c_aae792362bdf2202ba303bae532134c48}{form\+\_\+factor\+\_\+g\+\_\+dab}} (double q, double($\ast$params)\mbox{[}50\mbox{]})
+\begin{DoxyCompactList}\small\item\em Computes the g\+\_\+dab form factor. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{form__factors_8c_a720612bb3d12c6b6c608f30c3705d64c}{form\+\_\+factor\+\_\+sphere}} (double q, double($\ast$params)\mbox{[}50\mbox{]})
+\begin{DoxyCompactList}\small\item\em Computes the sphere form factor. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{form__factors_8c_a40d045fff6a6f27cb5fc959379152ece}{form\+\_\+factor\+\_\+broad\+\_\+peak}} (double q, double($\ast$params)\mbox{[}50\mbox{]})
+\begin{DoxyCompactList}\small\item\em Computes the broad\+\_\+peak form factor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{form__factors_8c_a40d045fff6a6f27cb5fc959379152ece}\label{form__factors_8c_a40d045fff6a6f27cb5fc959379152ece}} 
+\index{form\_factors.c@{form\_factors.c}!form\_factor\_broad\_peak@{form\_factor\_broad\_peak}}
+\index{form\_factor\_broad\_peak@{form\_factor\_broad\_peak}!form\_factors.c@{form\_factors.c}}
+\doxysubsubsection{\texorpdfstring{form\_factor\_broad\_peak()}{form\_factor\_broad\_peak()}}
+{\footnotesize\ttfamily double form\+\_\+factor\+\_\+broad\+\_\+peak (\begin{DoxyParamCaption}\item[{double}]{q,  }\item[{double($\ast$)}]{params\mbox{[}50\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Computes the broad\+\_\+peak form factor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em q} & value at which to compute the Hankel t \\
+\hline
+{\em params} & pointer to an array of params for the function\\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Params must contain \+:
+\begin{DoxyItemize}
+\item I0
+\item XI
+\item Q0
+\item M
+\item P 
+\end{DoxyItemize}
+\end{DoxyNote}
+\mbox{\Hypertarget{form__factors_8c_aae792362bdf2202ba303bae532134c48}\label{form__factors_8c_aae792362bdf2202ba303bae532134c48}} 
+\index{form\_factors.c@{form\_factors.c}!form\_factor\_g\_dab@{form\_factor\_g\_dab}}
+\index{form\_factor\_g\_dab@{form\_factor\_g\_dab}!form\_factors.c@{form\_factors.c}}
+\doxysubsubsection{\texorpdfstring{form\_factor\_g\_dab()}{form\_factor\_g\_dab()}}
+{\footnotesize\ttfamily double form\+\_\+factor\+\_\+g\+\_\+dab (\begin{DoxyParamCaption}\item[{double}]{q,  }\item[{double($\ast$)}]{params\mbox{[}50\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Computes the g\+\_\+dab form factor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em q} & value at which to compute the Hankel t \\
+\hline
+{\em params} & pointer to an array of params for the function\\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Params must contain \+:
+\begin{DoxyItemize}
+\item XI
+\item H
+\item ETA 
+\end{DoxyItemize}
+\end{DoxyNote}
+\mbox{\Hypertarget{form__factors_8c_a720612bb3d12c6b6c608f30c3705d64c}\label{form__factors_8c_a720612bb3d12c6b6c608f30c3705d64c}} 
+\index{form\_factors.c@{form\_factors.c}!form\_factor\_sphere@{form\_factor\_sphere}}
+\index{form\_factor\_sphere@{form\_factor\_sphere}!form\_factors.c@{form\_factors.c}}
+\doxysubsubsection{\texorpdfstring{form\_factor\_sphere()}{form\_factor\_sphere()}}
+{\footnotesize\ttfamily double form\+\_\+factor\+\_\+sphere (\begin{DoxyParamCaption}\item[{double}]{q,  }\item[{double($\ast$)}]{params\mbox{[}50\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Computes the sphere form factor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em q} & value at which to compute the Hankel t \\
+\hline
+{\em params} & pointer to an array of params for the function\\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Params must contain \+:
+\begin{DoxyItemize}
+\item R
+\item ETA 
+\end{DoxyItemize}
+\end{DoxyNote}

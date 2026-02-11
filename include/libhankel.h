@@ -2,6 +2,20 @@
 #ifndef LIBHANKEL_H
 #define LIBHANKEL_H
 
+
+/** @mainpage Libhankel
+
+Welcome to the documentation for **Libhankel**.
+
+Here you can find:
+- Overview
+- Usage examples
+- API reference
+- Module descriptions
+
+*/
+
+
 // strategies 6-11 (DHT)
 double hankel_transform_DHT(
 	int nu, 

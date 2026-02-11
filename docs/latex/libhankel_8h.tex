@@ -1,0 +1,72 @@
+\hypertarget{libhankel_8h}{}\doxysection{include/libhankel.h File Reference}
+\label{libhankel_8h}\index{include/libhankel.h@{include/libhankel.h}}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{libhankel_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+double \mbox{\hyperlink{libhankel_8h_a3b699bda7ed1067959b929aa57815226}{hankel\+\_\+transform\+\_\+\+DHT}} (int nu, double($\ast$f)(double, double($\ast$)\mbox{[}50\mbox{]}), double x, double($\ast$fparams)\mbox{[}50\mbox{]}, int n\+\_\+strategy)
+\item 
+double \mbox{\hyperlink{libhankel_8h_a236982445912257112e599f55c3b1f61}{compute\+\_\+hankel\+\_\+\+FBT}} (int nu, double($\ast$f)(double, double($\ast$)\mbox{[}50\mbox{]}), double x, double($\ast$fparams)\mbox{[}50\mbox{]}, int n\+\_\+method, int N, double h)
+\item 
+double \mbox{\hyperlink{libhankel_8h_a0e43b79dab5a642c0cbcd31509d4bea8}{hankel\+\_\+transform\+\_\+\+FBT}} (int nu, double($\ast$f)(double, double($\ast$)\mbox{[}50\mbox{]}), double x, double($\ast$fparams)\mbox{[}50\mbox{]}, int n\+\_\+method, double n\+\_\+eval, double f\+\_\+max)
+\item 
+double \mbox{\hyperlink{libhankel_8h_a6d29eb44a2ce2ea6d9d90b65595fb374}{hankel\+\_\+transform\+\_\+\+DE\+\_\+\+Quadrature}} (int nu, double($\ast$f)(double, double($\ast$)\mbox{[}50\mbox{]}), double x, double($\ast$fparams)\mbox{[}50\mbox{]}, double n\+\_\+eval, double eps\+\_\+rel)
+\item 
+double \mbox{\hyperlink{libhankel_8h_a2a0938de00b596b1721faa3b7baf28c6}{hankel\+\_\+transform\+\_\+\+DE\+\_\+\+Ogata}} (int nu, double($\ast$f)(double, double($\ast$)\mbox{[}50\mbox{]}), double x, double($\ast$fparams)\mbox{[}50\mbox{]}, double n\+\_\+eval, double f\+\_\+max)
+\item 
+double \mbox{\hyperlink{libhankel_8h_a8c95338695ae44cb2cfda15df70a6d4d}{hankel\+\_\+transform\+\_\+\+QWE\+\_\+\+Key}} (int nu, double($\ast$f)(double, double($\ast$)\mbox{[}50\mbox{]}), double x, double($\ast$fparams)\mbox{[}50\mbox{]}, double n\+\_\+eval, double eps\+\_\+rel)
+\item 
+double \mbox{\hyperlink{libhankel_8h_afad73fe3da299188a01ce2caa1135cdf}{hankel\+\_\+transform\+\_\+\+QWE\+\_\+\+Chave}} (int nu, double($\ast$f)(double, double($\ast$)\mbox{[}50\mbox{]}), double x, double($\ast$fparams)\mbox{[}50\mbox{]}, double n\+\_\+eval, double eps\+\_\+rel)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{libhankel_8h_a236982445912257112e599f55c3b1f61}\label{libhankel_8h_a236982445912257112e599f55c3b1f61}} 
+\index{libhankel.h@{libhankel.h}!compute\_hankel\_FBT@{compute\_hankel\_FBT}}
+\index{compute\_hankel\_FBT@{compute\_hankel\_FBT}!libhankel.h@{libhankel.h}}
+\doxysubsubsection{\texorpdfstring{compute\_hankel\_FBT()}{compute\_hankel\_FBT()}}
+{\footnotesize\ttfamily double compute\+\_\+hankel\+\_\+\+FBT (\begin{DoxyParamCaption}\item[{int}]{nu,  }\item[{double($\ast$)(double, double($\ast$)\mbox{[}50\mbox{]})}]{f,  }\item[{double}]{x,  }\item[{double($\ast$)}]{fparams\mbox{[}50\mbox{]},  }\item[{int}]{n\+\_\+method,  }\item[{int}]{N,  }\item[{double}]{h }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{libhankel_8h_a2a0938de00b596b1721faa3b7baf28c6}\label{libhankel_8h_a2a0938de00b596b1721faa3b7baf28c6}} 
+\index{libhankel.h@{libhankel.h}!hankel\_transform\_DE\_Ogata@{hankel\_transform\_DE\_Ogata}}
+\index{hankel\_transform\_DE\_Ogata@{hankel\_transform\_DE\_Ogata}!libhankel.h@{libhankel.h}}
+\doxysubsubsection{\texorpdfstring{hankel\_transform\_DE\_Ogata()}{hankel\_transform\_DE\_Ogata()}}
+{\footnotesize\ttfamily double hankel\+\_\+transform\+\_\+\+DE\+\_\+\+Ogata (\begin{DoxyParamCaption}\item[{int}]{nu,  }\item[{double($\ast$)(double, double($\ast$)\mbox{[}50\mbox{]})}]{f,  }\item[{double}]{x,  }\item[{double($\ast$)}]{fparams\mbox{[}50\mbox{]},  }\item[{double}]{n\+\_\+eval,  }\item[{double}]{f\+\_\+max }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{libhankel_8h_a6d29eb44a2ce2ea6d9d90b65595fb374}\label{libhankel_8h_a6d29eb44a2ce2ea6d9d90b65595fb374}} 
+\index{libhankel.h@{libhankel.h}!hankel\_transform\_DE\_Quadrature@{hankel\_transform\_DE\_Quadrature}}
+\index{hankel\_transform\_DE\_Quadrature@{hankel\_transform\_DE\_Quadrature}!libhankel.h@{libhankel.h}}
+\doxysubsubsection{\texorpdfstring{hankel\_transform\_DE\_Quadrature()}{hankel\_transform\_DE\_Quadrature()}}
+{\footnotesize\ttfamily double hankel\+\_\+transform\+\_\+\+DE\+\_\+\+Quadrature (\begin{DoxyParamCaption}\item[{int}]{nu,  }\item[{double($\ast$)(double, double($\ast$)\mbox{[}50\mbox{]})}]{f,  }\item[{double}]{x,  }\item[{double($\ast$)}]{fparams\mbox{[}50\mbox{]},  }\item[{double}]{n\+\_\+eval,  }\item[{double}]{eps\+\_\+rel }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{libhankel_8h_a3b699bda7ed1067959b929aa57815226}\label{libhankel_8h_a3b699bda7ed1067959b929aa57815226}} 
+\index{libhankel.h@{libhankel.h}!hankel\_transform\_DHT@{hankel\_transform\_DHT}}
+\index{hankel\_transform\_DHT@{hankel\_transform\_DHT}!libhankel.h@{libhankel.h}}
+\doxysubsubsection{\texorpdfstring{hankel\_transform\_DHT()}{hankel\_transform\_DHT()}}
+{\footnotesize\ttfamily double hankel\+\_\+transform\+\_\+\+DHT (\begin{DoxyParamCaption}\item[{int}]{nu,  }\item[{double($\ast$)(double, double($\ast$)\mbox{[}50\mbox{]})}]{f,  }\item[{double}]{x,  }\item[{double($\ast$)}]{fparams\mbox{[}50\mbox{]},  }\item[{int}]{n\+\_\+strategy }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{libhankel_8h_a0e43b79dab5a642c0cbcd31509d4bea8}\label{libhankel_8h_a0e43b79dab5a642c0cbcd31509d4bea8}} 
+\index{libhankel.h@{libhankel.h}!hankel\_transform\_FBT@{hankel\_transform\_FBT}}
+\index{hankel\_transform\_FBT@{hankel\_transform\_FBT}!libhankel.h@{libhankel.h}}
+\doxysubsubsection{\texorpdfstring{hankel\_transform\_FBT()}{hankel\_transform\_FBT()}}
+{\footnotesize\ttfamily double hankel\+\_\+transform\+\_\+\+FBT (\begin{DoxyParamCaption}\item[{int}]{nu,  }\item[{double($\ast$)(double, double($\ast$)\mbox{[}50\mbox{]})}]{f,  }\item[{double}]{x,  }\item[{double($\ast$)}]{fparams\mbox{[}50\mbox{]},  }\item[{int}]{n\+\_\+method,  }\item[{double}]{n\+\_\+eval,  }\item[{double}]{f\+\_\+max }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{libhankel_8h_afad73fe3da299188a01ce2caa1135cdf}\label{libhankel_8h_afad73fe3da299188a01ce2caa1135cdf}} 
+\index{libhankel.h@{libhankel.h}!hankel\_transform\_QWE\_Chave@{hankel\_transform\_QWE\_Chave}}
+\index{hankel\_transform\_QWE\_Chave@{hankel\_transform\_QWE\_Chave}!libhankel.h@{libhankel.h}}
+\doxysubsubsection{\texorpdfstring{hankel\_transform\_QWE\_Chave()}{hankel\_transform\_QWE\_Chave()}}
+{\footnotesize\ttfamily double hankel\+\_\+transform\+\_\+\+QWE\+\_\+\+Chave (\begin{DoxyParamCaption}\item[{int}]{nu,  }\item[{double($\ast$)(double, double($\ast$)\mbox{[}50\mbox{]})}]{f,  }\item[{double}]{x,  }\item[{double($\ast$)}]{fparams\mbox{[}50\mbox{]},  }\item[{double}]{n\+\_\+eval,  }\item[{double}]{eps\+\_\+rel }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{libhankel_8h_a8c95338695ae44cb2cfda15df70a6d4d}\label{libhankel_8h_a8c95338695ae44cb2cfda15df70a6d4d}} 
+\index{libhankel.h@{libhankel.h}!hankel\_transform\_QWE\_Key@{hankel\_transform\_QWE\_Key}}
+\index{hankel\_transform\_QWE\_Key@{hankel\_transform\_QWE\_Key}!libhankel.h@{libhankel.h}}
+\doxysubsubsection{\texorpdfstring{hankel\_transform\_QWE\_Key()}{hankel\_transform\_QWE\_Key()}}
+{\footnotesize\ttfamily double hankel\+\_\+transform\+\_\+\+QWE\+\_\+\+Key (\begin{DoxyParamCaption}\item[{int}]{nu,  }\item[{double($\ast$)(double, double($\ast$)\mbox{[}50\mbox{]})}]{f,  }\item[{double}]{x,  }\item[{double($\ast$)}]{fparams\mbox{[}50\mbox{]},  }\item[{double}]{n\+\_\+eval,  }\item[{double}]{eps\+\_\+rel }\end{DoxyParamCaption})}
+
