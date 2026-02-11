@@ -131,11 +131,11 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>Params must contain :<ul>
-<li>I0</li>
-<li>XI</li>
-<li>Q0</li>
-<li>M</li>
-<li>P </li>
+<li>I0 forward scattering (e.g., 10e5)</li>
+<li>XI correlation length (e.g., 1000)</li>
+<li>Q0 peak position which is related to the d-spacing as q0 = 2pi/d (e.g., 0.01)</li>
+<li>M I(Q)=I0/(1+(|q-q0|*xi)^m)^p (e.g., 2)</li>
+<li>P I(Q)=I0/(1+(|q-q0|*xi)^m)^p (e.g., 2) </li>
 </ul>
 </dd></dl>
 
@@ -176,9 +176,9 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>Params must contain :<ul>
-<li>XI</li>
-<li>H</li>
-<li>ETA </li>
+<li>XI correlation length (e.g., 10.0)</li>
+<li>H Hurst exponent (e.g., 0.5)</li>
+<li>ETA scattering length density contrast (e.g., 1e-4) </li>
 </ul>
 </dd></dl>
 
@@ -219,8 +219,8 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>Params must contain :<ul>
-<li>R</li>
-<li>ETA </li>
+<li>R radius (e.g., 10.0)</li>
+<li>ETA scattering contrast (e.g., 1.0) </li>
 </ul>
 </dd></dl>
 

@@ -71,7 +71,7 @@ $(function() {
 <div class="title">form_factors.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="form__factors_8h_source.html">include/form_factors.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="form__factors_8h_source.html">form_factors.h</a>&quot;</code><br />
 <code>#include &lt;math.h&gt;</code><br />
 <code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &lt;gsl/gsl_math.h&gt;</code><br />
@@ -82,13 +82,13 @@ Include dependency graph for form_factors.c:</div>
 <div class="dyncontent">
 <div class="center"><img src="form__factors_8c__incl.png" border="0" usemap="#asrc_2form__factors_8c" alt=""/></div>
 <map name="asrc_2form__factors_8c" id="asrc_2form__factors_8c">
-<area shape="rect" title=" " alt="" coords="312,5,451,32"/>
-<area shape="rect" href="form__factors_8h.html" title=" " alt="" coords="5,80,173,107"/>
-<area shape="rect" title=" " alt="" coords="198,80,266,107"/>
-<area shape="rect" title=" " alt="" coords="291,80,357,107"/>
-<area shape="rect" title=" " alt="" coords="381,80,499,107"/>
-<area shape="rect" title=" " alt="" coords="523,80,618,107"/>
-<area shape="rect" title=" " alt="" coords="643,80,787,107"/>
+<area shape="rect" title=" " alt="" coords="260,5,399,32"/>
+<area shape="rect" href="form__factors_8h.html" title=" " alt="" coords="5,80,123,107"/>
+<area shape="rect" title=" " alt="" coords="146,80,214,107"/>
+<area shape="rect" title=" " alt="" coords="239,80,305,107"/>
+<area shape="rect" title=" " alt="" coords="329,80,447,107"/>
+<area shape="rect" title=" " alt="" coords="471,80,566,107"/>
+<area shape="rect" title=" " alt="" coords="591,80,735,107"/>
 </map>
 </div>
 </div><table class="memberdecls">
@@ -140,11 +140,11 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>Params must contain :<ul>
-<li>I0</li>
-<li>XI</li>
-<li>Q0</li>
-<li>M</li>
-<li>P </li>
+<li>I0 forward scattering (e.g., 10e5)</li>
+<li>XI correlation length (e.g., 1000)</li>
+<li>Q0 peak position which is related to the d-spacing as q0 = 2pi/d (e.g., 0.01)</li>
+<li>M I(Q)=I0/(1+(|q-q0|*xi)^m)^p (e.g., 2)</li>
+<li>P I(Q)=I0/(1+(|q-q0|*xi)^m)^p (e.g., 2) </li>
 </ul>
 </dd></dl>
 
@@ -185,9 +185,9 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>Params must contain :<ul>
-<li>XI</li>
-<li>H</li>
-<li>ETA </li>
+<li>XI correlation length (e.g., 10.0)</li>
+<li>H Hurst exponent (e.g., 0.5)</li>
+<li>ETA scattering length density contrast (e.g., 1e-4) </li>
 </ul>
 </dd></dl>
 
@@ -228,8 +228,8 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>Params must contain :<ul>
-<li>R</li>
-<li>ETA </li>
+<li>R radius (e.g., 10.0)</li>
+<li>ETA scattering contrast (e.g., 1.0) </li>
 </ul>
 </dd></dl>
 
