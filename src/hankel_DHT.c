@@ -37,7 +37,7 @@ changing the n_strategy parameter allows to switch between them
  * @param nu         order of bessel function - must be 0 or 1
  * @param f          pointer to form factor function
  * @param x          value at which to compute the transform
- * @param fparams    params for form factor
+ * @param f_params    params for form factor
  * @param output     pointer to var containing output from transform 
  * @param n_strategy an integer number between 6 and 11 
  *                   (determines which weightings to use for the transform
@@ -47,7 +47,7 @@ double hankel_transform_DHT(
     int nu, 
     double (*f)(double, double (*)[50]), 
     double x, 
-    double (*fparams)[50], 
+    double (*f_params)[50], 
     double *output,
     int n_strategy) {
 
@@ -75,12 +75,12 @@ double hankel_transform_DHT(
             if (nu==0) {
                 for (i=0; i<120; i++) {
                     lambda = pow(10.0E0, (aJ0 + i*sJ0)) / x;
-                    res = res + (*f)(lambda, fparams) * lambda * WJ0[i] / x;
+                    res = res + (*f)(lambda, f_params) * lambda * WJ0[i] / x;
                 }
             } else {
                 for (i=0; i<140; i++) {
                     lambda = pow(10.0E0, (aJ1 + i*sJ1)) / x;
-                    res = res + (*f)(lambda, fparams) * lambda * WJ1[i] / x;
+                    res = res + (*f)(lambda, f_params) * lambda * WJ1[i] / x;
                 }
             }
             break;
@@ -90,12 +90,12 @@ double hankel_transform_DHT(
             if (nu==0) {
                 for (i=0; i<61; i++) {
                     lambda = pow(10.0E0, (aJ0Fast + i*sJ0Fast))/x;
-                    res = res+(*f)(lambda, fparams) * lambda * WJ0Fast[i] / x;
+                    res = res+(*f)(lambda, f_params) * lambda * WJ0Fast[i] / x;
                 }
             } else {
                 for (i=0; i<47; i++) {
                     lambda = pow(10.0E0, (aJ1Fast + i*sJ1Fast)) / x;
-                    res = res + (*f)(lambda, fparams) * lambda * WJ0Fast[i] / x;
+                    res = res + (*f)(lambda, f_params) * lambda * WJ0Fast[i] / x;
                 }
             }
             break;
@@ -104,7 +104,7 @@ double hankel_transform_DHT(
             // HANKEL_KEY_51
             for (i=0; i<51; i++) {
                 lambda = KK51Hankel[i][0] / x;
-                res = res + (*f)(lambda, fparams) * lambda * KK51Hankel[i][ind] / x;
+                res = res + (*f)(lambda, f_params) * lambda * KK51Hankel[i][ind] / x;
             }
             break;
         }
@@ -112,7 +112,7 @@ double hankel_transform_DHT(
             // HANKEL_KEY_101
             for (i=0; i<101; i++) {
                 lambda = KK101Hankel[i][0]/x;
-                res = res + (*f)(lambda, fparams) * lambda * KK101Hankel[i][ind] / x;
+                res = res + (*f)(lambda, f_params) * lambda * KK101Hankel[i][ind] / x;
             }
             break;
         }
@@ -120,7 +120,7 @@ double hankel_transform_DHT(
             // HANKEL_KEY_201
             for (i=0; i<201; i++) {
                 lambda = KK201Hankel[i][0] / x;
-                res = res + (*f)(lambda, fparams) * lambda * KK201Hankel[i][ind] / x;
+                res = res + (*f)(lambda, f_params) * lambda * KK201Hankel[i][ind] / x;
             }
             break;
         }
@@ -128,7 +128,7 @@ double hankel_transform_DHT(
             // HANKEL_ANDERSON_801
             for (i=0; i<801; i++) {
                 lambda = WA801Hankel[i][0] / x;
-                res = res + (*f)(lambda, fparams) * lambda * WA801Hankel[i][ind] / x;
+                res = res + (*f)(lambda, f_params) * lambda * WA801Hankel[i][ind] / x;
             } 
             break;
 

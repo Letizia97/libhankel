@@ -19,7 +19,7 @@ This file contains only 2 Hankel strategies, both DE quadrature algorithms, corr
  * @brief Struct of parameters to be used in DE hankel functions.
  */
 typedef struct {
-	void *fparams;  /**< parameters for the supplied function */
+	void *f_params;  /**< parameters for the supplied function */
 	double (* function) (double, double (*)[50]);  /**< function to integrate */
 	double nu;  /**< order of the Bessel function */
 	double Q;   /**< radial Fourier variable, i.e. conj wavenumber to radius r */
@@ -45,7 +45,7 @@ double intdeo_FBT(double r, void *FBTparams) {
     double Q  = FBTparam_struct->Q;
 
     double bessel = gsl_sf_bessel_Jnu(nu, Q * r);
-    double fval   = FBTparam_struct->function(r, FBTparam_struct->fparams);
+    double fval   = FBTparam_struct->function(r, FBTparam_struct->f_params);
 
     return r * bessel * fval;
 }
@@ -79,7 +79,7 @@ double deriv_DEtransform(double t){
  * @param nu         order of bessel function - must be 0 or 1
  * @param f          pointer to form factor function
  * @param x          value at which to compute the transform
- * @param fparams    params for form factor
+ * @param f_params    params for form factor
  * @param n_eval     integer indicating number of function evaluations (N_ogata in SASfit)
  * @param eps_rel    relative error allowed e.g. 1e-9 (eps_nriq in SASfit)
  */ 
@@ -87,7 +87,7 @@ double hankel_transform_DE_Quadrature(
     int nu, 
     double (*f)(double, double (*)[50]), 
     double x, 
-    double (*fparams)[50], 
+    double (*f_params)[50], 
     double n_eval, 
     double eps_rel) {
 
@@ -98,7 +98,7 @@ double hankel_transform_DE_Quadrature(
     nv = abs(nu);
 
     params_struct FBTparam_struct;
-    FBTparam_struct.fparams=fparams;
+    FBTparam_struct.f_params=f_params;
     FBTparam_struct.function=f;
     FBTparam_struct.nu=nu;
     FBTparam_struct.Q=x;
@@ -126,7 +126,7 @@ double hankel_transform_DE_Quadrature(
  * @param nu         order of bessel function - must be 0 or 1
  * @param f          pointer to form factor function
  * @param x          value at which to compute the transform
- * @param fparams    params for form factor
+ * @param f_params    params for form factor
  * @param output     pointer to var containing output from transform 
  * @param n_eval     integer indicating number of function evaluations (N_ogata in SASfit)
  * @param f_max      float indicating starting guess for max in form factor (h_ogata in SASfit)
@@ -135,7 +135,7 @@ double hankel_transform_DE_Ogata(
     int nu, 
     double (*f)(double, double (*)[50]), 
     double x, 
-    double (*fparams)[50], 
+    double (*f_params)[50], 
     double *output,
     double n_eval, 
     double f_max) {
@@ -151,7 +151,7 @@ double hankel_transform_DE_Ogata(
         y_k = DEtransform(f_max * zeros_PI) * M_PI / f_max;
         w_nv_k = 2./ (gsl_pow_2(M_PI * gsl_sf_bessel_Jnu(nv + 1, zeros_PI * M_PI)) * zeros_PI);
         J_nv = gsl_sf_bessel_Jnu(nv, y_k);
-        res =  w_nv_k * y_k * (*f)(y_k / x, fparams) * J_nv * phi_dot;
+        res =  w_nv_k * y_k * (*f)(y_k / x, f_params) * J_nv * phi_dot;
         sum = sum + res;
     }
 

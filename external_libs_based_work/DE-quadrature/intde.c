@@ -261,7 +261,7 @@ void sasfit_intdeini(int lenaw, double tiny, double eps, double *aw)
 
 
 void sasfit_intde(double (*f)(double, void *), double a, double b, double *aw, 
-    double *i, double *err, void *fparams)
+    double *i, double *err, void *f_params)
 {
     int noff, lenawm, nk, k, j, jtmp, jm, m, klim;
     double epsh, ba, ir, xa, fa, fb, errt, errh, errd, h, iback, irback;
@@ -271,7 +271,7 @@ void sasfit_intde(double (*f)(double, void *), double a, double b, double *aw,
     nk = (int) (aw[1] + 0.5);
     epsh = aw[4];
     ba = b - a;
-    *i = (*f)((a + b) * aw[noff],fparams);
+    *i = (*f)((a + b) * aw[noff],f_params);
     ir = *i * aw[noff + 1];
     *i *= aw[noff + 2];
     *err = fabs(*i);
@@ -280,8 +280,8 @@ void sasfit_intde(double (*f)(double, void *), double a, double b, double *aw,
     do {
         j += 3;
         xa = ba * aw[j];
-        fa = (*f)(a + xa,fparams);
-        fb = (*f)(b - xa,fparams);
+        fa = (*f)(a + xa,f_params);
+        fb = (*f)(b - xa,f_params);
         ir += (fa + fb) * aw[j + 1];
         fa *= aw[j + 2];
         fb *= aw[j + 2];
@@ -294,7 +294,7 @@ void sasfit_intde(double (*f)(double, void *), double a, double b, double *aw,
     jtmp = j;
     while (fabs(fa) > errt && j < k) {
         j += 3;
-        fa = (*f)(a + ba * aw[j],fparams);
+        fa = (*f)(a + ba * aw[j],f_params);
         ir += fa * aw[j + 1];
         fa *= aw[j + 2];
         *i += fa;
@@ -303,7 +303,7 @@ void sasfit_intde(double (*f)(double, void *), double a, double b, double *aw,
     j = jtmp;
     while (fabs(fb) > errt && j < k) {
         j += 3;
-        fb = (*f)(b - ba * aw[j],fparams);
+        fb = (*f)(b - ba * aw[j],f_params);
         ir += fb * aw[j + 1];
         fb *= aw[j + 2];
         *i += fb;
@@ -320,8 +320,8 @@ void sasfit_intde(double (*f)(double, void *), double a, double b, double *aw,
             jtmp = k + jm;
             for (j = k + 3; j <= jtmp; j += 3) {
                 xa = ba * aw[j];
-                fa = (*f)(a + xa,fparams);
-                fb = (*f)(b - xa,fparams);
+                fa = (*f)(a + xa,f_params);
+                fb = (*f)(b - xa,f_params);
                 ir += (fa + fb) * aw[j + 1];
                 *i += (fa + fb) * aw[j + 2];
             }
@@ -329,7 +329,7 @@ void sasfit_intde(double (*f)(double, void *), double a, double b, double *aw,
             j = jtmp;
             do {
                 j += 3;
-                fa = (*f)(a + ba * aw[j],fparams);
+                fa = (*f)(a + ba * aw[j],f_params);
                 ir += fa * aw[j + 1];
                 fa *= aw[j + 2];
                 *i += fa;
@@ -337,7 +337,7 @@ void sasfit_intde(double (*f)(double, void *), double a, double b, double *aw,
             j = jtmp;
             do {
                 j += 3;
-                fb = (*f)(b - ba * aw[j],fparams);
+                fb = (*f)(b - ba * aw[j],f_params);
                 ir += fb * aw[j + 1];
                 fb *= aw[j + 2];
                 *i += fb;
@@ -421,7 +421,7 @@ void sasfit_intdeiini(int lenaw, double tiny, double eps, double *aw)
 
 
 void sasfit_intdei(double (*f)(double, void *), double a, double *aw, double *i, 
-    double *err, void * fparams)
+    double *err, void * f_params)
 {
     int noff, lenawm, nk, k, j, jtmp, jm, m, klim;
     double epsh, ir, fp, fm, errt, errh, errd, h, iback, irback;
@@ -430,7 +430,7 @@ void sasfit_intdei(double (*f)(double, void *), double a, double *aw, double *i,
     lenawm = (int) (aw[0] + 0.5);
     nk = (int) (aw[1] + 0.5);
     epsh = aw[4];
-    *i = (*f)(a + aw[noff],fparams);
+    *i = (*f)(a + aw[noff],f_params);
     ir = *i * aw[noff + 1];
     *i *= aw[noff + 2];
     *err = fabs(*i);
@@ -438,8 +438,8 @@ void sasfit_intdei(double (*f)(double, void *), double a, double *aw, double *i,
     j = noff;
     do {
         j += 6;
-        fm = (*f)(a + aw[j],fparams);
-        fp = (*f)(a + aw[j + 1],fparams);
+        fm = (*f)(a + aw[j],f_params);
+        fp = (*f)(a + aw[j + 1],f_params);
         ir += fm * aw[j + 2] + fp * aw[j + 3];
         fm *= aw[j + 4];
         fp *= aw[j + 5];
@@ -452,7 +452,7 @@ void sasfit_intdei(double (*f)(double, void *), double a, double *aw, double *i,
     jtmp = j;
     while (fabs(fm) > errt && j < k) {
         j += 6;
-        fm = (*f)(a + aw[j],fparams);
+        fm = (*f)(a + aw[j],f_params);
         ir += fm * aw[j + 2];
         fm *= aw[j + 4];
         *i += fm;
@@ -461,7 +461,7 @@ void sasfit_intdei(double (*f)(double, void *), double a, double *aw, double *i,
     j = jtmp;
     while (fabs(fp) > errt && j < k) {
         j += 6;
-        fp = (*f)(a + aw[j + 1],fparams);
+        fp = (*f)(a + aw[j + 1],f_params);
         ir += fp * aw[j + 3];
         fp *= aw[j + 5];
         *i += fp;
@@ -477,8 +477,8 @@ void sasfit_intdei(double (*f)(double, void *), double a, double *aw, double *i,
         do {
             jtmp = k + jm;
             for (j = k + 6; j <= jtmp; j += 6) {
-                fm = (*f)(a + aw[j],fparams);
-                fp = (*f)(a + aw[j + 1],fparams);
+                fm = (*f)(a + aw[j],f_params);
+                fp = (*f)(a + aw[j + 1],f_params);
                 ir += fm * aw[j + 2] + fp * aw[j + 3];
                 *i += fm * aw[j + 4] + fp * aw[j + 5];
             }
@@ -486,7 +486,7 @@ void sasfit_intdei(double (*f)(double, void *), double a, double *aw, double *i,
             j = jtmp;
             do {
                 j += 6;
-                fm = (*f)(a + aw[j],fparams);
+                fm = (*f)(a + aw[j],f_params);
                 ir += fm * aw[j + 2];
                 fm *= aw[j + 4];
                 *i += fm;
@@ -494,7 +494,7 @@ void sasfit_intdei(double (*f)(double, void *), double a, double *aw, double *i,
             j = jtmp;
             do {
                 j += 6;
-                fp = (*f)(a + aw[j + 1],fparams);
+                fp = (*f)(a + aw[j + 1],f_params);
                 ir += fp * aw[j + 3];
                 fp *= aw[j + 5];
                 *i += fp;
@@ -598,7 +598,7 @@ void sasfit_intdeoini(int lenaw, double tiny, double eps, double *aw)
 
 
 void sasfit_intdeo(double (*f)(double, void *), double a, double omega, double *aw, 
-    double *i, double *err, void *fparams)
+    double *i, double *err, void *f_params)
 {
     int lenawm, nk0, noff0, nk, noff, lmax, m, k, j, jm, l;
     double eps, per, perw, w02, ir, h, iback, irback, t, tk, 
@@ -616,7 +616,7 @@ void sasfit_intdeo(double (*f)(double, void *), double a, double omega, double *
     w02 = 2 * aw[noff + 2];
     perw = per * w02;
     
-    *i = (*f)(a + aw[noff] * per,fparams);
+    *i = (*f)(a + aw[noff] * per,f_params);
     
     ir = *i * aw[noff + 1];
     
@@ -640,8 +640,8 @@ void sasfit_intdeo(double (*f)(double, void *), double a, double omega, double *
                 do {
                     j += 3;
                     xa = per * aw[j];
-                    fm = (*f)(a + xa,fparams);
-                    fp = (*f)(a + xa + perw * tk,fparams);
+                    fm = (*f)(a + xa,f_params);
+                    fp = (*f)(a + xa + perw * tk,f_params);
                     ir += (fm + fp) * aw[j + 1];
                     fm *= aw[j + 2];
                     fp *= w02 - aw[j + 2];
@@ -656,8 +656,8 @@ void sasfit_intdeo(double (*f)(double, void *), double a, double omega, double *
                 tk = t;
                 for (j = k + 3; j <= k + jm; j += 3) {
                     xa = per * aw[j];
-                    fm = (*f)(a + xa,fparams);
-                    fp = (*f)(a + xa + perw * tk,fparams);
+                    fm = (*f)(a + xa,f_params);
+                    fp = (*f)(a + xa + perw * tk,f_params);
                     ir += (fm + fp) * aw[j + 1];
                     fm *= aw[j + 2];
                     fp *= w02 - aw[j + 2];
@@ -669,12 +669,12 @@ void sasfit_intdeo(double (*f)(double, void *), double a, double omega, double *
             }
             while (fabs(fm) > *err && j < k) {
                 j += 3;
-                fm = (*f)(a + per * aw[j],fparams);
+                fm = (*f)(a + per * aw[j],f_params);
                 ir += fm * aw[j + 1];
                 fm *= aw[j + 2];
                 *i += fm;
             }
-            fm = (*f)(a + perw * tk,fparams);
+            fm = (*f)(a + perw * tk,f_params);
             s2 = w02 * fm;
             *i += s2;
             if (fabs(fp) > *err || fabs(s2) > *err) {
@@ -686,7 +686,7 @@ void sasfit_intdeo(double (*f)(double, void *), double a, double omega, double *
                     s2 = fm * aw[noff0 + 1];
                     for (j = noff0 + 2; j <= noff - 2; j += 2) {
                         tk += 1;
-                        fm = (*f)(a + perw * tk,fparams);
+                        fm = (*f)(a + perw * tk,f_params);
                         s0 += fm;
                         s1 += fm * aw[j];
                         s2 += fm * aw[j + 1];

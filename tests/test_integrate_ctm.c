@@ -41,11 +41,11 @@ TestContext ctx = {
 
 // Needed for computing G0
 double spheres_ff_at_0(double q, hankel_inputs *params){
-    return q * form_factor_sphere(q, params->fparams);
+    return q * form_factor_sphere(q, params->f_params);
 }
 
 double gdab_ff_at_0(double q, hankel_inputs *params){
-    return q * form_factor_g_dab(q, params->fparams);
+    return q * form_factor_g_dab(q, params->f_params);
 }
 
 
@@ -68,7 +68,7 @@ void setUp(void) {
 
     // set inputs
     inputs.function = form_factor_sphere;
-    inputs.fparams=params_spheres;
+    inputs.f_params=params_spheres;
 	inputs.other_inputs[0] = nu;
 	inputs.other_inputs[1] = 0;
 
@@ -84,7 +84,7 @@ void setUp(void) {
     ctx.actual_spheres = G0_spheres;
 
     inputs.function = form_factor_g_dab;
-    inputs.fparams=params_gdab;
+    inputs.f_params=params_gdab;
     G0_gdab = sasfit_integrate_ctm(
         0,
         INFINITY,

@@ -92,13 +92,13 @@ Data Structures</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ae0d00c65625f496e0d3cf47f4532a812"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hankel__transform_8c.html#ae0d00c65625f496e0d3cf47f4532a812">hankel_transform</a> (int nu, double(*f)(double, double(*)[50]), double x, double(*fparams)[50], double *output, char strategy_name, const void *<a class="el" href="structstrategy__params.html">strategy_params</a>)</td></tr>
-<tr class="memdesc:ae0d00c65625f496e0d3cf47f4532a812"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes Hankel transform using the method specified by the user.  <a href="hankel__transform_8c.html#ae0d00c65625f496e0d3cf47f4532a812">More...</a><br /></td></tr>
-<tr class="separator:ae0d00c65625f496e0d3cf47f4532a812"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a484cdaaa4f6f8251c14f2e0dd0c883fd"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hankel__transform_8c.html#a484cdaaa4f6f8251c14f2e0dd0c883fd">hankel_transform</a> (int nu, double(*f)(double, double(*)[50]), double x, double(*f_params)[50], double *output, char strategy_name, const void *<a class="el" href="structstrategy__params.html">strategy_params</a>)</td></tr>
+<tr class="memdesc:a484cdaaa4f6f8251c14f2e0dd0c883fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes Hankel transform using the method specified by the user.  <a href="hankel__transform_8c.html#a484cdaaa4f6f8251c14f2e0dd0c883fd">More...</a><br /></td></tr>
+<tr class="separator:a484cdaaa4f6f8251c14f2e0dd0c883fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="ae0d00c65625f496e0d3cf47f4532a812"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae0d00c65625f496e0d3cf47f4532a812">&#9670;&nbsp;</a></span>hankel_transform()</h2>
+<a id="a484cdaaa4f6f8251c14f2e0dd0c883fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a484cdaaa4f6f8251c14f2e0dd0c883fd">&#9670;&nbsp;</a></span>hankel_transform()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -125,7 +125,7 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">double(*)&#160;</td>
-          <td class="paramname"><em>fparams</em>[50], </td>
+          <td class="paramname"><em>f_params</em>[50], </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -160,7 +160,7 @@ Functions</h2></td></tr>
     <tr><td class="paramname">nu</td><td>order of bessel function - must be 0 or 1 </td></tr>
     <tr><td class="paramname">f</td><td>pointer to form factor function </td></tr>
     <tr><td class="paramname">x</td><td>value at which to compute the transform </td></tr>
-    <tr><td class="paramname">fparams</td><td>params for form factor </td></tr>
+    <tr><td class="paramname">f_params</td><td>params for form factor </td></tr>
     <tr><td class="paramname">output</td><td>pointer to var containing output from transform </td></tr>
     <tr><td class="paramname">strategy_name</td><td>str corresponding to the strategy name </td></tr>
     <tr><td class="paramname"><a class="el" href="structstrategy__params.html">strategy_params</a></td><td>struct containing params for the specific strategy (please use the docs to find params required by each strategy) </td></tr>

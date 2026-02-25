@@ -5,7 +5,7 @@
 
 typedef struct
 {
-	void *             fparams; 
+	void *             f_params; 
 	double             other_inputs[50];    
 	double (*function)(double,  double (*)[50]); //(double, void *);
 } hankel_inputs;

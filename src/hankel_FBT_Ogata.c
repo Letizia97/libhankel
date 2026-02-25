@@ -26,7 +26,7 @@ Specifically:
  * @param nu         order of bessel function - must be 0 or 1
  * @param f          pointer to form factor function
  * @param x          value at which to compute the transform
- * @param fparams    params for form factor
+ * @param f_params    params for form factor
  * @param n_eval     integer indicating number of function evaluations (N_ogata in SASfit)
  * @param f_max      float indicating starting guess for maximum in form factor (h_ogata in SASfit)
  * @param n_method   FBT method to use among 0,1,2 (modified, unmodified, fixed h Ogata)
@@ -35,12 +35,12 @@ double hankel_transform_FBT(
     int nu, 
     double (*f)(double, double (*)[50]), 
     double x, 
-    double (*fparams)[50], 
+    double (*f_params)[50], 
     int n_method, 
     double n_eval, 
     double f_max) {
 
     double res; 
-    res = compute_hankel_FBT(nu, f, x, fparams, n_method, n_eval, f_max);
+    res = compute_hankel_FBT(nu, f, x, f_params, n_method, n_eval, f_max);
     return res;
 }

@@ -11,14 +11,14 @@ extern "C"
 }
 
 
-double compute_hankel_FBT(int nu, double (*intern_fct)(double, double (*)[50]), double x, double (*fparams)[50], int n_method, int N, double h){
+double compute_hankel_FBT(int nu, double (*intern_fct)(double, double (*)[50]), double x, double (*f_params)[50], int n_method, int N, double h){
     /*
     Computes Hankel transform using function from external FBT library.
 
     Receives:
         - x:    point at which to compute the transform
         - (*intern_fct)(double, void *):    function to use for computing the transform
-        - * fparams:    parameters for the function
+        - * f_params:    parameters for the function
         - nu: order of Bessel function
         - n_method: integer among 0,1,2 for : modified, unmodified, fixed h Ogata
         - N: constant corresponding to number of function calls 
@@ -29,5 +29,5 @@ double compute_hankel_FBT(int nu, double (*intern_fct)(double, double (*)[50]), 
     gsl_set_error_handler_off();
 
     FBT FBT_instance = FBT(nu, n_method, N, h);
-	return FBT_instance.fbt(std::bind(intern_fct, std::placeholders::_1, fparams), x);
+	return FBT_instance.fbt(std::bind(intern_fct, std::placeholders::_1, f_params), x);
 } 

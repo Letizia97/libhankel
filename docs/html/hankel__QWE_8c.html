@@ -98,16 +98,16 @@ Include dependency graph for hankel_QWE.c:</div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a131cd6edf62e610d51bf2d35e2100f35"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hankel__QWE_8c.html#a131cd6edf62e610d51bf2d35e2100f35">hankel_transform_QWE_Key</a> (int nu, double(*f)(double, double(*)[50]), double x, double(*fparams)[50], double *output, double n_eval, double eps_rel)</td></tr>
-<tr class="memdesc:a131cd6edf62e610d51bf2d35e2100f35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes Hankel transform using the Quadrature With Extrapolation method by Key.  <a href="hankel__QWE_8c.html#a131cd6edf62e610d51bf2d35e2100f35">More...</a><br /></td></tr>
-<tr class="separator:a131cd6edf62e610d51bf2d35e2100f35"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5ddf5ac1e24d382d8d7e0bcc7e1ba4a0"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hankel__QWE_8c.html#a5ddf5ac1e24d382d8d7e0bcc7e1ba4a0">hankel_transform_QWE_Chave</a> (int nu, double(*f)(double, double(*)[50]), double x, double(*fparams)[50], double *output, double n_eval, double eps_rel)</td></tr>
-<tr class="memdesc:a5ddf5ac1e24d382d8d7e0bcc7e1ba4a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes Hankel transform using the Quadrature With Extrapolation method by Chave.  <a href="hankel__QWE_8c.html#a5ddf5ac1e24d382d8d7e0bcc7e1ba4a0">More...</a><br /></td></tr>
-<tr class="separator:a5ddf5ac1e24d382d8d7e0bcc7e1ba4a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a101b7df480aba0270ea97cac2dc24772"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hankel__QWE_8c.html#a101b7df480aba0270ea97cac2dc24772">hankel_transform_QWE_Key</a> (int nu, double(*f)(double, double(*)[50]), double x, double(*f_params)[50], double *output, double n_eval, double eps_rel)</td></tr>
+<tr class="memdesc:a101b7df480aba0270ea97cac2dc24772"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes Hankel transform using the Quadrature With Extrapolation method by Key.  <a href="hankel__QWE_8c.html#a101b7df480aba0270ea97cac2dc24772">More...</a><br /></td></tr>
+<tr class="separator:a101b7df480aba0270ea97cac2dc24772"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1820d2eeef039e7da9b77c18ef5628dd"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hankel__QWE_8c.html#a1820d2eeef039e7da9b77c18ef5628dd">hankel_transform_QWE_Chave</a> (int nu, double(*f)(double, double(*)[50]), double x, double(*f_params)[50], double *output, double n_eval, double eps_rel)</td></tr>
+<tr class="memdesc:a1820d2eeef039e7da9b77c18ef5628dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes Hankel transform using the Quadrature With Extrapolation method by Chave.  <a href="hankel__QWE_8c.html#a1820d2eeef039e7da9b77c18ef5628dd">More...</a><br /></td></tr>
+<tr class="separator:a1820d2eeef039e7da9b77c18ef5628dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a5ddf5ac1e24d382d8d7e0bcc7e1ba4a0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5ddf5ac1e24d382d8d7e0bcc7e1ba4a0">&#9670;&nbsp;</a></span>hankel_transform_QWE_Chave()</h2>
+<a id="a1820d2eeef039e7da9b77c18ef5628dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1820d2eeef039e7da9b77c18ef5628dd">&#9670;&nbsp;</a></span>hankel_transform_QWE_Chave()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -134,7 +134,7 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">double(*)&#160;</td>
-          <td class="paramname"><em>fparams</em>[50], </td>
+          <td class="paramname"><em>f_params</em>[50], </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -169,7 +169,7 @@ Functions</h2></td></tr>
     <tr><td class="paramname">nu</td><td>order of bessel function - must be 0 or 1 </td></tr>
     <tr><td class="paramname">f</td><td>pointer to form factor function </td></tr>
     <tr><td class="paramname">x</td><td>value at which to compute the transform </td></tr>
-    <tr><td class="paramname">fparams</td><td>params for form factor </td></tr>
+    <tr><td class="paramname">f_params</td><td>params for form factor </td></tr>
     <tr><td class="paramname">output</td><td>pointer to var containing output from transform </td></tr>
     <tr><td class="paramname">n_eval</td><td>integer indicating number of function evaluations (N_ogata in SASfit) </td></tr>
     <tr><td class="paramname">eps_rel</td><td>relative error allowed e.g. 1e-9 (eps_nriq in SASfit) </td></tr>
@@ -179,8 +179,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a131cd6edf62e610d51bf2d35e2100f35"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a131cd6edf62e610d51bf2d35e2100f35">&#9670;&nbsp;</a></span>hankel_transform_QWE_Key()</h2>
+<a id="a101b7df480aba0270ea97cac2dc24772"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a101b7df480aba0270ea97cac2dc24772">&#9670;&nbsp;</a></span>hankel_transform_QWE_Key()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -207,7 +207,7 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">double(*)&#160;</td>
-          <td class="paramname"><em>fparams</em>[50], </td>
+          <td class="paramname"><em>f_params</em>[50], </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -242,7 +242,7 @@ Functions</h2></td></tr>
     <tr><td class="paramname">nu</td><td>order of bessel function - must be 0 or 1 </td></tr>
     <tr><td class="paramname">f</td><td>pointer to form factor function </td></tr>
     <tr><td class="paramname">x</td><td>value at which to compute the transform </td></tr>
-    <tr><td class="paramname">fparams</td><td>params for form factor </td></tr>
+    <tr><td class="paramname">f_params</td><td>params for form factor </td></tr>
     <tr><td class="paramname">output</td><td>pointer to var containing output from transform </td></tr>
     <tr><td class="paramname">n_eval</td><td>integer indicating number of function evaluations (N_ogata in SASfit) </td></tr>
     <tr><td class="paramname">eps_rel</td><td>relative error allowed e.g. 1e-9 (eps_nriq in SASfit) </td></tr>

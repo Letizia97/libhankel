@@ -193,9 +193,9 @@ cleanup_and_exit:
  *        by summation using Pade approximant to speed up convergence
  * 
  * @param nu           order of the Bessel function, either 0 or 1
- * @param f            function to compute kernel called as f(x,fparams)
+ * @param f            function to compute kernel called as f(x,f_params)
  * @param r            x where to compute the Hankel transform
- * @param fparams      input params for f
+ * @param f_params      input params for f
  * @param output       pointer to var containing output from transform 
  * @param n_max_iters  max number of partial integral intervals
  * @param rtol         relative error
@@ -205,7 +205,7 @@ double qwe_Chave(
     double nu, 
     double (*f)(double, double (*)[50]), 
     double r, 
-    void *fparams, 
+    void *f_params, 
     double *output, 
     int n_max_iters, 
     double rtol, 
@@ -229,7 +229,7 @@ double qwe_Chave(
 	inputs.function = f;
 	inputs.other_inputs[0] = nu;
 	inputs.other_inputs[1] = r;
-    inputs.fparams = fparams;
+    inputs.f_params = f_params;
 
     b = bessel_j_zero(1, nu) / r*rtol;    
     s = calloc(n_max_iters+1, sizeof(double));
@@ -261,7 +261,7 @@ double qwe_Chave(
     free(s);
 
     if (!converged) {
-        fprintf(
+        fprintf(stderr, 
             "qwe_Chave algorithm did not converge "
             "after maximum allowed intervals: %d\n", n_max_iters
         );

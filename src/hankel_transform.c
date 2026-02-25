@@ -17,7 +17,7 @@ typedef struct {
  * @param nu               order of bessel function - must be 0 or 1
  * @param f                pointer to form factor function
  * @param x                value at which to compute the transform
- * @param fparams          params for form factor
+ * @param f_params          params for form factor
  * @param output           pointer to var containing output from transform 
  * @param strategy_name    str corresponding to the strategy name
  * @param strategy_params  struct containing params for the specific strategy
@@ -27,7 +27,7 @@ double hankel_transform(
     int nu, 
     double (*f)(double, double (*)[50]), 
     double x, 
-    double (*fparams)[50], 
+    double (*f_params)[50], 
     double *output,
     char strategy_name,
     const void* strategy_params) {
@@ -39,7 +39,7 @@ double hankel_transform(
             nu, 
             f, 
             x, 
-            fparams,
+            f_params,
             output, 
             strategy_params.n_eval, 
             strategy_params.eps_rel
@@ -50,7 +50,7 @@ double hankel_transform(
             nu, 
             f, 
             x, 
-            fparams, 
+            f_params, 
             output,
             strategy_params.n_eval, 
             strategy_params.eps_rel
@@ -61,7 +61,7 @@ double hankel_transform(
             nu, 
             f, 
             x, 
-            fparams, 
+            f_params, 
             output,
             6
         )
@@ -71,7 +71,7 @@ double hankel_transform(
             nu, 
             f, 
             x, 
-            fparams, 
+            f_params, 
             output,
             7
         )
@@ -81,7 +81,7 @@ double hankel_transform(
             nu, 
             f, 
             x, 
-            fparams, 
+            f_params, 
             output,
             8
         )
@@ -91,7 +91,7 @@ double hankel_transform(
             nu, 
             f, 
             x, 
-            fparams, 
+            f_params, 
             output,
             9
         )
@@ -101,7 +101,7 @@ double hankel_transform(
             nu, 
             f, 
             x, 
-            fparams, 
+            f_params, 
             output,
             10
         )
@@ -111,7 +111,7 @@ double hankel_transform(
             nu, 
             f, 
             x, 
-            fparams, 
+            f_params, 
             output,
             11
         )

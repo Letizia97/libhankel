@@ -25,7 +25,7 @@ Specifically:
  * @param nu         order of bessel function - must be 0 or 1
  * @param f          pointer to form factor function
  * @param x          value at which to compute the transform
- * @param fparams    params for form factor
+ * @param f_params    params for form factor
  * @param output     pointer to var containing output from transform 
  * @param n_eval     integer indicating number of function evaluations (N_ogata in SASfit)
  * @param eps_rel    relative error allowed e.g. 1e-9 (eps_nriq in SASfit)
@@ -34,7 +34,7 @@ double hankel_transform_QWE_Key(
     int nu, 
     double (*f)(double, double (*)[50]), 
     double x, 
-    double (*fparams)[50], 
+    double (*f_params)[50], 
     double *output,
     double n_eval, 
     double eps_rel) {
@@ -44,7 +44,7 @@ double hankel_transform_QWE_Key(
         nu, 
         f, 
         x, 
-        fparams,
+        f_params,
         output,
         lround(n_eval),
         eps_rel*10,
@@ -60,7 +60,7 @@ double hankel_transform_QWE_Key(
  * @param nu         order of bessel function - must be 0 or 1
  * @param f          pointer to form factor function
  * @param x          value at which to compute the transform
- * @param fparams    params for form factor
+ * @param f_params    params for form factor
  * @param output     pointer to var containing output from transform 
  * @param n_eval     integer indicating number of function evaluations (N_ogata in SASfit)
  * @param eps_rel    relative error allowed e.g. 1e-9 (eps_nriq in SASfit)
@@ -69,7 +69,7 @@ double hankel_transform_QWE_Chave(
     int nu, 
     double (*f)(double, double (*)[50]), 
     double x, 
-    double (*fparams)[50], 
+    double (*f_params)[50], 
     double *output,
     double n_eval, 
     double eps_rel) {
@@ -79,7 +79,7 @@ double hankel_transform_QWE_Chave(
         nu, 
         f,
         x, 
-        fparams,
+        f_params,
         output,
         lround(n_eval),
         eps_rel*10,

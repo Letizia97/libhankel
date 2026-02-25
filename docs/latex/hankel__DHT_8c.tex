@@ -22,16 +22,16 @@ Include dependency graph for hankel\+\_\+\+DHT.\+c\+:\nopagebreak
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-double \mbox{\hyperlink{hankel__DHT_8c_a6cc8bbea57554588f6a12bb0dd80df2b}{hankel\+\_\+transform\+\_\+\+DHT}} (int nu, double($\ast$f)(double, double($\ast$)\mbox{[}50\mbox{]}), double x, double($\ast$fparams)\mbox{[}50\mbox{]}, double $\ast$output, int n\+\_\+strategy)
+double \mbox{\hyperlink{hankel__DHT_8c_a5659b38515ac61ce3244b82fa0e86c72}{hankel\+\_\+transform\+\_\+\+DHT}} (int nu, double($\ast$f)(double, double($\ast$)\mbox{[}50\mbox{]}), double x, double($\ast$f\+\_\+params)\mbox{[}50\mbox{]}, double $\ast$output, int n\+\_\+strategy)
 \begin{DoxyCompactList}\small\item\em Computes Hankel transform, using digital filters. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{hankel__DHT_8c_a6cc8bbea57554588f6a12bb0dd80df2b}\label{hankel__DHT_8c_a6cc8bbea57554588f6a12bb0dd80df2b}} 
+\mbox{\Hypertarget{hankel__DHT_8c_a5659b38515ac61ce3244b82fa0e86c72}\label{hankel__DHT_8c_a5659b38515ac61ce3244b82fa0e86c72}} 
 \index{hankel\_DHT.c@{hankel\_DHT.c}!hankel\_transform\_DHT@{hankel\_transform\_DHT}}
 \index{hankel\_transform\_DHT@{hankel\_transform\_DHT}!hankel\_DHT.c@{hankel\_DHT.c}}
 \doxysubsubsection{\texorpdfstring{hankel\_transform\_DHT()}{hankel\_transform\_DHT()}}
-{\footnotesize\ttfamily double hankel\+\_\+transform\+\_\+\+DHT (\begin{DoxyParamCaption}\item[{int}]{nu,  }\item[{double($\ast$)(double, double($\ast$)\mbox{[}50\mbox{]})}]{f,  }\item[{double}]{x,  }\item[{double($\ast$)}]{fparams\mbox{[}50\mbox{]},  }\item[{double $\ast$}]{output,  }\item[{int}]{n\+\_\+strategy }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily double hankel\+\_\+transform\+\_\+\+DHT (\begin{DoxyParamCaption}\item[{int}]{nu,  }\item[{double($\ast$)(double, double($\ast$)\mbox{[}50\mbox{]})}]{f,  }\item[{double}]{x,  }\item[{double($\ast$)}]{f\+\_\+params\mbox{[}50\mbox{]},  }\item[{double $\ast$}]{output,  }\item[{int}]{n\+\_\+strategy }\end{DoxyParamCaption})}
 
 
 
@@ -52,7 +52,7 @@ Perform wells for simple form factors, but it does struggle with oscillatory one
 \hline
 {\em x} & value at which to compute the transform \\
 \hline
-{\em fparams} & params for form factor \\
+{\em f\+\_\+params} & params for form factor \\
 \hline
 {\em output} & pointer to var containing output from transform \\
 \hline

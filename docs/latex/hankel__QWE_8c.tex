@@ -18,18 +18,18 @@ Include dependency graph for hankel\+\_\+\+QWE.\+c\+:\nopagebreak
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-double \mbox{\hyperlink{hankel__QWE_8c_a131cd6edf62e610d51bf2d35e2100f35}{hankel\+\_\+transform\+\_\+\+QWE\+\_\+\+Key}} (int nu, double($\ast$f)(double, double($\ast$)\mbox{[}50\mbox{]}), double x, double($\ast$fparams)\mbox{[}50\mbox{]}, double $\ast$output, double n\+\_\+eval, double eps\+\_\+rel)
+double \mbox{\hyperlink{hankel__QWE_8c_a101b7df480aba0270ea97cac2dc24772}{hankel\+\_\+transform\+\_\+\+QWE\+\_\+\+Key}} (int nu, double($\ast$f)(double, double($\ast$)\mbox{[}50\mbox{]}), double x, double($\ast$f\+\_\+params)\mbox{[}50\mbox{]}, double $\ast$output, double n\+\_\+eval, double eps\+\_\+rel)
 \begin{DoxyCompactList}\small\item\em Computes Hankel transform using the Quadrature With Extrapolation method by Key. \end{DoxyCompactList}\item 
-double \mbox{\hyperlink{hankel__QWE_8c_a5ddf5ac1e24d382d8d7e0bcc7e1ba4a0}{hankel\+\_\+transform\+\_\+\+QWE\+\_\+\+Chave}} (int nu, double($\ast$f)(double, double($\ast$)\mbox{[}50\mbox{]}), double x, double($\ast$fparams)\mbox{[}50\mbox{]}, double $\ast$output, double n\+\_\+eval, double eps\+\_\+rel)
+double \mbox{\hyperlink{hankel__QWE_8c_a1820d2eeef039e7da9b77c18ef5628dd}{hankel\+\_\+transform\+\_\+\+QWE\+\_\+\+Chave}} (int nu, double($\ast$f)(double, double($\ast$)\mbox{[}50\mbox{]}), double x, double($\ast$f\+\_\+params)\mbox{[}50\mbox{]}, double $\ast$output, double n\+\_\+eval, double eps\+\_\+rel)
 \begin{DoxyCompactList}\small\item\em Computes Hankel transform using the Quadrature With Extrapolation method by Chave. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{hankel__QWE_8c_a5ddf5ac1e24d382d8d7e0bcc7e1ba4a0}\label{hankel__QWE_8c_a5ddf5ac1e24d382d8d7e0bcc7e1ba4a0}} 
+\mbox{\Hypertarget{hankel__QWE_8c_a1820d2eeef039e7da9b77c18ef5628dd}\label{hankel__QWE_8c_a1820d2eeef039e7da9b77c18ef5628dd}} 
 \index{hankel\_QWE.c@{hankel\_QWE.c}!hankel\_transform\_QWE\_Chave@{hankel\_transform\_QWE\_Chave}}
 \index{hankel\_transform\_QWE\_Chave@{hankel\_transform\_QWE\_Chave}!hankel\_QWE.c@{hankel\_QWE.c}}
 \doxysubsubsection{\texorpdfstring{hankel\_transform\_QWE\_Chave()}{hankel\_transform\_QWE\_Chave()}}
-{\footnotesize\ttfamily double hankel\+\_\+transform\+\_\+\+QWE\+\_\+\+Chave (\begin{DoxyParamCaption}\item[{int}]{nu,  }\item[{double($\ast$)(double, double($\ast$)\mbox{[}50\mbox{]})}]{f,  }\item[{double}]{x,  }\item[{double($\ast$)}]{fparams\mbox{[}50\mbox{]},  }\item[{double $\ast$}]{output,  }\item[{double}]{n\+\_\+eval,  }\item[{double}]{eps\+\_\+rel }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily double hankel\+\_\+transform\+\_\+\+QWE\+\_\+\+Chave (\begin{DoxyParamCaption}\item[{int}]{nu,  }\item[{double($\ast$)(double, double($\ast$)\mbox{[}50\mbox{]})}]{f,  }\item[{double}]{x,  }\item[{double($\ast$)}]{f\+\_\+params\mbox{[}50\mbox{]},  }\item[{double $\ast$}]{output,  }\item[{double}]{n\+\_\+eval,  }\item[{double}]{eps\+\_\+rel }\end{DoxyParamCaption})}
 
 
 
@@ -46,7 +46,7 @@ Corresponds to strategy 13 in SASfit.
 \hline
 {\em x} & value at which to compute the transform \\
 \hline
-{\em fparams} & params for form factor \\
+{\em f\+\_\+params} & params for form factor \\
 \hline
 {\em output} & pointer to var containing output from transform \\
 \hline
@@ -55,11 +55,11 @@ Corresponds to strategy 13 in SASfit.
 {\em eps\+\_\+rel} & relative error allowed e.\+g. 1e-\/9 (eps\+\_\+nriq in SASfit) \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{hankel__QWE_8c_a131cd6edf62e610d51bf2d35e2100f35}\label{hankel__QWE_8c_a131cd6edf62e610d51bf2d35e2100f35}} 
+\mbox{\Hypertarget{hankel__QWE_8c_a101b7df480aba0270ea97cac2dc24772}\label{hankel__QWE_8c_a101b7df480aba0270ea97cac2dc24772}} 
 \index{hankel\_QWE.c@{hankel\_QWE.c}!hankel\_transform\_QWE\_Key@{hankel\_transform\_QWE\_Key}}
 \index{hankel\_transform\_QWE\_Key@{hankel\_transform\_QWE\_Key}!hankel\_QWE.c@{hankel\_QWE.c}}
 \doxysubsubsection{\texorpdfstring{hankel\_transform\_QWE\_Key()}{hankel\_transform\_QWE\_Key()}}
-{\footnotesize\ttfamily double hankel\+\_\+transform\+\_\+\+QWE\+\_\+\+Key (\begin{DoxyParamCaption}\item[{int}]{nu,  }\item[{double($\ast$)(double, double($\ast$)\mbox{[}50\mbox{]})}]{f,  }\item[{double}]{x,  }\item[{double($\ast$)}]{fparams\mbox{[}50\mbox{]},  }\item[{double $\ast$}]{output,  }\item[{double}]{n\+\_\+eval,  }\item[{double}]{eps\+\_\+rel }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily double hankel\+\_\+transform\+\_\+\+QWE\+\_\+\+Key (\begin{DoxyParamCaption}\item[{int}]{nu,  }\item[{double($\ast$)(double, double($\ast$)\mbox{[}50\mbox{]})}]{f,  }\item[{double}]{x,  }\item[{double($\ast$)}]{f\+\_\+params\mbox{[}50\mbox{]},  }\item[{double $\ast$}]{output,  }\item[{double}]{n\+\_\+eval,  }\item[{double}]{eps\+\_\+rel }\end{DoxyParamCaption})}
 
 
 
@@ -76,7 +76,7 @@ Corresponds to strategy 12 in SASfit.
 \hline
 {\em x} & value at which to compute the transform \\
 \hline
-{\em fparams} & params for form factor \\
+{\em f\+\_\+params} & params for form factor \\
 \hline
 {\em output} & pointer to var containing output from transform \\
 \hline

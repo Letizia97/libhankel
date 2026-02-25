@@ -21,7 +21,7 @@ double hankel_transform_DHT(
 	int nu, 
 	double (*f)(double, double (*)[50]), 
 	double x, 
-	double (*fparams)[50], 
+	double (*f_params)[50], 
 	double (*output),
 	int n_strategy
 );
@@ -31,7 +31,7 @@ double compute_hankel_FBT(
 	int nu, 
 	double (*f)(double, double (*)[50]), 
 	double x, 
-	double (*fparams)[50], 
+	double (*f_params)[50], 
 	int n_method,
 	int N, 
 	double h
@@ -40,7 +40,7 @@ double hankel_transform_FBT(
 	int nu, 
 	double (*f)(double, double (*)[50]), 
 	double x, 
-	double (*fparams)[50], 
+	double (*f_params)[50], 
 	int n_method, 
 	double n_eval, 
 	double f_max
@@ -51,7 +51,7 @@ double hankel_transform_DE_Quadrature(
 	int nu, 
 	double (*f)(double, double (*)[50]), 
 	double x, 
-	double (*fparams)[50], 
+	double (*f_params)[50], 
 	double n_eval, 
 	double eps_rel
 );
@@ -61,7 +61,7 @@ double hankel_transform_DE_Ogata(
 	int nu, 
 	double (*f)(double, double (*)[50]), 
 	double x, 
-	double (*fparams)[50], 
+	double (*f_params)[50], 
 	double (*output),
 	double n_eval, 
 	double f_max
@@ -72,7 +72,7 @@ double hankel_transform_QWE_Key(
 	int nu, 
 	double (*f)(double, double (*)[50]),
 	double x, 
-	double (*fparams)[50], 
+	double (*f_params)[50], 
 	double (*output),
 	double n_eval, 
 	double eps_rel
@@ -83,7 +83,7 @@ double hankel_transform_QWE_Chave(
 	int nu, 
 	double (*f)(double, double (*)[50]), 
 	double x, 
-	double (*fparams)[50], 
+	double (*f_params)[50], 
 	double (*output),
 	double n_eval, 
 	double eps_rel
