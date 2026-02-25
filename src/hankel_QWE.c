@@ -6,7 +6,8 @@
 #include <gsl/gsl_sf.h>
 #include <gsl/gsl_sf_bessel.h>
 
-#include "../external_libs_based_work/qwe/qwe.h"
+#include "../external_libs_based_work/qwe_Key/qwe_Key.h"
+#include "../external_libs_based_work/qwe_Chave/qwe_Chave.h"
 
 /*
 This file contains functions corresponding to strategies 12 and 13 in SASfit. 

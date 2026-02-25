@@ -1,8 +1,7 @@
 /*
- * The code is an adaption of a numerical package from Takuya OOURA 
- * (email: ooura@mmm.t.u-tokyo.ac.jp)
- * under http://www.kurims.kyoto-u.ac.jp/~ooura/ he supplies several numerical packages in Fortran and C.
- * The code below has been taken from his libarary package for numerical integration (Quadrature) - 
+ * The code is an adaption of a numerical package from Takuya OOURA (email: ooura@mmm.t.u-tokyo.ac.jp).
+ * Under http://www.kurims.kyoto-u.ac.jp/~ooura/ he supplies several numerical packages in Fortran and C.
+ * The code below has been taken from his library package for numerical integration (Quadrature) - 
  * DE Formula (Almighty Quadrature).
  * 
  * see also the References:

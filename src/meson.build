@@ -46,10 +46,10 @@ sources = files(
   'hankel_DE_quadrature.c', 
   'hankel_QWE.c', 
   '../external_libs_based_work/DE-quadrature/intde.c', 
-  '../external_libs_based_work/qwe/qwe_Chave.c', 
-  '../external_libs_based_work/qwe/qwe_Key.c', 
+  '../external_libs_based_work/qwe_Chave/qwe_Chave.c', 
+  '../external_libs_based_work/qwe_Key/qwe_Key.c', 
   'utils/sasfit_integrate.c',
-  '../external_libs_based_work/qwe/tanhsinh.c',
+  '../external_libs_based_work/utils/tanhsinh.c',
   'utils/analytical_form_factors.c',
 )
 

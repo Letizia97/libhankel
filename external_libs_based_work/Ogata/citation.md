@@ -1,0 +1,13 @@
+Zhong-Bo Kang, Alexei Prokudin, Nobuo Sato, John Terry,
+Efficient Fourier transforms for transverse momentum dependent distributions,
+Computer Physics Communications,
+Volume 258,
+2021,
+107611,
+ISSN 0010-4655,
+https://doi.org/10.1016/j.cpc.2020.107611.
+(https://www.sciencedirect.com/science/article/pii/S0010465520302903)
+Abstract: Hadron production at low transverse momenta in semi-inclusive deep inelastic scattering can be described by transverse momentum dependent (TMD) factorization. This formalism has also been widely used to study the Drell–Yan process and back-to-back hadron pair production in e+e− collisions. These processes are the main ones for extractions of TMD parton distribution functions and TMD fragmentation functions, which encode important information about nucleon structure and hadronization. One of the most widely used TMD factorization formalism in phenomenology formulates TMD observables in coordinate b⊥-space, the conjugate space of the transverse momentum. The Fourier transform from b⊥-space back into transverse momentum space is sufficiently complicated due to oscillatory integrands that it requires a careful and computationally intensive numerical treatment in order to avoid potentially large numerical errors. Within the TMD formalism, the azimuthal angular dependence is analytically integrated and the two-dimensional b⊥ integration reduces to a one-dimensional integration over the magnitude b⊥. In this paper we develop a fast numerical Hankel transform algorithm for such a b⊥-integration that improves the numerical accuracy of TMD calculations in all standard processes. Libraries for this algorithm are implemented in Python 2.7 and 3, C++, as well as FORTRAN77. All packages are made available open source.
+Program summary
+Program Title: Fast Bessel Transform (FBT) CPC Library link to program files: http://dx.doi.org/10.17632/65zkb53z8d.1 Developer’s repository link: http://github.com/UCLA-TMD/Ogata Licensing provisions: MIT Programming language: Python 2/3, C++, FORTRAN77 Nature of problem: In order to perform extractions of transverse momentum distribution functions, numerical Hankel transforms must be performed from b⊥-space to momentum space. However, these numerical Hankel transforms are a huge bottleneck in these extractions, making these extractions extremely computationally intensive. Solution method: We develop a numerical Hankel transform algorithm by optimizing Ogata quadrature formula. This algorithm improves the performance of these numerical Hankel transforms by nearly an order of magnitude.
+Keywords: CSS formalism; TMDs; Optimized ogata quadrature

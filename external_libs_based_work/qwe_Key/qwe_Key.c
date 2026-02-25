@@ -172,7 +172,7 @@ function T = qwe(rtol,atol,nIntervalsMax,func,varargin)
 end % function qwe
 */
 
-#include "external_libs_based_work/qwe/qwe.h"
+#include "external_libs_based_work/qwe_Key/qwe_Key.h"
 
 #include <float.h>
 #include <gsl/gsl_math.h>
@@ -180,7 +180,6 @@ end % function qwe
 #include <stdbool.h>
 
 #include "src/utils/sasfit_integrate.h"
-// #include "include/libhankel.h"
 
 
 double qwe_Key(
