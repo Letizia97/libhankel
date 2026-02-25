@@ -38,6 +38,7 @@ changing the n_strategy parameter allows to switch between them
  * @param f          pointer to form factor function
  * @param x          value at which to compute the transform
  * @param fparams    params for form factor
+ * @param output     pointer to var containing output from transform 
  * @param n_strategy an integer number between 6 and 11 
  *                   (determines which weightings to use for the transform
  *                   and corresponds to SASfit strategies 6-11)
@@ -47,6 +48,7 @@ double hankel_transform_DHT(
     double (*f)(double, double (*)[50]), 
     double x, 
     double (*fparams)[50], 
+    double *output,
     int n_strategy) {
 
     double res = 0;
@@ -133,5 +135,6 @@ double hankel_transform_DHT(
         }
 
     }
-    return res;
+    *output = res;
+    return 0;
 }

@@ -196,6 +196,7 @@ cleanup_and_exit:
  * @param f            function to compute kernel called as f(x,fparams)
  * @param r            x where to compute the Hankel transform
  * @param fparams      input params for f
+ * @param output       pointer to var containing output from transform 
  * @param n_max_iters  max number of partial integral intervals
  * @param rtol         relative error
  * @param atol         absolute error
@@ -205,6 +206,7 @@ double qwe_Chave(
     double (*f)(double, double (*)[50]), 
     double r, 
     void *fparams, 
+    double *output, 
     int n_max_iters, 
     double rtol, 
     double atol
@@ -251,7 +253,8 @@ double qwe_Chave(
         req_accuracy = rtol*fabs(res) + atol;
         if (fabs(res-last_res) <= req_accuracy) {
             converged = true;
-            return res;
+            *output = res;
+            return 0;
         }
         last_res = res;
     }
@@ -264,6 +267,4 @@ double qwe_Chave(
         );
         return -1;
     };
-
-    return res;
 }

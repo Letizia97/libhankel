@@ -71,7 +71,7 @@ void setUp(void) {
 
         for (size_t i = 0; i < ARRAY_LEN; ++i) {
             z = r_array[i];
-            Gr[i] = hankel_transform_DHT(nu, form_factor_sphere, z, &params, int_strategy);
+            hankel_transform_DHT(nu, form_factor_sphere, z, &params, &Gr[i], int_strategy);
             //printf("%f,  ", Gr[i]);
             ctx.actual[j][i] = Gr[i]; 
         }
@@ -116,10 +116,13 @@ void test_hankel_DHT_throws_error_when_nu_equal_2(void) {
     int_strategy = 7;
     char captured[1024];
 
+    double value;
+    double *output = &value;
+
     start_capture_stderr();
-    int res = hankel_transform_DHT(nu, form_factor_sphere, z, &params, int_strategy);
+    int status = hankel_transform_DHT(nu, form_factor_sphere, z,  &params, output, 1);
     stop_capture_stderr(captured, sizeof(captured));
-    TEST_ASSERT_EQUAL_INT_MESSAGE(-1, res, "");
+    TEST_ASSERT_EQUAL_INT_MESSAGE(-1, status, "");
     TEST_ASSERT_EQUAL_STRING(captured, "nu needs to be 0 or 1 in order to use the selected strategy\n");
 }
 
@@ -133,10 +136,13 @@ void test_hankel_DHT_throws_error_when_int_strategy_wrong(void) {
     int_strategy = 1;
     char captured[1024];
 
+    double value;
+    double *output = &value;
+
     start_capture_stderr();
-    int res = hankel_transform_DHT(nu, form_factor_sphere, z, &params, 1);
+    int status = hankel_transform_DHT(nu, form_factor_sphere, z,  &params, output, 1);
     stop_capture_stderr(captured, sizeof(captured));
-    TEST_ASSERT_EQUAL_INT_MESSAGE(-1, res, "");
+    TEST_ASSERT_EQUAL_INT_MESSAGE(-1, status, "");
     TEST_ASSERT_EQUAL_STRING(captured, "Strategy number must be integer between 6 and 11\n");
 }
 

@@ -22,6 +22,7 @@ double hankel_transform_DHT(
 	double (*f)(double, double (*)[50]), 
 	double x, 
 	double (*fparams)[50], 
+	double (*output),
 	int n_strategy
 );
 
@@ -61,6 +62,7 @@ double hankel_transform_DE_Ogata(
 	double (*f)(double, double (*)[50]), 
 	double x, 
 	double (*fparams)[50], 
+	double (*output),
 	double n_eval, 
 	double f_max
 );
@@ -71,6 +73,7 @@ double hankel_transform_QWE_Key(
 	double (*f)(double, double (*)[50]),
 	double x, 
 	double (*fparams)[50], 
+	double (*output),
 	double n_eval, 
 	double eps_rel
 );
@@ -81,6 +84,7 @@ double hankel_transform_QWE_Chave(
 	double (*f)(double, double (*)[50]), 
 	double x, 
 	double (*fparams)[50], 
+	double (*output),
 	double n_eval, 
 	double eps_rel
 );

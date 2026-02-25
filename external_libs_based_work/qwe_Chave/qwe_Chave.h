@@ -8,6 +8,7 @@ double qwe_Chave(
     double (*f)(double, double (*)[50]), 
     double r, 
     void *fparams, 
+    double *output,
     int n_max_iters, 
     double rtol, 
     double atol

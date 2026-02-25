@@ -110,19 +110,19 @@ void setUp(void) {
     // COMPUTATIONS 
     for (size_t i = 0; i < ARRAY_LEN; ++i) {
         z = r_array_spheres[i];
-        Gr[i] = hankel_transform_QWE_Key(nu, form_factor_sphere, z, &params_spheres, 250, 1e-9);
+        hankel_transform_QWE_Key(nu, form_factor_sphere, z, &params_spheres, &Gr[i], 250, 1e-9);
         ctx.actual_spheres[i] = Gr[i]; 
     }
     
     for (size_t i = 0; i < ARRAY_LEN; ++i) {
         z = r_array_gdab[i];
-        Gr[i] = hankel_transform_QWE_Key(nu, form_factor_g_dab, z, &params_gdab, 250, 1e-9);
+        hankel_transform_QWE_Key(nu, form_factor_g_dab, z, &params_gdab, &Gr[i], 250, 1e-9);
         ctx.actual_gdab[i] = Gr[i]; 
     }
 
     for (size_t i = 0; i < ARRAY_LEN; ++i) {
         z = r_array_broad_peak[i];
-        Gr[i] = hankel_transform_QWE_Key(nu, form_factor_broad_peak, z, &params_broad_peak, 150, 1e-9);
+        hankel_transform_QWE_Key(nu, form_factor_broad_peak, z, &params_broad_peak, &Gr[i], 150, 1e-9);
         ctx.actual_broad_peak[i] = Gr[i]; 
     }  
 }

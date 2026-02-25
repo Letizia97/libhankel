@@ -42,8 +42,8 @@ TestContext ctx = {
         387507.478727, 371194.865046, 349050.892446, 322866.825081, 293957.890695,  
         263387.288344, 232057.322544, 200753.921990, 170170.357893, 140920.013924,  
         113542.663056, 88506.359952, 66205.927253, 46958.335485, 30994.653555, 
-        18447.535099, 9331.793855, 3512.362861, 643.298173, -1.000000, -1.000000, 
-        -0.000000, -0.000000, -0.000000, -0.000000,  
+        18447.535099, 9331.793855, 3512.362861, 643.298173, -3.73877664854985e-09, 
+        -1.72981880655027e-08, -1.58967451740654e-08, -3.56770079310641e-10,
     },
     .actual_spheres = { 0 }, 
     .expected_gdab = { 
@@ -115,20 +115,20 @@ void setUp(void) {
     // printf("QWE Chave, Gr-G0 on spheres \n");
     for (size_t i = 0; i < ARRAY_LEN; ++i) {
         z = r_array_spheres[i];
-        Gr[i] = hankel_transform_QWE_Chave(nu, form_factor_sphere, z, &params_spheres, 250, 1e-9);
-        // printf("%.15g,  \n", (Gr[i]-G0_spheres)/ (2 * M_PI));
+        hankel_transform_QWE_Chave(nu, form_factor_sphere, z, &params_spheres, &Gr[i], 250, 1e-9);
+        //printf("%.15g,  \n", (Gr[i]));
         ctx.actual_spheres[i] = Gr[i]; 
     }
     
     for (size_t i = 0; i < ARRAY_LEN; ++i) {
         z = r_array_gdab[i];
-        Gr[i] = hankel_transform_QWE_Chave(nu, form_factor_g_dab, z, &params_gdab, 250, 1e-9);
+        hankel_transform_QWE_Chave(nu, form_factor_g_dab, z, &params_gdab, &Gr[i], 250, 1e-9);
         ctx.actual_gdab[i] = Gr[i]; 
     }
 
     for (size_t i = 0; i < ARRAY_LEN; ++i) {
         z = r_array_broad_peak[i];
-        Gr[i] = hankel_transform_QWE_Chave(nu, form_factor_broad_peak, z, &params_broad_peak, 150, 1e-9);
+        hankel_transform_QWE_Chave(nu, form_factor_broad_peak, z, &params_broad_peak, &Gr[i], 150, 1e-9);
         ctx.actual_broad_peak[i] = Gr[i]; 
     }  
 }

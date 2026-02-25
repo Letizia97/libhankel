@@ -127,6 +127,7 @@ double hankel_transform_DE_Quadrature(
  * @param f          pointer to form factor function
  * @param x          value at which to compute the transform
  * @param fparams    params for form factor
+ * @param output     pointer to var containing output from transform 
  * @param n_eval     integer indicating number of function evaluations (N_ogata in SASfit)
  * @param f_max      float indicating starting guess for max in form factor (h_ogata in SASfit)
  */ 
@@ -135,6 +136,7 @@ double hankel_transform_DE_Ogata(
     double (*f)(double, double (*)[50]), 
     double x, 
     double (*fparams)[50], 
+    double *output,
     double n_eval, 
     double f_max) {
 

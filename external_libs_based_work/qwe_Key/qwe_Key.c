@@ -181,13 +181,25 @@ end % function qwe
 
 #include "src/utils/sasfit_integrate.h"
 
-
+/** 
+ * @brief Computes Hankel transform integral using strategy 13 from SASfit
+ * 
+ * @param nu           order of the Bessel function, either 0 or 1
+ * @param f            function to compute kernel called as f(x,fparams)
+ * @param r            x where to compute the Hankel transform
+ * @param fparams      input params for f
+ * @param output       pointer to var containing output from transform 
+ * @param n_max_iters  max number of partial integral intervals
+ * @param rtol         relative error
+ * @param atol         absolute error
+ */
 double qwe_Key(
     double nu, 
     double (*f)(double, double (*)[50]), 
     double x, 
     void *fparams, 
-    int n_max_iters, 
+    double *output,
+    int n_max_iters,
     double rtol, 
     double atol
 ) {
@@ -197,7 +209,7 @@ double qwe_Key(
 	double last_res = 0;  //latest res in iters
 	double *S; // array used for the recursion coefficients for the Epsilon algorithm
     double *extrap;  // extrapolated result for each order of the expansion
-    double *rel_err, *abs_err; // real and abs error for each order
+    double *rel_err, *abs_err; // rel and abs errors 
     double r_min, r_max; // start and end of integration range 
     int i, k, n;
     double f_i, aux2, aux1, diff, res;
@@ -284,7 +296,10 @@ double qwe_Key(
             "qwe_Key algorithm did not converge "
             "after maximum allowed intervals: %d\n",n_max_iters
         );
+        return -1;
     };
-	return res;
+
+    *output = res;
+	return 0;
 }
 

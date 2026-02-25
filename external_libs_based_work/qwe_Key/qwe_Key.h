@@ -8,6 +8,7 @@ double qwe_Key(
 	double (*f)(double, double (*)[50]), 
 	double x, 
 	void *fparams, 
+    double *output,
 	int n_max_iters, 
 	double rtol, 
 	double atol
