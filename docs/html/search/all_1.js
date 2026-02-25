@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['compute_5fhankel_5ffbt_4',['compute_hankel_FBT',['../libhankel_8h.html#a236982445912257112e599f55c3b1f61',1,'libhankel.h']]]
+  ['deriv_5fdetransform_1',['deriv_DEtransform',['../hankel__DE__quadrature_8c.html#ae1b03fc133041f7c13160312b02afc8c',1,'hankel_DE_quadrature.c']]],
+  ['detransform_2',['DEtransform',['../hankel__DE__quadrature_8c.html#a0b592bbf4d81eb176017f3cdf7c74d51',1,'hankel_DE_quadrature.c']]]
 ];

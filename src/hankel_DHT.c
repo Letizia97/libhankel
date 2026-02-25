@@ -7,12 +7,12 @@
 #include <gsl/gsl_sf.h>
 #include <gsl/gsl_sf_bessel.h>
 
-#include "strateg6_const.h"
-#include "strateg7_const.h"
-#include "strateg8_const.h"
-#include "strateg9_const.h"
-#include "strateg10_const.h"
-#include "strateg11_const.h"
+#include "../src/utils/strateg6_const.h"
+#include "../src/utils/strateg7_const.h"
+#include "../src/utils/strateg8_const.h"
+#include "../src/utils/strateg9_const.h"
+#include "../src/utils/strateg10_const.h"
+#include "../src/utils/strateg11_const.h"
 
 /*
 This file contains functions corresponding to strategies 6-11 in SASfit 
