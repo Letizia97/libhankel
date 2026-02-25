@@ -75,82 +75,86 @@ $(function() {
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">// strategies 6-11 (DHT)</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keywordtype">double</span> <a class="code" href="libhankel_8h.html#a3b699bda7ed1067959b929aa57815226">hankel_transform_DHT</a>(</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keywordtype">double</span> <a class="code" href="libhankel_8h.html#a283d1cbdd11783767be6993d9d59559c">hankel_transform_DHT</a>(</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keywordtype">int</span> nu, </div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keywordtype">double</span> (*f)(<span class="keywordtype">double</span>, <span class="keywordtype">double</span> (*)[50]), </div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordtype">double</span> x, </div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordtype">double</span> (*fparams)[50], </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordtype">int</span> n_strategy</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;);</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">// corresponding to strategies 2-4 (FBT)</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="libhankel_8h.html#a236982445912257112e599f55c3b1f61">   29</a></span>&#160;<span class="keywordtype">double</span> <a class="code" href="libhankel_8h.html#a236982445912257112e599f55c3b1f61">compute_hankel_FBT</a>(</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordtype">int</span> nu, </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordtype">double</span> (*f)(<span class="keywordtype">double</span>, <span class="keywordtype">double</span> (*)[50]), </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordtype">double</span> x, </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordtype">double</span> (*fparams)[50], </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordtype">int</span> n_method,</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordtype">int</span> N, </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordtype">double</span> h</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;);</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keywordtype">double</span> <a class="code" href="libhankel_8h.html#a0e43b79dab5a642c0cbcd31509d4bea8">hankel_transform_FBT</a>(</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordtype">int</span> nu, </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordtype">double</span> (*f)(<span class="keywordtype">double</span>, <span class="keywordtype">double</span> (*)[50]), </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordtype">double</span> x, </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordtype">double</span> (*fparams)[50], </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordtype">int</span> n_method, </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordtype">double</span> n_eval, </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordtype">double</span> f_max</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;);</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">// strategy 0 (DE QUADRATURE)</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="keywordtype">double</span> <a class="code" href="libhankel_8h.html#a6d29eb44a2ce2ea6d9d90b65595fb374">hankel_transform_DE_Quadrature</a>(</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordtype">int</span> nu, </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">double</span> (*f)(<span class="keywordtype">double</span>, <span class="keywordtype">double</span> (*)[50]), </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordtype">double</span> x, </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordtype">double</span> (*fparams)[50], </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordtype">double</span> n_eval, </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordtype">double</span> eps_rel</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;);</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="comment">// strategy 1 (DE QUADRATURE)</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="keywordtype">double</span> <a class="code" href="libhankel_8h.html#a2a0938de00b596b1721faa3b7baf28c6">hankel_transform_DE_Ogata</a>(</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordtype">int</span> nu, </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordtype">double</span> (*f)(<span class="keywordtype">double</span>, <span class="keywordtype">double</span> (*)[50]), </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordtype">double</span> x, </div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordtype">double</span> (*fparams)[50], </div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordtype">double</span> n_eval, </div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordtype">double</span> f_max</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;);</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="comment">// strategy 12</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="keywordtype">double</span> <a class="code" href="libhankel_8h.html#a8c95338695ae44cb2cfda15df70a6d4d">hankel_transform_QWE_Key</a>(</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordtype">int</span> nu, </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordtype">double</span> (*f)(<span class="keywordtype">double</span>, <span class="keywordtype">double</span> (*)[50]),</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordtype">double</span> x, </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordtype">double</span> (*fparams)[50], </div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordtype">double</span> n_eval, </div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordtype">double</span> eps_rel</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;);</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="comment">// strategy 13</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="keywordtype">double</span> <a class="code" href="libhankel_8h.html#afad73fe3da299188a01ce2caa1135cdf">hankel_transform_QWE_Chave</a>(</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordtype">int</span> nu, </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keywordtype">double</span> (*f)(<span class="keywordtype">double</span>, <span class="keywordtype">double</span> (*)[50]), </div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordtype">double</span> x, </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordtype">double</span> (*fparams)[50], </div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keywordtype">double</span> n_eval, </div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordtype">double</span> eps_rel</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;);</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// LIBHANKEL_H</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordtype">double</span> (*output),</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordtype">int</span> n_strategy</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;);</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">// corresponding to strategies 2-4 (FBT)</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="libhankel_8h.html#a236982445912257112e599f55c3b1f61">   30</a></span>&#160;<span class="keywordtype">double</span> <a class="code" href="libhankel_8h.html#a236982445912257112e599f55c3b1f61">compute_hankel_FBT</a>(</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordtype">int</span> nu, </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordtype">double</span> (*f)(<span class="keywordtype">double</span>, <span class="keywordtype">double</span> (*)[50]), </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordtype">double</span> x, </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordtype">double</span> (*fparams)[50], </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordtype">int</span> n_method,</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordtype">int</span> N, </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordtype">double</span> h</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;);</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keywordtype">double</span> <a class="code" href="libhankel_8h.html#a0e43b79dab5a642c0cbcd31509d4bea8">hankel_transform_FBT</a>(</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordtype">int</span> nu, </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordtype">double</span> (*f)(<span class="keywordtype">double</span>, <span class="keywordtype">double</span> (*)[50]), </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordtype">double</span> x, </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordtype">double</span> (*fparams)[50], </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordtype">int</span> n_method, </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordtype">double</span> n_eval, </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordtype">double</span> f_max</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;);</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment">// strategy 0 (DE QUADRATURE)</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="keywordtype">double</span> <a class="code" href="libhankel_8h.html#a6d29eb44a2ce2ea6d9d90b65595fb374">hankel_transform_DE_Quadrature</a>(</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">int</span> nu, </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordtype">double</span> (*f)(<span class="keywordtype">double</span>, <span class="keywordtype">double</span> (*)[50]), </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordtype">double</span> x, </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordtype">double</span> (*fparams)[50], </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordtype">double</span> n_eval, </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordtype">double</span> eps_rel</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;);</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="comment">// strategy 1 (DE QUADRATURE)</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="keywordtype">double</span> <a class="code" href="libhankel_8h.html#a80fa292af5c51680d20f16b652d62577">hankel_transform_DE_Ogata</a>(</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordtype">int</span> nu, </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordtype">double</span> (*f)(<span class="keywordtype">double</span>, <span class="keywordtype">double</span> (*)[50]), </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordtype">double</span> x, </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordtype">double</span> (*fparams)[50], </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordtype">double</span> (*output),</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordtype">double</span> n_eval, </div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordtype">double</span> f_max</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;);</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="comment">// strategy 12</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="keywordtype">double</span> <a class="code" href="libhankel_8h.html#afcdfed88c1baf103a4adf86461f0263a">hankel_transform_QWE_Key</a>(</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordtype">int</span> nu, </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordtype">double</span> (*f)(<span class="keywordtype">double</span>, <span class="keywordtype">double</span> (*)[50]),</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordtype">double</span> x, </div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordtype">double</span> (*fparams)[50], </div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordtype">double</span> (*output),</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keywordtype">double</span> n_eval, </div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordtype">double</span> eps_rel</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;);</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="comment">// strategy 13</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="keywordtype">double</span> <a class="code" href="libhankel_8h.html#ac9957c456a3b5375e1b51d4d33d7a360">hankel_transform_QWE_Chave</a>(</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordtype">int</span> nu, </div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keywordtype">double</span> (*f)(<span class="keywordtype">double</span>, <span class="keywordtype">double</span> (*)[50]), </div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordtype">double</span> x, </div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keywordtype">double</span> (*fparams)[50], </div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keywordtype">double</span> (*output),</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keywordtype">double</span> n_eval, </div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordtype">double</span> eps_rel</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;);</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// LIBHANKEL_H</span></div>
 <div class="ttc" id="alibhankel_8h_html_a0e43b79dab5a642c0cbcd31509d4bea8"><div class="ttname"><a href="libhankel_8h.html#a0e43b79dab5a642c0cbcd31509d4bea8">hankel_transform_FBT</a></div><div class="ttdeci">double hankel_transform_FBT(int nu, double(*f)(double, double(*)[50]), double x, double(*fparams)[50], int n_method, double n_eval, double f_max)</div><div class="ttdoc">Computes Hankel transform using FBT.</div><div class="ttdef"><b>Definition:</b> hankel_FBT_Ogata.c:34</div></div>
 <div class="ttc" id="alibhankel_8h_html_a236982445912257112e599f55c3b1f61"><div class="ttname"><a href="libhankel_8h.html#a236982445912257112e599f55c3b1f61">compute_hankel_FBT</a></div><div class="ttdeci">double compute_hankel_FBT(int nu, double(*f)(double, double(*)[50]), double x, double(*fparams)[50], int n_method, int N, double h)</div></div>
-<div class="ttc" id="alibhankel_8h_html_a2a0938de00b596b1721faa3b7baf28c6"><div class="ttname"><a href="libhankel_8h.html#a2a0938de00b596b1721faa3b7baf28c6">hankel_transform_DE_Ogata</a></div><div class="ttdeci">double hankel_transform_DE_Ogata(int nu, double(*f)(double, double(*)[50]), double x, double(*fparams)[50], double n_eval, double f_max)</div><div class="ttdoc">Computes Hankel transform, using de-quadrature.</div><div class="ttdef"><b>Definition:</b> hankel_DE_quadrature.c:133</div></div>
-<div class="ttc" id="alibhankel_8h_html_a3b699bda7ed1067959b929aa57815226"><div class="ttname"><a href="libhankel_8h.html#a3b699bda7ed1067959b929aa57815226">hankel_transform_DHT</a></div><div class="ttdeci">double hankel_transform_DHT(int nu, double(*f)(double, double(*)[50]), double x, double(*fparams)[50], int n_strategy)</div><div class="ttdoc">Computes Hankel transform, using digital filters.</div><div class="ttdef"><b>Definition:</b> hankel_DHT.c:45</div></div>
+<div class="ttc" id="alibhankel_8h_html_a283d1cbdd11783767be6993d9d59559c"><div class="ttname"><a href="libhankel_8h.html#a283d1cbdd11783767be6993d9d59559c">hankel_transform_DHT</a></div><div class="ttdeci">double hankel_transform_DHT(int nu, double(*f)(double, double(*)[50]), double x, double(*fparams)[50], double(*output), int n_strategy)</div><div class="ttdoc">Computes Hankel transform, using digital filters.</div><div class="ttdef"><b>Definition:</b> hankel_DHT.c:46</div></div>
 <div class="ttc" id="alibhankel_8h_html_a6d29eb44a2ce2ea6d9d90b65595fb374"><div class="ttname"><a href="libhankel_8h.html#a6d29eb44a2ce2ea6d9d90b65595fb374">hankel_transform_DE_Quadrature</a></div><div class="ttdeci">double hankel_transform_DE_Quadrature(int nu, double(*f)(double, double(*)[50]), double x, double(*fparams)[50], double n_eval, double eps_rel)</div><div class="ttdoc">Computes Hankel transform, using de-quadrature.</div><div class="ttdef"><b>Definition:</b> hankel_DE_quadrature.c:86</div></div>
-<div class="ttc" id="alibhankel_8h_html_a8c95338695ae44cb2cfda15df70a6d4d"><div class="ttname"><a href="libhankel_8h.html#a8c95338695ae44cb2cfda15df70a6d4d">hankel_transform_QWE_Key</a></div><div class="ttdeci">double hankel_transform_QWE_Key(int nu, double(*f)(double, double(*)[50]), double x, double(*fparams)[50], double n_eval, double eps_rel)</div><div class="ttdoc">Computes Hankel transform using the Quadrature With Extrapolation method by Key.</div><div class="ttdef"><b>Definition:</b> hankel_QWE.c:32</div></div>
-<div class="ttc" id="alibhankel_8h_html_afad73fe3da299188a01ce2caa1135cdf"><div class="ttname"><a href="libhankel_8h.html#afad73fe3da299188a01ce2caa1135cdf">hankel_transform_QWE_Chave</a></div><div class="ttdeci">double hankel_transform_QWE_Chave(int nu, double(*f)(double, double(*)[50]), double x, double(*fparams)[50], double n_eval, double eps_rel)</div><div class="ttdoc">Computes Hankel transform using the Quadrature With Extrapolation method by Chave.</div><div class="ttdef"><b>Definition:</b> hankel_QWE.c:63</div></div>
+<div class="ttc" id="alibhankel_8h_html_a80fa292af5c51680d20f16b652d62577"><div class="ttname"><a href="libhankel_8h.html#a80fa292af5c51680d20f16b652d62577">hankel_transform_DE_Ogata</a></div><div class="ttdeci">double hankel_transform_DE_Ogata(int nu, double(*f)(double, double(*)[50]), double x, double(*fparams)[50], double(*output), double n_eval, double f_max)</div><div class="ttdoc">Computes Hankel transform, using de-quadrature.</div><div class="ttdef"><b>Definition:</b> hankel_DE_quadrature.c:134</div></div>
+<div class="ttc" id="alibhankel_8h_html_ac9957c456a3b5375e1b51d4d33d7a360"><div class="ttname"><a href="libhankel_8h.html#ac9957c456a3b5375e1b51d4d33d7a360">hankel_transform_QWE_Chave</a></div><div class="ttdeci">double hankel_transform_QWE_Chave(int nu, double(*f)(double, double(*)[50]), double x, double(*fparams)[50], double(*output), double n_eval, double eps_rel)</div><div class="ttdoc">Computes Hankel transform using the Quadrature With Extrapolation method by Chave.</div><div class="ttdef"><b>Definition:</b> hankel_QWE.c:68</div></div>
+<div class="ttc" id="alibhankel_8h_html_afcdfed88c1baf103a4adf86461f0263a"><div class="ttname"><a href="libhankel_8h.html#afcdfed88c1baf103a4adf86461f0263a">hankel_transform_QWE_Key</a></div><div class="ttdeci">double hankel_transform_QWE_Key(int nu, double(*f)(double, double(*)[50]), double x, double(*fparams)[50], double(*output), double n_eval, double eps_rel)</div><div class="ttdoc">Computes Hankel transform using the Quadrature With Extrapolation method by Key.</div><div class="ttdef"><b>Definition:</b> hankel_QWE.c:33</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

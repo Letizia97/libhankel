@@ -115,9 +115,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a6d29eb44a2ce2ea6d9d90b65595fb374"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hankel__DE__quadrature_8c.html#a6d29eb44a2ce2ea6d9d90b65595fb374">hankel_transform_DE_Quadrature</a> (int nu, double(*f)(double, double(*)[50]), double x, double(*fparams)[50], double n_eval, double eps_rel)</td></tr>
 <tr class="memdesc:a6d29eb44a2ce2ea6d9d90b65595fb374"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes Hankel transform, using de-quadrature.  <a href="hankel__DE__quadrature_8c.html#a6d29eb44a2ce2ea6d9d90b65595fb374">More...</a><br /></td></tr>
 <tr class="separator:a6d29eb44a2ce2ea6d9d90b65595fb374"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2a0938de00b596b1721faa3b7baf28c6"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hankel__DE__quadrature_8c.html#a2a0938de00b596b1721faa3b7baf28c6">hankel_transform_DE_Ogata</a> (int nu, double(*f)(double, double(*)[50]), double x, double(*fparams)[50], double n_eval, double f_max)</td></tr>
-<tr class="memdesc:a2a0938de00b596b1721faa3b7baf28c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes Hankel transform, using de-quadrature.  <a href="hankel__DE__quadrature_8c.html#a2a0938de00b596b1721faa3b7baf28c6">More...</a><br /></td></tr>
-<tr class="separator:a2a0938de00b596b1721faa3b7baf28c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d69b32bf6720aa40f5c1518975fdf71"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hankel__DE__quadrature_8c.html#a5d69b32bf6720aa40f5c1518975fdf71">hankel_transform_DE_Ogata</a> (int nu, double(*f)(double, double(*)[50]), double x, double(*fparams)[50], double *output, double n_eval, double f_max)</td></tr>
+<tr class="memdesc:a5d69b32bf6720aa40f5c1518975fdf71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes Hankel transform, using de-quadrature.  <a href="hankel__DE__quadrature_8c.html#a5d69b32bf6720aa40f5c1518975fdf71">More...</a><br /></td></tr>
+<tr class="separator:a5d69b32bf6720aa40f5c1518975fdf71"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="ae1b03fc133041f7c13160312b02afc8c"></a>
@@ -160,8 +160,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a2a0938de00b596b1721faa3b7baf28c6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2a0938de00b596b1721faa3b7baf28c6">&#9670;&nbsp;</a></span>hankel_transform_DE_Ogata()</h2>
+<a id="a5d69b32bf6720aa40f5c1518975fdf71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d69b32bf6720aa40f5c1518975fdf71">&#9670;&nbsp;</a></span>hankel_transform_DE_Ogata()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -193,6 +193,12 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">double *&#160;</td>
+          <td class="paramname"><em>output</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">double&#160;</td>
           <td class="paramname"><em>n_eval</em>, </td>
         </tr>
@@ -218,6 +224,7 @@ Functions</h2></td></tr>
     <tr><td class="paramname">f</td><td>pointer to form factor function </td></tr>
     <tr><td class="paramname">x</td><td>value at which to compute the transform </td></tr>
     <tr><td class="paramname">fparams</td><td>params for form factor </td></tr>
+    <tr><td class="paramname">output</td><td>pointer to var containing output from transform </td></tr>
     <tr><td class="paramname">n_eval</td><td>integer indicating number of function evaluations (N_ogata in SASfit) </td></tr>
     <tr><td class="paramname">f_max</td><td>float indicating starting guess for max in form factor (h_ogata in SASfit) </td></tr>
   </table>

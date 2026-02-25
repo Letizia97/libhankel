@@ -12,8 +12,7 @@
 {\ttfamily \#include \char`\"{}../src/utils/strateg9\+\_\+const.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}../src/utils/strateg10\+\_\+const.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}../src/utils/strateg11\+\_\+const.\+h\char`\"{}}\newline
-Include dependency graph for hankel\+\_\+\+DHT.\+c\+:
-\nopagebreak
+Include dependency graph for hankel\+\_\+\+DHT.\+c\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -23,16 +22,16 @@ Include dependency graph for hankel\+\_\+\+DHT.\+c\+:
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-double \mbox{\hyperlink{hankel__DHT_8c_a3b699bda7ed1067959b929aa57815226}{hankel\+\_\+transform\+\_\+\+DHT}} (int nu, double($\ast$f)(double, double($\ast$)\mbox{[}50\mbox{]}), double x, double($\ast$fparams)\mbox{[}50\mbox{]}, int n\+\_\+strategy)
+double \mbox{\hyperlink{hankel__DHT_8c_a6cc8bbea57554588f6a12bb0dd80df2b}{hankel\+\_\+transform\+\_\+\+DHT}} (int nu, double($\ast$f)(double, double($\ast$)\mbox{[}50\mbox{]}), double x, double($\ast$fparams)\mbox{[}50\mbox{]}, double $\ast$output, int n\+\_\+strategy)
 \begin{DoxyCompactList}\small\item\em Computes Hankel transform, using digital filters. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{hankel__DHT_8c_a3b699bda7ed1067959b929aa57815226}\label{hankel__DHT_8c_a3b699bda7ed1067959b929aa57815226}} 
+\mbox{\Hypertarget{hankel__DHT_8c_a6cc8bbea57554588f6a12bb0dd80df2b}\label{hankel__DHT_8c_a6cc8bbea57554588f6a12bb0dd80df2b}} 
 \index{hankel\_DHT.c@{hankel\_DHT.c}!hankel\_transform\_DHT@{hankel\_transform\_DHT}}
 \index{hankel\_transform\_DHT@{hankel\_transform\_DHT}!hankel\_DHT.c@{hankel\_DHT.c}}
 \doxysubsubsection{\texorpdfstring{hankel\_transform\_DHT()}{hankel\_transform\_DHT()}}
-{\footnotesize\ttfamily double hankel\+\_\+transform\+\_\+\+DHT (\begin{DoxyParamCaption}\item[{int}]{nu,  }\item[{double($\ast$)(double, double($\ast$)\mbox{[}50\mbox{]})}]{f,  }\item[{double}]{x,  }\item[{double($\ast$)}]{fparams\mbox{[}50\mbox{]},  }\item[{int}]{n\+\_\+strategy }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily double hankel\+\_\+transform\+\_\+\+DHT (\begin{DoxyParamCaption}\item[{int}]{nu,  }\item[{double($\ast$)(double, double($\ast$)\mbox{[}50\mbox{]})}]{f,  }\item[{double}]{x,  }\item[{double($\ast$)}]{fparams\mbox{[}50\mbox{]},  }\item[{double $\ast$}]{output,  }\item[{int}]{n\+\_\+strategy }\end{DoxyParamCaption})}
 
 
 
@@ -54,6 +53,8 @@ Perform wells for simple form factors, but it does struggle with oscillatory one
 {\em x} & value at which to compute the transform \\
 \hline
 {\em fparams} & params for form factor \\
+\hline
+{\em output} & pointer to var containing output from transform \\
 \hline
 {\em n\+\_\+strategy} & an integer number between 6 and 11 (determines which weightings to use for the transform and corresponds to SASfit strategies 6-\/11) \\
 \hline

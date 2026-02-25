@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['q_50',['Q',['../structparams__struct.html#ac0d1e7e1890df178b0605032b1a43fc5',1,'params_struct']]]
+  ['n_5feval_60',['n_eval',['../structstrategy__params.html#a4d637723c6c9f529ce550262f6e6209d',1,'strategy_params']]],
+  ['nu_61',['nu',['../structparams__struct.html#af9900b998a31c2dc79311116ab680afd',1,'params_struct']]]
 ];

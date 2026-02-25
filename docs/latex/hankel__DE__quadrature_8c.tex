@@ -30,7 +30,7 @@ double \mbox{\hyperlink{hankel__DE__quadrature_8c_ae1b03fc133041f7c13160312b02af
 \begin{DoxyCompactList}\small\item\em Auxiliary function that computes the derivative of a “double‑exponential (DE) change of variables”, that is commonly used in numerical integration (quadrature). Specifically, this is the tanh–sinh (double exponential) transformation. \end{DoxyCompactList}\item 
 double \mbox{\hyperlink{hankel__DE__quadrature_8c_a6d29eb44a2ce2ea6d9d90b65595fb374}{hankel\+\_\+transform\+\_\+\+DE\+\_\+\+Quadrature}} (int nu, double($\ast$f)(double, double($\ast$)\mbox{[}50\mbox{]}), double x, double($\ast$fparams)\mbox{[}50\mbox{]}, double n\+\_\+eval, double eps\+\_\+rel)
 \begin{DoxyCompactList}\small\item\em Computes Hankel transform, using de-\/quadrature. \end{DoxyCompactList}\item 
-double \mbox{\hyperlink{hankel__DE__quadrature_8c_a2a0938de00b596b1721faa3b7baf28c6}{hankel\+\_\+transform\+\_\+\+DE\+\_\+\+Ogata}} (int nu, double($\ast$f)(double, double($\ast$)\mbox{[}50\mbox{]}), double x, double($\ast$fparams)\mbox{[}50\mbox{]}, double n\+\_\+eval, double f\+\_\+max)
+double \mbox{\hyperlink{hankel__DE__quadrature_8c_a5d69b32bf6720aa40f5c1518975fdf71}{hankel\+\_\+transform\+\_\+\+DE\+\_\+\+Ogata}} (int nu, double($\ast$f)(double, double($\ast$)\mbox{[}50\mbox{]}), double x, double($\ast$fparams)\mbox{[}50\mbox{]}, double $\ast$output, double n\+\_\+eval, double f\+\_\+max)
 \begin{DoxyCompactList}\small\item\em Computes Hankel transform, using de-\/quadrature. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -55,11 +55,11 @@ Auxiliary function that computes the derivative of a “double‑exponential (DE
 
 Auxiliary function computing the double‑exponential (DE) / tanh–sinh transform. 
 
-\mbox{\Hypertarget{hankel__DE__quadrature_8c_a2a0938de00b596b1721faa3b7baf28c6}\label{hankel__DE__quadrature_8c_a2a0938de00b596b1721faa3b7baf28c6}} 
+\mbox{\Hypertarget{hankel__DE__quadrature_8c_a5d69b32bf6720aa40f5c1518975fdf71}\label{hankel__DE__quadrature_8c_a5d69b32bf6720aa40f5c1518975fdf71}} 
 \index{hankel\_DE\_quadrature.c@{hankel\_DE\_quadrature.c}!hankel\_transform\_DE\_Ogata@{hankel\_transform\_DE\_Ogata}}
 \index{hankel\_transform\_DE\_Ogata@{hankel\_transform\_DE\_Ogata}!hankel\_DE\_quadrature.c@{hankel\_DE\_quadrature.c}}
 \doxysubsubsection{\texorpdfstring{hankel\_transform\_DE\_Ogata()}{hankel\_transform\_DE\_Ogata()}}
-{\footnotesize\ttfamily double hankel\+\_\+transform\+\_\+\+DE\+\_\+\+Ogata (\begin{DoxyParamCaption}\item[{int}]{nu,  }\item[{double($\ast$)(double, double($\ast$)\mbox{[}50\mbox{]})}]{f,  }\item[{double}]{x,  }\item[{double($\ast$)}]{fparams\mbox{[}50\mbox{]},  }\item[{double}]{n\+\_\+eval,  }\item[{double}]{f\+\_\+max }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily double hankel\+\_\+transform\+\_\+\+DE\+\_\+\+Ogata (\begin{DoxyParamCaption}\item[{int}]{nu,  }\item[{double($\ast$)(double, double($\ast$)\mbox{[}50\mbox{]})}]{f,  }\item[{double}]{x,  }\item[{double($\ast$)}]{fparams\mbox{[}50\mbox{]},  }\item[{double $\ast$}]{output,  }\item[{double}]{n\+\_\+eval,  }\item[{double}]{f\+\_\+max }\end{DoxyParamCaption})}
 
 
 
@@ -77,6 +77,8 @@ Corresponds to strategy 1 in SASfit or HANKEL\+\_\+\+OGATA\+\_\+2005.
 {\em x} & value at which to compute the transform \\
 \hline
 {\em fparams} & params for form factor \\
+\hline
+{\em output} & pointer to var containing output from transform \\
 \hline
 {\em n\+\_\+eval} & integer indicating number of function evaluations (N\+\_\+ogata in SASfit) \\
 \hline
