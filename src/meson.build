@@ -45,6 +45,7 @@ sources = files(
   'hankel_FBT_Ogata.c', 
   'hankel_DE_quadrature.c', 
   'hankel_QWE.c', 
+  'hankel_transform.c',
   '../external_libs_based_work/DE-quadrature/intde.c', 
   '../external_libs_based_work/qwe_Chave/qwe_Chave.c', 
   '../external_libs_based_work/qwe_Key/qwe_Key.c', 

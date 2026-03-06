@@ -2,12 +2,6 @@
 #include <string.h>
 
 
-typedef struct {
-    double n_eval;      // integer indicating number of function evaluations (N_ogata in SASfit)
-    double eps_rel;     // relative error allowed e.g. 1e-9 (eps_nriq in SASfit)
-    double f_max;       // float indicating starting guess for max in form factor (h_ogata in SASfit)
-} strategy_params;
-
 
 /** 
  * @brief Computes Hankel transform using the method specified by the user.
@@ -29,9 +23,9 @@ double hankel_transform(
     double x, 
     double (*f_params)[50], 
     double *output,
-    char strategy_name,
-    const void* strategy_params) {
-
+    const char *strategy_name,
+    strategy_params strategy_params) 
+{
     int status;
 
     if (strcmp(strategy_name, "QWE_Chave") == 0) {
@@ -43,9 +37,9 @@ double hankel_transform(
             output, 
             strategy_params.n_eval, 
             strategy_params.eps_rel
-        )
+        );
 
-    } elif (strcmp(strategy_name, "QWE_Key") == 0) {
+    } else if (strcmp(strategy_name, "QWE_Key") == 0) {
         status = hankel_transform_QWE_Key(
             nu, 
             f, 
@@ -54,9 +48,9 @@ double hankel_transform(
             output,
             strategy_params.n_eval, 
             strategy_params.eps_rel
-        )
+        );
 
-    } elif (strcmp(strategy_name, "DHT_6") == 0) {
+    } else if (strcmp(strategy_name, "DHT_6") == 0) {
         status = hankel_transform_DHT(
             nu, 
             f, 
@@ -64,9 +58,9 @@ double hankel_transform(
             f_params, 
             output,
             6
-        )
+        );
 
-    } elif (strcmp(strategy_name, "DHT_7") == 0) {
+    } else if (strcmp(strategy_name, "DHT_7") == 0) {
         status = hankel_transform_DHT(
             nu, 
             f, 
@@ -74,9 +68,9 @@ double hankel_transform(
             f_params, 
             output,
             7
-        )
+        );
 
-    } elif (strcmp(strategy_name, "DHT_8") == 0) {
+    } else if (strcmp(strategy_name, "DHT_8") == 0) {
         status = hankel_transform_DHT(
             nu, 
             f, 
@@ -84,9 +78,9 @@ double hankel_transform(
             f_params, 
             output,
             8
-        )
+        );
 
-    } elif (strcmp(strategy_name, "DHT_9") == 0) {
+    } else if (strcmp(strategy_name, "DHT_9") == 0) {
         status = hankel_transform_DHT(
             nu, 
             f, 
@@ -94,9 +88,9 @@ double hankel_transform(
             f_params, 
             output,
             9
-        )
+        );
 
-    } elif (strcmp(strategy_name, "DHT_10") == 0) {
+    } else if (strcmp(strategy_name, "DHT_10") == 0) {
         status = hankel_transform_DHT(
             nu, 
             f, 
@@ -104,9 +98,9 @@ double hankel_transform(
             f_params, 
             output,
             10
-        )
+        );
 
-    } elif (strcmp(strategy_name, "DHT_11") == 0) {
+    } else if (strcmp(strategy_name, "DHT_11") == 0) {
         status = hankel_transform_DHT(
             nu, 
             f, 
@@ -114,7 +108,7 @@ double hankel_transform(
             f_params, 
             output,
             11
-        )
+        );
     }
 
     return status;
