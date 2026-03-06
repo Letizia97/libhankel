@@ -142,7 +142,7 @@ void test_hankel_DHT_throws_error_when_int_strategy_wrong(void) {
     start_capture_stderr();
     int status = hankel_transform_DHT(nu, form_factor_sphere, z,  &params, output, 1);
     stop_capture_stderr(captured, sizeof(captured));
-    TEST_ASSERT_EQUAL_INT_MESSAGE(-1, status, "");
+    TEST_ASSERT_EQUAL_INT_MESSAGE(-2, status, "");
     TEST_ASSERT_EQUAL_STRING(captured, "Strategy number must be integer between 6 and 11\n");
 }
 
