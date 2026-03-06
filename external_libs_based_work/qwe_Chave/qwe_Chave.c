@@ -34,7 +34,7 @@ double bessel_j_zero(int nzero, double order) {
             "nzero, that is the index of the zero to be computed, "
             "must be greater than or equal to 1\n"
         );
-        return -1;
+        return -6;
     }
 
     if (nzero < 7) {
@@ -104,7 +104,7 @@ double pade_sum(double *s, int n) {
 
     if (n < 1) {
         fprintf(stderr, "n passed as input to pade_sum must be >= 1.\n");
-        return -1;
+        return -7;
     }
 
     D = calloc(n + 1, sizeof(double));
@@ -120,7 +120,7 @@ double pade_sum(double *s, int n) {
             "Failed to allocate internal variables "
             "in function pade_sum.\n"
         );
-        return -1;    
+        return -3;    
     }
 
     D[1] = s[1];
@@ -136,7 +136,7 @@ double pade_sum(double *s, int n) {
             "Division by 0 encountered in pade_sum!"
             " s[1] must be different from 0. \n"
         );
-        return -1;  
+        return -5;  
     }
 
     d[2] = -D[2]/D[1];
@@ -167,7 +167,7 @@ double pade_sum(double *s, int n) {
 
         if (D[i-1] == 0) {
             fprintf(stderr, "Division by 0 encountered in pade_sum!\n");
-            return -1;  
+            return -5;  
         }
         d[i] = -D[i]/D[i-1];   
     }
@@ -240,7 +240,7 @@ double qwe_Chave(
             "Failed to allocate internal variables in "
             "function sasfit_HankelChave.\n"
         );
-        return -1;    
+        return -3;    
     }
 
     //upper limit (n_max_iters) is arbitrary and should never be reached
@@ -265,6 +265,6 @@ double qwe_Chave(
             "qwe_Chave algorithm did not converge "
             "after maximum allowed intervals: %d\n", n_max_iters
         );
-        return -1;
+        return -4;
     };
 }

@@ -248,7 +248,7 @@ double qwe_Key(
             "Failed to allocate internal variables "
             "in function pade_sum.\n"
         );
-        return -1;    
+        return -3;    
     }
 
     for (i=idx_of_zero+1; i<=n_terms; i++) {
