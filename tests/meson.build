@@ -7,7 +7,8 @@ tests = [
   'test_hankel_QWE_Chave.c',
   'test_hankel_QWE_Key.c',
   'test_integrate_ctm.c',
-  'test_hankel_transform.c'
+  'test_hankel_transform.c',
+  'test_form_factors.c'
 ]
 test_inc = include_directories('.')   
 
