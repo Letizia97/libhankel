@@ -220,7 +220,7 @@ double qwe_Chave(
     if (!(nu==0 || nu==1)) {
         fprintf(stderr, 
             "nu needs to be 0 or 1 in order to use "
-            "the selected strategy\n"
+            "QWE_Chave\n"
         );
         return -1;
     }
@@ -262,9 +262,12 @@ double qwe_Chave(
 
     if (!converged) {
         fprintf(stderr, 
-            "qwe_Chave algorithm did not converge "
-            "after maximum allowed intervals: %d\n", n_max_iters
+            "QWE_Chave algorithm did not converge "
+            "after maximum allowed intervals (%d)\n", n_max_iters
         );
         return -4;
     };
+
+    *output = res;
+	return 0;
 }

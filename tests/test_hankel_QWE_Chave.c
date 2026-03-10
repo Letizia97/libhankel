@@ -115,20 +115,26 @@ void setUp(void) {
     // printf("QWE Chave, Gr-G0 on spheres \n");
     for (size_t i = 0; i < ARRAY_LEN; ++i) {
         z = r_array_spheres[i];
-        hankel_transform_QWE_Chave(nu, form_factor_sphere, z, &params_spheres, &Gr[i], 250, 1e-9);
+        hankel_transform_QWE_Chave(
+            nu, form_factor_sphere, z, &params_spheres, &Gr[i], 250, 1e-9
+        );
         //printf("%.15g,  \n", (Gr[i]));
         ctx.actual_spheres[i] = Gr[i]; 
     }
     
     for (size_t i = 0; i < ARRAY_LEN; ++i) {
         z = r_array_gdab[i];
-        hankel_transform_QWE_Chave(nu, form_factor_g_dab, z, &params_gdab, &Gr[i], 250, 1e-9);
+        hankel_transform_QWE_Chave(
+            nu, form_factor_g_dab, z, &params_gdab, &Gr[i], 250, 1e-9
+        );
         ctx.actual_gdab[i] = Gr[i]; 
     }
 
     for (size_t i = 0; i < ARRAY_LEN; ++i) {
         z = r_array_broad_peak[i];
-        hankel_transform_QWE_Chave(nu, form_factor_broad_peak, z, &params_broad_peak, &Gr[i], 150, 1e-9);
+        hankel_transform_QWE_Chave(
+            nu, form_factor_broad_peak, z, &params_broad_peak, &Gr[i], 150, 1e-9
+        );
         ctx.actual_broad_peak[i] = Gr[i]; 
     }  
 }
@@ -167,10 +173,54 @@ void test_hankel_QWE_Chave_regression_broad_peak(void) {
     }
 }
 
+void test_hankel_QWE_Chave_throws_error_when_nu_wrong(void) {
+    /*
+    Tests that hankel_QWE_Chave throws expected
+    error when nu is neither 0 nor 1.
+    */
+    char captured[1024];
+    int nu = 2;
+    double z = 5.0;
+
+    start_capture_stderr();
+    int status = hankel_transform_QWE_Chave(
+        nu, form_factor_g_dab, z, &params_gdab, &Gr[0], 250, 1e-9
+    );
+    stop_capture_stderr(captured, sizeof(captured));
+    TEST_ASSERT_EQUAL_INT_MESSAGE(-1, status, "");
+    TEST_ASSERT_EQUAL_STRING(
+        captured, 
+        "nu needs to be 0 or 1 in order to use QWE_Chave\n"
+    );
+}
+
+void test_hankel_QWE_Chave_throws_error_when_not_converged(void) {
+    /*
+    Tests that hankel_QWE_Chave throws expected
+    error it doesn't converge.
+    */
+    char captured[1024];
+    int nu = 0;
+    double z = 5.0;
+
+    start_capture_stderr();
+    int status = hankel_transform_QWE_Chave(
+        nu, form_factor_g_dab, z, &params_gdab, &Gr[0], 4, 1e-9
+    );
+    stop_capture_stderr(captured, sizeof(captured));
+    TEST_ASSERT_EQUAL_INT_MESSAGE(-4, status, "");
+    TEST_ASSERT_EQUAL_STRING(
+        captured, 
+        "QWE_Chave algorithm did not converge after maximum allowed intervals (4)\n"
+    );
+}
+
 int main(void) {
     UNITY_BEGIN();
     RUN_TEST(test_hankel_QWE_Chave_regression_spheres);
     RUN_TEST(test_hankel_QWE_Chave_regression_gdab);
     RUN_TEST(test_hankel_QWE_Chave_regression_broad_peak);
+    RUN_TEST(test_hankel_QWE_Chave_throws_error_when_nu_wrong);
+    RUN_TEST(test_hankel_QWE_Chave_throws_error_when_not_converged);
     return UNITY_END();
 }

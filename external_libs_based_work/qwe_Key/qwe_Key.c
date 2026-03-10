@@ -218,7 +218,7 @@ double qwe_Key(
     if (!(nu==0 || nu==1)) {
         fprintf(stderr, 
             "nu needs to be 0 or 1 in order to use "
-            "the selected strategy\n"
+            "QWE_Key\n"
         );
         return -1;
     }
@@ -292,11 +292,11 @@ double qwe_Key(
 	free(abs_err);
 
     if (!converged) {
-        printf(
-            "qwe_Key algorithm did not converge "
-            "after maximum allowed intervals: %d\n",n_max_iters
+        fprintf(stderr, 
+            "QWE_Key algorithm did not converge "
+            "after maximum allowed intervals (%d)\n",n_max_iters
         );
-        return -1;
+        return -4;
     };
 
     *output = res;
