@@ -1,5 +1,21 @@
 #include "libhankel.h"
 #include <string.h>
+#include <stddef.h>
+#include <stdio.h>
+
+
+int validate_params_QWE(strategy_params strategy_params) {
+    if (strategy_params.n_eval == 0) {
+        fprintf(stderr, "Error: n_eval must be provided and cannot be zero\n");
+        return -8;
+    }
+    if (strategy_params.eps_rel == 0) {
+        fprintf(stderr, "Error: eps_rel must be provided and cannot be zero\n");
+        return -8;
+    }
+    return 0;
+}
+
 
 
 
@@ -29,6 +45,10 @@ double hankel_transform(
     int status;
 
     if (strcmp(strategy_name, "QWE_Chave") == 0) {
+
+        status = validate_params_QWE(strategy_params);
+        if (status!=0) {return status;}
+
         status = hankel_transform_QWE_Chave(
             nu, 
             f, 
@@ -40,6 +60,10 @@ double hankel_transform(
         );
 
     } else if (strcmp(strategy_name, "QWE_Key") == 0) {
+
+        status = validate_params_QWE(strategy_params);
+        if (status!=0) {return status;}
+
         status = hankel_transform_QWE_Key(
             nu, 
             f, 

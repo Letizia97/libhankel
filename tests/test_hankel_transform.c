@@ -140,7 +140,7 @@ void setUp(void) {
 
 void tearDown(void) {}
 
-void test_hankel_QWE_Key_regression_spheres(void) {
+void test_hankel_transform_spheres(void) {
     /*
     Regression test for QWE on spheres.
     */
@@ -149,7 +149,7 @@ void test_hankel_QWE_Key_regression_spheres(void) {
     }
 }
 
-void test_hankel_QWE_Key_regression_gdab(void) {
+void test_hankel_transform_gdab(void) {
     /*
     Regression test for QWE on gdab.
     */
@@ -158,7 +158,7 @@ void test_hankel_QWE_Key_regression_gdab(void) {
     }
 }
 
-void test_hankel_QWE_Key_regression_broad_peak(void) {
+void test_hankel_transform_broad_peak(void) {
     /*
     Regression test for QWE on broad peak.
     */
@@ -171,10 +171,49 @@ void test_hankel_QWE_Key_regression_broad_peak(void) {
     }
 }
 
+void test_hankel_transform_throws_error_when_n_eval_not_defined(void) {
+    /*
+    Tests that hankel_transform throws expected
+    error when n_eval not provided (when using QWE_Key).
+    */
+    char captured[1024];
+
+    strategy_params strategy_params_wrong = {
+        .eps_rel = 1e-9
+    };
+
+    start_capture_stderr();
+    int status = hankel_transform(nu, form_factor_g_dab, z, &params_gdab, &Gr[0], "QWE_Key", strategy_params_wrong);
+    stop_capture_stderr(captured, sizeof(captured));
+    TEST_ASSERT_EQUAL_INT_MESSAGE(-8, status, "");
+    TEST_ASSERT_EQUAL_STRING(captured, "Error: n_eval must be provided and cannot be zero\n");
+}
+
+
+void test_hankel_transform_throws_error_when_eps_rel_not_defined(void) {
+    /*
+    Tests that hankel_transform throws expected
+    error when eps_rel not provided (when using QWE_Key).
+    */
+    char captured[1024];
+
+    strategy_params strategy_params_wrong = {
+        .n_eval = 250
+    };
+
+    start_capture_stderr();
+    int status = hankel_transform(nu, form_factor_g_dab, z, &params_gdab, &Gr[0], "QWE_Key", strategy_params_wrong);
+    stop_capture_stderr(captured, sizeof(captured));
+    TEST_ASSERT_EQUAL_INT_MESSAGE(-8, status, "");
+    TEST_ASSERT_EQUAL_STRING(captured, "Error: eps_rel must be provided and cannot be zero\n");
+}
+
 int main(void) {
     UNITY_BEGIN();
-    RUN_TEST(test_hankel_QWE_Key_regression_spheres);
-    RUN_TEST(test_hankel_QWE_Key_regression_gdab);
-    RUN_TEST(test_hankel_QWE_Key_regression_broad_peak);
+    RUN_TEST(test_hankel_transform_spheres);
+    RUN_TEST(test_hankel_transform_gdab);
+    RUN_TEST(test_hankel_transform_broad_peak);
+    RUN_TEST(test_hankel_transform_throws_error_when_n_eval_not_defined);
+    RUN_TEST(test_hankel_transform_throws_error_when_eps_rel_not_defined);
     return UNITY_END();
 }
