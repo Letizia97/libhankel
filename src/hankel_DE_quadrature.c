@@ -55,7 +55,9 @@ double intdeo_FBT(double r, void *FBTparams) {
  *        double‑exponential (DE) / tanh–sinh transform.
  */
 double DEtransform(double t) {
-    return t * tanh(M_PI_2 * sinh(t));
+    double s = sinh(t);
+    double a = M_PI_2 * s;
+    return t * tanh(a);
 }
 
 /** 
@@ -66,10 +68,12 @@ double DEtransform(double t) {
  *        transformation.
  */
 double deriv_DEtransform(double t){
-    double res;
-    res = 1. / cosh(M_PI_2 * sinh(t));
-    res = M_PI_2 * t * cosh(t) * res * res + tanh(M_PI_2 * sinh(t));
-    return res;
+    double sh = sinh(t);
+    double ch = cosh(t);
+    double A  = M_PI_2 * sh;
+    double secH = 1.0 / cosh(A);  // sech(A)
+
+    return M_PI_2 * t * ch * (secH * secH) + tanh(A);
 }
 
 /** 
