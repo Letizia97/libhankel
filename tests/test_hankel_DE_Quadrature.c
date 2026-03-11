@@ -39,13 +39,14 @@ typedef struct {
 
 TestContext ctx = {
     .expected_spheres = {
-        387416.412065475, 371194.865580057, 349050.864153644, 322867.149100665,
-        293974.780753251, 263386.781501643, 232057.495371681, 200753.890676763, 
-        170170.354661464, 140920.014369147, 113542.661275799, 88506.3216245793, 
-        66205.8340089448, 46957.9888727101, 30993.9078691727, 18447.4927530311, 
-        9330.94574647086, 3515.64463768323, 648.324613207103, -2.78020815520254, 
-        14.0969768590239, -1.57642395845139, 2.37344365097445, 3.35949972691438, 
-        1.47641564839411, 
+        387507.478876507, 371194.865559785, 349050.878110533, 322866.912359191, 
+        293957.890774645, 263387.284336425, 232057.309283767, 200753.920990995, 
+        170170.357980906, 140920.013857726, 113542.663215219, 88506.3597290707, 
+        66205.9256771091, 46958.3386835007, 30994.6269460026, 18447.4103664975, 
+        9331.51981974001, 3512.03954686726, 643.54697816898, -0.419462003739866, 
+        0.671565816397894, 0.408622932460936, -0.572610815496937, 0.444648150293901, 
+        -0.730794091442533, 
+
     },
     .actual_spheres = { 0 }, 
     .expected_gdab = { 
@@ -115,13 +116,13 @@ void setUp(void) {
 
     
     // COMPUTATIONS 
-    printf("de ogata, Gr-G0  \n");
+    //printf("de ogata, Gr-G0  \n");
     for (size_t i = 0; i < ARRAY_LEN; ++i) {
         z = r_array_spheres[i];
         hankel_transform_DE_Quadrature(
-            nu, form_factor_sphere, z, &params_spheres, &Gr[i], 150, 1e-3
+            nu, form_factor_sphere, z, &params_spheres, &Gr[i], 250, 1e-9
         );
-        printf("%.15g, ", (Gr[i]));
+        //printf("%.15g, ", (Gr[i]));
         ctx.actual_spheres[i] = Gr[i]; 
     }
 
@@ -129,7 +130,7 @@ void setUp(void) {
     for (size_t i = 0; i < ARRAY_LEN; ++i) {
         z = r_array_gdab[i];
         hankel_transform_DE_Quadrature(
-            nu, form_factor_g_dab, z, &params_gdab, &Gr[i], 150, 1e-3
+            nu, form_factor_g_dab, z, &params_gdab, &Gr[i], 250, 1e-9
         );
         ctx.actual_gdab[i] = Gr[i]; 
     }
@@ -137,7 +138,7 @@ void setUp(void) {
     for (size_t i = 0; i < ARRAY_LEN; ++i) {
         z = r_array_broad_peak[i];
         hankel_transform_DE_Quadrature(
-            nu, form_factor_broad_peak, z, &params_broad_peak, &Gr[i], 150, 0.2e-3
+            nu, form_factor_broad_peak, z, &params_broad_peak, &Gr[i], 250, 1e-9
         );
         ctx.actual_broad_peak[i] = Gr[i]; 
     }  

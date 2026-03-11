@@ -126,13 +126,13 @@ void setUp(void) {
         ctx.actual_spheres[i] = Gr[i]; 
     }
 
-    printf("de ogata, Gr-G0  \n");
+    //printf("de ogata, Gr-G0  \n");
     for (size_t i = 0; i < ARRAY_LEN; ++i) {
         z = r_array_gdab[i];
         hankel_transform_DE_Ogata(
             nu, form_factor_g_dab, z, &params_gdab, &Gr[i], 150, 1e-3
         );
-        printf("%.15g, ", (Gr[i]));
+        //printf("%.15g, ", (Gr[i]));
         ctx.actual_gdab[i] = Gr[i]; 
     }
 
@@ -183,6 +183,7 @@ int main(void) {
     UNITY_BEGIN();
     RUN_TEST(test_hankel_DE_Ogata_regression_spheres);
     RUN_TEST(test_hankel_DE_Ogata_regression_gdab);
-    // RUN_TEST(test_hankel_DE_Ogata_regression_broad_peak);
+    // probably need to replace this with an actual regression
+    //RUN_TEST(test_hankel_DE_Ogata_regression_broad_peak);
     return UNITY_END();
 }
