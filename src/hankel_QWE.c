@@ -39,7 +39,7 @@ double hankel_transform_QWE_Key(
     double n_eval, 
     double eps_rel) {
 
-    double status;
+    int status;
     status = qwe_Key(
         nu, 
         f, 
@@ -74,7 +74,7 @@ double hankel_transform_QWE_Chave(
     double n_eval, 
     double eps_rel) {
 
-    double status;
+    int status;
     status = qwe_Chave(
         nu, 
         f,
