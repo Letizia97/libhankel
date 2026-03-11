@@ -64,23 +64,24 @@ double hankel_transform_FBT(
 
 // strategy 0 (DE QUADRATURE)
 double hankel_transform_DE_Quadrature(
-	int nu, 
-	double (*f)(double, double (*)[50]), 
-	double x, 
-	double (*f_params)[50], 
-	double n_eval, 
-	double eps_rel
+    int nu, 
+    double (*f)(double, double (*)[50]), 
+    double x, 
+    double (*f_params)[50], 
+    double *output,
+    double n_eval, 
+    double eps_rel
 );
 
 // strategy 1 (DE QUADRATURE)
 double hankel_transform_DE_Ogata(
-	int nu, 
-	double (*f)(double, double (*)[50]), 
-	double x, 
-	double (*f_params)[50], 
-	double (*output),
-	double n_eval, 
-	double f_max
+    int nu, 
+    double (*f)(double, double (*)[50]), 
+    double x, 
+    double (*f_params)[50], 
+    double *output,
+    double n_eval, 
+    double f_max
 );
 
 // strategy 12

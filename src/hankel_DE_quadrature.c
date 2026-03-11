@@ -55,7 +55,9 @@ double intdeo_FBT(double r, void *FBTparams) {
  *        double‑exponential (DE) / tanh–sinh transform.
  */
 double DEtransform(double t) {
-    return t * tanh(M_PI_2 * sinh(t));
+    double s = sinh(t);
+    double a = M_PI_2 * s;
+    return t * tanh(a);
 }
 
 /** 
@@ -66,10 +68,12 @@ double DEtransform(double t) {
  *        transformation.
  */
 double deriv_DEtransform(double t){
-    double res;
-    res = 1. / cosh(M_PI_2 * sinh(t));
-    res = M_PI_2 * t * cosh(t) * res * res + tanh(M_PI_2 * sinh(t));
-    return res;
+    double sh = sinh(t);
+    double ch = cosh(t);
+    double A  = M_PI_2 * sh;
+    double secH = 1.0 / cosh(A);  // sech(A)
+
+    return M_PI_2 * t * ch * (secH * secH) + tanh(A);
 }
 
 /** 
@@ -80,6 +84,7 @@ double deriv_DEtransform(double t){
  * @param f          pointer to form factor function
  * @param x          value at which to compute the transform
  * @param f_params    params for form factor
+ * @param output     pointer to var containing output from transform 
  * @param n_eval     integer indicating number of function evaluations (N_ogata in SASfit)
  * @param eps_rel    relative error allowed e.g. 1e-9 (eps_nriq in SASfit)
  */ 
@@ -88,35 +93,75 @@ double hankel_transform_DE_Quadrature(
     double (*f)(double, double (*)[50]), 
     double x, 
     double (*f_params)[50], 
+    double *output,
     double n_eval, 
     double eps_rel) {
 
-    int lenaw = 4000;
-    int rounded_N;
-    double res0, err0, res, err, a, *aw, nv;
-    rounded_N = lround(n_eval);
-    nv = abs(nu);
+    int workspace_len = 4000;
+    int rounded_n_eval, status;
+    double res0, err0, res, err;
+    rounded_n_eval = lround(n_eval);
 
     params_struct FBTparam_struct;
-    FBTparam_struct.f_params=f_params;
-    FBTparam_struct.function=f;
-    FBTparam_struct.nu=nu;
-    FBTparam_struct.Q=x;
+    FBTparam_struct.f_params = f_params;
+    FBTparam_struct.function = f;
+    FBTparam_struct.nu = nu;
+    FBTparam_struct.Q = x;
 
-    // FIXME: need to find a better variable name for a and aw
-    a = gsl_sf_bessel_zero_Jnu(nv, (rounded_N<10?rounded_N:10)) / x;
-    aw = (double *)malloc((lenaw)*sizeof(double));
+    // chooses which zero index to request, caps it at 10
+    double zero_index = rounded_n_eval < 10 ? rounded_n_eval : 10;
 
-    sasfit_intdeini(lenaw, GSL_DBL_MIN, eps_rel, aw);
-    sasfit_intde(&intdeo_FBT,0, a, aw, &res0, &err0, &FBTparam_struct);
+    // compute zero through bessel function and scale it
+    double scaled_zero = gsl_sf_bessel_zero_Jnu(nu, zero_index) / x;
 
-    sasfit_intdeoini(lenaw, GSL_DBL_MIN, eps_rel, aw);
-    sasfit_intdeo(&intdeo_FBT, a, FBTparam_struct.Q, aw, &res, &err, &FBTparam_struct);
-    free(aw);
+    // allocates an array of doubles and returns a pointer to it
+    double *workspace = malloc(workspace_len * sizeof *workspace);
 
+    // precompute nodes & weights for DE integration on a finite interval [a, b]
+    sasfit_intdeini(
+        workspace_len, 
+        GSL_DBL_MIN, 
+        eps_rel, 
+        workspace
+    );
+    // compute integral using DE quadrature with weights created by sasfit_intdeini
+    sasfit_intde(
+        &intdeo_FBT, 
+        0, 
+        scaled_zero, 
+        workspace, 
+        &res0, 
+        &err0, 
+        &FBTparam_struct
+    );
+    // precompute nodes/weights for oscillatory integrals
+    // e.g. f(x) cos(omega x) , over [a, inf]
+    sasfit_intdeoini(
+        workspace_len, 
+        GSL_DBL_MIN, 
+        eps_rel, 
+        workspace
+    );
+    // evaluate oscillatory integrals using the table built by intdeoini.
+    sasfit_intdeo(
+        &intdeo_FBT, 
+        scaled_zero, 
+        FBTparam_struct.Q, 
+        workspace, 
+        &res, 
+        &err, 
+        &FBTparam_struct
+    );
+
+    free(workspace);
     res += res0;
-    err += err0;
-    return res;
+
+    // estimate of the numerical integration error for the computed integral 
+    // FIXME: need to figure out what to do with this
+    err += err0; 
+
+    *output = res;
+	return 0;
 }
 
 /** 
@@ -140,28 +185,51 @@ double hankel_transform_DE_Ogata(
     double n_eval, 
     double f_max) {
 
-    double res, zeros_PI, phi_dot, y_k, w_nv_k, J_nv, sum, nv;
-    int i;
+    double sum;
+    int status;
     sum = 0.0;
-    nv = abs(nu);
 
-    for (i=1; i<=n_eval; i++) {
-        zeros_PI = gsl_sf_bessel_zero_Jnu(nv,i) / M_PI;
-        phi_dot = deriv_DEtransform(f_max * zeros_PI);
-        y_k = DEtransform(f_max * zeros_PI) * M_PI / f_max;
-        w_nv_k = 2./ (gsl_pow_2(M_PI * gsl_sf_bessel_Jnu(nv + 1, zeros_PI * M_PI)) * zeros_PI);
-        J_nv = gsl_sf_bessel_Jnu(nv, y_k);
-        res =  w_nv_k * y_k * (*f)(y_k / x, f_params) * J_nv * phi_dot;
-        sum = sum + res;
+    for (int i = 1; i <= n_eval; i++) {
+
+        /* ---- Get Bessel zero α_{ν,i} scaled by π ---- */
+        double zero_i      = gsl_sf_bessel_zero_Jnu(nu, i);
+        double zero_scaled = zero_i / M_PI;
+
+        /* ---- Apply DE transform & its derivative ---- */
+        double t           = f_max * zero_scaled;
+        double phi         = DEtransform(t);
+        double phi_prime   = deriv_DEtransform(t);   /* Jacobian */
+
+        /* ---- Map DE node into actual integration node y_k ---- */
+        double y_k         = phi * (M_PI / f_max);
+
+        /* ---- Precompute Bessel factors ---- */
+        double Jnu_yk      = gsl_sf_bessel_Jnu(nu, y_k);
+        double Jnu1_zero   = gsl_sf_bessel_Jnu(nu + 1, zero_i);
+
+        /* ---- Quadrature weight for α_{ν,i} ---- */
+        double denom       = M_PI * Jnu1_zero;
+        double weight      = 2.0 / ( (denom * denom) * zero_scaled );
+
+        /* ---- Evaluate integrand at scaled location ---- */
+        double f_val       = (*f)(y_k / x, f_params);
+
+        /* ---- Assemble quadrature contribution ---- */
+        double term        = weight * y_k * f_val * Jnu_yk * phi_prime;
+
+        sum += term;
     }
 
-    sum = M_PI / gsl_pow_2(x) * sum;
-    if (nv==0) {
-        res = sum;
-    } else {
-        res = sum * pow(GSL_SIGN(nu),nu);
-    }
-    return res;
+    // Apply normalization from the change of variables t = x * r
+    double scaled_sum = (M_PI / (x * x)) * sum;
 
+    // Parity correction for integer Bessel order (H_-ν = (-1)^ν H_ν)
+    double parity = (nu == 0) ? 1.0 : pow((double)GSL_SIGN(nu), nu);
+
+    // Final result
+    double res = scaled_sum * parity;
+
+    *output = res;
+	return 0;
 }
 
