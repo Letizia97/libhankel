@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['strategy_5fparams_31',['strategy_params',['../structstrategy__params.html',1,'']]]
+  ['q_36',['Q',['../structparams__struct.html#ac0d1e7e1890df178b0605032b1a43fc5',1,'params_struct']]]
 ];

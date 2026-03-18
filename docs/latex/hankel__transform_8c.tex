@@ -2,31 +2,30 @@
 \label{hankel__transform_8c}\index{src/hankel\_transform.c@{src/hankel\_transform.c}}
 {\ttfamily \#include \char`\"{}libhankel.\+h\char`\"{}}\newline
 {\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$stddef.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
 Include dependency graph for hankel\+\_\+transform.\+c\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=222pt]{hankel__transform_8c__incl}
+\includegraphics[width=350pt]{hankel__transform_8c__incl}
 \end{center}
 \end{figure}
-\doxysubsection*{Data Structures}
-\begin{DoxyCompactItemize}
-\item 
-struct \mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}}
-\end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-double \mbox{\hyperlink{hankel__transform_8c_a484cdaaa4f6f8251c14f2e0dd0c883fd}{hankel\+\_\+transform}} (int nu, double($\ast$f)(double, double($\ast$)\mbox{[}50\mbox{]}), double x, double($\ast$f\+\_\+params)\mbox{[}50\mbox{]}, double $\ast$output, char strategy\+\_\+name, const void $\ast$\mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}})
+int \mbox{\hyperlink{hankel__transform_8c_a6908e2cefe00a0dfed35e8ef406ececa}{validate\+\_\+params\+\_\+\+QWE}} (\mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}} \mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}})
+\item 
+double \mbox{\hyperlink{hankel__transform_8c_a482666838880b9e0b91a12955a3b335b}{hankel\+\_\+transform}} (int nu, double($\ast$f)(double, double($\ast$)\mbox{[}50\mbox{]}), double x, double($\ast$f\+\_\+params)\mbox{[}50\mbox{]}, double $\ast$output, const char $\ast$strategy\+\_\+name, \mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}} \mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}})
 \begin{DoxyCompactList}\small\item\em Computes Hankel transform using the method specified by the user. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{hankel__transform_8c_a484cdaaa4f6f8251c14f2e0dd0c883fd}\label{hankel__transform_8c_a484cdaaa4f6f8251c14f2e0dd0c883fd}} 
+\mbox{\Hypertarget{hankel__transform_8c_a482666838880b9e0b91a12955a3b335b}\label{hankel__transform_8c_a482666838880b9e0b91a12955a3b335b}} 
 \index{hankel\_transform.c@{hankel\_transform.c}!hankel\_transform@{hankel\_transform}}
 \index{hankel\_transform@{hankel\_transform}!hankel\_transform.c@{hankel\_transform.c}}
 \doxysubsubsection{\texorpdfstring{hankel\_transform()}{hankel\_transform()}}
-{\footnotesize\ttfamily double hankel\+\_\+transform (\begin{DoxyParamCaption}\item[{int}]{nu,  }\item[{double($\ast$)(double, double($\ast$)\mbox{[}50\mbox{]})}]{f,  }\item[{double}]{x,  }\item[{double($\ast$)}]{f\+\_\+params\mbox{[}50\mbox{]},  }\item[{double $\ast$}]{output,  }\item[{char}]{strategy\+\_\+name,  }\item[{const void $\ast$}]{strategy\+\_\+params }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily double hankel\+\_\+transform (\begin{DoxyParamCaption}\item[{int}]{nu,  }\item[{double($\ast$)(double, double($\ast$)\mbox{[}50\mbox{]})}]{f,  }\item[{double}]{x,  }\item[{double($\ast$)}]{f\+\_\+params\mbox{[}50\mbox{]},  }\item[{double $\ast$}]{output,  }\item[{const char $\ast$}]{strategy\+\_\+name,  }\item[{\mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}}}]{strategy\+\_\+params }\end{DoxyParamCaption})}
 
 
 
@@ -52,3 +51,9 @@ The parameter strategy\+\_\+name can be any of \char`\"{}\+QWE\+\_\+\+Chave\char
 {\em \mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}}} & struct containing params for the specific strategy (please use the docs to find params required by each strategy) \\
 \hline
 \end{DoxyParams}
+\mbox{\Hypertarget{hankel__transform_8c_a6908e2cefe00a0dfed35e8ef406ececa}\label{hankel__transform_8c_a6908e2cefe00a0dfed35e8ef406ececa}} 
+\index{hankel\_transform.c@{hankel\_transform.c}!validate\_params\_QWE@{validate\_params\_QWE}}
+\index{validate\_params\_QWE@{validate\_params\_QWE}!hankel\_transform.c@{hankel\_transform.c}}
+\doxysubsubsection{\texorpdfstring{validate\_params\_QWE()}{validate\_params\_QWE()}}
+{\footnotesize\ttfamily int validate\+\_\+params\+\_\+\+QWE (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}}}]{strategy\+\_\+params }\end{DoxyParamCaption})}
+

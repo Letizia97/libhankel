@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>My Project: src/hankel_DE_quadrature.c File Reference</title>
+<title>LibHankel: src/hankel_DE_quadrature.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -13,6 +13,7 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -21,7 +22,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">My Project
+   <div id="projectname">LibHankel
    </div>
   </td>
  </tr>
@@ -112,9 +113,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ae1b03fc133041f7c13160312b02afc8c"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hankel__DE__quadrature_8c.html#ae1b03fc133041f7c13160312b02afc8c">deriv_DEtransform</a> (double t)</td></tr>
 <tr class="memdesc:ae1b03fc133041f7c13160312b02afc8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Auxiliary function that computes the derivative of a “double‑exponential (DE) change of variables”, that is commonly used in numerical integration (quadrature). Specifically, this is the tanh–sinh (double exponential) transformation.  <a href="hankel__DE__quadrature_8c.html#ae1b03fc133041f7c13160312b02afc8c">More...</a><br /></td></tr>
 <tr class="separator:ae1b03fc133041f7c13160312b02afc8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae0a9773bf938a4e245f5430f12e13301"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hankel__DE__quadrature_8c.html#ae0a9773bf938a4e245f5430f12e13301">hankel_transform_DE_Quadrature</a> (int nu, double(*f)(double, double(*)[50]), double x, double(*f_params)[50], double n_eval, double eps_rel)</td></tr>
-<tr class="memdesc:ae0a9773bf938a4e245f5430f12e13301"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes Hankel transform, using de-quadrature.  <a href="hankel__DE__quadrature_8c.html#ae0a9773bf938a4e245f5430f12e13301">More...</a><br /></td></tr>
-<tr class="separator:ae0a9773bf938a4e245f5430f12e13301"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac5f33559ce633fd90997a02a7b19d039"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hankel__DE__quadrature_8c.html#ac5f33559ce633fd90997a02a7b19d039">hankel_transform_DE_Quadrature</a> (int nu, double(*f)(double, double(*)[50]), double x, double(*f_params)[50], double *output, double n_eval, double eps_rel)</td></tr>
+<tr class="memdesc:ac5f33559ce633fd90997a02a7b19d039"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes Hankel transform, using de-quadrature.  <a href="hankel__DE__quadrature_8c.html#ac5f33559ce633fd90997a02a7b19d039">More...</a><br /></td></tr>
+<tr class="separator:ac5f33559ce633fd90997a02a7b19d039"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1c5ea33298800e1182aa4685c1766118"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hankel__DE__quadrature_8c.html#a1c5ea33298800e1182aa4685c1766118">hankel_transform_DE_Ogata</a> (int nu, double(*f)(double, double(*)[50]), double x, double(*f_params)[50], double *output, double n_eval, double f_max)</td></tr>
 <tr class="memdesc:a1c5ea33298800e1182aa4685c1766118"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes Hankel transform, using de-quadrature.  <a href="hankel__DE__quadrature_8c.html#a1c5ea33298800e1182aa4685c1766118">More...</a><br /></td></tr>
 <tr class="separator:a1c5ea33298800e1182aa4685c1766118"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -233,8 +234,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ae0a9773bf938a4e245f5430f12e13301"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae0a9773bf938a4e245f5430f12e13301">&#9670;&nbsp;</a></span>hankel_transform_DE_Quadrature()</h2>
+<a id="ac5f33559ce633fd90997a02a7b19d039"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac5f33559ce633fd90997a02a7b19d039">&#9670;&nbsp;</a></span>hankel_transform_DE_Quadrature()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -266,6 +267,12 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">double *&#160;</td>
+          <td class="paramname"><em>output</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">double&#160;</td>
           <td class="paramname"><em>n_eval</em>, </td>
         </tr>
@@ -291,6 +298,7 @@ Functions</h2></td></tr>
     <tr><td class="paramname">f</td><td>pointer to form factor function </td></tr>
     <tr><td class="paramname">x</td><td>value at which to compute the transform </td></tr>
     <tr><td class="paramname">f_params</td><td>params for form factor </td></tr>
+    <tr><td class="paramname">output</td><td>pointer to var containing output from transform </td></tr>
     <tr><td class="paramname">n_eval</td><td>integer indicating number of function evaluations (N_ogata in SASfit) </td></tr>
     <tr><td class="paramname">eps_rel</td><td>relative error allowed e.g. 1e-9 (eps_nriq in SASfit) </td></tr>
   </table>

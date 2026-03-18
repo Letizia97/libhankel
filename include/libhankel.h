@@ -3,17 +3,6 @@
 #define LIBHANKEL_H
 
 
-/** @mainpage Libhankel
-
-Welcome to the documentation for **Libhankel**.
-
-Here you can find:
-- Overview
-- Usage examples
-- API reference
-- Module descriptions
-
-*/
 typedef struct {
     double n_eval;      // integer indicating number of function evaluations (N_ogata in SASfit)
     double eps_rel;     // relative error allowed e.g. 1e-9 (eps_nriq in SASfit)

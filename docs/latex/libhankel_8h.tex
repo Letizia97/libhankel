@@ -7,18 +7,25 @@ This graph shows which files directly or indirectly include this file\+:\nopageb
 \includegraphics[width=350pt]{libhankel_8h__dep__incl}
 \end{center}
 \end{figure}
+\doxysubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}}
+\end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
+double \mbox{\hyperlink{libhankel_8h_a482666838880b9e0b91a12955a3b335b}{hankel\+\_\+transform}} (int nu, double($\ast$f)(double, double($\ast$)\mbox{[}50\mbox{]}), double x, double($\ast$f\+\_\+params)\mbox{[}50\mbox{]}, double $\ast$output, const char $\ast$strategy\+\_\+name, \mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}} \mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}})
+\begin{DoxyCompactList}\small\item\em Computes Hankel transform using the method specified by the user. \end{DoxyCompactList}\item 
 double \mbox{\hyperlink{libhankel_8h_a17d1d9108a951a82570bc51a5858fcfe}{hankel\+\_\+transform\+\_\+\+DHT}} (int nu, double($\ast$f)(double, double($\ast$)\mbox{[}50\mbox{]}), double x, double($\ast$f\+\_\+params)\mbox{[}50\mbox{]}, double($\ast$output), int n\+\_\+strategy)
 \begin{DoxyCompactList}\small\item\em Computes Hankel transform, using digital filters. \end{DoxyCompactList}\item 
 double \mbox{\hyperlink{libhankel_8h_a202abbd8f8d68df63ba92fe2bfb99930}{compute\+\_\+hankel\+\_\+\+FBT}} (int nu, double($\ast$f)(double, double($\ast$)\mbox{[}50\mbox{]}), double x, double($\ast$f\+\_\+params)\mbox{[}50\mbox{]}, int n\+\_\+method, int N, double h)
 \item 
 double \mbox{\hyperlink{libhankel_8h_a2553fbe28f09605c4348eac81ec75174}{hankel\+\_\+transform\+\_\+\+FBT}} (int nu, double($\ast$f)(double, double($\ast$)\mbox{[}50\mbox{]}), double x, double($\ast$f\+\_\+params)\mbox{[}50\mbox{]}, int n\+\_\+method, double n\+\_\+eval, double f\+\_\+max)
 \begin{DoxyCompactList}\small\item\em Computes Hankel transform using FBT. \end{DoxyCompactList}\item 
-double \mbox{\hyperlink{libhankel_8h_ae0a9773bf938a4e245f5430f12e13301}{hankel\+\_\+transform\+\_\+\+DE\+\_\+\+Quadrature}} (int nu, double($\ast$f)(double, double($\ast$)\mbox{[}50\mbox{]}), double x, double($\ast$f\+\_\+params)\mbox{[}50\mbox{]}, double n\+\_\+eval, double eps\+\_\+rel)
+double \mbox{\hyperlink{libhankel_8h_ac5f33559ce633fd90997a02a7b19d039}{hankel\+\_\+transform\+\_\+\+DE\+\_\+\+Quadrature}} (int nu, double($\ast$f)(double, double($\ast$)\mbox{[}50\mbox{]}), double x, double($\ast$f\+\_\+params)\mbox{[}50\mbox{]}, double $\ast$output, double n\+\_\+eval, double eps\+\_\+rel)
 \begin{DoxyCompactList}\small\item\em Computes Hankel transform, using de-\/quadrature. \end{DoxyCompactList}\item 
-double \mbox{\hyperlink{libhankel_8h_aaf33229a85b3b07b14bb5640658aa4d0}{hankel\+\_\+transform\+\_\+\+DE\+\_\+\+Ogata}} (int nu, double($\ast$f)(double, double($\ast$)\mbox{[}50\mbox{]}), double x, double($\ast$f\+\_\+params)\mbox{[}50\mbox{]}, double($\ast$output), double n\+\_\+eval, double f\+\_\+max)
+double \mbox{\hyperlink{libhankel_8h_a1c5ea33298800e1182aa4685c1766118}{hankel\+\_\+transform\+\_\+\+DE\+\_\+\+Ogata}} (int nu, double($\ast$f)(double, double($\ast$)\mbox{[}50\mbox{]}), double x, double($\ast$f\+\_\+params)\mbox{[}50\mbox{]}, double $\ast$output, double n\+\_\+eval, double f\+\_\+max)
 \begin{DoxyCompactList}\small\item\em Computes Hankel transform, using de-\/quadrature. \end{DoxyCompactList}\item 
 double \mbox{\hyperlink{libhankel_8h_a97be4285675e7591ac5c7c895e0b4e87}{hankel\+\_\+transform\+\_\+\+QWE\+\_\+\+Key}} (int nu, double($\ast$f)(double, double($\ast$)\mbox{[}50\mbox{]}), double x, double($\ast$f\+\_\+params)\mbox{[}50\mbox{]}, double($\ast$output), double n\+\_\+eval, double eps\+\_\+rel)
 \begin{DoxyCompactList}\small\item\em Computes Hankel transform using the Quadrature With Extrapolation method by Key. \end{DoxyCompactList}\item 
@@ -33,7 +40,37 @@ double \mbox{\hyperlink{libhankel_8h_ab3490caa571d5baa28cf82801a232026}{hankel\+
 \doxysubsubsection{\texorpdfstring{compute\_hankel\_FBT()}{compute\_hankel\_FBT()}}
 {\footnotesize\ttfamily double compute\+\_\+hankel\+\_\+\+FBT (\begin{DoxyParamCaption}\item[{int}]{nu,  }\item[{double($\ast$)(double, double($\ast$)\mbox{[}50\mbox{]})}]{f,  }\item[{double}]{x,  }\item[{double($\ast$)}]{f\+\_\+params\mbox{[}50\mbox{]},  }\item[{int}]{n\+\_\+method,  }\item[{int}]{N,  }\item[{double}]{h }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{libhankel_8h_aaf33229a85b3b07b14bb5640658aa4d0}\label{libhankel_8h_aaf33229a85b3b07b14bb5640658aa4d0}} 
+\mbox{\Hypertarget{libhankel_8h_a482666838880b9e0b91a12955a3b335b}\label{libhankel_8h_a482666838880b9e0b91a12955a3b335b}} 
+\index{libhankel.h@{libhankel.h}!hankel\_transform@{hankel\_transform}}
+\index{hankel\_transform@{hankel\_transform}!libhankel.h@{libhankel.h}}
+\doxysubsubsection{\texorpdfstring{hankel\_transform()}{hankel\_transform()}}
+{\footnotesize\ttfamily double hankel\+\_\+transform (\begin{DoxyParamCaption}\item[{int}]{nu,  }\item[{double($\ast$)(double, double($\ast$)\mbox{[}50\mbox{]})}]{f,  }\item[{double}]{x,  }\item[{double($\ast$)}]{f\+\_\+params\mbox{[}50\mbox{]},  }\item[{double $\ast$}]{output,  }\item[{const char $\ast$}]{strategy\+\_\+name,  }\item[{\mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}}}]{strategy\+\_\+params }\end{DoxyParamCaption})}
+
+
+
+Computes Hankel transform using the method specified by the user. 
+
+\begin{DoxyNote}{Note}
+The parameter strategy\+\_\+name can be any of \char`\"{}\+QWE\+\_\+\+Chave\char`\"{}, \char`\"{}\+QWE\+\_\+\+Key\char`\"{}, \char`\"{}\+DHT\+\_\+6\char`\"{}, \char`\"{}\+DHT\+\_\+7\char`\"{}, \char`\"{}\+DHT\+\_\+8\char`\"{}, \char`\"{}\+DHT\+\_\+9\char`\"{}, \char`\"{}\+DHT\+\_\+10\char`\"{}, \char`\"{}\+DHT\+\_\+11\char`\"{}.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em nu} & order of bessel function -\/ must be 0 or 1 \\
+\hline
+{\em f} & pointer to form factor function \\
+\hline
+{\em x} & value at which to compute the transform \\
+\hline
+{\em f\+\_\+params} & params for form factor \\
+\hline
+{\em output} & pointer to var containing output from transform \\
+\hline
+{\em strategy\+\_\+name} & str corresponding to the strategy name \\
+\hline
+{\em \mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}}} & struct containing params for the specific strategy (please use the docs to find params required by each strategy) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{libhankel_8h_a1c5ea33298800e1182aa4685c1766118}\label{libhankel_8h_a1c5ea33298800e1182aa4685c1766118}} 
 \index{libhankel.h@{libhankel.h}!hankel\_transform\_DE\_Ogata@{hankel\_transform\_DE\_Ogata}}
 \index{hankel\_transform\_DE\_Ogata@{hankel\_transform\_DE\_Ogata}!libhankel.h@{libhankel.h}}
 \doxysubsubsection{\texorpdfstring{hankel\_transform\_DE\_Ogata()}{hankel\_transform\_DE\_Ogata()}}
@@ -63,11 +100,11 @@ Corresponds to strategy 1 in SASfit or HANKEL\+\_\+\+OGATA\+\_\+2005.
 {\em f\+\_\+max} & float indicating starting guess for max in form factor (h\+\_\+ogata in SASfit) \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{libhankel_8h_ae0a9773bf938a4e245f5430f12e13301}\label{libhankel_8h_ae0a9773bf938a4e245f5430f12e13301}} 
+\mbox{\Hypertarget{libhankel_8h_ac5f33559ce633fd90997a02a7b19d039}\label{libhankel_8h_ac5f33559ce633fd90997a02a7b19d039}} 
 \index{libhankel.h@{libhankel.h}!hankel\_transform\_DE\_Quadrature@{hankel\_transform\_DE\_Quadrature}}
 \index{hankel\_transform\_DE\_Quadrature@{hankel\_transform\_DE\_Quadrature}!libhankel.h@{libhankel.h}}
 \doxysubsubsection{\texorpdfstring{hankel\_transform\_DE\_Quadrature()}{hankel\_transform\_DE\_Quadrature()}}
-{\footnotesize\ttfamily double hankel\+\_\+transform\+\_\+\+DE\+\_\+\+Quadrature (\begin{DoxyParamCaption}\item[{int}]{nu,  }\item[{double($\ast$)(double, double($\ast$)\mbox{[}50\mbox{]})}]{f,  }\item[{double}]{x,  }\item[{double($\ast$)}]{f\+\_\+params\mbox{[}50\mbox{]},  }\item[{double}]{n\+\_\+eval,  }\item[{double}]{eps\+\_\+rel }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily double hankel\+\_\+transform\+\_\+\+DE\+\_\+\+Quadrature (\begin{DoxyParamCaption}\item[{int}]{nu,  }\item[{double($\ast$)(double, double($\ast$)\mbox{[}50\mbox{]})}]{f,  }\item[{double}]{x,  }\item[{double($\ast$)}]{f\+\_\+params\mbox{[}50\mbox{]},  }\item[{double $\ast$}]{output,  }\item[{double}]{n\+\_\+eval,  }\item[{double}]{eps\+\_\+rel }\end{DoxyParamCaption})}
 
 
 
@@ -85,6 +122,8 @@ Corresponds to strategy 0 in SASfit, or HANKEL\+\_\+\+OOURA\+\_\+\+DEO.
 {\em x} & value at which to compute the transform \\
 \hline
 {\em f\+\_\+params} & params for form factor \\
+\hline
+{\em output} & pointer to var containing output from transform \\
 \hline
 {\em n\+\_\+eval} & integer indicating number of function evaluations (N\+\_\+ogata in SASfit) \\
 \hline
