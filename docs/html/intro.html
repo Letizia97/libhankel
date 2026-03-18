@@ -66,7 +66,23 @@ $(function() {
 <div class="title">Introduction </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="md_docs_intro"></a></p>
+<div class="textblock"><p><a class="anchor" id="md_docs_intro"></a> The Hankel transform, also known as the Fourier–Bessel transform, is widely used in scattering. The transform is needed in many areas, e.g. to calculate scattering functions, to correct for multiple scattering, to simulate spin echo signals like those obtained on Larmor at the ISIS Neutron and Muon Source, as well as to qualitatively analyse phase contrast images (PCI) taken at the Diamond synchrotron source.</p>
+<p>Small-angle scattering (SAS) is an experimental technique using X-rays (SAXS) or neutrons (SANS) to study the structure of materials on the nanoscale (roughly 1–1000 nm). SAS measures how radiation is scattered at very small angles, which tells us about large-scale structures inside the sample.</p>
+<p>In this library, there are currently ... different implementations of the Hankel transform, correspnding to different ways of approximating the Hankel transform integral.</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadLeft">index   </th><th class="markdownTableHeadCenter">Strategy Name   </th><th class="markdownTableHeadNone">Type    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyLeft">0   </td><td class="markdownTableBodyCenter">DE   </td><td class="markdownTableBodyNone">Double-exponential quadrature    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyLeft">1   </td><td class="markdownTableBodyCenter">DE   </td><td class="markdownTableBodyNone">Double-exponential quadrature    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyLeft">12   </td><td class="markdownTableBodyCenter">QWE_Key   </td><td class="markdownTableBodyNone">QWE with continued fraction expansion    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyLeft">13   </td><td class="markdownTableBodyCenter">QWE_Chave   </td><td class="markdownTableBodyNone">QWE with Shanks transformation    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyLeft">...   </td><td class="markdownTableBodyCenter">...   </td><td class="markdownTableBodyNone">...   </td></tr>
+</table>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 <!-- start footer part -->
