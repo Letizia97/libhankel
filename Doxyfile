@@ -869,6 +869,7 @@ INPUT = \
     docs/intro.md \
     docs/installation.md \
     docs/usage.md \
+    docs/examples.md \
     include \
     src \
     docs/index.md
