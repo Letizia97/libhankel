@@ -9,7 +9,7 @@ Small-angle scattering (SAS) is an experimental technique using X-rays (SAXS) or
 to study the structure of materials on the nanoscale (roughly 1–1000 nm). SAS measures how radiation
 is scattered at very small angles, which tells us about large-scale structures inside the sample.
 
-In this library, there are currently ... different implementations of the Hankel transform, correspnding to different ways of approximating the Hankel transform integral.
+In this library, there are currently ... different implementations of the Hankel transform, corresponding to different ways of approximating the Hankel transform integral.
 
 
 | index     | Strategy Name       | Type                                  |
