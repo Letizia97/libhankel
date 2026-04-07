@@ -106,26 +106,6 @@ void test_hankel_DHT_regression(void) {
     );
 }
 
-void test_hankel_DHT_throws_error_when_nu_equal_2(void) {
-    /*
-    Tests that hankel_transform_DHT throws expected
-    error when nu is not zero nor 1.
-    */
-    nu = 2;
-    z = 10.0;
-    int_strategy = 7;
-    char captured[1024];
-
-    double value;
-    double *output = &value;
-
-    start_capture_stderr();
-    int status = hankel_transform_DHT(nu, form_factor_sphere, z,  &params, output, 1);
-    stop_capture_stderr(captured, sizeof(captured));
-    TEST_ASSERT_EQUAL_INT_MESSAGE(-1, status, "");
-    TEST_ASSERT_EQUAL_STRING(captured, "nu needs to be 0 or 1 in order to use the selected strategy\n");
-}
-
 void test_hankel_DHT_throws_error_when_int_strategy_wrong(void) {
     /*
     Tests that hankel_transform_DHT throws expected
@@ -149,7 +129,6 @@ void test_hankel_DHT_throws_error_when_int_strategy_wrong(void) {
 int main(void) {
     UNITY_BEGIN();
     RUN_TEST(test_hankel_DHT_regression);
-    RUN_TEST(test_hankel_DHT_throws_error_when_nu_equal_2);
     RUN_TEST(test_hankel_DHT_throws_error_when_int_strategy_wrong);
     return UNITY_END();
 }

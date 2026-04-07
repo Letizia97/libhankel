@@ -208,6 +208,27 @@ void test_hankel_transform_throws_error_when_eps_rel_not_defined(void) {
     TEST_ASSERT_EQUAL_STRING(captured, "Error: eps_rel must be provided and cannot be zero\n");
 }
 
+void test_hankel_transform_throws_error_when_nu_wrong(void) {
+    /*
+    Tests that hankel_transform throws expected
+    error when nu is neither 0 nor 1.
+    */
+    char captured[1024];
+    strategy_params strategy_params = {
+        .eps_rel = 1e-9,
+        .n_eval = 250
+    };
+    start_capture_stderr();
+    int status = hankel_transform(5, form_factor_g_dab, z, &params_gdab, &Gr[0], "QWE_Key", strategy_params);
+
+    stop_capture_stderr(captured, sizeof(captured));
+    TEST_ASSERT_EQUAL_INT_MESSAGE(-1, status, "");
+    TEST_ASSERT_EQUAL_STRING(
+        captured, 
+        "nu needs to be 0 or 1 in order to use the selected strategy\n"
+    );
+}
+
 int main(void) {
     UNITY_BEGIN();
     RUN_TEST(test_hankel_transform_spheres);
@@ -215,5 +236,6 @@ int main(void) {
     RUN_TEST(test_hankel_transform_broad_peak);
     RUN_TEST(test_hankel_transform_throws_error_when_n_eval_not_defined);
     RUN_TEST(test_hankel_transform_throws_error_when_eps_rel_not_defined);
+    RUN_TEST(test_hankel_transform_throws_error_when_nu_wrong);
     return UNITY_END();
 }

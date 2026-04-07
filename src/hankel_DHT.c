@@ -58,11 +58,6 @@ double hankel_transform_DHT(
 
     ind = nu + 1;
 
-    if (!(nu==0 || nu==1)) {
-        fprintf(stderr, "nu needs to be 0 or 1 in order to use the selected strategy\n");
-        return -1;
-    }
-
     if (!(n_strategy >= 6 && n_strategy <= 11)) {
         fprintf(stderr, "Strategy number must be integer between 6 and 11\n");
         return -2;

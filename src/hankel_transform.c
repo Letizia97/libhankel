@@ -44,7 +44,10 @@ double hankel_transform(
 {
     int status;
 
-    if (strcmp(strategy_name, "QWE_Chave") == 0) {
+    if (!(nu==0 || nu==1)) {
+        fprintf(stderr, "nu needs to be 0 or 1 in order to use the selected strategy\n");
+        return -1;
+    }
 
         status = validate_params_QWE(strategy_params);
         if (status!=0) {return status;}
