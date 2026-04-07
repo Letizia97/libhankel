@@ -116,8 +116,8 @@ void setUp(void) {
     size_t n             = sizeof(r_array_broad_peak) / sizeof(r_array_broad_peak[0]);
     read_values_by_rows(
         filename, 
-        column, r
-        _array_broad_peak, 
+        column, 
+        r_array_broad_peak, 
         n, 
         ctx.expected_broad_peak
     );
