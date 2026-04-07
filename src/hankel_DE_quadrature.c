@@ -88,7 +88,7 @@ double deriv_DEtransform(double t){
  * @param n_eval     integer indicating number of function evaluations (N_ogata in SASfit)
  * @param eps_rel    relative error allowed e.g. 1e-9 (eps_nriq in SASfit)
  */ 
-double hankel_transform_DE_Quadrature(
+double hankel_transform_DE_Ooura(
     int nu, 
     double (*f)(double, double (*)[50]), 
     double x, 

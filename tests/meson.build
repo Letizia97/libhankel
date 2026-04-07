@@ -10,7 +10,7 @@ tests = [
   'test_hankel_transform.c',
   'test_form_factors.c',
   'test_hankel_DE_Ogata.c',
-  'test_hankel_DE_Quadrature.c'
+  'test_hankel_DE_Ooura.c'
 ]
 test_inc = include_directories('.')   
 

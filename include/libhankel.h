@@ -52,7 +52,7 @@ double hankel_transform_FBT(
 );
 
 // strategy 0 (DE QUADRATURE)
-double hankel_transform_DE_Quadrature(
+double hankel_transform_DE_Ooura(
     int nu, 
     double (*f)(double, double (*)[50]), 
     double x, 
