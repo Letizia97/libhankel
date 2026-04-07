@@ -4,11 +4,15 @@
 #include <stdio.h>
 
 
-int validate_params_QWE(strategy_params strategy_params) {
+int validate_n_eval(strategy_params strategy_params) {
     if (strategy_params.n_eval == 0) {
         fprintf(stderr, "Error: n_eval must be provided and cannot be zero\n");
         return -8;
     }
+    return 0;
+}
+
+int validate_eps_rel(strategy_params strategy_params) {
     if (strategy_params.eps_rel == 0) {
         fprintf(stderr, "Error: eps_rel must be provided and cannot be zero\n");
         return -8;
@@ -16,7 +20,13 @@ int validate_params_QWE(strategy_params strategy_params) {
     return 0;
 }
 
-
+int validate_f_max(strategy_params strategy_params) {
+    if (strategy_params.f_max == 0) {
+        fprintf(stderr, "Error: f_max must be provided and cannot be zero\n");
+        return -8;
+    }
+    return 0;
+}
 
 
 /** 
@@ -49,7 +59,45 @@ double hankel_transform(
         return -1;
     }
 
-        status = validate_params_QWE(strategy_params);
+    if (strcmp(strategy_name, "DE_Ooura") == 0) {
+
+        status = validate_n_eval(strategy_params);
+        if (status!=0) {return status;}
+        status = validate_eps_rel(strategy_params);
+        if (status!=0) {return status;}
+
+        status = hankel_transform_DE_Ooura(
+            nu, 
+            f, 
+            x, 
+            f_params,
+            output, 
+            strategy_params.n_eval, 
+            strategy_params.eps_rel
+        );
+
+    } else if (strcmp(strategy_name, "DE_Ogata") == 0) {
+
+        status = validate_n_eval(strategy_params);
+        if (status!=0) {return status;}
+        status = validate_f_max(strategy_params);
+        if (status!=0) {return status;}
+
+        status = hankel_transform_DE_Ogata(
+            nu, 
+            f, 
+            x, 
+            f_params,
+            output, 
+            strategy_params.n_eval, 
+            strategy_params.f_max
+        );
+
+    } else if (strcmp(strategy_name, "QWE_Chave") == 0) {
+
+        status = validate_n_eval(strategy_params);
+        if (status!=0) {return status;}
+        status = validate_eps_rel(strategy_params);
         if (status!=0) {return status;}
 
         status = hankel_transform_QWE_Chave(
@@ -64,7 +112,9 @@ double hankel_transform(
 
     } else if (strcmp(strategy_name, "QWE_Key") == 0) {
 
-        status = validate_params_QWE(strategy_params);
+        status = validate_n_eval(strategy_params);
+        if (status!=0) {return status;}
+        status = validate_eps_rel(strategy_params);
         if (status!=0) {return status;}
 
         status = hankel_transform_QWE_Key(
