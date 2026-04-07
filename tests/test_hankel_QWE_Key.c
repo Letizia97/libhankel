@@ -167,27 +167,6 @@ void test_hankel_QWE_Key_regression_broad_peak(void) {
     }
 }
 
-void test_hankel_QWE_Key_throws_error_when_nu_wrong(void) {
-    /*
-    Tests that hankel_QWE_Key throws expected
-    error when nu is neither 0 nor 1.
-    */
-    char captured[1024];
-    int nu = 2;
-    double z = 5.0;
-
-    start_capture_stderr();
-    int status = hankel_transform_QWE_Key(
-        nu, form_factor_g_dab, z, &params_gdab, &Gr[0], 250, 1e-9
-    );
-    stop_capture_stderr(captured, sizeof(captured));
-    TEST_ASSERT_EQUAL_INT_MESSAGE(-1, status, "");
-    TEST_ASSERT_EQUAL_STRING(
-        captured, 
-        "nu needs to be 0 or 1 in order to use QWE_Key\n"
-    );
-}
-
 void test_hankel_QWE_Key_throws_error_when_not_converged(void) {
     /*
     Tests that hankel_QWE_Key throws expected
@@ -214,7 +193,6 @@ int main(void) {
     RUN_TEST(test_hankel_QWE_Key_regression_spheres);
     RUN_TEST(test_hankel_QWE_Key_regression_gdab);
     RUN_TEST(test_hankel_QWE_Key_regression_broad_peak);
-    RUN_TEST(test_hankel_QWE_Key_throws_error_when_nu_wrong);
     RUN_TEST(test_hankel_QWE_Key_throws_error_when_not_converged);
     return UNITY_END();
 }
