@@ -125,45 +125,42 @@ void setUp(void) {
 
     // COMPUTATIONS 
     for (size_t i = 0; i < ARRAY_LEN; ++i) {
-        z = r_array_spheres[i];
         hankel_transform(
             nu, 
             form_factor_sphere, 
-            z, 
+            r_array_spheres, 
             &params_spheres, 
-            &Gr[i], 
+            ctx.actual_spheres, 
+            ARRAY_LEN,
             "QWE_Key", 
             strategy_params_general
         );
-        ctx.actual_spheres[i] = Gr[i]; 
     }
     
     for (size_t i = 0; i < ARRAY_LEN; ++i) {
-        z = r_array_gdab[i];
         hankel_transform(
             nu, 
             form_factor_g_dab, 
-            z, 
+            r_array_gdab, 
             &params_gdab, 
-            &Gr[i], 
+            ctx.actual_gdab, 
+            ARRAY_LEN,
             "QWE_Key", 
             strategy_params_general
         );
-        ctx.actual_gdab[i] = Gr[i]; 
     }
 
     for (size_t i = 0; i < ARRAY_LEN; ++i) {
-        z = r_array_broad_peak[i];
         hankel_transform(
             nu, 
             form_factor_broad_peak, 
-            z, 
+            r_array_broad_peak, 
             &params_broad_peak, 
-            &Gr[i], 
+            ctx.actual_broad_peak, 
+            ARRAY_LEN,
             "QWE_Key", 
             strategy_params_b_peak
         );
-        ctx.actual_broad_peak[i] = Gr[i]; 
     }  
 }
 
@@ -223,9 +220,10 @@ void test_hankel_transform_throws_error_when_n_eval_not_defined(void) {
     int status = hankel_transform(
         nu, 
         form_factor_g_dab, 
-        z, 
+        r_array_gdab, 
         &params_gdab, 
-        &Gr[0], 
+        ctx.actual_gdab, 
+        ARRAY_LEN,
         "QWE_Key", 
         strategy_params_wrong
     );
@@ -253,9 +251,10 @@ void test_hankel_transform_throws_error_when_eps_rel_not_defined(void) {
     int status = hankel_transform(
         nu, 
         form_factor_g_dab, 
-        z, 
+        r_array_gdab, 
         &params_gdab, 
-        &Gr[0], 
+        ctx.actual_gdab, 
+        ARRAY_LEN,
         "QWE_Key", 
         strategy_params_wrong
     );
@@ -283,9 +282,10 @@ void test_hankel_transform_throws_error_when_nu_wrong(void) {
     int status = hankel_transform(
         5, 
         form_factor_g_dab, 
-        z, 
+        r_array_gdab, 
         &params_gdab, 
-        &Gr[0], 
+        ctx.actual_gdab, 
+        ARRAY_LEN,
         "QWE_Key", 
         strategy_params
     );
@@ -312,9 +312,10 @@ void test_hankel_transform_throws_error_when_f_max_not_defined(void) {
     int status = hankel_transform(
         nu, 
         form_factor_g_dab, 
-        z, 
+        r_array_gdab, 
         &params_gdab, 
-        &Gr[0], 
+        ctx.actual_gdab, 
+        ARRAY_LEN,
         "DE_Ogata", 
         strategy_params_wrong
     );
