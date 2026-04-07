@@ -20,16 +20,16 @@ int \mbox{\hyperlink{hankel__transform_8c_a4568f0630d3465e1d6993e9eb1946409}{val
 \item 
 int \mbox{\hyperlink{hankel__transform_8c_a825473c79ffe045666fe8d4dbc052d0d}{validate\+\_\+f\+\_\+max}} (\mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}} \mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}})
 \item 
-double \mbox{\hyperlink{hankel__transform_8c_a482666838880b9e0b91a12955a3b335b}{hankel\+\_\+transform}} (int nu, double($\ast$f)(double, double($\ast$)\mbox{[}50\mbox{]}), double x, double($\ast$f\+\_\+params)\mbox{[}50\mbox{]}, double $\ast$output, const char $\ast$strategy\+\_\+name, \mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}} \mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}})
+double \mbox{\hyperlink{hankel__transform_8c_a9af06757078b968c88ce2a9ca1c0b4bb}{hankel\+\_\+transform}} (int nu, double($\ast$f)(double, double($\ast$)\mbox{[}50\mbox{]}), const double $\ast$x, double($\ast$f\+\_\+params)\mbox{[}50\mbox{]}, double $\ast$output, int len\+\_\+x, const char $\ast$strategy\+\_\+name, \mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}} \mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}})
 \begin{DoxyCompactList}\small\item\em Computes Hankel transform using the method specified by the user. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{hankel__transform_8c_a482666838880b9e0b91a12955a3b335b}\label{hankel__transform_8c_a482666838880b9e0b91a12955a3b335b}} 
+\mbox{\Hypertarget{hankel__transform_8c_a9af06757078b968c88ce2a9ca1c0b4bb}\label{hankel__transform_8c_a9af06757078b968c88ce2a9ca1c0b4bb}} 
 \index{hankel\_transform.c@{hankel\_transform.c}!hankel\_transform@{hankel\_transform}}
 \index{hankel\_transform@{hankel\_transform}!hankel\_transform.c@{hankel\_transform.c}}
 \doxysubsubsection{\texorpdfstring{hankel\_transform()}{hankel\_transform()}}
-{\footnotesize\ttfamily double hankel\+\_\+transform (\begin{DoxyParamCaption}\item[{int}]{nu,  }\item[{double($\ast$)(double, double($\ast$)\mbox{[}50\mbox{]})}]{f,  }\item[{double}]{x,  }\item[{double($\ast$)}]{f\+\_\+params\mbox{[}50\mbox{]},  }\item[{double $\ast$}]{output,  }\item[{const char $\ast$}]{strategy\+\_\+name,  }\item[{\mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}}}]{strategy\+\_\+params }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily double hankel\+\_\+transform (\begin{DoxyParamCaption}\item[{int}]{nu,  }\item[{double($\ast$)(double, double($\ast$)\mbox{[}50\mbox{]})}]{f,  }\item[{const double $\ast$}]{x,  }\item[{double($\ast$)}]{f\+\_\+params\mbox{[}50\mbox{]},  }\item[{double $\ast$}]{output,  }\item[{int}]{len\+\_\+x,  }\item[{const char $\ast$}]{strategy\+\_\+name,  }\item[{\mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}}}]{strategy\+\_\+params }\end{DoxyParamCaption})}
 
 
 
@@ -44,11 +44,13 @@ The parameter strategy\+\_\+name can be any of \char`\"{}\+QWE\+\_\+\+Chave\char
 \hline
 {\em f} & pointer to form factor function \\
 \hline
-{\em x} & value at which to compute the transform \\
+{\em x} & pointer to array of x values at which to compute the transform \\
 \hline
 {\em f\+\_\+params} & params for form factor \\
 \hline
-{\em output} & pointer to var containing output from transform \\
+{\em output} & pointer to array containing output from transform \\
+\hline
+{\em len\+\_\+x} & length of array x \\
 \hline
 {\em strategy\+\_\+name} & str corresponding to the strategy name \\
 \hline

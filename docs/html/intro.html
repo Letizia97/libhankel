@@ -85,7 +85,7 @@ $(function() {
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyLeft">...   </td><td class="markdownTableBodyCenter">...   </td><td class="markdownTableBodyNone">...   </td></tr>
 </table>
-<p>The column named as index in the table essentially refers to the numbering used in SASfit.</p>
+<p>The column named as "index" in the table essentially refers to the numbering used in SASfit.</p>
 <p>Strategies 6 to 11 in SASfit, which in this library are referred to as DHT_6, DHT_7 .. DHT_11, are fixed-grid digital filter strategies. They are quite fast and perform well on simple form factors but their accuracy decreases on more complex or oscillatory ones. They are not iterative, rely on pre-computed constants, and do not allow the user to control the "accuracy" of the solution in any way.</p>
 <p>All other strategies instead are iterative, and some of them require the user to supply a tolerance parameter (called <code>eps_rel</code>) which is then used to determine when to stop iterating. Specifically, iterations are stopped when the difference in the solution of two consecutive iterations is less than the tolerance. For this reasons, strategies that require eps_rel generally perform better than the DHT ones on complex form factors, though they are more slow. Examples of these strategies are 1, 12 and 13 in the above table.</p>
 <p>... </p>

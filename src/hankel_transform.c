@@ -31,7 +31,7 @@ int validate_f_max(strategy_params strategy_params) {
 
 /** 
  * @brief Computes Hankel transform using the method specified by the user.
- * @note The parameter strategy_name can be any of "QWE_Chave", "QWE_Key", 
+ * @note The parameter strategy_name can be any of "DE_Ooura", "DE_Ogata", "QWE_Chave", "QWE_Key", 
  *       "DHT_6", "DHT_7", "DHT_8", "DHT_9", "DHT_10", "DHT_11".
  * 
  * @param nu               order of bessel function - must be 0 or 1
@@ -42,7 +42,7 @@ int validate_f_max(strategy_params strategy_params) {
  * @param len_x            length of array x 
  * @param strategy_name    str corresponding to the strategy name
  * @param strategy_params  struct containing params for the specific strategy
- *                         (please use the docs to find params required by each strategy)
+ *                         (please use the docs Usage section to find params required by each strategy)
  */ 
 double hankel_transform(
     int nu, 
