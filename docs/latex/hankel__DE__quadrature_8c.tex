@@ -28,7 +28,7 @@ double \mbox{\hyperlink{hankel__DE__quadrature_8c_a0b592bbf4d81eb176017f3cdf7c74
 \begin{DoxyCompactList}\small\item\em Auxiliary function computing the double‑exponential (DE) / tanh–sinh transform. \end{DoxyCompactList}\item 
 double \mbox{\hyperlink{hankel__DE__quadrature_8c_ae1b03fc133041f7c13160312b02afc8c}{deriv\+\_\+\+DEtransform}} (double t)
 \begin{DoxyCompactList}\small\item\em Auxiliary function that computes the derivative of a “double‑exponential (DE) change of variables”, that is commonly used in numerical integration (quadrature). Specifically, this is the tanh–sinh (double exponential) transformation. \end{DoxyCompactList}\item 
-double \mbox{\hyperlink{hankel__DE__quadrature_8c_ac5f33559ce633fd90997a02a7b19d039}{hankel\+\_\+transform\+\_\+\+DE\+\_\+\+Quadrature}} (int nu, double($\ast$f)(double, double($\ast$)\mbox{[}50\mbox{]}), double x, double($\ast$f\+\_\+params)\mbox{[}50\mbox{]}, double $\ast$output, double n\+\_\+eval, double eps\+\_\+rel)
+double \mbox{\hyperlink{hankel__DE__quadrature_8c_a8073fbc87840c80ae6e0da45fac488a2}{hankel\+\_\+transform\+\_\+\+DE\+\_\+\+Ooura}} (int nu, double($\ast$f)(double, double($\ast$)\mbox{[}50\mbox{]}), double x, double($\ast$f\+\_\+params)\mbox{[}50\mbox{]}, double $\ast$output, double n\+\_\+eval, double eps\+\_\+rel)
 \begin{DoxyCompactList}\small\item\em Computes Hankel transform, using de-\/quadrature. \end{DoxyCompactList}\item 
 double \mbox{\hyperlink{hankel__DE__quadrature_8c_a1c5ea33298800e1182aa4685c1766118}{hankel\+\_\+transform\+\_\+\+DE\+\_\+\+Ogata}} (int nu, double($\ast$f)(double, double($\ast$)\mbox{[}50\mbox{]}), double x, double($\ast$f\+\_\+params)\mbox{[}50\mbox{]}, double $\ast$output, double n\+\_\+eval, double f\+\_\+max)
 \begin{DoxyCompactList}\small\item\em Computes Hankel transform, using de-\/quadrature. \end{DoxyCompactList}\end{DoxyCompactItemize}
@@ -85,11 +85,11 @@ Corresponds to strategy 1 in SASfit or HANKEL\+\_\+\+OGATA\+\_\+2005.
 {\em f\+\_\+max} & float indicating starting guess for max in form factor (h\+\_\+ogata in SASfit) \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{hankel__DE__quadrature_8c_ac5f33559ce633fd90997a02a7b19d039}\label{hankel__DE__quadrature_8c_ac5f33559ce633fd90997a02a7b19d039}} 
-\index{hankel\_DE\_quadrature.c@{hankel\_DE\_quadrature.c}!hankel\_transform\_DE\_Quadrature@{hankel\_transform\_DE\_Quadrature}}
-\index{hankel\_transform\_DE\_Quadrature@{hankel\_transform\_DE\_Quadrature}!hankel\_DE\_quadrature.c@{hankel\_DE\_quadrature.c}}
-\doxysubsubsection{\texorpdfstring{hankel\_transform\_DE\_Quadrature()}{hankel\_transform\_DE\_Quadrature()}}
-{\footnotesize\ttfamily double hankel\+\_\+transform\+\_\+\+DE\+\_\+\+Quadrature (\begin{DoxyParamCaption}\item[{int}]{nu,  }\item[{double($\ast$)(double, double($\ast$)\mbox{[}50\mbox{]})}]{f,  }\item[{double}]{x,  }\item[{double($\ast$)}]{f\+\_\+params\mbox{[}50\mbox{]},  }\item[{double $\ast$}]{output,  }\item[{double}]{n\+\_\+eval,  }\item[{double}]{eps\+\_\+rel }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{hankel__DE__quadrature_8c_a8073fbc87840c80ae6e0da45fac488a2}\label{hankel__DE__quadrature_8c_a8073fbc87840c80ae6e0da45fac488a2}} 
+\index{hankel\_DE\_quadrature.c@{hankel\_DE\_quadrature.c}!hankel\_transform\_DE\_Ooura@{hankel\_transform\_DE\_Ooura}}
+\index{hankel\_transform\_DE\_Ooura@{hankel\_transform\_DE\_Ooura}!hankel\_DE\_quadrature.c@{hankel\_DE\_quadrature.c}}
+\doxysubsubsection{\texorpdfstring{hankel\_transform\_DE\_Ooura()}{hankel\_transform\_DE\_Ooura()}}
+{\footnotesize\ttfamily double hankel\+\_\+transform\+\_\+\+DE\+\_\+\+Ooura (\begin{DoxyParamCaption}\item[{int}]{nu,  }\item[{double($\ast$)(double, double($\ast$)\mbox{[}50\mbox{]})}]{f,  }\item[{double}]{x,  }\item[{double($\ast$)}]{f\+\_\+params\mbox{[}50\mbox{]},  }\item[{double $\ast$}]{output,  }\item[{double}]{n\+\_\+eval,  }\item[{double}]{eps\+\_\+rel }\end{DoxyParamCaption})}
 
 
 

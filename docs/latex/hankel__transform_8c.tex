@@ -14,7 +14,11 @@ Include dependency graph for hankel\+\_\+transform.\+c\+:\nopagebreak
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-int \mbox{\hyperlink{hankel__transform_8c_a6908e2cefe00a0dfed35e8ef406ececa}{validate\+\_\+params\+\_\+\+QWE}} (\mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}} \mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}})
+int \mbox{\hyperlink{hankel__transform_8c_a02018326a229a0fcb3388c6e220c92bf}{validate\+\_\+n\+\_\+eval}} (\mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}} \mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}})
+\item 
+int \mbox{\hyperlink{hankel__transform_8c_a4568f0630d3465e1d6993e9eb1946409}{validate\+\_\+eps\+\_\+rel}} (\mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}} \mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}})
+\item 
+int \mbox{\hyperlink{hankel__transform_8c_a825473c79ffe045666fe8d4dbc052d0d}{validate\+\_\+f\+\_\+max}} (\mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}} \mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}})
 \item 
 double \mbox{\hyperlink{hankel__transform_8c_a482666838880b9e0b91a12955a3b335b}{hankel\+\_\+transform}} (int nu, double($\ast$f)(double, double($\ast$)\mbox{[}50\mbox{]}), double x, double($\ast$f\+\_\+params)\mbox{[}50\mbox{]}, double $\ast$output, const char $\ast$strategy\+\_\+name, \mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}} \mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}})
 \begin{DoxyCompactList}\small\item\em Computes Hankel transform using the method specified by the user. \end{DoxyCompactList}\end{DoxyCompactItemize}
@@ -51,9 +55,21 @@ The parameter strategy\+\_\+name can be any of \char`\"{}\+QWE\+\_\+\+Chave\char
 {\em \mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}}} & struct containing params for the specific strategy (please use the docs to find params required by each strategy) \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{hankel__transform_8c_a6908e2cefe00a0dfed35e8ef406ececa}\label{hankel__transform_8c_a6908e2cefe00a0dfed35e8ef406ececa}} 
-\index{hankel\_transform.c@{hankel\_transform.c}!validate\_params\_QWE@{validate\_params\_QWE}}
-\index{validate\_params\_QWE@{validate\_params\_QWE}!hankel\_transform.c@{hankel\_transform.c}}
-\doxysubsubsection{\texorpdfstring{validate\_params\_QWE()}{validate\_params\_QWE()}}
-{\footnotesize\ttfamily int validate\+\_\+params\+\_\+\+QWE (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}}}]{strategy\+\_\+params }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{hankel__transform_8c_a4568f0630d3465e1d6993e9eb1946409}\label{hankel__transform_8c_a4568f0630d3465e1d6993e9eb1946409}} 
+\index{hankel\_transform.c@{hankel\_transform.c}!validate\_eps\_rel@{validate\_eps\_rel}}
+\index{validate\_eps\_rel@{validate\_eps\_rel}!hankel\_transform.c@{hankel\_transform.c}}
+\doxysubsubsection{\texorpdfstring{validate\_eps\_rel()}{validate\_eps\_rel()}}
+{\footnotesize\ttfamily int validate\+\_\+eps\+\_\+rel (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}}}]{strategy\+\_\+params }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{hankel__transform_8c_a825473c79ffe045666fe8d4dbc052d0d}\label{hankel__transform_8c_a825473c79ffe045666fe8d4dbc052d0d}} 
+\index{hankel\_transform.c@{hankel\_transform.c}!validate\_f\_max@{validate\_f\_max}}
+\index{validate\_f\_max@{validate\_f\_max}!hankel\_transform.c@{hankel\_transform.c}}
+\doxysubsubsection{\texorpdfstring{validate\_f\_max()}{validate\_f\_max()}}
+{\footnotesize\ttfamily int validate\+\_\+f\+\_\+max (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}}}]{strategy\+\_\+params }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{hankel__transform_8c_a02018326a229a0fcb3388c6e220c92bf}\label{hankel__transform_8c_a02018326a229a0fcb3388c6e220c92bf}} 
+\index{hankel\_transform.c@{hankel\_transform.c}!validate\_n\_eval@{validate\_n\_eval}}
+\index{validate\_n\_eval@{validate\_n\_eval}!hankel\_transform.c@{hankel\_transform.c}}
+\doxysubsubsection{\texorpdfstring{validate\_n\_eval()}{validate\_n\_eval()}}
+{\footnotesize\ttfamily int validate\+\_\+n\+\_\+eval (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}}}]{strategy\+\_\+params }\end{DoxyParamCaption})}
 

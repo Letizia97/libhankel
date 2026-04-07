@@ -91,8 +91,12 @@ Include dependency graph for hankel_transform.c:</div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a6908e2cefe00a0dfed35e8ef406ececa"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hankel__transform_8c.html#a6908e2cefe00a0dfed35e8ef406ececa">validate_params_QWE</a> (<a class="el" href="structstrategy__params.html">strategy_params</a> <a class="el" href="structstrategy__params.html">strategy_params</a>)</td></tr>
-<tr class="separator:a6908e2cefe00a0dfed35e8ef406ececa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02018326a229a0fcb3388c6e220c92bf"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hankel__transform_8c.html#a02018326a229a0fcb3388c6e220c92bf">validate_n_eval</a> (<a class="el" href="structstrategy__params.html">strategy_params</a> <a class="el" href="structstrategy__params.html">strategy_params</a>)</td></tr>
+<tr class="separator:a02018326a229a0fcb3388c6e220c92bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4568f0630d3465e1d6993e9eb1946409"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hankel__transform_8c.html#a4568f0630d3465e1d6993e9eb1946409">validate_eps_rel</a> (<a class="el" href="structstrategy__params.html">strategy_params</a> <a class="el" href="structstrategy__params.html">strategy_params</a>)</td></tr>
+<tr class="separator:a4568f0630d3465e1d6993e9eb1946409"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a825473c79ffe045666fe8d4dbc052d0d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hankel__transform_8c.html#a825473c79ffe045666fe8d4dbc052d0d">validate_f_max</a> (<a class="el" href="structstrategy__params.html">strategy_params</a> <a class="el" href="structstrategy__params.html">strategy_params</a>)</td></tr>
+<tr class="separator:a825473c79ffe045666fe8d4dbc052d0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a482666838880b9e0b91a12955a3b335b"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hankel__transform_8c.html#a482666838880b9e0b91a12955a3b335b">hankel_transform</a> (int nu, double(*f)(double, double(*)[50]), double x, double(*f_params)[50], double *output, const char *strategy_name, <a class="el" href="structstrategy__params.html">strategy_params</a> <a class="el" href="structstrategy__params.html">strategy_params</a>)</td></tr>
 <tr class="memdesc:a482666838880b9e0b91a12955a3b335b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes Hankel transform using the method specified by the user.  <a href="hankel__transform_8c.html#a482666838880b9e0b91a12955a3b335b">More...</a><br /></td></tr>
 <tr class="separator:a482666838880b9e0b91a12955a3b335b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -171,14 +175,50 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a6908e2cefe00a0dfed35e8ef406ececa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6908e2cefe00a0dfed35e8ef406ececa">&#9670;&nbsp;</a></span>validate_params_QWE()</h2>
+<a id="a4568f0630d3465e1d6993e9eb1946409"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4568f0630d3465e1d6993e9eb1946409">&#9670;&nbsp;</a></span>validate_eps_rel()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int validate_params_QWE </td>
+          <td class="memname">int validate_eps_rel </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structstrategy__params.html">strategy_params</a>&#160;</td>
+          <td class="paramname"><em>strategy_params</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a825473c79ffe045666fe8d4dbc052d0d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a825473c79ffe045666fe8d4dbc052d0d">&#9670;&nbsp;</a></span>validate_f_max()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int validate_f_max </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structstrategy__params.html">strategy_params</a>&#160;</td>
+          <td class="paramname"><em>strategy_params</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a02018326a229a0fcb3388c6e220c92bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02018326a229a0fcb3388c6e220c92bf">&#9670;&nbsp;</a></span>validate_n_eval()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int validate_n_eval </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structstrategy__params.html">strategy_params</a>&#160;</td>
           <td class="paramname"><em>strategy_params</em></td><td>)</td>
