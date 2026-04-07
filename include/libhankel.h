@@ -2,11 +2,14 @@
 #ifndef LIBHANKEL_H
 #define LIBHANKEL_H
 
-
+/**
+ * @brief Struct of parameters required by the strategies (only 
+ *        some of these are required by each strategy)
+ */
 typedef struct {
-    double n_eval;      // integer indicating number of function evaluations (N_ogata in SASfit)
-    double eps_rel;     // relative error allowed e.g. 1e-9 (eps_nriq in SASfit)
-    double f_max;       // float indicating starting guess for max in form factor (h_ogata in SASfit)
+    double n_eval;      /**< integer indicating number of function evaluations (N_ogata in SASfit) */
+    double eps_rel;     /**< relative error allowed e.g. 1e-9 (eps_nriq in SASfit) */
+    double f_max;       /**< float indicating starting guess for max in form factor (h_ogata in SASfit) */
 } strategy_params;
 
 

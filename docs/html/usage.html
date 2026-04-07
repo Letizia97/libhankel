@@ -70,11 +70,11 @@ $(function() {
 <h1><a class="anchor" id="autotoc_md0"></a>
 Main function</h1>
 <p>The main function a user will be using is <code><a class="el" href="libhankel_8h.html#a9af06757078b968c88ce2a9ca1c0b4bb" title="Computes Hankel transform using the method specified by the user.">hankel_transform()</a></code>. Please click on the name to find out what parameters the user receives as well as their types. The parameter <code>strategy_name</code> essentially allows the user the select one of the 14 Hankel transform strategies available. This is further explained under "Note" at <code><a class="el" href="libhankel_8h.html#a9af06757078b968c88ce2a9ca1c0b4bb" title="Computes Hankel transform using the method specified by the user.">hankel_transform()</a></code>.</p>
-<p>Among the input parameters to the function, there is a C struct called <code><a class="el" href="structstrategy__params.html">strategy_params</a></code>. This struct needs to contain different parameters depending on <code>strategy_name</code>. Clicking on <code><a class="el" href="structstrategy__params.html">strategy_params</a></code> will give an idea of all possible fields this struct can contain. Each strategy only uses some of these, and it's important that <code><a class="el" href="structstrategy__params.html">strategy_params</a></code> contains the right parameters required by the selected strategy. If it doesn't, an error will be thrown.</p>
+<p>Among the input parameters to the function, there is a C struct called <code><a class="el" href="structstrategy__params.html" title="Struct of parameters required by the strategies (only some of these are required by each strategy)">strategy_params</a></code>. This struct needs to contain different parameters depending on <code>strategy_name</code>. Clicking on <code><a class="el" href="structstrategy__params.html" title="Struct of parameters required by the strategies (only some of these are required by each strategy)">strategy_params</a></code> will give an idea of all possible fields this struct can contain. Each strategy only uses some of these, and it's important that <code><a class="el" href="structstrategy__params.html" title="Struct of parameters required by the strategies (only some of these are required by each strategy)">strategy_params</a></code> contains the right parameters required by the selected strategy. If it doesn't, an error will be thrown.</p>
 <p>Below is a summary of the parameters required by each strategy.</p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
-<th class="markdownTableHeadLeft">index (as in SASfit)   </th><th class="markdownTableHeadCenter">Strategy Name   </th><th class="markdownTableHeadNone">Field names needed in <code><a class="el" href="structstrategy__params.html">strategy_params</a></code>    </th></tr>
+<th class="markdownTableHeadLeft">index (as in SASfit)   </th><th class="markdownTableHeadCenter">Strategy Name   </th><th class="markdownTableHeadNone">Field names needed in <code><a class="el" href="structstrategy__params.html" title="Struct of parameters required by the strategies (only some of these are required by each strategy)">strategy_params</a></code>    </th></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyLeft">0   </td><td class="markdownTableBodyCenter">DE_Ooura   </td><td class="markdownTableBodyNone"><code>n_eval</code>, <code>eps_rel</code>    </td></tr>
 <tr class="markdownTableRowEven">
@@ -93,7 +93,7 @@ Main function</h1>
 <li><code>eps_rel</code>: relative error allowed e.g. 1e-9</li>
 <li><code>f_max</code>: float indicating starting guess for max in form factor</li>
 </ul>
-<p>Please note, for DHT strategies (that is, DHT_6 to DHT_11) feel free to supply an empty struct for <code><a class="el" href="structstrategy__params.html">strategy_params</a></code> . Any field within it will be ignored in these strategies as they do not require such additional parameters. <br  />
+<p>Please note, for DHT strategies (that is, DHT_6 to DHT_11) feel free to supply an empty struct for <code><a class="el" href="structstrategy__params.html" title="Struct of parameters required by the strategies (only some of these are required by each strategy)">strategy_params</a></code> . Any field within it will be ignored in these strategies as they do not require such additional parameters. <br  />
 </p>
 <h1><a class="anchor" id="autotoc_md1"></a>
 Status codes</h1>
