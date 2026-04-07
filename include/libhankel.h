@@ -13,9 +13,10 @@ typedef struct {
 double hankel_transform(
     int nu, 
     double (*f)(double, double (*)[50]), 
-    double x, 
+    const double *x,
     double (*f_params)[50], 
-    double *output,
+    double * output,
+    int len_x,
     const char *strategy_name,
     strategy_params strategy_params
 ); 
