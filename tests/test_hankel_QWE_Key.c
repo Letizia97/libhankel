@@ -104,7 +104,13 @@ void setUp(void) {
     const char *filename = "../tests/data/broadpeakHT.txt";
     const char *column   = "xi1000";
     size_t n             = sizeof(r_array_broad_peak) / sizeof(r_array_broad_peak[0]);
-    read_values_by_rows(filename, column, r_array_broad_peak, n, ctx.expected_broad_peak);
+    read_values_by_rows(
+        filename, 
+        column, 
+        r_array_broad_peak, 
+        n, 
+        ctx.expected_broad_peak
+    );
 
     
     // COMPUTATIONS 
@@ -141,7 +147,11 @@ void test_hankel_QWE_Key_regression_spheres(void) {
     Regression test for QWE on spheres.
     */
     for (size_t i = 0; i < ARRAY_LEN; ++i) {
-        TEST_ASSERT_DOUBLE_WITHIN(1e-4, ctx.expected_spheres[i], ctx.actual_spheres[i]);
+        TEST_ASSERT_DOUBLE_WITHIN(
+            1e-4, 
+            ctx.expected_spheres[i], 
+            ctx.actual_spheres[i]
+        );
     }
 }
 
@@ -150,7 +160,11 @@ void test_hankel_QWE_Key_regression_gdab(void) {
     Regression test for QWE on gdab.
     */
     for (size_t i = 0; i < ARRAY_LEN; ++i) {
-        TEST_ASSERT_DOUBLE_WITHIN(1e-4, ctx.expected_gdab[i], ctx.actual_gdab[i]);
+        TEST_ASSERT_DOUBLE_WITHIN(
+            1e-4, 
+            ctx.expected_gdab[i], 
+            ctx.actual_gdab[i]
+        );
     }
 }
 

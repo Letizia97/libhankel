@@ -114,25 +114,55 @@ void setUp(void) {
     const char *filename = "../tests/data/broadpeakHT.txt";
     const char *column   = "xi1000";
     size_t n             = sizeof(r_array_broad_peak) / sizeof(r_array_broad_peak[0]);
-    read_values_by_rows(filename, column, r_array_broad_peak, n, ctx.expected_broad_peak);
+    read_values_by_rows(
+        filename, 
+        column, r
+        _array_broad_peak, 
+        n, 
+        ctx.expected_broad_peak
+    );
 
 
     // COMPUTATIONS 
     for (size_t i = 0; i < ARRAY_LEN; ++i) {
         z = r_array_spheres[i];
-        hankel_transform(nu, form_factor_sphere, z, &params_spheres, &Gr[i], "QWE_Key", strategy_params_general);
+        hankel_transform(
+            nu, 
+            form_factor_sphere, 
+            z, 
+            &params_spheres, 
+            &Gr[i], 
+            "QWE_Key", 
+            strategy_params_general
+        );
         ctx.actual_spheres[i] = Gr[i]; 
     }
     
     for (size_t i = 0; i < ARRAY_LEN; ++i) {
         z = r_array_gdab[i];
-        hankel_transform(nu, form_factor_g_dab, z, &params_gdab, &Gr[i], "QWE_Key", strategy_params_general);
+        hankel_transform(
+            nu, 
+            form_factor_g_dab, 
+            z, 
+            &params_gdab, 
+            &Gr[i], 
+            "QWE_Key", 
+            strategy_params_general
+        );
         ctx.actual_gdab[i] = Gr[i]; 
     }
 
     for (size_t i = 0; i < ARRAY_LEN; ++i) {
         z = r_array_broad_peak[i];
-        hankel_transform(nu, form_factor_broad_peak, z, &params_broad_peak, &Gr[i], "QWE_Key", strategy_params_b_peak);
+        hankel_transform(
+            nu, 
+            form_factor_broad_peak, 
+            z, 
+            &params_broad_peak, 
+            &Gr[i], 
+            "QWE_Key", 
+            strategy_params_b_peak
+        );
         ctx.actual_broad_peak[i] = Gr[i]; 
     }  
 }
@@ -145,7 +175,11 @@ void test_hankel_transform_spheres(void) {
     Regression test for QWE on spheres.
     */
     for (size_t i = 0; i < ARRAY_LEN; ++i) {
-        TEST_ASSERT_DOUBLE_WITHIN(1e-4, ctx.expected_spheres[i], ctx.actual_spheres[i]);
+        TEST_ASSERT_DOUBLE_WITHIN(
+            1e-4, 
+            ctx.expected_spheres[i], 
+            ctx.actual_spheres[i]
+        );
     }
 }
 
@@ -154,7 +188,11 @@ void test_hankel_transform_gdab(void) {
     Regression test for QWE on gdab.
     */
     for (size_t i = 0; i < ARRAY_LEN; ++i) {
-        TEST_ASSERT_DOUBLE_WITHIN(1e-4, ctx.expected_gdab[i], ctx.actual_gdab[i]);
+        TEST_ASSERT_DOUBLE_WITHIN(
+            1e-4, 
+            ctx.expected_gdab[i], 
+            ctx.actual_gdab[i]
+        );
     }
 }
 
@@ -182,10 +220,22 @@ void test_hankel_transform_throws_error_when_n_eval_not_defined(void) {
     };
 
     start_capture_stderr();
-    int status = hankel_transform(nu, form_factor_g_dab, z, &params_gdab, &Gr[0], "QWE_Key", strategy_params_wrong);
+    int status = hankel_transform(
+        nu, 
+        form_factor_g_dab, 
+        z, 
+        &params_gdab, 
+        &Gr[0], 
+        "QWE_Key", 
+        strategy_params_wrong
+    );
+
     stop_capture_stderr(captured, sizeof(captured));
     TEST_ASSERT_EQUAL_INT_MESSAGE(-8, status, "");
-    TEST_ASSERT_EQUAL_STRING(captured, "Error: n_eval must be provided and cannot be zero\n");
+    TEST_ASSERT_EQUAL_STRING(
+        captured, 
+        "Error: n_eval must be provided and cannot be zero\n"
+    );
 }
 
 
@@ -200,10 +250,22 @@ void test_hankel_transform_throws_error_when_eps_rel_not_defined(void) {
     };
 
     start_capture_stderr();
-    int status = hankel_transform(nu, form_factor_g_dab, z, &params_gdab, &Gr[0], "QWE_Key", strategy_params_wrong);
+    int status = hankel_transform(
+        nu, 
+        form_factor_g_dab, 
+        z, 
+        &params_gdab, 
+        &Gr[0], 
+        "QWE_Key", 
+        strategy_params_wrong
+    );
+
     stop_capture_stderr(captured, sizeof(captured));
     TEST_ASSERT_EQUAL_INT_MESSAGE(-8, status, "");
-    TEST_ASSERT_EQUAL_STRING(captured, "Error: eps_rel must be provided and cannot be zero\n");
+    TEST_ASSERT_EQUAL_STRING(
+        captured, 
+        "Error: eps_rel must be provided and cannot be zero\n"
+    );
 }
 
 void test_hankel_transform_throws_error_when_nu_wrong(void) {
@@ -216,8 +278,17 @@ void test_hankel_transform_throws_error_when_nu_wrong(void) {
         .eps_rel = 1e-9,
         .n_eval = 250
     };
+
     start_capture_stderr();
-    int status = hankel_transform(5, form_factor_g_dab, z, &params_gdab, &Gr[0], "QWE_Key", strategy_params);
+    int status = hankel_transform(
+        5, 
+        form_factor_g_dab, 
+        z, 
+        &params_gdab, 
+        &Gr[0], 
+        "QWE_Key", 
+        strategy_params
+    );
 
     stop_capture_stderr(captured, sizeof(captured));
     TEST_ASSERT_EQUAL_INT_MESSAGE(-1, status, "");
@@ -238,10 +309,22 @@ void test_hankel_transform_throws_error_when_f_max_not_defined(void) {
     };
 
     start_capture_stderr();
-    int status = hankel_transform(nu, form_factor_g_dab, z, &params_gdab, &Gr[0], "DE_Ogata", strategy_params_wrong);
+    int status = hankel_transform(
+        nu, 
+        form_factor_g_dab, 
+        z, 
+        &params_gdab, 
+        &Gr[0], 
+        "DE_Ogata", 
+        strategy_params_wrong
+    );
+
     stop_capture_stderr(captured, sizeof(captured));
     TEST_ASSERT_EQUAL_INT_MESSAGE(-8, status, "");
-    TEST_ASSERT_EQUAL_STRING(captured, "Error: f_max must be provided and cannot be zero\n");
+    TEST_ASSERT_EQUAL_STRING(
+        captured, 
+        "Error: f_max must be provided and cannot be zero\n"
+    );
 }
 
 int main(void) {

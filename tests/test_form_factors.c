@@ -98,8 +98,14 @@ void setUp(void) {
     };
 
     for (size_t i = 0; i < ARRAY_LEN; ++i) {
-        ctx.actual_spheres[i] = form_factor_sphere(r_array_spheres[i], &params_spheres);
-        ctx.actual_gdab[i] = form_factor_sphere(r_array_gdab[i], &params_gdab);
+        ctx.actual_spheres[i] = form_factor_sphere(
+            r_array_spheres[i], 
+            &params_spheres
+        );
+        ctx.actual_gdab[i] = form_factor_sphere(
+            r_array_gdab[i], 
+            &params_gdab
+        );
         //printf("%.15g, ", ctx.actual_gdab[i]);
     }
 }
@@ -109,13 +115,21 @@ void tearDown(void) {}
 
 void test_form_factor_spheres(void) {
     for (size_t i = 0; i < ARRAY_LEN; ++i) {
-        TEST_ASSERT_DOUBLE_WITHIN(1e-4, ctx.expected_spheres[i], ctx.actual_spheres[i]);
+        TEST_ASSERT_DOUBLE_WITHIN(
+            1e-4, 
+            ctx.expected_spheres[i], 
+            ctx.actual_spheres[i]
+        );
     }
 }
 
 void test_form_factor_gdab(void) {
     for (size_t i = 0; i < ARRAY_LEN; ++i) {
-        TEST_ASSERT_DOUBLE_WITHIN(1e-4, ctx.expected_gdab[i], ctx.actual_gdab[i]);
+        TEST_ASSERT_DOUBLE_WITHIN(
+            1e-4, 
+            ctx.expected_gdab[i], 
+            ctx.actual_gdab[i]
+        );
     }
 }
 
