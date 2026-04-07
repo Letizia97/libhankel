@@ -1,7 +1,13 @@
 # Usage Guide {#usage}
 
+## Main function
+
+The main function a user will be using is `hankel_transform()`. Please click on the name to find out what parameters the user receives as well as their types. The parameter `strategy_name` essentially allows the user the select one of the 14 Hankel transform strategies available. This is further explained under "Note" at `hankel_transform()`.
+
+
 ## Status codes
 
+When successful, the `hankel_transform()` function returns 0 . When unsuccessful, it returns an error code. To find out more about the error, the table below lists all possible error codes one might receive plus corresponding explanations.
 
 | Status codes   | Explanation                                                                   |
 |:-------------|:--------------------------------------------------------------------------------|
