@@ -37,7 +37,7 @@ int validate_f_max(strategy_params strategy_params) {
  * @param nu               order of bessel function - must be 0 or 1
  * @param f                pointer to form factor function
  * @param x                value at which to compute the transform
- * @param f_params          params for form factor
+ * @param f_params         params for form factor
  * @param output           pointer to var containing output from transform 
  * @param strategy_name    str corresponding to the strategy name
  * @param strategy_params  struct containing params for the specific strategy

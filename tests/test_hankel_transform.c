@@ -177,7 +177,6 @@ void test_hankel_transform_throws_error_when_n_eval_not_defined(void) {
     error when n_eval not provided (when using QWE_Key).
     */
     char captured[1024];
-
     strategy_params strategy_params_wrong = {
         .eps_rel = 1e-9
     };
@@ -196,7 +195,6 @@ void test_hankel_transform_throws_error_when_eps_rel_not_defined(void) {
     error when eps_rel not provided (when using QWE_Key).
     */
     char captured[1024];
-
     strategy_params strategy_params_wrong = {
         .n_eval = 250
     };
@@ -229,6 +227,23 @@ void test_hankel_transform_throws_error_when_nu_wrong(void) {
     );
 }
 
+void test_hankel_transform_throws_error_when_f_max_not_defined(void) {
+    /*
+    Tests that hankel_transform throws expected
+    error when f_max not provided (when using DE_Ogata).
+    */
+    char captured[1024];
+    strategy_params strategy_params_wrong = {
+        .n_eval = 250
+    };
+
+    start_capture_stderr();
+    int status = hankel_transform(nu, form_factor_g_dab, z, &params_gdab, &Gr[0], "DE_Ogata", strategy_params_wrong);
+    stop_capture_stderr(captured, sizeof(captured));
+    TEST_ASSERT_EQUAL_INT_MESSAGE(-8, status, "");
+    TEST_ASSERT_EQUAL_STRING(captured, "Error: f_max must be provided and cannot be zero\n");
+}
+
 int main(void) {
     UNITY_BEGIN();
     RUN_TEST(test_hankel_transform_spheres);
@@ -237,5 +252,6 @@ int main(void) {
     RUN_TEST(test_hankel_transform_throws_error_when_n_eval_not_defined);
     RUN_TEST(test_hankel_transform_throws_error_when_eps_rel_not_defined);
     RUN_TEST(test_hankel_transform_throws_error_when_nu_wrong);
+    RUN_TEST(test_hankel_transform_throws_error_when_f_max_not_defined);
     return UNITY_END();
 }
