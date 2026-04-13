@@ -10,7 +10,7 @@ typedef struct {
 } strategy_params;
 
 
-double hankel_transform(
+int hankel_transform(
     int nu, 
     double (*f)(double, double (*)[50]), 
     const double *x,
