@@ -60,7 +60,12 @@ TestContext ctx = {
         6.21630545540752e-06, 
     },
     .actual_gdab = { 0 }, 
-    .expected_broad_peak =  { 0 }, 
+    .expected_broad_peak =  {
+        15.3478, 14.7545, 13.8463, 12.7398, 11.3539, 9.86578, 8.1652,
+        6.37775, 4.64776, 2.84404, 1.19288, 1.19288, -0.433731, 
+        -1.904, -3.12269, -4.19016, -4.98079, -5.56571, -5.88294, 
+        -5.97027, -5.81729, -5.4678, -4.91068, -4.23042, -3.39016
+     }, 
     .actual_broad_peak = { 0 }, 
 };
 
@@ -108,20 +113,7 @@ void setUp(void) {
         225.,  245.,  265.,  284.,  304.,  323.,  343.,  362.,  382.,  402.,  421.,  
         441.,  460.,  480.,      
     };
-
-    // Read broad peak expected values from file
-    const char *filename = "../tests/data/broadpeakHT.txt";
-    const char *column   = "xi1000";
-    size_t n             = sizeof(r_array_broad_peak) / sizeof(r_array_broad_peak[0]);
-    read_values_by_rows(
-        filename, 
-        column, 
-        r_array_broad_peak, 
-        n, 
-        ctx.expected_broad_peak
-    );
-
-    
+  
     // COMPUTATIONS 
     for (size_t i = 0; i < ARRAY_LEN; ++i) {
         z = r_array_spheres[i];
