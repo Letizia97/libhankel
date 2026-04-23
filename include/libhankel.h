@@ -1,22 +1,22 @@
 
 #ifndef LIBHANKEL_H
 #define LIBHANKEL_H
-
+#include <stddef.h>
 
 typedef struct {
-    double n_eval;      // integer indicating number of function evaluations (N_ogata in SASfit)
+    int n_eval;      // integer indicating number of function evaluations (N_ogata in SASfit)
     double eps_rel;     // relative error allowed e.g. 1e-9 (eps_nriq in SASfit)
     double f_max;       // float indicating starting guess for max in form factor (h_ogata in SASfit)
 } strategy_params;
 
 
-double hankel_transform(
+int hankel_transform(
     int nu, 
     double (*f)(double, double (*)[50]), 
     const double *x,
     double (*f_params)[50], 
     double * output,
-    int len_x,
+    size_t len_x,
     const char *strategy_name,
     strategy_params strategy_params
 ); 
@@ -48,7 +48,7 @@ double hankel_transform_FBT(
 	double x, 
 	double (*f_params)[50], 
 	int n_method, 
-	double n_eval, 
+	int n_eval, 
 	double f_max
 );
 
@@ -59,7 +59,7 @@ double hankel_transform_DE_Ooura(
     double x, 
     double (*f_params)[50], 
     double *output,
-    double n_eval, 
+    int n_eval, 
     double eps_rel
 );
 
@@ -70,7 +70,7 @@ double hankel_transform_DE_Ogata(
     double x, 
     double (*f_params)[50], 
     double *output,
-    double n_eval, 
+    int n_eval, 
     double f_max
 );
 
@@ -81,7 +81,7 @@ double hankel_transform_QWE_Key(
 	double x, 
 	double (*f_params)[50], 
 	double (*output),
-	double n_eval, 
+	int n_eval, 
 	double eps_rel
 );
 
@@ -92,7 +92,7 @@ double hankel_transform_QWE_Chave(
 	double x, 
 	double (*f_params)[50], 
 	double (*output),
-	double n_eval, 
+	int n_eval, 
 	double eps_rel
 );
 

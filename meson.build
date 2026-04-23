@@ -33,3 +33,7 @@ hankel_dep = declare_dependency(
 )
 
 subdir('tests')
+
+# rm -rf build
+# meson setup build 
+# meson compile -C build

@@ -44,13 +44,13 @@ int validate_f_max(strategy_params strategy_params) {
  * @param strategy_params  struct containing params for the specific strategy
  *                         (please use the docs to find params required by each strategy)
  */ 
-double hankel_transform(
+int hankel_transform(
     int nu, 
     double (*f)(double, double (*)[50]), 
     const double *x,
     double (*f_params)[50], 
     double * output,
-    int len_x,
+    size_t len_x,
     const char *strategy_name,
     strategy_params strategy_params) 
 {

@@ -54,7 +54,7 @@ sources = files(
   'utils/analytical_form_factors.c',
 )
 
-libhankel = library(
+libhankel = shared_library(
   'libhankel',                             # builds liblibhankel.so/.a
   sources: sources,
   include_directories: [inc_root],
