@@ -188,7 +188,7 @@ intdeo
                               greater than eps.
 */
 
-#include "external_libs_based_work/DE-quadrature/intde.h"
+#include "external_libs/DE-quadrature/intde.h"
 
 #include <math.h>
 #include <stdio.h>

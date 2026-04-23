@@ -7,7 +7,7 @@
 #include <stdio.h>
 
 #include "libhankel.h"
-#include "../external_libs_based_work/utils/tanhsinh.h"
+#include "../external_libs/utils/tanhsinh.h"
 
 
 static gsl_integration_workspace *workspace = NULL; 

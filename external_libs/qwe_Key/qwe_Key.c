@@ -172,7 +172,7 @@ function T = qwe(rtol,atol,nIntervalsMax,func,varargin)
 end % function qwe
 */
 
-#include "external_libs_based_work/qwe_Key/qwe_Key.h"
+#include "external_libs/qwe_Key/qwe_Key.h"
 
 #include <float.h>
 #include <gsl/gsl_math.h>

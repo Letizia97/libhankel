@@ -6,7 +6,7 @@
 #include <gsl/gsl_sf.h>
 #include <gsl/gsl_sf_bessel.h>
 
-#include "../external_libs_based_work/DE-quadrature/intde.h"
+#include "../external_libs/DE-quadrature/intde.h"
 
 /*
 This file contains only 2 Hankel strategies, both DE quadrature algorithms, corresponding to:

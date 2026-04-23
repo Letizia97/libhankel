@@ -1,12 +1,12 @@
 gsl_dep = dependency('gsl', required: true, method: 'pkg-config')
 inc_root = include_directories('..', '../include')
-ogata_inc = include_directories('../external_libs_based_work/Ogata')
+ogata_inc = include_directories('../external_libs/Ogata')
 
 
 # ---- Ogata C++ sources ----
 ogata_cpp_src = files(
   # List the actual Ogata .cpp files you want to compile
-  '../external_libs_based_work/Ogata/FTB.cpp',
+  '../external_libs/Ogata/FTB.cpp',
 )
 
 # Compile them as a static or object library (object library avoids archive)
@@ -46,11 +46,11 @@ sources = files(
   'hankel_DE_quadrature.c', 
   'hankel_QWE.c', 
   'hankel_transform.c',
-  '../external_libs_based_work/DE-quadrature/intde.c', 
-  '../external_libs_based_work/qwe_Chave/qwe_Chave.c', 
-  '../external_libs_based_work/qwe_Key/qwe_Key.c', 
+  '../external_libs/DE-quadrature/intde.c', 
+  '../external_libs/qwe_Chave/qwe_Chave.c', 
+  '../external_libs/qwe_Key/qwe_Key.c', 
   'utils/sasfit_integrate.c',
-  '../external_libs_based_work/utils/tanhsinh.c',
+  '../external_libs/utils/tanhsinh.c',
   'utils/analytical_form_factors.c',
 )
 

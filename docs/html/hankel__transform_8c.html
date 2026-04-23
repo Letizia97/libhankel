@@ -81,11 +81,11 @@ Include dependency graph for hankel_transform.c:</div>
 <div class="dyncontent">
 <div class="center"><img src="hankel__transform_8c__incl.png" border="0" usemap="#asrc_2hankel__transform_8c" alt=""/></div>
 <map name="asrc_2hankel__transform_8c" id="asrc_2hankel__transform_8c">
-<area shape="rect" title=" " alt="" coords="121,5,292,32"/>
+<area shape="rect" title=" " alt="" coords="87,5,257,32"/>
 <area shape="rect" href="libhankel_8h.html" title=" " alt="" coords="5,80,99,107"/>
-<area shape="rect" title=" " alt="" coords="123,80,194,107"/>
-<area shape="rect" title=" " alt="" coords="219,80,293,107"/>
-<area shape="rect" title=" " alt="" coords="317,80,384,107"/>
+<area shape="rect" title=" " alt="" coords="56,155,131,181"/>
+<area shape="rect" title=" " alt="" coords="174,80,245,107"/>
+<area shape="rect" title=" " alt="" coords="269,80,336,107"/>
 </map>
 </div>
 </div><table class="memberdecls">
@@ -97,19 +97,19 @@ Functions</h2></td></tr>
 <tr class="separator:a4568f0630d3465e1d6993e9eb1946409"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a825473c79ffe045666fe8d4dbc052d0d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hankel__transform_8c.html#a825473c79ffe045666fe8d4dbc052d0d">validate_f_max</a> (<a class="el" href="structstrategy__params.html">strategy_params</a> <a class="el" href="structstrategy__params.html">strategy_params</a>)</td></tr>
 <tr class="separator:a825473c79ffe045666fe8d4dbc052d0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a482666838880b9e0b91a12955a3b335b"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hankel__transform_8c.html#a482666838880b9e0b91a12955a3b335b">hankel_transform</a> (int nu, double(*f)(double, double(*)[50]), double x, double(*f_params)[50], double *output, const char *strategy_name, <a class="el" href="structstrategy__params.html">strategy_params</a> <a class="el" href="structstrategy__params.html">strategy_params</a>)</td></tr>
-<tr class="memdesc:a482666838880b9e0b91a12955a3b335b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes Hankel transform using the method specified by the user.  <a href="hankel__transform_8c.html#a482666838880b9e0b91a12955a3b335b">More...</a><br /></td></tr>
-<tr class="separator:a482666838880b9e0b91a12955a3b335b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33f431ce63a8ab2caedfc19529526024"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hankel__transform_8c.html#a33f431ce63a8ab2caedfc19529526024">hankel_transform</a> (int nu, double(*f)(double, double(*)[50]), const double *x, double(*f_params)[50], double *output, size_t len_x, const char *strategy_name, <a class="el" href="structstrategy__params.html">strategy_params</a> <a class="el" href="structstrategy__params.html">strategy_params</a>)</td></tr>
+<tr class="memdesc:a33f431ce63a8ab2caedfc19529526024"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes Hankel transform using the method specified by the user.  <a href="hankel__transform_8c.html#a33f431ce63a8ab2caedfc19529526024">More...</a><br /></td></tr>
+<tr class="separator:a33f431ce63a8ab2caedfc19529526024"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a482666838880b9e0b91a12955a3b335b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a482666838880b9e0b91a12955a3b335b">&#9670;&nbsp;</a></span>hankel_transform()</h2>
+<a id="a33f431ce63a8ab2caedfc19529526024"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a33f431ce63a8ab2caedfc19529526024">&#9670;&nbsp;</a></span>hankel_transform()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double hankel_transform </td>
+          <td class="memname">int hankel_transform </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>nu</em>, </td>
@@ -123,7 +123,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double&#160;</td>
+          <td class="paramtype">const double *&#160;</td>
           <td class="paramname"><em>x</em>, </td>
         </tr>
         <tr>
@@ -137,6 +137,12 @@ Functions</h2></td></tr>
           <td></td>
           <td class="paramtype">double *&#160;</td>
           <td class="paramname"><em>output</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>len_x</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -164,9 +170,10 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">nu</td><td>order of bessel function - must be 0 or 1 </td></tr>
     <tr><td class="paramname">f</td><td>pointer to form factor function </td></tr>
-    <tr><td class="paramname">x</td><td>value at which to compute the transform </td></tr>
+    <tr><td class="paramname">x</td><td>pointer to array of x values at which to compute the transform </td></tr>
     <tr><td class="paramname">f_params</td><td>params for form factor </td></tr>
-    <tr><td class="paramname">output</td><td>pointer to var containing output from transform </td></tr>
+    <tr><td class="paramname">output</td><td>pointer to array containing output from transform </td></tr>
+    <tr><td class="paramname">len_x</td><td>length of array x </td></tr>
     <tr><td class="paramname">strategy_name</td><td>str corresponding to the strategy name </td></tr>
     <tr><td class="paramname"><a class="el" href="structstrategy__params.html">strategy_params</a></td><td>struct containing params for the specific strategy (please use the docs to find params required by each strategy) </td></tr>
   </table>
