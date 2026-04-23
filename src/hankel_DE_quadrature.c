@@ -94,7 +94,7 @@ double hankel_transform_DE_Ooura(
     double x, 
     double (*f_params)[50], 
     double *output,
-    double n_eval, 
+    int n_eval, 
     double eps_rel) {
 
     int workspace_len = 4000;
@@ -182,7 +182,7 @@ double hankel_transform_DE_Ogata(
     double x, 
     double (*f_params)[50], 
     double *output,
-    double n_eval, 
+    int n_eval, 
     double f_max) {
 
     double sum;

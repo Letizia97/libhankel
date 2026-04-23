@@ -50,7 +50,7 @@ int hankel_transform(
     const double *x,
     double (*f_params)[50], 
     double * output,
-    int len_x,
+    size_t len_x,
     const char *strategy_name,
     strategy_params strategy_params) 
 {

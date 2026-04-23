@@ -37,7 +37,7 @@ double hankel_transform_FBT(
     double x, 
     double (*f_params)[50], 
     int n_method, 
-    double n_eval, 
+    int n_eval, 
     double f_max) {
 
     double res; 

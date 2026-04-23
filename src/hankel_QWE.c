@@ -36,7 +36,7 @@ double hankel_transform_QWE_Key(
     double x, 
     double (*f_params)[50], 
     double *output,
-    double n_eval, 
+    int n_eval, 
     double eps_rel) {
 
     int status;
@@ -71,7 +71,7 @@ double hankel_transform_QWE_Chave(
     double x, 
     double (*f_params)[50], 
     double *output,
-    double n_eval, 
+    int n_eval, 
     double eps_rel) {
 
     int status;
