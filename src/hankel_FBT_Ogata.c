@@ -16,6 +16,19 @@ Specifically:
 - HANKEL_FBT2 4
 */
 
+struct f_context {
+    double (*f)(double, double (*)[50]);
+    double (*f_params)[50];
+};
+
+double wrapped_f(double x, void *ctx)
+{
+    struct f_context *c = ctx;
+    return x * c->f(x, c->f_params);
+}
+
+
+
 /** 
  * @brief Computes Hankel transform using FBT.
  * @note Corresponds to strategies 2,3,4 in SASfit or HANKEL_FBT0, etc 
@@ -36,11 +49,12 @@ double hankel_transform_FBT(
     double (*f)(double, double (*)[50]), 
     double x, 
     double (*f_params)[50], 
+    double *output,
     int n_method, 
     int n_eval, 
     double f_max) {
 
-    double res; 
-    res = compute_hankel_FBT(nu, f, x, f_params, n_method, n_eval, f_max);
-    return res;
+    struct f_context ctx = { f, f_params };
+    *output = compute_hankel_FBT(nu, wrapped_f, &ctx, x, n_method, n_eval, f_max);
+    return 0;
 }

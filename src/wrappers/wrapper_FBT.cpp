@@ -11,7 +11,15 @@ extern "C"
 }
 
 
-double compute_hankel_FBT(int nu, double (*intern_fct)(double, double (*)[50]), double x, double (*f_params)[50], int n_method, int N, double h){
+double compute_hankel_FBT(
+    int nu, 
+    intern_fct_type intern_fct,
+    void *ctx,
+    double x, 
+    int n_method, 
+    int N, 
+    double h
+){
     /*
     Computes Hankel transform using function from external FBT library.
 
@@ -29,5 +37,5 @@ double compute_hankel_FBT(int nu, double (*intern_fct)(double, double (*)[50]), 
     gsl_set_error_handler_off();
 
     FBT FBT_instance = FBT(nu, n_method, N, h);
-	return FBT_instance.fbt(std::bind(intern_fct, std::placeholders::_1, f_params), x);
+	return FBT_instance.fbt(std::bind(intern_fct, std::placeholders::_1, ctx), x);
 } 
