@@ -13,5 +13,3 @@ authors = [{name = "Letizia Protopapa"}]
 [tool.setuptools]
 packages = ["libhankel"]
 
-[tool.setuptools.extension."libhankel"]
-sources = ["libhankel/python_api.c"]
