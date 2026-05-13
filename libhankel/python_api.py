@@ -11,6 +11,7 @@ import numpy as np
 # from ._clib import libhankel, StrategyParams
 
 from ._core import form_factor_g_dab as _form_factor_g_dab
+from ._core import hankel_transform as _hankel_transform
 
 def form_factor_g_dab(
     single_q: float,
@@ -96,40 +97,46 @@ def form_factor_g_dab(
 #     )
 
 
-# def hankel_transform(
-#     nu,
-#     form_factor_f,
-#     x_arr,
-#     f_params, 
-#     strategy_name,
-#     strategy_params_dict, 
-# ):
-#     """
-#     Computes the Hankel transform. 
+def hankel_transform(
+    nu,
+    form_factor_name,
+    x_arr,
+    f_params, 
+    strategy_name,
+    strategy_params_dict, 
+):
+    """
+    Computes the Hankel transform. 
 
-#     Parameters
-#     ----------
-#         nu : int              
-#             Order of the Bessel function. Either 0 or 1.
+    Parameters
+    ----------
+        nu : int              
+            Order of the Bessel function. Either 0 or 1.
 
-#         form_factor_f : Callable[[float, list[float]], float]   
-#             Function to Hankel transform i.e. the form factor
-#             (can use e.g. form_factor_g_dab).
+        form_factor_name : any of g_dab, spheres, broad_peak.
 
-#         x_arr : ndarray            
-#             Numpy array of x values.
+        x_arr : ndarray            
+            Numpy array of x values.
 
-#         f_params : ndarray of shape (n,) , with n < 50    
-#             Array containing the form factor parameters (ordered as per docs). 
+        f_params : ndarray of shape (n,) , with n < 50    
+            Array containing the form factor parameters (ordered as per docs). 
 
-#         strategy_name : str
-#             The strategy name - consult docs for options. 
+        strategy_name : str
+            The strategy name - consult docs for options. 
 
-#         strategy_params_dict : dict[str, float]
-#             The parameters needed for the selected strategy to work 
-#             (please consult the docs to know which params are required by which strategy)
+        strategy_params_dict : dict[str, float]
+            The parameters needed for the selected strategy to work 
+            (please consult the docs to know which params are required by which strategy)
 
-#     """
+    """
+    return _hankel_transform(
+        nu,
+        form_factor_name,
+        x_arr,
+        f_params,
+        strategy_name,
+        strategy_params_dict
+    )
 
 #     # Prepare array data x
 #     N = x_arr.size
