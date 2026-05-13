@@ -1,7 +1,7 @@
 #include <Python.h>
-#include "form_factor_g_dab.h"   
+#include "form_factors.h"   
  
-static PyObject* py_f(PyObject* self, PyObject* args) {
+static PyObject* py_form_factor_g_dab(PyObject* self, PyObject* args) {
     double q;
     PyObject* params_obj;
 
@@ -43,11 +43,23 @@ static PyObject* py_f(PyObject* self, PyObject* args) {
         params[i] = value;
     }
 
-    double result = f(q, &params);
+    double result = form_factor_g_dab(q, &params);
     return PyFloat_FromDouble(result);
 }
 
+static PyMethodDef Methods[] = {
+    {"form_factor_g_dab", py_form_factor_g_dab, METH_VARARGS, "Wrapped function"},
+    {NULL, NULL, 0, NULL}
+};
 
+
+static struct PyModuleDef module = {
+    PyModuleDef_HEAD_INIT,
+    "_core",
+    NULL,
+    -1,
+    Methods
+};
 
 PyMODINIT_FUNC PyInit__core(void) {
     return PyModule_Create(&module);

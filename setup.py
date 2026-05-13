@@ -9,10 +9,10 @@ setup(
             "libhankel._core",
             sources=[
                 "libhankel/_core.c",
-                "src/form_factors.c",        # ✅ now from top-level csrc
+                "src/form_factors.c",        
             ],
             include_dirs=[
-                "src"               # ✅ tells compiler where add.h is
+                "include"              
             ],
         )
     ],
