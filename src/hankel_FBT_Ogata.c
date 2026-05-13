@@ -6,8 +6,6 @@
 #include <gsl/gsl_sf.h>
 #include <gsl/gsl_sf_bessel.h>
 
-// #include "src/utils/sasfit_integrate.h"
-
 /*
 This file contains functions corresponding to strategies 2-4 in SASfit. 
 Specifically:
@@ -16,18 +14,19 @@ Specifically:
 - HANKEL_FBT2 4
 */
 
+// Struct containing both the function to hankel-transform
+// and the function parameters
 struct f_context {
     double (*f)(double, double (*)[50]);
     double (*f_params)[50];
 };
 
-double wrapped_f(double x, void *ctx)
-{
+// This wrapping of the function f is needed to be 
+// able to multiply by x before passing f to the transform
+double wrapped_f(double x, void *ctx) {
     struct f_context *c = ctx;
     return x * c->f(x, c->f_params);
 }
-
-
 
 /** 
  * @brief Computes Hankel transform using FBT.
@@ -39,7 +38,7 @@ double wrapped_f(double x, void *ctx)
  * @param nu         order of bessel function - must be 0 or 1
  * @param f          pointer to form factor function
  * @param x          value at which to compute the transform
- * @param f_params    params for form factor
+ * @param f_params   params for form factor
  * @param n_eval     integer indicating number of function evaluations (N_ogata in SASfit)
  * @param f_max      float indicating starting guess for maximum in form factor (h_ogata in SASfit)
  * @param n_method   FBT method to use among 0,1,2 (modified, unmodified, fixed h Ogata)

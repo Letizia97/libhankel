@@ -17,25 +17,27 @@ double compute_hankel_FBT(
     void *ctx,
     double x, 
     int n_method, 
-    int N, 
-    double h
+    int n_eval, 
+    double f_max
 ){
     /*
     Computes Hankel transform using function from external FBT library.
 
     Receives:
-        - x:    point at which to compute the transform
-        - (*intern_fct)(double, void *):    function to use for computing the transform
-        - * f_params:    parameters for the function
-        - nu: order of Bessel function
-        - n_method: integer among 0,1,2 for : modified, unmodified, fixed h Ogata
-        - N: constant corresponding to number of function calls 
-        - h: constant corresponding to initial guess where function has maximum   
+        - nu:          order of Bessel function
+        - intern_fct:  function to use for computing the transform, meant to receive x
+                       and *ctx (see below for what these are)
+        - ctx:         struct containing both the function f to hankel-transform and 
+                       the function parameters
+        - x:           point at which to compute the transform
+        - n_method:    integer among 0,1,2 for modified, unmodified, fixed h Ogata
+        - n_eval:      constant corresponding to number of function calls 
+        - f_max:       constant corresponding to initial guess where function has maximum   
     */
 
     // This is a bit of a hack, but it's needed to avoid issues when calling ogata functions
     gsl_set_error_handler_off();
 
-    FBT FBT_instance = FBT(nu, n_method, N, h);
+    FBT FBT_instance = FBT(nu, n_method, n_eval, f_max);
 	return FBT_instance.fbt(std::bind(intern_fct, std::placeholders::_1, ctx), x);
 } 
