@@ -10,7 +10,7 @@ import numpy as np
 # # Local application/library imports
 # from ._clib import libhankel, StrategyParams
 
-from ._core import form_factor_g_dab
+from ._core import form_factor_g_dab as _form_factor_g_dab
 
 def form_factor_g_dab(
     single_q: float,
@@ -33,8 +33,9 @@ def form_factor_g_dab(
     -------
     float
         The resulting form factor value.
+        
     """
-    return form_factor_g_dab(
+    return _form_factor_g_dab(
         single_q, 
         param_array
     )

@@ -14,6 +14,7 @@ setup(
             include_dirs=[
                 "include"              
             ],
+            libraries=["gsl", "gslcblas"], 
         )
     ],
 )

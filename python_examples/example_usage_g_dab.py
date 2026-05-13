@@ -15,17 +15,17 @@ strategy_p_dict = {
     'n_eval': 250, 
     'eps_rel': 1e-9
 }
+result = libhankel.form_factor_g_dab(5.0, params_gdab)
+# result = libhankel.hankel_transform(
+#     nu,
+#     libhankel.form_factor_g_dab_callback,
+#     x_arr,
+#     params_gdab,
+#     "QWE_Chave",
+#     strategy_p_dict
+# )
 
-result = libhankel.hankel_transform(
-    nu,
-    libhankel.form_factor_g_dab_callback,
-    x_arr,
-    params_gdab,
-    "QWE_Chave",
-    strategy_p_dict
-)
-
-print(
-    "Result of calling the hankel_transform with g_dab form factor", 
-    result
-)
+# print(
+#     "Result of calling the hankel_transform with g_dab form factor", 
+#     result
+# )

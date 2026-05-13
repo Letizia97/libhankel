@@ -43,7 +43,7 @@ static PyObject* py_form_factor_g_dab(PyObject* self, PyObject* args) {
         params[i] = value;
     }
 
-    double result = form_factor_g_dab(q, &params);
+    double result = form_factor_g_dab(q, params);
     return PyFloat_FromDouble(result);
 }
 
