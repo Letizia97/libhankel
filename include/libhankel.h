@@ -9,6 +9,7 @@ typedef struct {
     double f_max;       // float indicating starting guess for max in form factor (h_ogata in SASfit)
 } strategy_params;
 
+typedef double (*intern_fct_type)(double x, void *ctx);
 
 int hankel_transform(
     int nu, 
@@ -34,22 +35,23 @@ double hankel_transform_DHT(
 
 // corresponding to strategies 2-4 (FBT)
 double compute_hankel_FBT(
-	int nu, 
-	double (*f)(double, double (*)[50]), 
-	double x, 
-	double (*f_params)[50], 
-	int n_method,
-	int N, 
-	double h
+    int nu, 
+    intern_fct_type intern_fct,
+    void *ctx,
+    double x, 
+    int n_method, 
+    int n_eval, 
+    double f_max
 );
 double hankel_transform_FBT(
-	int nu, 
-	double (*f)(double, double (*)[50]), 
-	double x, 
-	double (*f_params)[50], 
-	int n_method, 
-	int n_eval, 
-	double f_max
+    int nu, 
+    double (*f)(double, double (*)[50]), 
+    double x, 
+    double (*f_params)[50], 
+    double *output,
+    int n_method, 
+    int n_eval, 
+    double f_max
 );
 
 // strategy 0 (DE QUADRATURE)
