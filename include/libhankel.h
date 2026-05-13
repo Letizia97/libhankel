@@ -40,8 +40,8 @@ double compute_hankel_FBT(
     void *ctx,
     double x, 
     int n_method, 
-    int N, 
-    double h
+    int n_eval, 
+    double f_max
 );
 double hankel_transform_FBT(
     int nu, 
