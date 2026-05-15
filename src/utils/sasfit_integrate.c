@@ -10,7 +10,6 @@
 #include "../external_libs/utils/tanhsinh.h"
 
 
-static gsl_integration_workspace *workspace = NULL; 
 typedef double sasfit_func_one_t (double, hankel_inputs *);
 
 typedef struct {
@@ -39,7 +38,6 @@ double sasfit_integrate_ctm(
     double epsabs,
     double epsrel)
 {
-    workspace = gsl_integration_workspace_alloc(1000);
 	double res, errabs; 
 	gsl_function F;
     int err;
@@ -61,8 +59,6 @@ double sasfit_integrate_ctm(
     cubstruct.Kernel1D_fct=intKern_fct;
     cubstruct.param=param;
 
-	gsl_set_error_handler_off();
-    err = GSL_SUCCESS;
 
     res = TanhSinhQuad(&Kernel_1D, &cubstruct, int_start, int_end, 7, epsrel, &ferr[0]);
 	return res;
