@@ -44,7 +44,7 @@ double intdeo_FBT(double r, void *FBTparams) {
     double nu = FBTparam_struct->nu;
     double Q  = FBTparam_struct->Q;
 
-    double bessel = gsl_sf_bessel_Jnu(nu, Q * r);
+    double bessel = jn(nu, Q * r);
     double fval   = FBTparam_struct->function(r, FBTparam_struct->f_params);
 
     return r * bessel * fval;
@@ -204,8 +204,8 @@ double hankel_transform_DE_Ogata(
         double y_k         = phi * (M_PI / f_max);
 
         /* ---- Precompute Bessel factors ---- */
-        double Jnu_yk      = gsl_sf_bessel_Jnu(nu, y_k);
-        double Jnu1_zero   = gsl_sf_bessel_Jnu(nu + 1, zero_i);
+        double Jnu_yk      = jn(nu, y_k);
+        double Jnu1_zero   = jn(nu + 1, zero_i);
 
         /* ---- Quadrature weight for α_{ν,i} ---- */
         double denom       = M_PI * Jnu1_zero;
