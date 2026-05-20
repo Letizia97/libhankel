@@ -52,6 +52,7 @@ sources = files(
   'utils/sasfit_integrate.c',
   '../external_libs/utils/tanhsinh.c',
   'utils/analytical_form_factors.c',
+  'utils/sf_functions.c',
 )
 
 libhankel = shared_library(

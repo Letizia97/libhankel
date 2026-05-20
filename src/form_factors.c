@@ -5,6 +5,7 @@
 #include <gsl/gsl_sf.h>
 #include <gsl/gsl_sf_bessel.h>
 #include "../src/utils/pow_functions.h"
+#include "../src/utils/sf_functions.h"
 
 double form_factor_g_dab(double q, double (*params)[50]) {
     /*
@@ -16,7 +17,7 @@ double form_factor_g_dab(double q, double (*params)[50]) {
     double numer, denom;
 
     double factor1 = pow3(2*XI);
-    double factor2 = gsl_sf_poch(H,1.5);
+    double factor2 = sf_poch(H,1.5);
 
     numer = pow2(factor1 * factor2 * ETA) * pow3(M_PI);
     denom = pow(1 + pow2(q * XI), 1.5 + H);
