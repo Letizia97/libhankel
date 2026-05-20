@@ -3,14 +3,16 @@
 #include <math.h>
 #include <stdio.h>
 #include <stddef.h>
-#include "libhankel.h"
-
+#include <stdbool.h>
 
 #include <gsl/gsl_sf_gamma.h>
 #include <gsl/gsl_sf_bessel.h>
 #include <gsl/gsl_sf_hyperg.h>
-#include <gsl/gsl_sf_gamma.h>
-#include <stdbool.h>
+
+#include "libhankel.h"
+
+#include "../src/utils/sf_functions.h"
+
 
 double compute_analytical_spheres(double (*params)[50], double *arr_z, double *G, size_t n) {
     /*
@@ -110,7 +112,7 @@ double compute_analytical_gdab(double (*params)[50], double *arr_z, double *out,
     double V = pow(2.0 * A, 3.0)
              * M_PI
              * sqrt(M_PI)
-             * gsl_sf_poch(H, 1.5);
+             * sf_poch(H, 1.5);
 
     double denom = gsl_sf_gamma(1.5 + H)
                  * 2.0 * M_PI * (A * A);

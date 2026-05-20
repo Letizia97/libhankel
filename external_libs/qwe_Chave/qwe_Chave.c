@@ -4,11 +4,14 @@
 #include "external_libs/qwe_Chave/qwe_Chave.h"
 
 #include <float.h>
-#include <gsl/gsl_math.h>
-#include <gsl/gsl_sf.h>
 #include <stdbool.h>
 
 #include "src/utils/sasfit_integrate.h"
+#include "src/utils/pow_functions.h"
+
+#include <stdlib.h>
+#include <math.h>
+#include <stdio.h>
 
 /** 
  * @brief This function is called Zeroj in SASfit.
@@ -43,24 +46,24 @@ double bessel_j_zero(int nzero, double order) {
         if (order == 0) {
             t = 0.0682894897349453
                 + 0.131420807470708 * beta * beta
-                + 0.0245988241803681 * gsl_pow_4(beta)
-                + 0.000813005721543268 * gsl_pow_6(beta);
+                + 0.0245988241803681 * pow4(beta)
+                + 0.000813005721543268 * pow6(beta);
             b = beta
-                + 1.16837242570470 * gsl_pow_3(beta)
-                + 0.200991122197811 * gsl_pow_5(beta) 
-                + 0.00650404577261471 * gsl_pow_7(beta);
+                + 1.16837242570470 * pow3(beta)
+                + 0.200991122197811 * pow5(beta) 
+                + 0.00650404577261471 * pow7(beta);
             j_zero = beta + t/b;
             return j_zero;
 
         } else if (order == 1) {
             t = - 0.362804405737084 
-                + 0.120341279038597 * gsl_pow_3(beta)
-                + 0.0439454547101171 * gsl_pow_4(beta) 
-                + 0.00159340088474713 * gsl_pow_6(beta);
+                + 0.120341279038597 * pow3(beta)
+                + 0.0439454547101171 * pow4(beta) 
+                + 0.00159340088474713 * pow6(beta);
             b = beta 
-                - 0.325641790801361 * gsl_pow_3(beta) 
-                - 0.117453445968927 * gsl_pow_5(beta) 
-                - 0.424906902601794 * gsl_pow_7(beta);
+                - 0.325641790801361 * pow3(beta) 
+                - 0.117453445968927 * pow5(beta) 
+                - 0.424906902601794 * pow7(beta);
             j_zero = beta + t/b;
             return j_zero;
         }
@@ -71,18 +74,18 @@ double bessel_j_zero(int nzero, double order) {
             beta = (nzero - 0.25) * M_PI;
             j_zero = beta 
                    + 1.0 / (8.0 * beta) 
-                   - 124.0 / (1536.0 * gsl_pow_3(beta)) 
-                   + 120928.0 / (491520.0 * gsl_pow_5(beta)) 
-                   - 401743168.0 / (220200960.0 * gsl_pow_7(beta));
+                   - 124.0 / (1536.0 * pow3(beta)) 
+                   + 120928.0 / (491520.0 * pow5(beta)) 
+                   - 401743168.0 / (220200960.0 * pow7(beta));
             return j_zero;
 
         } else if (order == 1) {
             beta = (nzero + 0.25) * M_PI;
             j_zero = beta 
                    - 3.0 / (8.0 * beta) 
-                   + 36.0 / (1536.0 * gsl_pow_3(beta)) 
-                   - 113184.0 / (491520.0 * gsl_pow_5(beta)) 
-                   + 1951209.0 / (220200960.0 * gsl_pow_7(beta));
+                   + 36.0 / (1536.0 * pow3(beta)) 
+                   - 113184.0 / (491520.0 * pow5(beta)) 
+                   + 1951209.0 / (220200960.0 * pow7(beta));
             return j_zero;
         }
     }
