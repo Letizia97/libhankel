@@ -2,9 +2,8 @@
 
 #include <math.h>
 #include <stdio.h>
-#include <gsl/gsl_math.h>
-#include <gsl/gsl_sf.h>
-#include <gsl/gsl_sf_bessel.h>
+#include <stdlib.h>
+#include <float.h>
 
 #include "../external_libs/DE-quadrature/intde.h"
 #include "../src/utils/boost_bessel_wrapper.h"
@@ -15,6 +14,7 @@ This file contains only 2 Hankel strategies, both DE quadrature algorithms, corr
     - OGATA_2005 , i.e. strategy 1 in SASfit
 */
 
+#define SIGN(x) (((x) > 0) - ((x) < 0))
 
 /**
  * @brief Struct of parameters to be used in DE hankel functions.
@@ -121,7 +121,7 @@ double hankel_transform_DE_Ooura(
     // precompute nodes & weights for DE integration on a finite interval [a, b]
     sasfit_intdeini(
         workspace_len, 
-        GSL_DBL_MIN, 
+        DBL_MIN, 
         eps_rel, 
         workspace
     );
@@ -139,7 +139,7 @@ double hankel_transform_DE_Ooura(
     // e.g. f(x) cos(omega x) , over [a, inf]
     sasfit_intdeoini(
         workspace_len, 
-        GSL_DBL_MIN, 
+        DBL_MIN, 
         eps_rel, 
         workspace
     );
@@ -225,7 +225,7 @@ double hankel_transform_DE_Ogata(
     double scaled_sum = (M_PI / (x * x)) * sum;
 
     // Parity correction for integer Bessel order (H_-ν = (-1)^ν H_ν)
-    double parity = (nu == 0) ? 1.0 : pow((double)GSL_SIGN(nu), nu);
+    double parity = (nu == 0) ? 1.0 : pow((double)SIGN(nu), nu);
 
     // Final result
     double res = scaled_sum * parity;

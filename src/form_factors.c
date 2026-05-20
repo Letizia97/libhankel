@@ -1,9 +1,9 @@
 #include "form_factors.h"
 #include <math.h>
 #include <stdio.h>
-#include <gsl/gsl_math.h>
-#include <gsl/gsl_sf.h>
-#include <gsl/gsl_sf_bessel.h>
+#include <stdlib.h>
+#include <math.h>
+#include <stdio.h>
 #include "../src/utils/pow_functions.h"
 #include "../src/utils/sf_functions.h"
 

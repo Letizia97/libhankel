@@ -4,12 +4,14 @@
 #include "external_libs/qwe_Chave/qwe_Chave.h"
 
 #include <float.h>
-#include <gsl/gsl_math.h>
-#include <gsl/gsl_sf.h>
 #include <stdbool.h>
 
 #include "src/utils/sasfit_integrate.h"
 #include "src/utils/pow_functions.h"
+
+#include <stdlib.h>
+#include <math.h>
+#include <stdio.h>
 
 /** 
  * @brief This function is called Zeroj in SASfit.

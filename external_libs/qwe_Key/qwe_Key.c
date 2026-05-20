@@ -175,11 +175,13 @@ end % function qwe
 #include "external_libs/qwe_Key/qwe_Key.h"
 
 #include <float.h>
-#include <gsl/gsl_math.h>
-#include <gsl/gsl_sf.h>
 #include <stdbool.h>
 
 #include "src/utils/sasfit_integrate.h"
+#include "src/utils/boost_bessel_wrapper.h"
+#include <stdlib.h>
+#include <math.h>
+#include <stdio.h>
 
 /** 
  * @brief Computes Hankel transform integral using strategy 13 from SASfit
@@ -229,7 +231,7 @@ double qwe_Key(
 	inputs.other_inputs[1] = x;
     inputs.f_params=f_params;
 
-	r_max = gsl_sf_bessel_zero_Jnu(nu, idx_of_zero) / inputs.other_inputs[1];
+	r_max = bessel_Jnu_zero(nu, idx_of_zero) / inputs.other_inputs[1];
 	r_min = r_max * (rtol / 10);
 
     // First compute idx_of_zero partial integrals before starting the Shanks transformation iters
@@ -253,7 +255,7 @@ double qwe_Key(
 
     for (i=idx_of_zero+1; i<=n_terms; i++) {
         r_min = r_max;
-        r_max = gsl_sf_bessel_zero_Jnu(nu, i) / inputs.other_inputs[1];
+        r_max = bessel_Jnu_zero(nu, i) / inputs.other_inputs[1];
 
         // compute Guass quadrature of this interval
         f_i = sasfit_integrate_ctm(r_min, r_max, &FrJnu, &inputs, 10000, atol, rtol);
