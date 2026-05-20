@@ -2,9 +2,7 @@
 
 #include <math.h>
 #include <stdio.h>
-#include <gsl/gsl_math.h>
-#include <gsl/gsl_sf.h>
-#include <gsl/gsl_sf_bessel.h>
+#include <float.h>
 
 #include "../external_libs/qwe_Key/qwe_Key.h"
 #include "../external_libs/qwe_Chave/qwe_Chave.h"

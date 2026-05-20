@@ -1,10 +1,8 @@
 #include "src/utils/sasfit_integrate.h"
 
 #include <gsl/gsl_integration.h>
-#include <gsl/gsl_errno.h>
-#include <gsl/gsl_rng.h>
-#include <gsl/gsl_sf_bessel.h>
 #include <stdio.h>
+#include <math.h>
 
 #include "libhankel.h"
 #include "../external_libs/utils/tanhsinh.h"
@@ -38,9 +36,7 @@ double sasfit_integrate_ctm(
     double epsabs,
     double epsrel)
 {
-	double res, errabs; 
-	gsl_function F;
-    int err;
+	double res; 
     int_cub cubstruct;
     double ferr[1];
 
@@ -53,12 +49,8 @@ double sasfit_integrate_ctm(
 		return 0.0;
 	}
 
-	F.params = param;
-	F.function = (double (*) (double, void*)) intKern_fct;
-
     cubstruct.Kernel1D_fct=intKern_fct;
     cubstruct.param=param;
-
 
     res = TanhSinhQuad(&Kernel_1D, &cubstruct, int_start, int_end, 7, epsrel, &ferr[0]);
 	return res;
@@ -69,6 +61,6 @@ double FrJnu(double r, hankel_inputs * inputs) {
     double Q,nu;
     nu = inputs->other_inputs[0];
     Q  = inputs->other_inputs[1];
-    return r*gsl_sf_bessel_Jnu(nu,Q*r)*inputs->function(r,inputs->f_params);
+    return r*jn(nu,Q*r)*inputs->function(r,inputs->f_params);
 }
 

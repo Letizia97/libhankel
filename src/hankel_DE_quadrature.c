@@ -2,11 +2,11 @@
 
 #include <math.h>
 #include <stdio.h>
-#include <gsl/gsl_math.h>
-#include <gsl/gsl_sf.h>
-#include <gsl/gsl_sf_bessel.h>
+#include <stdlib.h>
+#include <float.h>
 
 #include "../external_libs/DE-quadrature/intde.h"
+#include "../src/utils/boost_bessel_wrapper.h"
 
 /*
 This file contains only 2 Hankel strategies, both DE quadrature algorithms, corresponding to:
@@ -14,6 +14,7 @@ This file contains only 2 Hankel strategies, both DE quadrature algorithms, corr
     - OGATA_2005 , i.e. strategy 1 in SASfit
 */
 
+#define SIGN(x) (((x) > 0) - ((x) < 0))
 
 /**
  * @brief Struct of parameters to be used in DE hankel functions.
@@ -44,7 +45,7 @@ double intdeo_FBT(double r, void *FBTparams) {
     double nu = FBTparam_struct->nu;
     double Q  = FBTparam_struct->Q;
 
-    double bessel = gsl_sf_bessel_Jnu(nu, Q * r);
+    double bessel = jn(nu, Q * r);
     double fval   = FBTparam_struct->function(r, FBTparam_struct->f_params);
 
     return r * bessel * fval;
@@ -112,7 +113,7 @@ double hankel_transform_DE_Ooura(
     double zero_index = rounded_n_eval < 10 ? rounded_n_eval : 10;
 
     // compute zero through bessel function and scale it
-    double scaled_zero = gsl_sf_bessel_zero_Jnu(nu, zero_index) / x;
+    double scaled_zero = bessel_Jnu_zero(nu, zero_index) / x;
 
     // allocates an array of doubles and returns a pointer to it
     double *workspace = malloc(workspace_len * sizeof *workspace);
@@ -120,7 +121,7 @@ double hankel_transform_DE_Ooura(
     // precompute nodes & weights for DE integration on a finite interval [a, b]
     sasfit_intdeini(
         workspace_len, 
-        GSL_DBL_MIN, 
+        DBL_MIN, 
         eps_rel, 
         workspace
     );
@@ -138,7 +139,7 @@ double hankel_transform_DE_Ooura(
     // e.g. f(x) cos(omega x) , over [a, inf]
     sasfit_intdeoini(
         workspace_len, 
-        GSL_DBL_MIN, 
+        DBL_MIN, 
         eps_rel, 
         workspace
     );
@@ -192,7 +193,7 @@ double hankel_transform_DE_Ogata(
     for (int i = 1; i <= n_eval; i++) {
 
         /* ---- Get Bessel zero α_{ν,i} scaled by π ---- */
-        double zero_i      = gsl_sf_bessel_zero_Jnu(nu, i);
+        double zero_i      = bessel_Jnu_zero(nu, i);
         double zero_scaled = zero_i / M_PI;
 
         /* ---- Apply DE transform & its derivative ---- */
@@ -204,8 +205,8 @@ double hankel_transform_DE_Ogata(
         double y_k         = phi * (M_PI / f_max);
 
         /* ---- Precompute Bessel factors ---- */
-        double Jnu_yk      = gsl_sf_bessel_Jnu(nu, y_k);
-        double Jnu1_zero   = gsl_sf_bessel_Jnu(nu + 1, zero_i);
+        double Jnu_yk      = jn(nu, y_k);
+        double Jnu1_zero   = jn(nu + 1, zero_i);
 
         /* ---- Quadrature weight for α_{ν,i} ---- */
         double denom       = M_PI * Jnu1_zero;
@@ -224,7 +225,7 @@ double hankel_transform_DE_Ogata(
     double scaled_sum = (M_PI / (x * x)) * sum;
 
     // Parity correction for integer Bessel order (H_-ν = (-1)^ν H_ν)
-    double parity = (nu == 0) ? 1.0 : pow((double)GSL_SIGN(nu), nu);
+    double parity = (nu == 0) ? 1.0 : pow((double)SIGN(nu), nu);
 
     // Final result
     double res = scaled_sum * parity;

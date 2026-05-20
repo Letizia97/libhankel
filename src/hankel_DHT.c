@@ -3,9 +3,6 @@
 
 #include <math.h>
 #include <stdio.h>
-#include <gsl/gsl_math.h>
-#include <gsl/gsl_sf.h>
-#include <gsl/gsl_sf_bessel.h>
 
 #include "../src/utils/strateg6_const.h"
 #include "../src/utils/strateg7_const.h"
