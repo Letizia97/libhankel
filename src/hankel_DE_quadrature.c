@@ -7,6 +7,7 @@
 #include <gsl/gsl_sf_bessel.h>
 
 #include "../external_libs/DE-quadrature/intde.h"
+#include "../src/utils/boost_bessel_wrapper.h"
 
 /*
 This file contains only 2 Hankel strategies, both DE quadrature algorithms, corresponding to:
@@ -112,7 +113,7 @@ double hankel_transform_DE_Ooura(
     double zero_index = rounded_n_eval < 10 ? rounded_n_eval : 10;
 
     // compute zero through bessel function and scale it
-    double scaled_zero = gsl_sf_bessel_zero_Jnu(nu, zero_index) / x;
+    double scaled_zero = bessel_Jnu_zero(nu, zero_index) / x;
 
     // allocates an array of doubles and returns a pointer to it
     double *workspace = malloc(workspace_len * sizeof *workspace);
@@ -192,7 +193,7 @@ double hankel_transform_DE_Ogata(
     for (int i = 1; i <= n_eval; i++) {
 
         /* ---- Get Bessel zero α_{ν,i} scaled by π ---- */
-        double zero_i      = gsl_sf_bessel_zero_Jnu(nu, i);
+        double zero_i      = bessel_Jnu_zero(nu, i);
         double zero_scaled = zero_i / M_PI;
 
         /* ---- Apply DE transform & its derivative ---- */
