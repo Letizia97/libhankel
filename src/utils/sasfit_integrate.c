@@ -1,6 +1,5 @@
 #include "src/utils/sasfit_integrate.h"
 
-#include <gsl/gsl_integration.h>
 #include <stdio.h>
 #include <math.h>
 
@@ -44,7 +43,7 @@ double sasfit_integrate_ctm(
     cubstruct.param=param;
 
     // nothing to integrate
-    if ( gsl_finite(int_start) && gsl_finite(int_end) &&
+    if ( isfinite(int_start) && isfinite(int_end) &&
 	     (int_end - int_start) == 0.0 ) {
 		return 0.0;
 	}
