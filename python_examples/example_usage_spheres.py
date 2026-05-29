@@ -16,7 +16,7 @@ strategy_p_dict = {
 
 result = libhankel.hankel_transform(
     nu,
-    libhankel.form_factor_sphere_callback,
+    "sphere",
     x_arr,
     params_spheres,
     "QWE_Chave",

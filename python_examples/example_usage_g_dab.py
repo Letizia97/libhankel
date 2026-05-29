@@ -18,7 +18,7 @@ strategy_p_dict = {
 
 result = libhankel.hankel_transform(
     nu,
-    libhankel.form_factor_g_dab_callback,
+    "gdab",
     x_arr,
     params_gdab,
     "QWE_Chave",

@@ -70,7 +70,7 @@ typedef struct {
 static entry table[] = {
     {"gdab", form_factor_g_dab},
     {"broad_peak", form_factor_broad_peak},
-    {"spheres", form_factor_sphere},
+    {"sphere", form_factor_sphere},
     {NULL, NULL}
 };
 
