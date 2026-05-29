@@ -97,7 +97,8 @@ double hankel_transform_DE_Ooura(
     size_t n_params,
     double * output,
     int n_eval, 
-    double eps_rel
+    double eps_rel,
+    void *user_data
 ) {
 
     int workspace_len = 4000;
@@ -187,7 +188,8 @@ double hankel_transform_DE_Ogata(
     size_t n_params,
     double * output,
     int n_eval, 
-    double f_max
+    double f_max,
+    void *user_data
 ) {
 
     double sum;
@@ -217,7 +219,7 @@ double hankel_transform_DE_Ogata(
         double weight      = 2.0 / ( (denom * denom) * zero_scaled );
 
         /* ---- Evaluate integrand at scaled location ---- */
-        double f_val       = (*f)(y_k / x, f_params, n_params);
+        double f_val       = (*f)(y_k / x, f_params, n_params, user_data);
 
         /* ---- Assemble quadrature contribution ---- */
         double term        = weight * y_k * f_val * Jnu_yk * phi_prime;

@@ -2,6 +2,7 @@
 #ifndef FORM_FACTORS_H
 #define FORM_FACTORS_H
 
+#include "libhankel.h"
 #include <stddef.h>
 
 /** 
@@ -15,7 +16,7 @@
  *      -   H   Hurst exponent (e.g., 0.5)
  *      -   ETA scattering length density contrast (e.g., 1e-4)
  */
-double form_factor_g_dab(double q, double *params, size_t n); 
+double form_factor_g_dab(double q, double *params, size_t n, void *user_data); 
 
 
 
@@ -29,7 +30,7 @@ double form_factor_g_dab(double q, double *params, size_t n);
  *      -   R   radius (e.g., 10.0)
  *      -   ETA scattering contrast (e.g., 1.0)
  */    
-double form_factor_sphere(double q, double *params, size_t n);
+double form_factor_sphere(double q, double *params, size_t n,  void *user_data);
 
 
 
@@ -46,7 +47,8 @@ double form_factor_sphere(double q, double *params, size_t n);
  *      -   M  I(Q)=I0/(1+(|q-q0|*xi)^m)^p (e.g., 2)
  *      -   P  I(Q)=I0/(1+(|q-q0|*xi)^m)^p (e.g., 2)
  */  
-double form_factor_broad_peak(double q, double *params, size_t n);
+double form_factor_broad_peak(double q, double *params, size_t n, void *user_data);
 
+form_factor_f get_form_factor_by_name(const char *name);
 
 #endif // FORM_FACTORS_H

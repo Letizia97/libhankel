@@ -53,7 +53,9 @@ int hankel_transform(
     size_t n_params,
     double * output,
     const char *strategy_name,
-    strategy_params strategy_params) 
+    strategy_params strategy_params, 
+    void *user_data
+) 
 {
     int status;
 
@@ -78,7 +80,8 @@ int hankel_transform(
                 n_params,
                 &output[j],
                 strategy_params.n_eval, 
-                strategy_params.eps_rel
+                strategy_params.eps_rel,
+                user_data
             );
 
             if (status!=0) {return status;}
@@ -100,7 +103,8 @@ int hankel_transform(
                 n_params,
                 &output[j],
                 strategy_params.n_eval, 
-                strategy_params.f_max
+                strategy_params.f_max,
+                user_data
             );
 
             if (status!=0) {return status;}
@@ -122,7 +126,8 @@ int hankel_transform(
                 n_params,
                 &output[j],
                 strategy_params.n_eval, 
-                strategy_params.eps_rel
+                strategy_params.eps_rel,
+                user_data
             );
 
             if (status!=0) {return status;}
@@ -144,7 +149,8 @@ int hankel_transform(
                 n_params,
                 &output[j],
                 strategy_params.n_eval, 
-                strategy_params.eps_rel
+                strategy_params.eps_rel,
+                user_data
             );
 
             if (status!=0) {return status;}
@@ -160,7 +166,8 @@ int hankel_transform(
                 f_params, 
                 n_params,
                 &output[j],
-                6
+                6,
+                user_data
             );
 
             if (status!=0) {return status;}
@@ -175,7 +182,8 @@ int hankel_transform(
                 f_params, 
                 n_params,
                 &output[j],
-                7
+                7,
+                user_data
             );
 
             if (status!=0) {return status;}
@@ -190,7 +198,8 @@ int hankel_transform(
                 f_params, 
                 n_params,
                 &output[j],
-                8
+                8,
+                user_data
             );
             if (status!=0) {return status;}
         }
@@ -204,7 +213,8 @@ int hankel_transform(
                 f_params, 
                 n_params,
                 &output[j],
-                9
+                9,
+                user_data
             );
             if (status!=0) {return status;}
         }
@@ -218,7 +228,8 @@ int hankel_transform(
                 f_params, 
                 n_params,
                 &output[j],
-                10
+                10,
+                user_data
             );
             if (status!=0) {return status;}
         }
@@ -232,7 +243,8 @@ int hankel_transform(
                 f_params, 
                 n_params,
                 &output[j],
-                11
+                11,
+                user_data
             );
             if (status!=0) {return status;}
         }

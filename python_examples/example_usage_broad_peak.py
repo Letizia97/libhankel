@@ -16,11 +16,11 @@ strategy_p_dict = {
 
 result = libhankel.hankel_transform(
     nu,
-    libhankel.form_factor_broad_peak_callback,
+    "broad_peak",
     x_arr,
     params_broad_peak,
     "QWE_Chave",
-    strategy_p_dict
+    strategy_p_dict,
 )
 
 print(

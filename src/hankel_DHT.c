@@ -47,7 +47,8 @@ double hankel_transform_DHT(
     double *f_params,
     size_t n_params,
     double * output,
-    int n_strategy
+    int n_strategy,
+    void *user_data
 ) {
 
     double res = 0;
@@ -69,12 +70,12 @@ double hankel_transform_DHT(
             if (nu==0) {
                 for (i=0; i<120; i++) {
                     lambda = pow(10.0E0, (aJ0 + i*sJ0)) / x;
-                    res = res + (*f)(lambda, f_params, n_params) * lambda * WJ0[i] / x;
+                    res = res + (*f)(lambda, f_params, n_params, user_data) * lambda * WJ0[i] / x;
                 }
             } else {
                 for (i=0; i<140; i++) {
                     lambda = pow(10.0E0, (aJ1 + i*sJ1)) / x;
-                    res = res + (*f)(lambda, f_params, n_params) * lambda * WJ1[i] / x;
+                    res = res + (*f)(lambda, f_params, n_params, user_data) * lambda * WJ1[i] / x;
                 }
             }
             break;
@@ -84,12 +85,12 @@ double hankel_transform_DHT(
             if (nu==0) {
                 for (i=0; i<61; i++) {
                     lambda = pow(10.0E0, (aJ0Fast + i*sJ0Fast))/x;
-                    res = res+(*f)(lambda, f_params, n_params) * lambda * WJ0Fast[i] / x;
+                    res = res+(*f)(lambda, f_params, n_params, user_data) * lambda * WJ0Fast[i] / x;
                 }
             } else {
                 for (i=0; i<47; i++) {
                     lambda = pow(10.0E0, (aJ1Fast + i*sJ1Fast)) / x;
-                    res = res + (*f)(lambda, f_params, n_params) * lambda * WJ0Fast[i] / x;
+                    res = res + (*f)(lambda, f_params, n_params, user_data) * lambda * WJ0Fast[i] / x;
                 }
             }
             break;
@@ -98,7 +99,7 @@ double hankel_transform_DHT(
             // HANKEL_KEY_51
             for (i=0; i<51; i++) {
                 lambda = KK51Hankel[i][0] / x;
-                res = res + (*f)(lambda, f_params, n_params) * lambda * KK51Hankel[i][ind] / x;
+                res = res + (*f)(lambda, f_params, n_params, user_data) * lambda * KK51Hankel[i][ind] / x;
             }
             break;
         }
@@ -106,7 +107,7 @@ double hankel_transform_DHT(
             // HANKEL_KEY_101
             for (i=0; i<101; i++) {
                 lambda = KK101Hankel[i][0]/x;
-                res = res + (*f)(lambda, f_params, n_params) * lambda * KK101Hankel[i][ind] / x;
+                res = res + (*f)(lambda, f_params, n_params, user_data) * lambda * KK101Hankel[i][ind] / x;
             }
             break;
         }
@@ -114,7 +115,7 @@ double hankel_transform_DHT(
             // HANKEL_KEY_201
             for (i=0; i<201; i++) {
                 lambda = KK201Hankel[i][0] / x;
-                res = res + (*f)(lambda, f_params, n_params) * lambda * KK201Hankel[i][ind] / x;
+                res = res + (*f)(lambda, f_params, n_params, user_data) * lambda * KK201Hankel[i][ind] / x;
             }
             break;
         }
@@ -122,7 +123,7 @@ double hankel_transform_DHT(
             // HANKEL_ANDERSON_801
             for (i=0; i<801; i++) {
                 lambda = WA801Hankel[i][0] / x;
-                res = res + (*f)(lambda, f_params, n_params) * lambda * WA801Hankel[i][ind] / x;
+                res = res + (*f)(lambda, f_params, n_params, user_data) * lambda * WA801Hankel[i][ind] / x;
             } 
             break;
 

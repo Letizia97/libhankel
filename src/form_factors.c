@@ -7,8 +7,9 @@
 #include "../src/utils/pow_functions.h"
 #include "../src/utils/sf_functions.h"
 #include <stddef.h>
+#include <string.h>
 
-double form_factor_g_dab(double q, double *params, size_t n) {
+double form_factor_g_dab(double q, double *params, size_t n, void *user_data) {
     /*
     Compute the g_dab form factor. 
     */
@@ -26,7 +27,7 @@ double form_factor_g_dab(double q, double *params, size_t n) {
 }
 
 
-double form_factor_sphere(double q, double *params, size_t n) {
+double form_factor_sphere(double q, double *params, size_t n, void *user_data) {
     /*
     Compute the sphere form factor. 
     */
@@ -45,7 +46,7 @@ double form_factor_sphere(double q, double *params, size_t n) {
 }
 
 
-double form_factor_broad_peak(double q, double *params, size_t n) {
+double form_factor_broad_peak(double q, double *params, size_t n, void *user_data) {
     /*
     Compute the broad peak form factor. 
     */
@@ -57,4 +58,26 @@ double form_factor_broad_peak(double q, double *params, size_t n) {
 
     double interm = 1.0 + pow(fabs(q-Q0) * XI, M);
 	return I0 / pow(interm, P);
+}
+
+
+
+typedef struct {
+    const char *name;
+    form_factor_f func;
+} entry;
+
+static entry table[] = {
+    {"gdab", form_factor_g_dab},
+    {"broad_peak", form_factor_broad_peak},
+    {"spheres", form_factor_sphere},
+    {NULL, NULL}
+};
+
+form_factor_f get_form_factor_by_name(const char *name) {
+    for (int i = 0; table[i].name != NULL; i++) {
+        if (strcmp(name, table[i].name) == 0)
+            return table[i].func;
+    }
+    return NULL;
 }

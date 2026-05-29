@@ -1,0 +1,12 @@
+[build-system]
+requires = ["setuptools>=61", "wheel", "numpy"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "LibHankel"
+version = "0.1.0"
+description = "Python bindings for LibHankel"
+readme = "README.md"
+requires-python = ">=3.8"
+authors = [{name = "Letizia Protopapa"}]
+dependencies = ["numpy"]
