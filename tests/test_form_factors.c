@@ -18,8 +18,12 @@
 double nu = 0;
 size_t int_strategy;
 int z;
-double params_spheres[50];
-double params_gdab[50];
+
+size_t n_params_spheres = 2;
+size_t n_params_gdab = 3;
+
+double params_spheres[2];
+double params_gdab[3];
 
 double r_array_spheres[ARRAY_LEN];
 double r_array_gdab[ARRAY_LEN];
@@ -100,11 +104,13 @@ void setUp(void) {
     for (size_t i = 0; i < ARRAY_LEN; ++i) {
         ctx.actual_spheres[i] = form_factor_sphere(
             r_array_spheres[i], 
-            &params_spheres
+            params_spheres,
+            n_params_spheres
         );
         ctx.actual_gdab[i] = form_factor_sphere(
             r_array_gdab[i], 
-            &params_gdab
+            params_gdab,
+            n_params_gdab
         );
         //printf("%.15g, ", ctx.actual_gdab[i]);
     }

@@ -20,8 +20,9 @@ double nu;
 double z;
 size_t int_strategy;
 
-double params[50];
+double params[] = {};
 double r_array[ARRAY_LEN];
+size_t n_params = 2;
 
 hankel_inputs inputs;
 double Gr[ARRAY_LEN];
@@ -118,6 +119,7 @@ void setUp(void) {
                 form_factor_sphere, 
                 z, 
                 &params, 
+                n_params,
                 &Gr[i], 
                 int_strategy
             );
@@ -175,6 +177,7 @@ void test_hankel_DHT_throws_error_when_int_strategy_wrong(void) {
         form_factor_sphere, 
         z,  
         &params, 
+        n_params,
         output, 
         1
     );

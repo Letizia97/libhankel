@@ -17,8 +17,11 @@
 double nu;
 double z;
 
-double params_spheres[50];
-double params_gdab[50];
+size_t n_params_spheres = 2;
+size_t n_params_gdab = 3;
+
+double params_spheres[2];
+double params_gdab[3];
 
 hankel_inputs inputs;
 double G0_spheres;
@@ -41,11 +44,11 @@ TestContext ctx = {
 
 // Needed for computing G0
 double spheres_ff_at_0(double q, hankel_inputs *params){
-    return q * form_factor_sphere(q, params->f_params);
+    return q * form_factor_sphere(q, params->f_params, n_params_spheres);
 }
 
 double gdab_ff_at_0(double q, hankel_inputs *params){
-    return q * form_factor_g_dab(q, params->f_params);
+    return q * form_factor_g_dab(q, params->f_params, n_params_gdab);
 }
 
 
@@ -68,7 +71,7 @@ void setUp(void) {
 
     // set inputs
     inputs.function = form_factor_sphere;
-    inputs.f_params=params_spheres;
+    inputs.f_params = params_spheres;
 	inputs.other_inputs[0] = nu;
 	inputs.other_inputs[1] = 0;
 

@@ -2,6 +2,7 @@
 #ifndef FORM_FACTORS_H
 #define FORM_FACTORS_H
 
+#include <stddef.h>
 
 /** 
  * @brief Computes the g_dab form factor. 
@@ -14,7 +15,7 @@
  *      -   H   Hurst exponent (e.g., 0.5)
  *      -   ETA scattering length density contrast (e.g., 1e-4)
  */
-double form_factor_g_dab(double q, double (*params)[50]); 
+double form_factor_g_dab(double q, double *params, size_t n); 
 
 
 
@@ -28,7 +29,7 @@ double form_factor_g_dab(double q, double (*params)[50]);
  *      -   R   radius (e.g., 10.0)
  *      -   ETA scattering contrast (e.g., 1.0)
  */    
-double form_factor_sphere(double q, double (*params)[50]);
+double form_factor_sphere(double q, double *params, size_t n);
 
 
 
@@ -45,7 +46,7 @@ double form_factor_sphere(double q, double (*params)[50]);
  *      -   M  I(Q)=I0/(1+(|q-q0|*xi)^m)^p (e.g., 2)
  *      -   P  I(Q)=I0/(1+(|q-q0|*xi)^m)^p (e.g., 2)
  */  
-double form_factor_broad_peak(double q, double (*params)[50]);
+double form_factor_broad_peak(double q, double *params, size_t n);
 
 
 #endif // FORM_FACTORS_H

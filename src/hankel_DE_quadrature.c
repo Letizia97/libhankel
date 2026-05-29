@@ -91,12 +91,14 @@ double deriv_DEtransform(double t){
  */ 
 double hankel_transform_DE_Ooura(
     int nu, 
-    double (*f)(double, double (*)[50]), 
-    double x, 
-    double (*f_params)[50], 
-    double *output,
+    form_factor_f f, 
+    const double x,
+    double *f_params,
+    size_t n_params,
+    double * output,
     int n_eval, 
-    double eps_rel) {
+    double eps_rel
+) {
 
     int workspace_len = 4000;
     int rounded_n_eval, status;
@@ -179,12 +181,14 @@ double hankel_transform_DE_Ooura(
  */ 
 double hankel_transform_DE_Ogata(
     int nu, 
-    double (*f)(double, double (*)[50]), 
-    double x, 
-    double (*f_params)[50], 
-    double *output,
+    form_factor_f f, 
+    const double x,
+    double *f_params,
+    size_t n_params,
+    double * output,
     int n_eval, 
-    double f_max) {
+    double f_max
+) {
 
     double sum;
     int status;
@@ -213,7 +217,7 @@ double hankel_transform_DE_Ogata(
         double weight      = 2.0 / ( (denom * denom) * zero_scaled );
 
         /* ---- Evaluate integrand at scaled location ---- */
-        double f_val       = (*f)(y_k / x, f_params);
+        double f_val       = (*f)(y_k / x, f_params, n_params);
 
         /* ---- Assemble quadrature contribution ---- */
         double term        = weight * y_k * f_val * Jnu_yk * phi_prime;

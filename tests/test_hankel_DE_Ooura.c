@@ -16,9 +16,13 @@
 double nu;
 double z;
 
-double params_spheres[50];
-double params_gdab[50];
-double params_broad_peak[50];
+size_t n_params_spheres = 2;
+size_t n_params_gdab = 3;
+size_t n_params_broad_peak = 5;
+
+double params_spheres[2];
+double params_gdab[3];
+double params_broad_peak[5];
 
 double r_array_spheres[ARRAY_LEN];
 double r_array_gdab[ARRAY_LEN];
@@ -118,7 +122,7 @@ void setUp(void) {
     for (size_t i = 0; i < ARRAY_LEN; ++i) {
         z = r_array_spheres[i];
         hankel_transform_DE_Ooura(
-            nu, form_factor_sphere, z, &params_spheres, &Gr[i], 250, 1e-9
+            nu, form_factor_sphere, z, params_spheres, n_params_spheres, &Gr[i], 250, 1e-9
         );
         //printf("%.15g, ", (Gr[i]));
         ctx.actual_spheres[i] = Gr[i]; 
@@ -128,7 +132,7 @@ void setUp(void) {
     for (size_t i = 0; i < ARRAY_LEN; ++i) {
         z = r_array_gdab[i];
         hankel_transform_DE_Ooura(
-            nu, form_factor_g_dab, z, &params_gdab, &Gr[i], 250, 1e-9
+            nu, form_factor_g_dab, z, params_gdab, n_params_gdab, &Gr[i], 250, 1e-9
         );
         ctx.actual_gdab[i] = Gr[i]; 
     }
@@ -136,7 +140,7 @@ void setUp(void) {
     for (size_t i = 0; i < ARRAY_LEN; ++i) {
         z = r_array_broad_peak[i];
         hankel_transform_DE_Ooura(
-            nu, form_factor_broad_peak, z, &params_broad_peak, &Gr[i], 250, 1e-9
+            nu, form_factor_broad_peak, z, params_broad_peak, n_params_broad_peak, &Gr[i], 250, 1e-9
         );
         ctx.actual_broad_peak[i] = Gr[i]; 
     }  

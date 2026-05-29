@@ -11,13 +11,16 @@ typedef struct {
 
 typedef double (*intern_fct_type)(double x, void *ctx);
 
+typedef double (*form_factor_f)(double x, double *params, size_t n_params);
+
 int hankel_transform(
     int nu, 
-    double (*f)(double, double (*)[50]), 
-    const double *x,
-    double (*f_params)[50], 
-    double * output,
+    form_factor_f f, 
+    double *x,
     size_t len_x,
+    double *f_params,
+    size_t n_params,
+    double * output,
     const char *strategy_name,
     strategy_params strategy_params
 ); 
@@ -25,12 +28,13 @@ int hankel_transform(
 
 // strategies 6-11 (DHT)
 double hankel_transform_DHT(
-	int nu, 
-	double (*f)(double, double (*)[50]), 
-	double x, 
-	double (*f_params)[50], 
-	double (*output),
-	int n_strategy
+    int nu, 
+    form_factor_f f, 
+    const double x,
+    double *f_params,
+    size_t n_params,
+    double * output,
+    int n_strategy
 );
 
 // corresponding to strategies 2-4 (FBT)
@@ -57,10 +61,11 @@ double hankel_transform_FBT(
 // strategy 0 (DE QUADRATURE)
 double hankel_transform_DE_Ooura(
     int nu, 
-    double (*f)(double, double (*)[50]), 
-    double x, 
-    double (*f_params)[50], 
-    double *output,
+    form_factor_f f, 
+    const double x,
+    double *f_params,
+    size_t n_params,
+    double * output,
     int n_eval, 
     double eps_rel
 );
@@ -68,34 +73,37 @@ double hankel_transform_DE_Ooura(
 // strategy 1 (DE QUADRATURE)
 double hankel_transform_DE_Ogata(
     int nu, 
-    double (*f)(double, double (*)[50]), 
-    double x, 
-    double (*f_params)[50], 
-    double *output,
+    form_factor_f f, 
+    const double x,
+    double *f_params,
+    size_t n_params,
+    double * output,
     int n_eval, 
     double f_max
 );
 
 // strategy 12
 double hankel_transform_QWE_Key(
-	int nu, 
-	double (*f)(double, double (*)[50]),
-	double x, 
-	double (*f_params)[50], 
-	double (*output),
-	int n_eval, 
-	double eps_rel
+    int nu, 
+    form_factor_f f, 
+    const double x,
+    double *f_params,
+    size_t n_params,
+    double * output,
+    int n_eval, 
+    double eps_rel
 );
 
 // strategy 13
 double hankel_transform_QWE_Chave(
-	int nu, 
-	double (*f)(double, double (*)[50]), 
-	double x, 
-	double (*f_params)[50], 
-	double (*output),
-	int n_eval, 
-	double eps_rel
+    int nu, 
+    form_factor_f f, 
+    const double x,
+    double *f_params,
+    size_t n_params,
+    double * output,
+    int n_eval, 
+    double eps_rel
 );
 
 #endif // LIBHANKEL_H

@@ -46,11 +46,12 @@ int validate_f_max(strategy_params strategy_params) {
  */ 
 int hankel_transform(
     int nu, 
-    double (*f)(double, double (*)[50]), 
-    const double *x,
-    double (*f_params)[50], 
-    double * output,
+    form_factor_f f, 
+    double *x,
     size_t len_x,
+    double *f_params,
+    size_t n_params,
+    double * output,
     const char *strategy_name,
     strategy_params strategy_params) 
 {
@@ -68,13 +69,14 @@ int hankel_transform(
         status = validate_eps_rel(strategy_params);
         if (status!=0) {return status;}
 
-        for (int j = 0; j < len_x; j++) {
+        for (size_t j = 0; j < len_x; j++) {
             status = hankel_transform_DE_Ooura(
                 nu, 
                 f, 
                 x[j], 
-                f_params,
-                &output[j], 
+                f_params, 
+                n_params,
+                &output[j],
                 strategy_params.n_eval, 
                 strategy_params.eps_rel
             );
@@ -89,13 +91,14 @@ int hankel_transform(
         status = validate_f_max(strategy_params);
         if (status!=0) {return status;}
 
-        for (int j = 0; j < len_x; j++) {
+        for (size_t j = 0; j < len_x; j++) {
             status = hankel_transform_DE_Ogata(
                 nu, 
                 f, 
                 x[j], 
-                f_params,
-                &output[j], 
+                f_params, 
+                n_params,
+                &output[j],
                 strategy_params.n_eval, 
                 strategy_params.f_max
             );
@@ -110,13 +113,14 @@ int hankel_transform(
         status = validate_eps_rel(strategy_params);
         if (status!=0) {return status;}
 
-        for (int j = 0; j < len_x; j++) {
+        for (size_t j = 0; j < len_x; j++) {
             status = hankel_transform_QWE_Chave(
                 nu, 
                 f, 
                 x[j], 
-                f_params,
-                &output[j], 
+                f_params, 
+                n_params,
+                &output[j],
                 strategy_params.n_eval, 
                 strategy_params.eps_rel
             );
@@ -131,12 +135,13 @@ int hankel_transform(
         status = validate_eps_rel(strategy_params);
         if (status!=0) {return status;}
 
-        for (int j = 0; j < len_x; j++) {
+        for (size_t j = 0; j < len_x; j++) {
             status = hankel_transform_QWE_Key(
                 nu, 
                 f, 
                 x[j], 
                 f_params, 
+                n_params,
                 &output[j],
                 strategy_params.n_eval, 
                 strategy_params.eps_rel
@@ -147,12 +152,13 @@ int hankel_transform(
 
     } else if (strcmp(strategy_name, "DHT_6") == 0) {
 
-        for (int j = 0; j < len_x; j++) {
+        for (size_t j = 0; j < len_x; j++) {
             status = hankel_transform_DHT(
                 nu, 
                 f, 
                 x[j], 
                 f_params, 
+                n_params,
                 &output[j],
                 6
             );
@@ -161,12 +167,13 @@ int hankel_transform(
         }
 
     } else if (strcmp(strategy_name, "DHT_7") == 0) {
-        for (int j = 0; j < len_x; j++) {
+        for (size_t j = 0; j < len_x; j++) {
             status = hankel_transform_DHT(
                 nu, 
                 f, 
                 x[j], 
                 f_params, 
+                n_params,
                 &output[j],
                 7
             );
@@ -175,12 +182,13 @@ int hankel_transform(
         }
 
     } else if (strcmp(strategy_name, "DHT_8") == 0) {
-        for (int j = 0; j < len_x; j++) {
+        for (size_t j = 0; j < len_x; j++) {
             status = hankel_transform_DHT(
                 nu, 
                 f, 
                 x[j], 
                 f_params, 
+                n_params,
                 &output[j],
                 8
             );
@@ -188,12 +196,13 @@ int hankel_transform(
         }
 
     } else if (strcmp(strategy_name, "DHT_9") == 0) {
-        for (int j = 0; j < len_x; j++) {
+        for (size_t j = 0; j < len_x; j++) {
             status = hankel_transform_DHT(
                 nu, 
                 f, 
                 x[j], 
                 f_params, 
+                n_params,
                 &output[j],
                 9
             );
@@ -201,12 +210,13 @@ int hankel_transform(
         }
 
     } else if (strcmp(strategy_name, "DHT_10") == 0) {
-        for (int j = 0; j < len_x; j++) {
+        for (size_t j = 0; j < len_x; j++) {
             status = hankel_transform_DHT(
                 nu, 
                 f, 
                 x[j], 
                 f_params, 
+                n_params,
                 &output[j],
                 10
             );
@@ -214,12 +224,13 @@ int hankel_transform(
         }
 
     } else if (strcmp(strategy_name, "DHT_11") == 0) {
-        for (int j = 0; j < len_x; j++) {
+        for (size_t j = 0; j < len_x; j++) {
             status = hankel_transform_DHT(
                 nu, 
                 f, 
                 x[j], 
                 f_params, 
+                n_params,
                 &output[j],
                 11
             );

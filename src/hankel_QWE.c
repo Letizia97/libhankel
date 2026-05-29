@@ -30,12 +30,14 @@ Specifically:
  */ 
 double hankel_transform_QWE_Key(
     int nu, 
-    double (*f)(double, double (*)[50]), 
-    double x, 
-    double (*f_params)[50], 
-    double *output,
+    form_factor_f f, 
+    const double x,
+    double *f_params,
+    size_t n_params,
+    double * output,
     int n_eval, 
-    double eps_rel) {
+    double eps_rel
+) {
 
     int status;
     status = qwe_Key(
@@ -65,10 +67,11 @@ double hankel_transform_QWE_Key(
  */ 
 double hankel_transform_QWE_Chave(
     int nu, 
-    double (*f)(double, double (*)[50]), 
-    double x, 
-    double (*f_params)[50], 
-    double *output,
+    form_factor_f f, 
+    const double x,
+    double *f_params,
+    size_t n_params,
+    double * output,
     int n_eval, 
     double eps_rel) {
 
