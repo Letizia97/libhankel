@@ -1,11 +1,12 @@
 
 #ifndef QWE_CHAVE
 #define QWE_CHAVE
+#include "libhankel.h"
 
 // sasfit strategy 13
 double qwe_Chave(
     double nu, 
-    double (*f)(double, double (*)[50]), 
+    form_factor_f f, 
     double r, 
     void *f_params, 
     double *output,

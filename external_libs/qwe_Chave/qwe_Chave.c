@@ -12,6 +12,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <stdio.h>
+#include "libhankel.h"
 
 /** 
  * @brief This function is called Zeroj in SASfit.
@@ -89,6 +90,7 @@ double bessel_j_zero(int nzero, double order) {
             return j_zero;
         }
     }
+    return 0;
 }
 
 /** 
@@ -206,7 +208,7 @@ cleanup_and_exit:
  */
 double qwe_Chave(
     double nu, 
-    double (*f)(double, double (*)[50]), 
+    form_factor_f f, 
     double r, 
     void *f_params, 
     double *output, 

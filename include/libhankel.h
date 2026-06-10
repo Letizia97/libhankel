@@ -9,21 +9,21 @@ typedef struct {
     double f_max;       // float indicating starting guess for max in form factor (h_ogata in SASfit)
 } strategy_params;
 
-typedef double (*intern_fct_type)(double x, void *ctx);
+typedef double (*form_factor_f)(double x, void *ctx);
 
-typedef double (*form_factor_f)(double x, double *params, size_t n_params, void *user_data);
+typedef struct {
+    double *params;
+} form_factor_ctx;
 
 int hankel_transform(
     int nu, 
     form_factor_f f, 
     double *x,
     size_t len_x,
-    double *f_params,
-    size_t n_params,
-    double * output,
+    void *f_ctx,
+    double *output,
     const char *strategy_name,
-    strategy_params strategy_params,
-    void *user_data
+    strategy_params strategy_params
 ); 
 
 
@@ -32,23 +32,20 @@ double hankel_transform_DHT(
     int nu, 
     form_factor_f f, 
     const double x,
-    double *f_params,
-    size_t n_params,
+    void *f_ctx,
     double * output,
-    int n_strategy,
-    void *user_data
+    int n_strategy
 );
 
 // corresponding to strategies 2-4 (FBT)
 double compute_hankel_FBT(
     int nu, 
-    intern_fct_type intern_fct,
+    form_factor_f intern_fct,
     void *ctx,
     double x, 
     int n_method, 
     int n_eval, 
-    double f_max,
-    void *user_data
+    double f_max
 );
 double hankel_transform_FBT(
     int nu, 
@@ -58,8 +55,7 @@ double hankel_transform_FBT(
     double *output,
     int n_method, 
     int n_eval, 
-    double f_max,
-    void *user_data
+    double f_max
 );
 
 // strategy 0 (DE QUADRATURE)
@@ -67,12 +63,10 @@ double hankel_transform_DE_Ooura(
     int nu, 
     form_factor_f f, 
     const double x,
-    double *f_params,
-    size_t n_params,
+    void *f_ctx,
     double * output,
     int n_eval, 
-    double eps_rel,
-    void *user_data
+    double eps_rel
 );
 
 // strategy 1 (DE QUADRATURE)
@@ -80,12 +74,10 @@ double hankel_transform_DE_Ogata(
     int nu, 
     form_factor_f f, 
     const double x,
-    double *f_params,
-    size_t n_params,
+    void *f_ctx,
     double * output,
     int n_eval, 
-    double f_max,
-    void *user_data
+    double f_max
 );
 
 // strategy 12
@@ -93,12 +85,10 @@ double hankel_transform_QWE_Key(
     int nu, 
     form_factor_f f, 
     const double x,
-    double *f_params,
-    size_t n_params,
+    void *f_ctx,
     double * output,
     int n_eval, 
-    double eps_rel,
-    void *user_data
+    double eps_rel
 );
 
 // strategy 13
@@ -106,12 +96,10 @@ double hankel_transform_QWE_Chave(
     int nu, 
     form_factor_f f, 
     const double x,
-    double *f_params,
-    size_t n_params,
+    void *f_ctx,
     double * output,
     int n_eval, 
-    double eps_rel,
-    void *user_data
+    double eps_rel
 );
 
 #endif // LIBHANKEL_H

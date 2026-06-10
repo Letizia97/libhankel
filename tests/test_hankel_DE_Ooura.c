@@ -16,13 +16,9 @@
 double nu;
 double z;
 
-size_t n_params_spheres = 2;
-size_t n_params_gdab = 3;
-size_t n_params_broad_peak = 5;
-
-double params_spheres[2];
-double params_gdab[3];
-double params_broad_peak[5];
+form_factor_ctx ctx_spheres;
+form_factor_ctx ctx_gdab;
+form_factor_ctx ctx_broad_peak;
 
 double r_array_spheres[ARRAY_LEN];
 double r_array_gdab[ARRAY_LEN];
@@ -83,18 +79,14 @@ void setUp(void) {
     nu = 0;
 
     // set params
-    params_spheres[0] = 10; 
-    params_spheres[1] = 1;
+    double params_spheres[] = {10.0, 1.0};
+    ctx_spheres.params = params_spheres;
 
-    params_gdab[0] = 10.0; 
-    params_gdab[1] = 0.5;
-    params_gdab[2] = 1e-4;
+    double params_gdab[] = {10.0, 0.5, 1e-4};
+    ctx_gdab.params = params_gdab;
 
-    params_broad_peak[0] = 10e5;
-    params_broad_peak[1] = 1000;
-    params_broad_peak[2] = 0.01;
-    params_broad_peak[3] = 2;
-    params_broad_peak[4] = 2;
+    double params_broad_peak[] = {10e5, 1000, 0.01, 2, 2};
+    ctx_broad_peak.params = params_broad_peak;
 
     // setup the x (or r) array
     double r_array_spheres[ARRAY_LEN] = {
@@ -122,7 +114,13 @@ void setUp(void) {
     for (size_t i = 0; i < ARRAY_LEN; ++i) {
         z = r_array_spheres[i];
         hankel_transform_DE_Ooura(
-            nu, form_factor_sphere, z, params_spheres, n_params_spheres, &Gr[i], 250, 1e-9
+            nu, 
+            form_factor_sphere, 
+            z, 
+            (void *)&ctx_spheres, 
+            &Gr[i], 
+            250, 
+            1e-9
         );
         //printf("%.15g, ", (Gr[i]));
         ctx.actual_spheres[i] = Gr[i]; 
@@ -132,7 +130,13 @@ void setUp(void) {
     for (size_t i = 0; i < ARRAY_LEN; ++i) {
         z = r_array_gdab[i];
         hankel_transform_DE_Ooura(
-            nu, form_factor_g_dab, z, params_gdab, n_params_gdab, &Gr[i], 250, 1e-9
+            nu, 
+            form_factor_g_dab, 
+            z, 
+            (void *)&ctx_gdab, 
+            &Gr[i], 
+            250, 
+            1e-9
         );
         ctx.actual_gdab[i] = Gr[i]; 
     }
@@ -140,7 +144,13 @@ void setUp(void) {
     for (size_t i = 0; i < ARRAY_LEN; ++i) {
         z = r_array_broad_peak[i];
         hankel_transform_DE_Ooura(
-            nu, form_factor_broad_peak, z, params_broad_peak, n_params_broad_peak, &Gr[i], 250, 1e-9
+            nu, 
+            form_factor_broad_peak, 
+            z, 
+            (void *)&ctx_broad_peak, 
+            &Gr[i], 
+            250, 
+            1e-9
         );
         ctx.actual_broad_peak[i] = Gr[i]; 
     }  

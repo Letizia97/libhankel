@@ -182,6 +182,7 @@ end % function qwe
 #include <stdlib.h>
 #include <math.h>
 #include <stdio.h>
+#include "libhankel.h"
 
 /** 
  * @brief Computes Hankel transform integral using strategy 13 from SASfit
@@ -197,7 +198,7 @@ end % function qwe
  */
 double qwe_Key(
     double nu, 
-    double (*f)(double, double (*)[50]), 
+    form_factor_f f, 
     double x, 
     void *f_params, 
     double *output,

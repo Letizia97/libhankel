@@ -13,7 +13,7 @@ extern "C"
 
 double compute_hankel_FBT(
     int nu, 
-    intern_fct_type intern_fct,
+    form_factor_f intern_fct,
     void *ctx,
     double x, 
     int n_method, 

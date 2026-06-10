@@ -6,28 +6,34 @@
 #include "libhankel.h"
 #include "form_factors.h"
 
+typedef struct {
+    double *params;
+    size_t n_params;
+    PyObject *callable;   // NULL for built-ins
+} py_f_ctx;
+
 
 double python_form_factor(
     double x,
-    double *params,
-    size_t n_params,
-    void *user_data
+    void *f_ctx
 ) {
-    PyObject *callable = (PyObject *)user_data;
+    py_f_ctx *c = (py_f_ctx *)f_ctx;
 
     PyGILState_STATE gstate = PyGILState_Ensure();
+
 
     PyObject *args = PyTuple_New(2);
     PyTuple_SetItem(args, 0, PyFloat_FromDouble(x));
 
-    PyObject *list = PyList_New(n_params);
-    for (size_t i = 0; i < n_params; i++) {
-        PyList_SetItem(list, i, PyFloat_FromDouble(params[i]));
+    PyObject *list = PyList_New(c->n_params);
+
+    for (size_t i = 0; i < c->n_params; i++) {
+        PyList_SetItem(list, i, PyFloat_FromDouble(c->params[i]));
     }
 
     PyTuple_SetItem(args, 1, list);
 
-    PyObject *result = PyObject_CallObject(callable, args);
+    PyObject *result = PyObject_CallObject(c->callable, args);
     Py_DECREF(args);
 
     double val = 0.0;
@@ -175,12 +181,21 @@ static PyObject* py_hankel_transform(PyObject *self, PyObject *args) {
     // Form factor function
     // --------------------------- 
     form_factor_f f_ptr = NULL;
-    void *user_data = NULL;
+    py_f_ctx *f_ctx = malloc(sizeof(py_f_ctx));
+    if (!f_ctx) {
+        free(x); free(f_params); free(output);
+        PyErr_SetString(PyExc_MemoryError, "f_ctx alloc failed");
+        return NULL;
+    }
+
+    f_ctx->params = f_params;
+    f_ctx->n_params = n_params;
+    f_ctx->callable = NULL;
 
     /* check for Python callable */
     if (PyCallable_Check(f_obj)) {
         f_ptr = python_form_factor;
-        user_data = f_obj;
+        f_ctx->callable = f_obj;
         Py_INCREF(f_obj);
 
     /* or whether the user wants to use built-in form factor */
@@ -205,12 +220,10 @@ static PyObject* py_hankel_transform(PyObject *self, PyObject *args) {
         f_ptr,
         x,
         len_x,
-        f_params,
-        n_params,
+        f_ctx,
         output,
         strategy_name,
-        sp,
-        user_data
+        sp
     );
 
     PyObject *out_list = PyList_New(len_x);
@@ -219,13 +232,13 @@ static PyObject* py_hankel_transform(PyObject *self, PyObject *args) {
     }
 
     free(x);
-    free(f_params);
     free(output);
 
-    if (PyCallable_Check(f_obj)) {
-        Py_DECREF(f_obj);
+    free(f_ctx->params);
+    if (f_ctx->callable) {
+        Py_DECREF(f_ctx->callable);
     }
-
+    free(f_ctx);
     return out_list;
 }
 

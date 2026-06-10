@@ -7,7 +7,7 @@
 
 #include "../external_libs/DE-quadrature/intde.h"
 #include "../src/utils/boost_bessel_wrapper.h"
-
+# include "libhankel.h"
 /*
 This file contains only 2 Hankel strategies, both DE quadrature algorithms, corresponding to:
     - HANKEL_OOURA_DEO , i.e. strategy 0 in SASfit
@@ -20,10 +20,10 @@ This file contains only 2 Hankel strategies, both DE quadrature algorithms, corr
  * @brief Struct of parameters to be used in DE hankel functions.
  */
 typedef struct {
-	void *f_params;  /**< parameters for the supplied function */
-	double (* function) (double, double (*)[50]);  /**< function to integrate */
-	double nu;  /**< order of the Bessel function */
-	double Q;   /**< radial Fourier variable, i.e. conj wavenumber to radius r */
+	void *f_params;          /**< parameters for the supplied function */
+	form_factor_f function;  /**< function to integrate */
+	double nu;               /**< order of the Bessel function */
+	double Q;                /**< radial Fourier variable, i.e. conj wavenumber to radius */
 } params_struct;
 
 
@@ -82,9 +82,9 @@ double deriv_DEtransform(double t){
  * @note Corresponds to strategy 0 in SASfit, or HANKEL_OOURA_DEO.
  *        
  * @param nu         order of bessel function - must be 0 or 1
- * @param f          pointer to form factor function
+ * @param f          pointer to function to transform
  * @param x          value at which to compute the transform
- * @param f_params    params for form factor
+ * @param f_ctx      pointer to struct containing inputs for f
  * @param output     pointer to var containing output from transform 
  * @param n_eval     integer indicating number of function evaluations (N_ogata in SASfit)
  * @param eps_rel    relative error allowed e.g. 1e-9 (eps_nriq in SASfit)
@@ -93,12 +93,10 @@ double hankel_transform_DE_Ooura(
     int nu, 
     form_factor_f f, 
     const double x,
-    double *f_params,
-    size_t n_params,
+    void *f_ctx,
     double * output,
     int n_eval, 
-    double eps_rel,
-    void *user_data
+    double eps_rel
 ) {
 
     int workspace_len = 4000;
@@ -107,7 +105,7 @@ double hankel_transform_DE_Ooura(
     rounded_n_eval = lround(n_eval);
 
     params_struct FBTparam_struct;
-    FBTparam_struct.f_params = f_params;
+    FBTparam_struct.f_params = f_ctx;
     FBTparam_struct.function = f;
     FBTparam_struct.nu = nu;
     FBTparam_struct.Q = x;
@@ -173,9 +171,9 @@ double hankel_transform_DE_Ooura(
  * @note Corresponds to strategy 1 in SASfit or HANKEL_OGATA_2005.
  * 
  * @param nu         order of bessel function - must be 0 or 1
- * @param f          pointer to form factor function
+ * @param f          pointer to function to transform
  * @param x          value at which to compute the transform
- * @param f_params    params for form factor
+ * @param f_ctx      pointer to struct containing inputs for f
  * @param output     pointer to var containing output from transform 
  * @param n_eval     integer indicating number of function evaluations (N_ogata in SASfit)
  * @param f_max      float indicating starting guess for max in form factor (h_ogata in SASfit)
@@ -184,12 +182,10 @@ double hankel_transform_DE_Ogata(
     int nu, 
     form_factor_f f, 
     const double x,
-    double *f_params,
-    size_t n_params,
+    void *f_ctx,
     double * output,
     int n_eval, 
-    double f_max,
-    void *user_data
+    double f_max
 ) {
 
     double sum;
@@ -219,7 +215,7 @@ double hankel_transform_DE_Ogata(
         double weight      = 2.0 / ( (denom * denom) * zero_scaled );
 
         /* ---- Evaluate integrand at scaled location ---- */
-        double f_val       = (*f)(y_k / x, f_params, n_params, user_data);
+        double f_val       = (*f)(y_k / x, f_ctx);
 
         /* ---- Assemble quadrature contribution ---- */
         double term        = weight * y_k * f_val * Jnu_yk * phi_prime;
