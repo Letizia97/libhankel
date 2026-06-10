@@ -1,17 +1,18 @@
 
 #ifndef QWE_KEY
 #define QWE_KEY
+#include "libhankel.h"
 
 // sasfit strategy 12
 double qwe_Key(
-	double nu, 
-	double (*f)(double, double (*)[50]), 
-	double x, 
-	void *f_params, 
+    double nu, 
+    form_factor_f f, 
+    double x, 
+    void *f_params, 
     double *output,
-	int n_max_iters, 
-	double rtol, 
-	double atol
+    int n_max_iters,
+    double rtol, 
+    double atol
 ); 
 
 

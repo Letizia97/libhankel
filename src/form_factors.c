@@ -1,17 +1,26 @@
+
+// Local / project header (for this module)
 #include "form_factors.h"
+
+// Standard library headers
 #include <math.h>
+#include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
-#include <stdio.h>
+#include <string.h>
+
+// Project / local headers
 #include "../src/utils/pow_functions.h"
 #include "../src/utils/sf_functions.h"
-#include <stddef.h>
 
-double form_factor_g_dab(double q, double *params, size_t n) {
-    /*
-    Compute the g_dab form factor. 
-    */
+
+double form_factor_g_dab(double q, void *f_ctx) {
+
+    // Cast the void pointer `f_ctx` to its real type (`form_factor_ctx *`)
+    // This is required because void* cannot be dereferenced directly
+    form_factor_ctx *ctx = (form_factor_ctx *)f_ctx;
+    double *params = ctx->params;
+
     double XI = params[0];
     double H = params[1];
     double ETA = params[2];
@@ -26,10 +35,9 @@ double form_factor_g_dab(double q, double *params, size_t n) {
 }
 
 
-double form_factor_sphere(double q, double *params, size_t n) {
-    /*
-    Compute the sphere form factor. 
-    */
+double form_factor_sphere(double q, void *f_ctx) {
+
+    double *params = ((form_factor_ctx *)f_ctx)->params;
     double R = params[0];
     double ETA = params[1];
     double interm, factor;
@@ -45,10 +53,9 @@ double form_factor_sphere(double q, double *params, size_t n) {
 }
 
 
-double form_factor_broad_peak(double q, double *params, size_t n) {
-    /*
-    Compute the broad peak form factor. 
-    */
+double form_factor_broad_peak(double q, void *f_ctx) {
+
+    double *params = ((form_factor_ctx *)f_ctx)->params;
     double I0 = params[0];
     double XI = params[1];
     double Q0 = params[2];
@@ -57,4 +64,24 @@ double form_factor_broad_peak(double q, double *params, size_t n) {
 
     double interm = 1.0 + pow(fabs(q-Q0) * XI, M);
 	return I0 / pow(interm, P);
+}
+
+typedef struct {
+    const char *name;
+    form_factor_f func;
+} entry;
+
+static entry table[] = {
+    {"gdab", form_factor_g_dab},
+    {"broad_peak", form_factor_broad_peak},
+    {"sphere", form_factor_sphere},
+    {NULL, NULL}
+};
+
+form_factor_f get_form_factor_by_name(const char *name) {
+    for (int i = 0; table[i].name != NULL; i++) {
+        if (strcmp(name, table[i].name) == 0)
+            return table[i].func;
+    }
+    return NULL;
 }

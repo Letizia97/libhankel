@@ -1,17 +1,17 @@
-
-
-
 #include "external_libs/qwe_Chave/qwe_Chave.h"
+#include "libhankel.h"
 
+// Standard library headers
 #include <float.h>
-#include <stdbool.h>
-
-#include "src/utils/sasfit_integrate.h"
-#include "src/utils/pow_functions.h"
-
-#include <stdlib.h>
 #include <math.h>
+#include <stdbool.h>
 #include <stdio.h>
+#include <stdlib.h>
+
+// Project / local headers
+#include "src/utils/pow_functions.h"
+#include "src/utils/sasfit_integrate.h"
+
 
 /** 
  * @brief This function is called Zeroj in SASfit.
@@ -89,6 +89,7 @@ double bessel_j_zero(int nzero, double order) {
             return j_zero;
         }
     }
+    return 0;
 }
 
 /** 
@@ -206,7 +207,7 @@ cleanup_and_exit:
  */
 double qwe_Chave(
     double nu, 
-    double (*f)(double, double (*)[50]), 
+    form_factor_f f, 
     double r, 
     void *f_params, 
     double *output, 

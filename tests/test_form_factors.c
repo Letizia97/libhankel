@@ -11,6 +11,7 @@
 #include "include/libhankel.h"
 #include "include/form_factors.h"
 #include "src/utils/sasfit_integrate.h"
+#include <stdlib.h>
 
 #define NUM_CASES 6
 #define ARRAY_LEN 25
@@ -18,12 +19,6 @@
 double nu = 0;
 size_t int_strategy;
 int z;
-
-size_t n_params_spheres = 2;
-size_t n_params_gdab = 3;
-
-double params_spheres[2];
-double params_gdab[3];
 
 double r_array_spheres[ARRAY_LEN];
 double r_array_gdab[ARRAY_LEN];
@@ -77,12 +72,15 @@ void setUp(void) {
     */
 
     // set params
-    params_spheres[0] = 10; 
-    params_spheres[1] = 1;
+    
+    double params_sphere[] = {10.0, 1.0};
+    form_factor_ctx f_ctx_sphere;
+    f_ctx_sphere.params = params_sphere;
 
-    params_gdab[0] = 10.0; 
-    params_gdab[1] = 0.5;
-    params_gdab[2] = 1e-4;
+    
+    double params_gdab[] = {10.0, 0.5, 1e-4};
+    form_factor_ctx f_ctx_gdab;
+    f_ctx_gdab.params = params_gdab;
 
     // setup the x (or r) array
     double r_array_spheres[ARRAY_LEN] = {
@@ -104,13 +102,11 @@ void setUp(void) {
     for (size_t i = 0; i < ARRAY_LEN; ++i) {
         ctx.actual_spheres[i] = form_factor_sphere(
             r_array_spheres[i], 
-            params_spheres,
-            n_params_spheres
+            (void *)&f_ctx_sphere
         );
         ctx.actual_gdab[i] = form_factor_sphere(
             r_array_gdab[i], 
-            params_gdab,
-            n_params_gdab
+            (void *)&f_ctx_gdab
         );
         //printf("%.15g, ", ctx.actual_gdab[i]);
     }

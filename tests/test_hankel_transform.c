@@ -16,13 +16,9 @@
 double nu;
 double z;
 
-size_t n_params_spheres = 2;
-size_t n_params_gdab = 3;
-size_t n_params_broad_peak = 5;
-
-double params_spheres[2];
-double params_gdab[3];
-double params_broad_peak[5];
+form_factor_ctx ctx_spheres;
+form_factor_ctx ctx_gdab;
+form_factor_ctx ctx_broad_peak;
 
 double r_array_spheres[ARRAY_LEN];
 double r_array_gdab[ARRAY_LEN];
@@ -78,18 +74,14 @@ void setUp(void) {
     nu = 0;
 
     // set params
-    params_spheres[0] = 10; 
-    params_spheres[1] = 1;
+    double params_spheres[] = {10.0, 1.0};
+    ctx_spheres.params = params_spheres;
 
-    params_gdab[0] = 10.0; 
-    params_gdab[1] = 0.5;
-    params_gdab[2] = 1e-4;
+    double params_gdab[] = {10.0, 0.5, 1e-4};
+    ctx_gdab.params = params_gdab;
 
-    params_broad_peak[0] = 10e5;
-    params_broad_peak[1] = 1000;
-    params_broad_peak[2] = 0.01;
-    params_broad_peak[3] = 2;
-    params_broad_peak[4] = 2;
+    double params_broad_peak[] = {10e5, 1000, 0.01, 2, 2};
+    ctx_broad_peak.params = params_broad_peak;
 
     strategy_params strategy_params_general = {
         .n_eval = 250, 
@@ -126,8 +118,7 @@ void setUp(void) {
             form_factor_sphere, 
             r_array_spheres, 
             ARRAY_LEN,
-            params_spheres, 
-            n_params_spheres,
+            (void *)&ctx_spheres,
             ctx.actual_spheres, 
             "QWE_Key", 
             strategy_params_general
@@ -140,8 +131,7 @@ void setUp(void) {
             form_factor_g_dab, 
             r_array_gdab, 
             ARRAY_LEN,
-            params_gdab, 
-            n_params_gdab,
+            (void *)&ctx_gdab,
             ctx.actual_gdab, 
             "QWE_Key", 
             strategy_params_general
@@ -154,8 +144,7 @@ void setUp(void) {
             form_factor_broad_peak, 
             r_array_broad_peak, 
             ARRAY_LEN,
-            params_broad_peak, 
-            n_params_broad_peak,
+            (void *)&ctx_broad_peak,
             ctx.actual_broad_peak, 
             "QWE_Key", 
             strategy_params_b_peak
@@ -221,8 +210,7 @@ void test_hankel_transform_throws_error_when_n_eval_not_defined(void) {
         form_factor_g_dab, 
         r_array_gdab, 
         ARRAY_LEN,
-        params_gdab, 
-        n_params_gdab,
+        (void *)&ctx_gdab,
         ctx.actual_gdab, 
         "QWE_Key", 
         strategy_params_wrong
@@ -253,8 +241,7 @@ void test_hankel_transform_throws_error_when_eps_rel_not_defined(void) {
         form_factor_g_dab, 
         r_array_gdab, 
         ARRAY_LEN,
-        params_gdab, 
-        n_params_gdab,
+        (void *)&ctx_gdab,
         ctx.actual_gdab, 
         "QWE_Key", 
         strategy_params_wrong
@@ -285,8 +272,7 @@ void test_hankel_transform_throws_error_when_nu_wrong(void) {
         form_factor_g_dab, 
         r_array_gdab, 
         ARRAY_LEN,
-        params_gdab, 
-        n_params_gdab, 
+        (void *)&ctx_gdab, 
         ctx.actual_gdab, 
         "QWE_Key", 
         strategy_params
@@ -316,8 +302,7 @@ void test_hankel_transform_throws_error_when_f_max_not_defined(void) {
         form_factor_g_dab, 
         r_array_gdab,  
         ARRAY_LEN,
-        params_gdab, 
-        n_params_gdab,
+        (void *)&ctx_gdab,
         ctx.actual_gdab, 
         "DE_Ogata", 
         strategy_params_wrong

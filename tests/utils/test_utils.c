@@ -1,13 +1,17 @@
 #include "test_utils.h"  
 
-#include <stdio.h>
-#include <math.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <string.h>
-#include "unity_config.h"
+// External / third-party libraries (Unity test framework)
 #include "unity.h"
+#include "unity_config.h"
+
+// Standard library headers
+#include <fcntl.h>
+#include <math.h>
+#include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+
 
 
 int arrays_close(

@@ -20,9 +20,10 @@ double nu;
 double z;
 size_t int_strategy;
 
-double params[] = {};
+form_factor_ctx ctx_spheres;
+form_factor_ctx ctx_gdab;
+
 double r_array[ARRAY_LEN];
-size_t n_params = 2;
 
 hankel_inputs inputs;
 double Gr[ARRAY_LEN];
@@ -96,8 +97,12 @@ void setUp(void) {
     */
     
     // sphere params
-    params[0] = 10; 
-    params[1] = 1;
+    double params_spheres[] = {10.0, 1.0};
+    ctx_spheres.params = params_spheres;
+
+    double params_gdab[] = {10.0, 0.5, 1e-4};
+    ctx_gdab.params = params_gdab;
+
 
     // setup the x (or r) array
     double r_array[ARRAY_LEN] = {
@@ -118,8 +123,7 @@ void setUp(void) {
                 nu, 
                 form_factor_sphere, 
                 z, 
-                &params, 
-                n_params,
+                (void *)&ctx_spheres,
                 &Gr[i], 
                 int_strategy
             );
@@ -176,8 +180,7 @@ void test_hankel_DHT_throws_error_when_int_strategy_wrong(void) {
         nu, 
         form_factor_sphere, 
         z,  
-        &params, 
-        n_params,
+        (void *)&ctx_spheres,
         output, 
         1
     );

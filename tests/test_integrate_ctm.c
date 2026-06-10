@@ -1,15 +1,19 @@
-#include <stdio.h>
-#include <stddef.h>
+#include <libhankel.h>
+#include "unity.h"
+#include "utils/unity_config.h"
+
+// Standard library headers
 #include <math.h>
 #include <stdbool.h>
-#include "utils/unity_config.h"
-#include "unity.h"
+#include <stddef.h>
+#include <stdio.h>
 #include <string.h>
 
-#include "libhankel.h"
+// Project / local headers
 #include "form_factors.h"
 #include "src/utils/sasfit_integrate.h"
-#include "utils/test_utils.h" 
+#include "utils/test_utils.h"
+
 
 #define MAX_COLS 25
 #define MAX_ROWS 6
@@ -17,11 +21,8 @@
 double nu;
 double z;
 
-size_t n_params_spheres = 2;
-size_t n_params_gdab = 3;
-
-double params_spheres[2];
-double params_gdab[3];
+form_factor_ctx ctx_spheres;
+form_factor_ctx ctx_gdab;
 
 hankel_inputs inputs;
 double G0_spheres;
@@ -44,11 +45,11 @@ TestContext ctx = {
 
 // Needed for computing G0
 double spheres_ff_at_0(double q, hankel_inputs *params){
-    return q * form_factor_sphere(q, params->f_params, n_params_spheres);
+    return q * form_factor_sphere(q, params);
 }
 
 double gdab_ff_at_0(double q, hankel_inputs *params){
-    return q * form_factor_g_dab(q, params->f_params, n_params_gdab);
+    return q * form_factor_g_dab(q, params);
 }
 
 
@@ -60,12 +61,11 @@ void setUp(void) {
     */
     
     // set params
-    params_spheres[0] = 10; 
-    params_spheres[1] = 1;
+    double params_spheres[] = {10.0, 1.0};
+    ctx_spheres.params = params_spheres;
 
-    params_gdab[0] = 10.0; 
-    params_gdab[1] = 0.5;
-    params_gdab[2] = 1e-4;
+    double params_gdab[] = {10.0, 0.5, 1e-4};
+    ctx_gdab.params = params_gdab;
     
     nu = 0;
 

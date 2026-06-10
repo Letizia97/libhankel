@@ -1,13 +1,13 @@
 
 #ifndef UTILS_H
 #define UTILS_H
-
+#include "libhankel.h"
 
 typedef struct
 {
-	void *             f_params; 
-	double             other_inputs[50];    
-	double (*function)(double,  double (*)[50]); //(double, void *);
+	void *           f_params; 
+	double           other_inputs[50];    
+	form_factor_f    function; //(double, void *);
 } hankel_inputs;
 
 // Needed for sasfit strategy 12 and 13
