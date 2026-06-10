@@ -20,12 +20,6 @@ double nu = 0;
 size_t int_strategy;
 int z;
 
-size_t n_params_spheres = 2;
-size_t n_params_gdab = 3;
-
-// double params_spheres[2];
-// double params_gdab[3];
-
 double r_array_spheres[ARRAY_LEN];
 double r_array_gdab[ARRAY_LEN];
 
@@ -44,7 +38,6 @@ typedef struct {
     double expected_spheres[ARRAY_LEN];
     double expected_gdab[ARRAY_LEN];
 } TestContext;
-
 
 TestContext ctx = {
     .actual_spheres = {0},
