@@ -1,9 +1,11 @@
 
 #include "libhankel.h"
 
+// Standard library headers
 #include <math.h>
 #include <stdio.h>
 
+// Project / local headers
 #include "../src/utils/strateg6_const.h"
 #include "../src/utils/strateg7_const.h"
 #include "../src/utils/strateg8_const.h"
@@ -18,8 +20,6 @@ This file contains functions corresponding to strategies 6-11 in SASfit
 They have been grouped together under one function, as they are very similar, and
 changing the n_strategy parameter allows to switch between them
 */
-
-
 
 /** 
  * @brief Computes Hankel transform, using digital filters.

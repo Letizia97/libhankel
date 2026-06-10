@@ -1,13 +1,17 @@
-#include "libhankel.h"
 
+#include "libhankel.h"
+#include "../external_libs/DE-quadrature/intde.h"
+
+// Standard library headers
+#include <float.h>
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <float.h>
 
-#include "../external_libs/DE-quadrature/intde.h"
+// Project / local headers
 #include "../src/utils/boost_bessel_wrapper.h"
-# include "libhankel.h"
+
+
 /*
 This file contains only 2 Hankel strategies, both DE quadrature algorithms, corresponding to:
     - HANKEL_OOURA_DEO , i.e. strategy 0 in SASfit

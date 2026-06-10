@@ -1,13 +1,18 @@
+
+// Local / project header (for this module)
 #include "form_factors.h"
+
+// Standard library headers
 #include <math.h>
+#include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
-#include <stdio.h>
+#include <string.h>
+
+// Project / local headers
 #include "../src/utils/pow_functions.h"
 #include "../src/utils/sf_functions.h"
-#include <stddef.h>
-#include <string.h>
+
 
 double form_factor_g_dab(double q, void *f_ctx) {
 

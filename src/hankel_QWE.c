@@ -1,11 +1,12 @@
 #include "libhankel.h"
+#include "../external_libs/qwe_Chave/qwe_Chave.h"
+#include "../external_libs/qwe_Key/qwe_Key.h"
 
+// Standard library headers
+#include <float.h>
 #include <math.h>
 #include <stdio.h>
-#include <float.h>
 
-#include "../external_libs/qwe_Key/qwe_Key.h"
-#include "../external_libs/qwe_Chave/qwe_Chave.h"
 
 /*
 This file contains functions corresponding to strategies 12 and 13 in SASfit. 

@@ -1,15 +1,19 @@
-#include <stdio.h>
-#include <stddef.h>
+#include <libhankel.h>
+#include "unity.h"
+#include "utils/unity_config.h"
+
+// Standard library headers
 #include <math.h>
 #include <stdbool.h>
-#include "utils/unity_config.h"
-#include "unity.h"
+#include <stddef.h>
+#include <stdio.h>
 #include <string.h>
 
-#include "libhankel.h"
+// Project / local headers
 #include "form_factors.h"
 #include "src/utils/sasfit_integrate.h"
-#include "utils/test_utils.h" 
+#include "utils/test_utils.h"
+
 
 #define MAX_COLS 25
 #define MAX_ROWS 6

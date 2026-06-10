@@ -1,18 +1,17 @@
-
-
-
 #include "external_libs/qwe_Chave/qwe_Chave.h"
-
-#include <float.h>
-#include <stdbool.h>
-
-#include "src/utils/sasfit_integrate.h"
-#include "src/utils/pow_functions.h"
-
-#include <stdlib.h>
-#include <math.h>
-#include <stdio.h>
 #include "libhankel.h"
+
+// Standard library headers
+#include <float.h>
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+// Project / local headers
+#include "src/utils/pow_functions.h"
+#include "src/utils/sasfit_integrate.h"
+
 
 /** 
  * @brief This function is called Zeroj in SASfit.

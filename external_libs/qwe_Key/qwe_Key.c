@@ -173,16 +173,19 @@ end % function qwe
 */
 
 #include "external_libs/qwe_Key/qwe_Key.h"
-
-#include <float.h>
-#include <stdbool.h>
-
-#include "src/utils/sasfit_integrate.h"
-#include "src/utils/boost_bessel_wrapper.h"
-#include <stdlib.h>
-#include <math.h>
-#include <stdio.h>
 #include "libhankel.h"
+
+// Standard library headers
+#include <float.h>
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+// Project / local headers
+#include "src/utils/boost_bessel_wrapper.h"
+#include "src/utils/sasfit_integrate.h"
+
 
 /** 
  * @brief Computes Hankel transform integral using strategy 13 from SASfit

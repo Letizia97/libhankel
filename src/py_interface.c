@@ -1,10 +1,10 @@
 
 #define PY_SSIZE_T_CLEAN
 #include <Python.h>
-#include <stdlib.h>
-
 #include "libhankel.h"
+#include <stdlib.h>
 #include "form_factors.h"
+
 
 typedef struct {
     double *params;
