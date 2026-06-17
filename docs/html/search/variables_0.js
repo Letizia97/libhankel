@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['eps_5frel_78',['eps_rel',['../structstrategy__params.html#a151596b1adab70fe9de8419ed2936240',1,'strategy_params']]]
+  ['callable_103',['callable',['../structpy__f__ctx.html#a096ca27541ce97641840c1811ccf34e3',1,'py_f_ctx']]]
 ];

@@ -1,0 +1,235 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="form__factors_8h" kind="file" language="C++">
+    <compoundname>form_factors.h</compoundname>
+    <includes refid="libhankel_8h" local="yes">libhankel.h</includes>
+    <includes local="no">stddef.h</includes>
+    <includedby refid="form__factors_8c" local="yes">src/form_factors.c</includedby>
+    <includedby refid="py__interface_8c" local="yes">src/py_interface.c</includedby>
+    <incdepgraph>
+      <node id="3">
+        <label>stddef.h</label>
+      </node>
+      <node id="1">
+        <label>include/form_factors.h</label>
+        <link refid="form__factors_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>libhankel.h</label>
+        <link refid="libhankel_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1">
+        <label>include/form_factors.h</label>
+        <link refid="form__factors_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>src/form_factors.c</label>
+        <link refid="form__factors_8c"/>
+      </node>
+      <node id="3">
+        <label>src/py_interface.c</label>
+        <link refid="py__interface_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="form__factors_8h_1a05ade8d244a85f173cc26c3aea472e60" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double form_factor_g_dab</definition>
+        <argsstring>(double q, void *f_ctx)</argsstring>
+        <name>form_factor_g_dab</name>
+        <param>
+          <type>double</type>
+          <declname>q</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>f_ctx</declname>
+        </param>
+        <briefdescription>
+<para>Computes the g_dab form factor. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>q</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>value at which to compute the transform </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>f_ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to struct containing inputs for form factor</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>Params must contain :<itemizedlist>
+<listitem><para>XI correlation length (e.g., 10.0)</para>
+</listitem><listitem><para>H Hurst exponent (e.g., 0.5)</para>
+</listitem><listitem><para>ETA scattering length density contrast (e.g., 1e-4) </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/form_factors.h" line="19" column="8" bodyfile="src/form_factors.c" bodystart="17" bodyend="35" declfile="include/form_factors.h" declline="19" declcolumn="8"/>
+      </memberdef>
+      <memberdef kind="function" id="form__factors_8h_1a5440e6f208c6bdf8caba50294f2da5fd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double form_factor_sphere</definition>
+        <argsstring>(double q, void *f_ctx)</argsstring>
+        <name>form_factor_sphere</name>
+        <param>
+          <type>double</type>
+          <declname>q</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>f_ctx</declname>
+        </param>
+        <briefdescription>
+<para>Computes the sphere form factor. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>q</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>value at which to compute the transform </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>f_ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to struct containing inputs for form factor</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>Params must contain :<itemizedlist>
+<listitem><para>R radius (e.g., 10.0)</para>
+</listitem><listitem><para>ETA scattering contrast (e.g., 1.0) </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/form_factors.h" line="33" column="8" bodyfile="src/form_factors.c" bodystart="38" bodyend="53" declfile="include/form_factors.h" declline="33" declcolumn="8"/>
+      </memberdef>
+      <memberdef kind="function" id="form__factors_8h_1adb46bd8febc742b0d81dbafc7df1749d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double form_factor_broad_peak</definition>
+        <argsstring>(double q, void *f_ctx)</argsstring>
+        <name>form_factor_broad_peak</name>
+        <param>
+          <type>double</type>
+          <declname>q</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>f_ctx</declname>
+        </param>
+        <briefdescription>
+<para>Computes the broad_peak form factor. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>q</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>value at which to compute the transform </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>f_ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to struct containing inputs for form factor</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>Params must contain :<itemizedlist>
+<listitem><para>I0 forward scattering (e.g., 10e5)</para>
+</listitem><listitem><para>XI correlation length (e.g., 1000)</para>
+</listitem><listitem><para>Q0 peak position which is related to the d-spacing as q0 = 2pi/d (e.g., 0.01)</para>
+</listitem><listitem><para>M I(Q)=I0/(1+(|q-q0|*xi)^m)^p (e.g., 2)</para>
+</listitem><listitem><para>P I(Q)=I0/(1+(|q-q0|*xi)^m)^p (e.g., 2) </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/form_factors.h" line="50" column="8" bodyfile="src/form_factors.c" bodystart="56" bodyend="67" declfile="include/form_factors.h" declline="50" declcolumn="8"/>
+      </memberdef>
+      <memberdef kind="function" id="form__factors_8h_1ad3f6584528169d3d49a5b6327557e3d6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="libhankel_8h_1a8e20b1325721b16e0a41c95b642fd74b" kindref="member">form_factor_f</ref></type>
+        <definition>form_factor_f get_form_factor_by_name</definition>
+        <argsstring>(const char *name)</argsstring>
+        <name>get_form_factor_by_name</name>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/form_factors.h" line="52" column="15" bodyfile="src/form_factors.c" bodystart="81" bodyend="87" declfile="include/form_factors.h" declline="52" declcolumn="15"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>FORM_FACTORS_H</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>FORM_FACTORS_H</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="libhankel_8h" kindref="compound">libhankel.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stddef.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="form__factors_8h_1a05ade8d244a85f173cc26c3aea472e60" kindref="member">form_factor_g_dab</ref>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>q,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*f_ctx);<sp/></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="form__factors_8h_1a5440e6f208c6bdf8caba50294f2da5fd" kindref="member">form_factor_sphere</ref>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>q,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*f_ctx);</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="form__factors_8h_1adb46bd8febc742b0d81dbafc7df1749d" kindref="member">form_factor_broad_peak</ref>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>q,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*f_ctx);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><ref refid="libhankel_8h_1a8e20b1325721b16e0a41c95b642fd74b" kindref="member">form_factor_f</ref><sp/><ref refid="form__factors_8h_1ad3f6584528169d3d49a5b6327557e3d6" kindref="member">get_form_factor_by_name</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*name);</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">//<sp/>FORM_FACTORS_H</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="include/form_factors.h"/>
+  </compounddef>
+</doxygen>

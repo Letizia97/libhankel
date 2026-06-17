@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="intro_8md" kind="file" language="Markdown">
+    <compoundname>intro.md</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="normal">Introduction</highlight></codeline>
+<codeline><highlight class="normal">===========</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">..<sp/>_intro:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>Hankel<sp/>transform,<sp/>also<sp/>known<sp/>as<sp/>the<sp/>Fourier–Bessel<sp/>transform,<sp/>is<sp/>widely<sp/>used<sp/>in<sp/>scattering.<sp/>The</highlight></codeline>
+<codeline><highlight class="normal">transform<sp/>is<sp/>needed<sp/>in<sp/>many<sp/>areas,<sp/>e.g.<sp/>to<sp/>calculate<sp/>scattering<sp/>functions,<sp/>to<sp/>correct<sp/>for<sp/>multiple<sp/>scattering,</highlight></codeline>
+<codeline><highlight class="normal">to<sp/>simulate<sp/>spin<sp/>echo<sp/>signals<sp/>like<sp/>those<sp/>obtained<sp/>on<sp/>Larmor<sp/>at<sp/>the<sp/>ISIS<sp/>Neutron<sp/>and<sp/>Muon<sp/>Source,<sp/>as</highlight></codeline>
+<codeline><highlight class="normal">well<sp/>as<sp/>to<sp/>qualitatively<sp/>analyse<sp/>phase<sp/>contrast<sp/>images<sp/>(PCI)<sp/>taken<sp/>at<sp/>the<sp/>Diamond<sp/>synchrotron<sp/>source.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Small-angle<sp/>scattering<sp/>(SAS)<sp/>is<sp/>an<sp/>experimental<sp/>technique<sp/>using<sp/>X-rays<sp/>(SAXS)<sp/>or<sp/>neutrons<sp/>(SANS)</highlight></codeline>
+<codeline><highlight class="normal">to<sp/>study<sp/>the<sp/>structure<sp/>of<sp/>materials<sp/>on<sp/>the<sp/>nanoscale<sp/>(roughly<sp/>1–1000<sp/>nm).<sp/>SAS<sp/>measures<sp/>how<sp/>radiation</highlight></codeline>
+<codeline><highlight class="normal">is<sp/>scattered<sp/>at<sp/>very<sp/>small<sp/>angles,<sp/>which<sp/>tells<sp/>us<sp/>about<sp/>large-scale<sp/>structures<sp/>inside<sp/>the<sp/>sample.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">In<sp/>this<sp/>library,<sp/>there<sp/>are<sp/>14<sp/>different<sp/>implementations<sp/>of<sp/>the<sp/>Hankel<sp/>transform,<sp/>corresponding<sp/>to<sp/>different<sp/>ways<sp/>of<sp/>approximating<sp/>the<sp/>Hankel<sp/>transform<sp/>integral.</highlight></codeline>
+<codeline></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">+--------------------------+---------------------+---------------------------------------+</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>index<sp/>(as<sp/>in<sp/>SASfit)<sp/><sp/><sp/><sp/><sp/>|<sp/>Strategy<sp/>Name<sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>Type<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|</highlight></codeline>
+<codeline><highlight class="normal">+==========================+=====================+=======================================+</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>DE_Ooura<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>Double-exponential<sp/>quadrature<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|</highlight></codeline>
+<codeline><highlight class="normal">+--------------------------+---------------------+---------------------------------------+</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>DE_Ogata<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>Double-exponential<sp/>quadrature<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|</highlight></codeline>
+<codeline><highlight class="normal">+--------------------------+---------------------+---------------------------------------+</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>6<sp/>to<sp/>11<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>DHT_6<sp/>to<sp/>DHT_11<sp/><sp/><sp/><sp/><sp/>|<sp/>Digital<sp/>filters<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|</highlight></codeline>
+<codeline><highlight class="normal">+--------------------------+---------------------+---------------------------------------+</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>12<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>QWE_Key<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>QWE<sp/>with<sp/>continued<sp/>fraction<sp/>expansion<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">+--------------------------+---------------------+---------------------------------------+</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>13<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>QWE_Chave<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>QWE<sp/>with<sp/>Shanks<sp/>transformation<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|</highlight></codeline>
+<codeline><highlight class="normal">+--------------------------+---------------------+---------------------------------------+</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>...<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>...<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>...<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|</highlight></codeline>
+<codeline><highlight class="normal">+--------------------------+---------------------+---------------------------------------+</highlight></codeline>
+<codeline></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>column<sp/>named<sp/>as<sp/>&quot;index&quot;<sp/>in<sp/>the<sp/>table<sp/>essentially<sp/>refers<sp/>to<sp/>the<sp/>numbering<sp/>used<sp/>in<sp/>SASfit.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Strategies<sp/>6<sp/>to<sp/>11<sp/>in<sp/>SASfit,<sp/>which<sp/>in<sp/>this<sp/>library<sp/>are<sp/>referred<sp/>to<sp/>as<sp/><sp/>DHT_6,<sp/>DHT_7<sp/>..<sp/>DHT_11,<sp/>are<sp/>fixed-grid<sp/>digital<sp/>filter<sp/>strategies.<sp/>They<sp/>are<sp/>quite<sp/>fast<sp/>and<sp/>perform<sp/>well<sp/>on<sp/>simple<sp/>form<sp/>factors<sp/>but<sp/>their<sp/>accuracy<sp/>decreases<sp/>on<sp/>more<sp/>complex<sp/>or<sp/>oscillatory<sp/>ones.<sp/>They<sp/>are<sp/>not<sp/>iterative,<sp/>rely<sp/>on<sp/>pre-computed<sp/>constants,<sp/>and<sp/>do<sp/>not<sp/>allow<sp/>the<sp/>user<sp/>to<sp/>control<sp/>the<sp/>&quot;accuracy&quot;<sp/>of<sp/>the<sp/>solution<sp/>in<sp/>any<sp/>way.<sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">All<sp/>other<sp/>strategies<sp/>instead<sp/>are<sp/>iterative,<sp/>and<sp/>some<sp/>of<sp/>them<sp/>require<sp/>the<sp/>user<sp/>to<sp/>supply<sp/>a<sp/>tolerance<sp/>parameter<sp/>(called<sp/>``eps_rel``)<sp/>which<sp/>is<sp/>then<sp/>used<sp/>to<sp/>determine<sp/>when<sp/>to<sp/>stop<sp/>iterating.<sp/>Specifically,<sp/>iterations<sp/>are<sp/>stopped<sp/>when<sp/>the<sp/>difference<sp/>in<sp/>the<sp/>solution<sp/>of<sp/>two<sp/>consecutive<sp/>iterations<sp/>is<sp/>less<sp/>than<sp/>the<sp/>tolerance.<sp/>For<sp/>this<sp/>reasons,<sp/>strategies<sp/>that<sp/>require<sp/>eps_rel<sp/>generally<sp/>perform<sp/>better<sp/>than<sp/>the<sp/>DHT<sp/>ones<sp/>on<sp/>complex<sp/>form<sp/>factors,<sp/>though<sp/>they<sp/>are<sp/>more<sp/>slow.<sp/>Examples<sp/>of<sp/>these<sp/>strategies<sp/>are<sp/>1,<sp/>12<sp/>and<sp/>13<sp/>in<sp/>the<sp/>above<sp/>table.<sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">...<sp/></highlight></codeline>
+    </programlisting>
+    <location file="docs/intro.md"/>
+  </compounddef>
+</doxygen>

@@ -1,9 +1,12 @@
 <map id="src/form_factors.c" name="src/form_factors.c">
-<area shape="rect" id="node1" title=" " alt="" coords="260,5,399,32"/>
-<area shape="rect" id="node2" href="$form__factors_8h.html" title=" " alt="" coords="5,80,123,107"/>
-<area shape="rect" id="node3" title=" " alt="" coords="146,80,214,107"/>
-<area shape="rect" id="node4" title=" " alt="" coords="239,80,305,107"/>
-<area shape="rect" id="node5" title=" " alt="" coords="329,80,447,107"/>
-<area shape="rect" id="node6" title=" " alt="" coords="471,80,566,107"/>
-<area shape="rect" id="node7" title=" " alt="" coords="591,80,735,107"/>
+<area shape="rect" id="node1" title=" " alt="" coords="328,5,467,32"/>
+<area shape="rect" id="node2" href="$form__factors_8h.html" title=" " alt="" coords="32,80,149,107"/>
+<area shape="rect" id="node4" title=" " alt="" coords="99,229,173,256"/>
+<area shape="rect" id="node5" title=" " alt="" coords="225,80,293,107"/>
+<area shape="rect" id="node6" title=" " alt="" coords="317,80,384,107"/>
+<area shape="rect" id="node7" title=" " alt="" coords="409,80,479,107"/>
+<area shape="rect" id="node8" title=" " alt="" coords="503,80,574,107"/>
+<area shape="rect" id="node9" title=" " alt="" coords="599,80,793,107"/>
+<area shape="rect" id="node10" title=" " alt="" coords="818,80,998,107"/>
+<area shape="rect" id="node3" href="$libhankel_8h.html" title=" " alt="" coords="5,155,99,181"/>
 </map>

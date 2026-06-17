@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['validate_5feps_5frel_42',['validate_eps_rel',['../hankel__transform_8c.html#a4568f0630d3465e1d6993e9eb1946409',1,'hankel_transform.c']]],
-  ['validate_5ff_5fmax_43',['validate_f_max',['../hankel__transform_8c.html#a825473c79ffe045666fe8d4dbc052d0d',1,'hankel_transform.c']]],
-  ['validate_5fn_5feval_44',['validate_n_eval',['../hankel__transform_8c.html#a02018326a229a0fcb3388c6e220c92bf',1,'hankel_transform.c']]]
+  ['sign_55',['SIGN',['../hankel__DE__quadrature_8c.html#a8c5ff70b6b28cd0157c50a22406f92c4',1,'hankel_DE_quadrature.c']]],
+  ['strategy_5fparams_56',['strategy_params',['../structstrategy__params.html',1,'']]]
 ];

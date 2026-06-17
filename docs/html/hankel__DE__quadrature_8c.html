@@ -68,31 +68,32 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Data Structures</a> &#124;
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">hankel_DE_quadrature.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="libhankel_8h_source.html">libhankel.h</a>&quot;</code><br />
+<code>#include &quot;../external_libs/DE-quadrature/intde.h&quot;</code><br />
+<code>#include &lt;float.h&gt;</code><br />
 <code>#include &lt;math.h&gt;</code><br />
 <code>#include &lt;stdio.h&gt;</code><br />
-<code>#include &lt;gsl/gsl_math.h&gt;</code><br />
-<code>#include &lt;gsl/gsl_sf.h&gt;</code><br />
-<code>#include &lt;gsl/gsl_sf_bessel.h&gt;</code><br />
-<code>#include &quot;../external_libs/DE-quadrature/intde.h&quot;</code><br />
+<code>#include &lt;stdlib.h&gt;</code><br />
+<code>#include &quot;../src/utils/boost_bessel_wrapper.h&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for hankel_DE_quadrature.c:</div>
 <div class="dyncontent">
 <div class="center"><img src="hankel__DE__quadrature_8c__incl.png" border="0" usemap="#asrc_2hankel__DE__quadrature_8c" alt=""/></div>
 <map name="asrc_2hankel__DE__quadrature_8c" id="asrc_2hankel__DE__quadrature_8c">
-<area shape="rect" title=" " alt="" coords="264,5,467,32"/>
+<area shape="rect" title=" " alt="" coords="313,5,516,32"/>
 <area shape="rect" href="libhankel_8h.html" title=" " alt="" coords="5,87,99,114"/>
-<area shape="rect" title=" " alt="" coords="123,87,191,114"/>
-<area shape="rect" title=" " alt="" coords="216,87,283,114"/>
-<area shape="rect" title=" " alt="" coords="307,87,424,114"/>
-<area shape="rect" title=" " alt="" coords="449,87,543,114"/>
-<area shape="rect" title=" " alt="" coords="568,87,712,114"/>
-<area shape="rect" title=" " alt="" coords="736,80,883,121"/>
+<area shape="rect" title=" " alt="" coords="123,80,269,121"/>
+<area shape="rect" title=" " alt="" coords="294,87,357,114"/>
+<area shape="rect" title=" " alt="" coords="381,87,449,114"/>
+<area shape="rect" title=" " alt="" coords="473,87,540,114"/>
+<area shape="rect" title=" " alt="" coords="565,87,635,114"/>
+<area shape="rect" title=" " alt="" coords="659,80,802,121"/>
 <area shape="rect" title=" " alt="" coords="15,169,89,196"/>
 </map>
 </div>
@@ -102,6 +103,11 @@ Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structparams__struct.html">params_struct</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Struct of parameters to be used in DE hankel functions.  <a href="structparams__struct.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a8c5ff70b6b28cd0157c50a22406f92c4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hankel__DE__quadrature_8c.html#a8c5ff70b6b28cd0157c50a22406f92c4">SIGN</a>(x)&#160;&#160;&#160;(((x) &gt; 0) - ((x) &lt; 0))</td></tr>
+<tr class="separator:a8c5ff70b6b28cd0157c50a22406f92c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -114,13 +120,32 @@ Functions</h2></td></tr>
 <tr class="memitem:ae1b03fc133041f7c13160312b02afc8c"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hankel__DE__quadrature_8c.html#ae1b03fc133041f7c13160312b02afc8c">deriv_DEtransform</a> (double t)</td></tr>
 <tr class="memdesc:ae1b03fc133041f7c13160312b02afc8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Auxiliary function that computes the derivative of a “double‑exponential (DE) change of variables”, that is commonly used in numerical integration (quadrature). Specifically, this is the tanh–sinh (double exponential) transformation.  <a href="hankel__DE__quadrature_8c.html#ae1b03fc133041f7c13160312b02afc8c">More...</a><br /></td></tr>
 <tr class="separator:ae1b03fc133041f7c13160312b02afc8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4d24603b9aee1c55276a202e10cf1bee"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hankel__DE__quadrature_8c.html#a4d24603b9aee1c55276a202e10cf1bee">hankel_transform_DE_Ooura</a> (int nu, double(*f)(double, double(*)[50]), double x, double(*f_params)[50], double *output, int n_eval, double eps_rel)</td></tr>
-<tr class="memdesc:a4d24603b9aee1c55276a202e10cf1bee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes Hankel transform, using de-quadrature.  <a href="hankel__DE__quadrature_8c.html#a4d24603b9aee1c55276a202e10cf1bee">More...</a><br /></td></tr>
-<tr class="separator:a4d24603b9aee1c55276a202e10cf1bee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afd74a29fda426f1f79985ef163efc1a0"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hankel__DE__quadrature_8c.html#afd74a29fda426f1f79985ef163efc1a0">hankel_transform_DE_Ogata</a> (int nu, double(*f)(double, double(*)[50]), double x, double(*f_params)[50], double *output, int n_eval, double f_max)</td></tr>
-<tr class="memdesc:afd74a29fda426f1f79985ef163efc1a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes Hankel transform, using de-quadrature.  <a href="hankel__DE__quadrature_8c.html#afd74a29fda426f1f79985ef163efc1a0">More...</a><br /></td></tr>
-<tr class="separator:afd74a29fda426f1f79985ef163efc1a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab59eed68ae4b66aa38bae302d028f26f"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hankel__DE__quadrature_8c.html#ab59eed68ae4b66aa38bae302d028f26f">hankel_transform_DE_Ooura</a> (int nu, <a class="el" href="libhankel_8h.html#a8e20b1325721b16e0a41c95b642fd74b">form_factor_f</a> f, const double x, void *f_ctx, double *output, int n_eval, double eps_rel)</td></tr>
+<tr class="memdesc:ab59eed68ae4b66aa38bae302d028f26f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes Hankel transform, using de-quadrature.  <a href="hankel__DE__quadrature_8c.html#ab59eed68ae4b66aa38bae302d028f26f">More...</a><br /></td></tr>
+<tr class="separator:ab59eed68ae4b66aa38bae302d028f26f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a796e38bd6e3edd71299fd70895857e90"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hankel__DE__quadrature_8c.html#a796e38bd6e3edd71299fd70895857e90">hankel_transform_DE_Ogata</a> (int nu, <a class="el" href="libhankel_8h.html#a8e20b1325721b16e0a41c95b642fd74b">form_factor_f</a> f, const double x, void *f_ctx, double *output, int n_eval, double f_max)</td></tr>
+<tr class="memdesc:a796e38bd6e3edd71299fd70895857e90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes Hankel transform, using de-quadrature.  <a href="hankel__DE__quadrature_8c.html#a796e38bd6e3edd71299fd70895857e90">More...</a><br /></td></tr>
+<tr class="separator:a796e38bd6e3edd71299fd70895857e90"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a8c5ff70b6b28cd0157c50a22406f92c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c5ff70b6b28cd0157c50a22406f92c4">&#9670;&nbsp;</a></span>SIGN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SIGN</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x</td><td>)</td>
+          <td>&#160;&#160;&#160;(((x) &gt; 0) - ((x) &lt; 0))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="ae1b03fc133041f7c13160312b02afc8c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae1b03fc133041f7c13160312b02afc8c">&#9670;&nbsp;</a></span>deriv_DEtransform()</h2>
@@ -162,8 +187,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="afd74a29fda426f1f79985ef163efc1a0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afd74a29fda426f1f79985ef163efc1a0">&#9670;&nbsp;</a></span>hankel_transform_DE_Ogata()</h2>
+<a id="a796e38bd6e3edd71299fd70895857e90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a796e38bd6e3edd71299fd70895857e90">&#9670;&nbsp;</a></span>hankel_transform_DE_Ogata()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -177,20 +202,20 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double(*)(double, double(*)[50])&#160;</td>
+          <td class="paramtype"><a class="el" href="libhankel_8h.html#a8e20b1325721b16e0a41c95b642fd74b">form_factor_f</a>&#160;</td>
           <td class="paramname"><em>f</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double&#160;</td>
+          <td class="paramtype">const double&#160;</td>
           <td class="paramname"><em>x</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double(*)&#160;</td>
-          <td class="paramname"><em>f_params</em>[50], </td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>f_ctx</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -223,9 +248,9 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">nu</td><td>order of bessel function - must be 0 or 1 </td></tr>
-    <tr><td class="paramname">f</td><td>pointer to form factor function </td></tr>
+    <tr><td class="paramname">f</td><td>pointer to function to transform </td></tr>
     <tr><td class="paramname">x</td><td>value at which to compute the transform </td></tr>
-    <tr><td class="paramname">f_params</td><td>params for form factor </td></tr>
+    <tr><td class="paramname">f_ctx</td><td>pointer to struct containing inputs for f </td></tr>
     <tr><td class="paramname">output</td><td>pointer to var containing output from transform </td></tr>
     <tr><td class="paramname">n_eval</td><td>integer indicating number of function evaluations (N_ogata in SASfit) </td></tr>
     <tr><td class="paramname">f_max</td><td>float indicating starting guess for max in form factor (h_ogata in SASfit) </td></tr>
@@ -235,8 +260,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a4d24603b9aee1c55276a202e10cf1bee"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4d24603b9aee1c55276a202e10cf1bee">&#9670;&nbsp;</a></span>hankel_transform_DE_Ooura()</h2>
+<a id="ab59eed68ae4b66aa38bae302d028f26f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab59eed68ae4b66aa38bae302d028f26f">&#9670;&nbsp;</a></span>hankel_transform_DE_Ooura()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -250,20 +275,20 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double(*)(double, double(*)[50])&#160;</td>
+          <td class="paramtype"><a class="el" href="libhankel_8h.html#a8e20b1325721b16e0a41c95b642fd74b">form_factor_f</a>&#160;</td>
           <td class="paramname"><em>f</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double&#160;</td>
+          <td class="paramtype">const double&#160;</td>
           <td class="paramname"><em>x</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double(*)&#160;</td>
-          <td class="paramname"><em>f_params</em>[50], </td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>f_ctx</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -296,9 +321,9 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">nu</td><td>order of bessel function - must be 0 or 1 </td></tr>
-    <tr><td class="paramname">f</td><td>pointer to form factor function </td></tr>
+    <tr><td class="paramname">f</td><td>pointer to function to transform </td></tr>
     <tr><td class="paramname">x</td><td>value at which to compute the transform </td></tr>
-    <tr><td class="paramname">f_params</td><td>params for form factor </td></tr>
+    <tr><td class="paramname">f_ctx</td><td>pointer to struct containing inputs for f </td></tr>
     <tr><td class="paramname">output</td><td>pointer to var containing output from transform </td></tr>
     <tr><td class="paramname">n_eval</td><td>integer indicating number of function evaluations (N_ogata in SASfit) </td></tr>
     <tr><td class="paramname">eps_rel</td><td>relative error allowed e.g. 1e-9 (eps_nriq in SASfit) </td></tr>

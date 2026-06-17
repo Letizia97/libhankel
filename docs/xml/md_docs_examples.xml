@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="md_docs_examples" kind="page">
+    <compoundname>md_docs_examples</compoundname>
+    <title>Examples</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>.. _examples:</para>
+<sect1 id="md_docs_examples_1autotoc_md2">
+<title>Examples</title>
+</sect1>
+    </detaileddescription>
+    <location file="docs/examples.md"/>
+  </compounddef>
+</doxygen>

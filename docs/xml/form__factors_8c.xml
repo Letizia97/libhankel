@@ -1,0 +1,348 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="form__factors_8c" kind="file" language="C++">
+    <compoundname>form_factors.c</compoundname>
+    <includes refid="form__factors_8h" local="yes">form_factors.h</includes>
+    <includes local="no">math.h</includes>
+    <includes local="no">stddef.h</includes>
+    <includes local="no">stdio.h</includes>
+    <includes local="no">stdlib.h</includes>
+    <includes local="no">string.h</includes>
+    <includes local="yes">../src/utils/pow_functions.h</includes>
+    <includes local="yes">../src/utils/sf_functions.h</includes>
+    <incdepgraph>
+      <node id="7">
+        <label>stdlib.h</label>
+      </node>
+      <node id="4">
+        <label>stddef.h</label>
+      </node>
+      <node id="8">
+        <label>string.h</label>
+      </node>
+      <node id="2">
+        <label>form_factors.h</label>
+        <link refid="form__factors_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>math.h</label>
+      </node>
+      <node id="3">
+        <label>libhankel.h</label>
+        <link refid="libhankel_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>src/form_factors.c</label>
+        <link refid="form__factors_8c"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>../src/utils/pow_functions.h</label>
+      </node>
+      <node id="6">
+        <label>stdio.h</label>
+      </node>
+      <node id="10">
+        <label>../src/utils/sf_functions.h</label>
+      </node>
+    </incdepgraph>
+    <innerclass refid="structentry" prot="public">entry</innerclass>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="form__factors_8c_1a00c20f1b44508f03b5d2dcbf4c2111f3" prot="public" static="yes" mutable="no">
+        <type><ref refid="structentry" kindref="compound">entry</ref></type>
+        <definition>entry table[]</definition>
+        <argsstring>[]</argsstring>
+        <name>table</name>
+        <initializer>= {
+    {&quot;gdab&quot;, form_factor_g_dab},
+    {&quot;broad_peak&quot;, form_factor_broad_peak},
+    {&quot;sphere&quot;, form_factor_sphere},
+    {NULL, NULL}
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/form_factors.c" line="74" column="14" bodyfile="src/form_factors.c" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="form__factors_8c_1a05ade8d244a85f173cc26c3aea472e60" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double form_factor_g_dab</definition>
+        <argsstring>(double q, void *f_ctx)</argsstring>
+        <name>form_factor_g_dab</name>
+        <param>
+          <type>double</type>
+          <declname>q</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>f_ctx</declname>
+        </param>
+        <briefdescription>
+<para>Computes the g_dab form factor. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>q</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>value at which to compute the transform </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>f_ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to struct containing inputs for form factor</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>Params must contain :<itemizedlist>
+<listitem><para>XI correlation length (e.g., 10.0)</para>
+</listitem><listitem><para>H Hurst exponent (e.g., 0.5)</para>
+</listitem><listitem><para>ETA scattering length density contrast (e.g., 1e-4) </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/form_factors.c" line="17" column="8" bodyfile="src/form_factors.c" bodystart="17" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="form__factors_8c_1a5440e6f208c6bdf8caba50294f2da5fd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double form_factor_sphere</definition>
+        <argsstring>(double q, void *f_ctx)</argsstring>
+        <name>form_factor_sphere</name>
+        <param>
+          <type>double</type>
+          <declname>q</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>f_ctx</declname>
+        </param>
+        <briefdescription>
+<para>Computes the sphere form factor. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>q</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>value at which to compute the transform </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>f_ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to struct containing inputs for form factor</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>Params must contain :<itemizedlist>
+<listitem><para>R radius (e.g., 10.0)</para>
+</listitem><listitem><para>ETA scattering contrast (e.g., 1.0) </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/form_factors.c" line="38" column="8" bodyfile="src/form_factors.c" bodystart="38" bodyend="53"/>
+      </memberdef>
+      <memberdef kind="function" id="form__factors_8c_1adb46bd8febc742b0d81dbafc7df1749d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double form_factor_broad_peak</definition>
+        <argsstring>(double q, void *f_ctx)</argsstring>
+        <name>form_factor_broad_peak</name>
+        <param>
+          <type>double</type>
+          <declname>q</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>f_ctx</declname>
+        </param>
+        <briefdescription>
+<para>Computes the broad_peak form factor. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>q</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>value at which to compute the transform </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>f_ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to struct containing inputs for form factor</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>Params must contain :<itemizedlist>
+<listitem><para>I0 forward scattering (e.g., 10e5)</para>
+</listitem><listitem><para>XI correlation length (e.g., 1000)</para>
+</listitem><listitem><para>Q0 peak position which is related to the d-spacing as q0 = 2pi/d (e.g., 0.01)</para>
+</listitem><listitem><para>M I(Q)=I0/(1+(|q-q0|*xi)^m)^p (e.g., 2)</para>
+</listitem><listitem><para>P I(Q)=I0/(1+(|q-q0|*xi)^m)^p (e.g., 2) </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/form_factors.c" line="56" column="8" bodyfile="src/form_factors.c" bodystart="56" bodyend="67"/>
+      </memberdef>
+      <memberdef kind="function" id="form__factors_8c_1ad3f6584528169d3d49a5b6327557e3d6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="libhankel_8h_1a8e20b1325721b16e0a41c95b642fd74b" kindref="member">form_factor_f</ref></type>
+        <definition>form_factor_f get_form_factor_by_name</definition>
+        <argsstring>(const char *name)</argsstring>
+        <name>get_form_factor_by_name</name>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/form_factors.c" line="81" column="15" bodyfile="src/form_factors.c" bodystart="81" bodyend="87"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Local<sp/>/<sp/>project<sp/>header<sp/>(for<sp/>this<sp/>module)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="form__factors_8h" kindref="compound">form_factors.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Standard<sp/>library<sp/>headers</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;math.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stddef.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdio.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdlib.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Project<sp/>/<sp/>local<sp/>headers</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;../src/utils/pow_functions.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;../src/utils/sf_functions.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="form__factors_8c_1a05ade8d244a85f173cc26c3aea472e60" kindref="member">form_factor_g_dab</ref>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>q,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*f_ctx)<sp/>{</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Cast<sp/>the<sp/>void<sp/>pointer<sp/>`f_ctx`<sp/>to<sp/>its<sp/>real<sp/>type<sp/>(`form_factor_ctx<sp/>*`)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>This<sp/>is<sp/>required<sp/>because<sp/>void*<sp/>cannot<sp/>be<sp/>dereferenced<sp/>directly</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structform__factor__ctx" kindref="compound">form_factor_ctx</ref><sp/>*ctx<sp/>=<sp/>(<ref refid="structform__factor__ctx" kindref="compound">form_factor_ctx</ref><sp/>*)f_ctx;</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*params<sp/>=<sp/>ctx-&gt;<ref refid="structform__factor__ctx_1afe6aa615ef02b2f3607cde85fbdcd771" kindref="member">params</ref>;</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>XI<sp/>=<sp/>params[0];</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>H<sp/>=<sp/>params[1];</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>ETA<sp/>=<sp/>params[2];</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>numer,<sp/>denom;</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>factor1<sp/>=<sp/>pow3(2*XI);</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>factor2<sp/>=<sp/>sf_poch(H,1.5);</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/>numer<sp/>=<sp/>pow2(factor1<sp/>*<sp/>factor2<sp/>*<sp/>ETA)<sp/>*<sp/>pow3(M_PI);</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/>denom<sp/>=<sp/>pow(1<sp/>+<sp/>pow2(q<sp/>*<sp/>XI),<sp/>1.5<sp/>+<sp/>H);</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>numer<sp/>/<sp/>denom;</highlight></codeline>
+<codeline lineno="35"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="form__factors_8c_1a5440e6f208c6bdf8caba50294f2da5fd" kindref="member">form_factor_sphere</ref>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>q,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*f_ctx)<sp/>{</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*params<sp/>=<sp/>((<ref refid="structform__factor__ctx" kindref="compound">form_factor_ctx</ref><sp/>*)f_ctx)-&gt;params;</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>R<sp/>=<sp/>params[0];</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>ETA<sp/>=<sp/>params[1];</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>interm,<sp/>factor;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(q<sp/>*<sp/>R<sp/>&lt;<sp/>1e-4)<sp/>{</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>factor<sp/>=<sp/>1<sp/>-<sp/>pow2(q*R)/10.<sp/>+<sp/>pow4(q*R)/280.<sp/>-<sp/>pow6(q*R)/15120.;</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>interm<sp/>=<sp/>ETA<sp/>*<sp/>4.0/3.0<sp/>*<sp/>M_PI<sp/>*<sp/>R<sp/>*<sp/>R<sp/>*<sp/>R<sp/>*<sp/>factor;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>factor<sp/>=<sp/>sin(q*R)<sp/>-<sp/>q*R*cos(q*R);</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>interm<sp/>=<sp/>ETA<sp/>*<sp/>4.0<sp/>*<sp/>M_PI<sp/>*<sp/>factor<sp/>/<sp/>pow3(q);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>pow2(interm);</highlight></codeline>
+<codeline lineno="53"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="form__factors_8c_1adb46bd8febc742b0d81dbafc7df1749d" kindref="member">form_factor_broad_peak</ref>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>q,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*f_ctx)<sp/>{</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*params<sp/>=<sp/>((<ref refid="structform__factor__ctx" kindref="compound">form_factor_ctx</ref><sp/>*)f_ctx)-&gt;params;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>I0<sp/>=<sp/>params[0];</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>XI<sp/>=<sp/>params[1];</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Q0<sp/>=<sp/>params[2];</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>M<sp/>=<sp/>params[3];</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>P<sp/>=<sp/>params[4];</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>interm<sp/>=<sp/>1.0<sp/>+<sp/>pow(fabs(q-Q0)<sp/>*<sp/>XI,<sp/>M);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>I0<sp/>/<sp/>pow(interm,<sp/>P);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69" refid="structentry" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*name;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="libhankel_8h_1a8e20b1325721b16e0a41c95b642fd74b" kindref="member">form_factor_f</ref><sp/>func;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal">}<sp/><ref refid="structentry" kindref="compound">entry</ref>;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="structentry" kindref="compound">entry</ref><sp/><ref refid="form__factors_8c_1a00c20f1b44508f03b5d2dcbf4c2111f3" kindref="member">table</ref>[]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight><highlight class="stringliteral">&quot;gdab&quot;</highlight><highlight class="normal">,<sp/><ref refid="form__factors_8c_1a05ade8d244a85f173cc26c3aea472e60" kindref="member">form_factor_g_dab</ref>},</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight><highlight class="stringliteral">&quot;broad_peak&quot;</highlight><highlight class="normal">,<sp/><ref refid="form__factors_8c_1adb46bd8febc742b0d81dbafc7df1749d" kindref="member">form_factor_broad_peak</ref>},</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight><highlight class="stringliteral">&quot;sphere&quot;</highlight><highlight class="normal">,<sp/><ref refid="form__factors_8c_1a5440e6f208c6bdf8caba50294f2da5fd" kindref="member">form_factor_sphere</ref>},</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/>{NULL,<sp/>NULL}</highlight></codeline>
+<codeline lineno="79"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><ref refid="libhankel_8h_1a8e20b1325721b16e0a41c95b642fd74b" kindref="member">form_factor_f</ref><sp/><ref refid="form__factors_8c_1ad3f6584528169d3d49a5b6327557e3d6" kindref="member">get_form_factor_by_name</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*name)<sp/>{</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/><ref refid="form__factors_8c_1a00c20f1b44508f03b5d2dcbf4c2111f3" kindref="member">table</ref>[i].<ref refid="structentry_1aebb0525a45ca32f4a89b9180c988edb4" kindref="member">name</ref><sp/>!=<sp/>NULL;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(strcmp(name,<sp/><ref refid="form__factors_8c_1a00c20f1b44508f03b5d2dcbf4c2111f3" kindref="member">table</ref>[i].name)<sp/>==<sp/>0)</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="form__factors_8c_1a00c20f1b44508f03b5d2dcbf4c2111f3" kindref="member">table</ref>[i].<ref refid="structentry_1af18439dab346f24033193785eea7a0d4" kindref="member">func</ref>;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>NULL;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="src/form_factors.c"/>
+  </compounddef>
+</doxygen>

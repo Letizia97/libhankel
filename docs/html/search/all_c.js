@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['usage_20guide_40',['Usage Guide',['../usage.html',1,'']]],
-  ['usage_2emd_41',['usage.md',['../usage_8md.html',1,'']]]
+  ['q_54',['Q',['../structparams__struct.html#ac0d1e7e1890df178b0605032b1a43fc5',1,'params_struct']]]
 ];

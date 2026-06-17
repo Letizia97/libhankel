@@ -1,0 +1,159 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Introduction &mdash; libhankel v0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=fa47ad08"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Installation" href="install.html" />
+    <link rel="prev" title="libhankel documentation" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            libhankel
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html#c-api">C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage Guide</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">libhankel</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Introduction</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/intro.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h1>
+<p id="intro">The Hankel transform, also known as the Fourier–Bessel transform, is widely used in scattering. The
+transform is needed in many areas, e.g. to calculate scattering functions, to correct for multiple scattering,
+to simulate spin echo signals like those obtained on Larmor at the ISIS Neutron and Muon Source, as
+well as to qualitatively analyse phase contrast images (PCI) taken at the Diamond synchrotron source.</p>
+<p>Small-angle scattering (SAS) is an experimental technique using X-rays (SAXS) or neutrons (SANS)
+to study the structure of materials on the nanoscale (roughly 1–1000 nm). SAS measures how radiation
+is scattered at very small angles, which tells us about large-scale structures inside the sample.</p>
+<p>In this library, there are 14 different implementations of the Hankel transform, corresponding to different ways of approximating the Hankel transform integral.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>index (as in SASfit)</p></th>
+<th class="head"><p>Strategy Name</p></th>
+<th class="head"><p>Type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>DE_Ooura</p></td>
+<td><p>Double-exponential quadrature</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>DE_Ogata</p></td>
+<td><p>Double-exponential quadrature</p></td>
+</tr>
+<tr class="row-even"><td><p>6 to 11</p></td>
+<td><p>DHT_6 to DHT_11</p></td>
+<td><p>Digital filters</p></td>
+</tr>
+<tr class="row-odd"><td><p>12</p></td>
+<td><p>QWE_Key</p></td>
+<td><p>QWE with continued fraction expansion</p></td>
+</tr>
+<tr class="row-even"><td><p>13</p></td>
+<td><p>QWE_Chave</p></td>
+<td><p>QWE with Shanks transformation</p></td>
+</tr>
+<tr class="row-odd"><td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+</tr>
+</tbody>
+</table>
+<p>The column named as “index” in the table essentially refers to the numbering used in SASfit.</p>
+<p>Strategies 6 to 11 in SASfit, which in this library are referred to as  DHT_6, DHT_7 .. DHT_11, are fixed-grid digital filter strategies. They are quite fast and perform well on simple form factors but their accuracy decreases on more complex or oscillatory ones. They are not iterative, rely on pre-computed constants, and do not allow the user to control the “accuracy” of the solution in any way.</p>
+<p>All other strategies instead are iterative, and some of them require the user to supply a tolerance parameter (called <code class="docutils literal notranslate"><span class="pre">eps_rel</span></code>) which is then used to determine when to stop iterating. Specifically, iterations are stopped when the difference in the solution of two consecutive iterations is less than the tolerance. For this reasons, strategies that require eps_rel generally perform better than the DHT ones on complex form factors, though they are more slow. Examples of these strategies are 1, 12 and 13 in the above table.</p>
+<p>…</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="libhankel documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="install.html" class="btn btn-neutral float-right" title="Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Letizia.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

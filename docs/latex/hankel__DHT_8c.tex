@@ -3,9 +3,6 @@
 {\ttfamily \#include \char`\"{}libhankel.\+h\char`\"{}}\newline
 {\ttfamily \#include $<$math.\+h$>$}\newline
 {\ttfamily \#include $<$stdio.\+h$>$}\newline
-{\ttfamily \#include $<$gsl/gsl\+\_\+math.\+h$>$}\newline
-{\ttfamily \#include $<$gsl/gsl\+\_\+sf.\+h$>$}\newline
-{\ttfamily \#include $<$gsl/gsl\+\_\+sf\+\_\+bessel.\+h$>$}\newline
 {\ttfamily \#include \char`\"{}../src/utils/strateg6\+\_\+const.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}../src/utils/strateg7\+\_\+const.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}../src/utils/strateg8\+\_\+const.\+h\char`\"{}}\newline
@@ -23,16 +20,16 @@ Include dependency graph for hankel\+\_\+\+DHT.\+c\+:
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-double \mbox{\hyperlink{hankel__DHT_8c_a5659b38515ac61ce3244b82fa0e86c72}{hankel\+\_\+transform\+\_\+\+DHT}} (int nu, double($\ast$f)(double, double($\ast$)\mbox{[}50\mbox{]}), double x, double($\ast$f\+\_\+params)\mbox{[}50\mbox{]}, double $\ast$output, int n\+\_\+strategy)
+double \mbox{\hyperlink{hankel__DHT_8c_a1afd349b27c3678a014332090788d4fa}{hankel\+\_\+transform\+\_\+\+DHT}} (int nu, \mbox{\hyperlink{libhankel_8h_a8e20b1325721b16e0a41c95b642fd74b}{form\+\_\+factor\+\_\+f}} f, const double x, void $\ast$f\+\_\+ctx, double $\ast$output, int n\+\_\+strategy)
 \begin{DoxyCompactList}\small\item\em Computes Hankel transform, using digital filters. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{hankel__DHT_8c_a5659b38515ac61ce3244b82fa0e86c72}\label{hankel__DHT_8c_a5659b38515ac61ce3244b82fa0e86c72}} 
+\mbox{\Hypertarget{hankel__DHT_8c_a1afd349b27c3678a014332090788d4fa}\label{hankel__DHT_8c_a1afd349b27c3678a014332090788d4fa}} 
 \index{hankel\_DHT.c@{hankel\_DHT.c}!hankel\_transform\_DHT@{hankel\_transform\_DHT}}
 \index{hankel\_transform\_DHT@{hankel\_transform\_DHT}!hankel\_DHT.c@{hankel\_DHT.c}}
 \doxysubsubsection{\texorpdfstring{hankel\_transform\_DHT()}{hankel\_transform\_DHT()}}
-{\footnotesize\ttfamily double hankel\+\_\+transform\+\_\+\+DHT (\begin{DoxyParamCaption}\item[{int}]{nu,  }\item[{double($\ast$)(double, double($\ast$)\mbox{[}50\mbox{]})}]{f,  }\item[{double}]{x,  }\item[{double($\ast$)}]{f\+\_\+params\mbox{[}50\mbox{]},  }\item[{double $\ast$}]{output,  }\item[{int}]{n\+\_\+strategy }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily double hankel\+\_\+transform\+\_\+\+DHT (\begin{DoxyParamCaption}\item[{int}]{nu,  }\item[{\mbox{\hyperlink{libhankel_8h_a8e20b1325721b16e0a41c95b642fd74b}{form\+\_\+factor\+\_\+f}}}]{f,  }\item[{const double}]{x,  }\item[{void $\ast$}]{f\+\_\+ctx,  }\item[{double $\ast$}]{output,  }\item[{int}]{n\+\_\+strategy }\end{DoxyParamCaption})}
 
 
 
@@ -49,11 +46,11 @@ Perform wells for simple form factors, but it does struggle with oscillatory one
 \begin{DoxyParams}{Parameters}
 {\em nu} & order of bessel function -\/ must be 0 or 1 \\
 \hline
-{\em f} & pointer to form factor function \\
+{\em f} & pointer to function to transform \\
 \hline
 {\em x} & value at which to compute the transform \\
 \hline
-{\em f\+\_\+params} & params for form factor \\
+{\em f\+\_\+ctx} & pointer to struct containing inputs for f \\
 \hline
 {\em output} & pointer to var containing output from transform \\
 \hline

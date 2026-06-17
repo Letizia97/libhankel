@@ -4,8 +4,7 @@
 {\ttfamily \#include $<$string.\+h$>$}\newline
 {\ttfamily \#include $<$stddef.\+h$>$}\newline
 {\ttfamily \#include $<$stdio.\+h$>$}\newline
-Include dependency graph for hankel\+\_\+transform.\+c\+:
-\nopagebreak
+Include dependency graph for hankel\+\_\+transform.\+c\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -21,16 +20,16 @@ int \mbox{\hyperlink{hankel__transform_8c_a4568f0630d3465e1d6993e9eb1946409}{val
 \item 
 int \mbox{\hyperlink{hankel__transform_8c_a825473c79ffe045666fe8d4dbc052d0d}{validate\+\_\+f\+\_\+max}} (\mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}} \mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}})
 \item 
-int \mbox{\hyperlink{hankel__transform_8c_a33f431ce63a8ab2caedfc19529526024}{hankel\+\_\+transform}} (int nu, double($\ast$f)(double, double($\ast$)\mbox{[}50\mbox{]}), const double $\ast$x, double($\ast$f\+\_\+params)\mbox{[}50\mbox{]}, double $\ast$output, size\+\_\+t len\+\_\+x, const char $\ast$strategy\+\_\+name, \mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}} \mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}})
+int \mbox{\hyperlink{hankel__transform_8c_ac61e4e7e81a12c1006283542141730e8}{hankel\+\_\+transform}} (int nu, \mbox{\hyperlink{libhankel_8h_a8e20b1325721b16e0a41c95b642fd74b}{form\+\_\+factor\+\_\+f}} f, double $\ast$x, size\+\_\+t len\+\_\+x, void $\ast$f\+\_\+ctx, double $\ast$output, const char $\ast$strategy\+\_\+name, \mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}} \mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}})
 \begin{DoxyCompactList}\small\item\em Computes Hankel transform using the method specified by the user. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{hankel__transform_8c_a33f431ce63a8ab2caedfc19529526024}\label{hankel__transform_8c_a33f431ce63a8ab2caedfc19529526024}} 
+\mbox{\Hypertarget{hankel__transform_8c_ac61e4e7e81a12c1006283542141730e8}\label{hankel__transform_8c_ac61e4e7e81a12c1006283542141730e8}} 
 \index{hankel\_transform.c@{hankel\_transform.c}!hankel\_transform@{hankel\_transform}}
 \index{hankel\_transform@{hankel\_transform}!hankel\_transform.c@{hankel\_transform.c}}
 \doxysubsubsection{\texorpdfstring{hankel\_transform()}{hankel\_transform()}}
-{\footnotesize\ttfamily int hankel\+\_\+transform (\begin{DoxyParamCaption}\item[{int}]{nu,  }\item[{double($\ast$)(double, double($\ast$)\mbox{[}50\mbox{]})}]{f,  }\item[{const double $\ast$}]{x,  }\item[{double($\ast$)}]{f\+\_\+params\mbox{[}50\mbox{]},  }\item[{double $\ast$}]{output,  }\item[{size\+\_\+t}]{len\+\_\+x,  }\item[{const char $\ast$}]{strategy\+\_\+name,  }\item[{\mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}}}]{strategy\+\_\+params }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily int hankel\+\_\+transform (\begin{DoxyParamCaption}\item[{int}]{nu,  }\item[{\mbox{\hyperlink{libhankel_8h_a8e20b1325721b16e0a41c95b642fd74b}{form\+\_\+factor\+\_\+f}}}]{f,  }\item[{double $\ast$}]{x,  }\item[{size\+\_\+t}]{len\+\_\+x,  }\item[{void $\ast$}]{f\+\_\+ctx,  }\item[{double $\ast$}]{output,  }\item[{const char $\ast$}]{strategy\+\_\+name,  }\item[{\mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}}}]{strategy\+\_\+params }\end{DoxyParamCaption})}
 
 
 
@@ -43,15 +42,13 @@ The parameter strategy\+\_\+name can be any of \char`\"{}\+QWE\+\_\+\+Chave\char
 \begin{DoxyParams}{Parameters}
 {\em nu} & order of bessel function -\/ must be 0 or 1 \\
 \hline
-{\em f} & pointer to form factor function \\
+{\em f} & pointer to function to transform \\
 \hline
-{\em x} & pointer to array of x values at which to compute the transform \\
+{\em x} & pointer to array of x at which to compute the transform \\
 \hline
-{\em f\+\_\+params} & params for form factor \\
+{\em f\+\_\+ctx} & pointer to struct containing inputs for f \\
 \hline
 {\em output} & pointer to array containing output from transform \\
-\hline
-{\em len\+\_\+x} & length of array x \\
 \hline
 {\em strategy\+\_\+name} & str corresponding to the strategy name \\
 \hline

@@ -1,0 +1,343 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Examples &mdash; libhankel v0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=fa47ad08"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Usage Guide" href="usage.html" />
+    <link rel="prev" title="Installation" href="install.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            libhankel
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#c-api">C API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#_CPPv413form_factor_f"><code class="docutils literal notranslate"><span class="pre">form_factor_f</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#_CPPv416hankel_transformi13form_factor_fPd6size_tPvPdPKc15strategy_params"><code class="docutils literal notranslate"><span class="pre">hankel_transform()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#_CPPv420hankel_transform_DHTi13form_factor_fKdPvPdi"><code class="docutils literal notranslate"><span class="pre">hankel_transform_DHT()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#_CPPv418compute_hankel_FBTi13form_factor_fPvdiid"><code class="docutils literal notranslate"><span class="pre">compute_hankel_FBT()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#_CPPv420hankel_transform_FBTiPFddPAL50E_dEdPAL50E_dPdiid"><code class="docutils literal notranslate"><span class="pre">hankel_transform_FBT()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#_CPPv425hankel_transform_DE_Oourai13form_factor_fKdPvPdid"><code class="docutils literal notranslate"><span class="pre">hankel_transform_DE_Ooura()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#_CPPv425hankel_transform_DE_Ogatai13form_factor_fKdPvPdid"><code class="docutils literal notranslate"><span class="pre">hankel_transform_DE_Ogata()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#_CPPv424hankel_transform_QWE_Keyi13form_factor_fKdPvPdid"><code class="docutils literal notranslate"><span class="pre">hankel_transform_QWE_Key()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#_CPPv426hankel_transform_QWE_Chavei13form_factor_fKdPvPdid"><code class="docutils literal notranslate"><span class="pre">hankel_transform_QWE_Chave()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#_CPPv415strategy_params"><code class="docutils literal notranslate"><span class="pre">strategy_params</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N15strategy_params6n_evalE"><code class="docutils literal notranslate"><span class="pre">n_eval</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N15strategy_params7eps_relE"><code class="docutils literal notranslate"><span class="pre">eps_rel</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N15strategy_params5f_maxE"><code class="docutils literal notranslate"><span class="pre">f_max</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#_CPPv415form_factor_ctx"><code class="docutils literal notranslate"><span class="pre">form_factor_ctx</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N15form_factor_ctx6paramsE"><code class="docutils literal notranslate"><span class="pre">params</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage Guide</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">libhankel</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Examples</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/examples.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="examples">
+<h1>Examples<a class="headerlink" href="#examples" title="Link to this heading"></a></h1>
+</section>
+<section id="c-api">
+<span id="id1"></span><h1>C API<a class="headerlink" href="#c-api" title="Link to this heading"></a></h1>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-typedefs">Typedefs</p>
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv413form_factor_f">
+<span id="_CPPv313form_factor_f"></span><span id="_CPPv213form_factor_f"></span><span id="form_factor_f"></span><span class="target" id="libhankel_8h_1a8e20b1325721b16e0a41c95b642fd74b"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">form_factor_f</span></span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">(</span></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">ctx</span></span><span class="p"><span class="pre">)</span></span><a class="headerlink" href="#_CPPv413form_factor_f" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-functions">Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv416hankel_transformi13form_factor_fPd6size_tPvPdPKc15strategy_params">
+<span id="_CPPv316hankel_transformi13form_factor_fPd6size_tPvPdPKc15strategy_params"></span><span id="_CPPv216hankel_transformi13form_factor_fPd6size_tPvPdPKc15strategy_params"></span><span id="hankel_transform__i.form_factor_f.doubleP.s.voidP.doubleP.cCP.strategy_params"></span><span class="target" id="libhankel_8h_1ac61e4e7e81a12c1006283542141730e8"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hankel_transform</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nu</span></span>, <a class="reference internal" href="#_CPPv413form_factor_f" title="form_factor_f"><span class="n"><span class="pre">form_factor_f</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">f</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">x</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">len_x</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">f_ctx</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">output</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">strategy_name</span></span>, <a class="reference internal" href="#_CPPv416hankel_transformi13form_factor_fPd6size_tPvPdPKc15strategy_params" title="hankel_transform::strategy_params"><span class="n"><span class="pre">strategy_params</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">strategy_params</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv416hankel_transformi13form_factor_fPd6size_tPvPdPKc15strategy_params" title="Link to this definition"></a><br /></dt>
+<dd><p>Computes Hankel transform using the method specified by the user. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The parameter strategy_name can be any of “QWE_Chave”, “QWE_Key”, “DHT_6”, “DHT_7”, “DHT_8”, “DHT_9”, “DHT_10”, “DHT_11”.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nu</strong> – order of bessel function - must be 0 or 1 </p></li>
+<li><p><strong>f</strong> – pointer to function to transform </p></li>
+<li><p><strong>x</strong> – pointer to array of x at which to compute the transform </p></li>
+<li><p><strong>f_ctx</strong> – pointer to struct containing inputs for f </p></li>
+<li><p><strong>output</strong> – pointer to array containing output from transform </p></li>
+<li><p><strong>strategy_name</strong> – str corresponding to the strategy name </p></li>
+<li><p><strong>strategy_params</strong> – struct containing params for the specific strategy (please use the docs to find params required by each strategy) </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv420hankel_transform_DHTi13form_factor_fKdPvPdi">
+<span id="_CPPv320hankel_transform_DHTi13form_factor_fKdPvPdi"></span><span id="_CPPv220hankel_transform_DHTi13form_factor_fKdPvPdi"></span><span id="hankel_transform_DHT__i.form_factor_f.doubleC.voidP.doubleP.i"></span><span class="target" id="libhankel_8h_1a1afd349b27c3678a014332090788d4fa"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hankel_transform_DHT</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nu</span></span>, <a class="reference internal" href="#_CPPv413form_factor_f" title="form_factor_f"><span class="n"><span class="pre">form_factor_f</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">f</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">f_ctx</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">output</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">n_strategy</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv420hankel_transform_DHTi13form_factor_fKdPvPdi" title="Link to this definition"></a><br /></dt>
+<dd><p>Computes Hankel transform, using digital filters. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Corresponds to strategies 6-11 in SASfit. </p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Does not allow any error control. </p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Perform wells for simple form factors, but it does struggle with oscillatory ones. For oscillatory form factors, it is advisable to start with this method for a rough Hankel transform computation, and then refine it with “hankel_transform_QWE_Chave” or “hankel_transform_QWE_Key”.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nu</strong> – order of bessel function - must be 0 or 1 </p></li>
+<li><p><strong>f</strong> – pointer to function to transform </p></li>
+<li><p><strong>x</strong> – value at which to compute the transform </p></li>
+<li><p><strong>f_ctx</strong> – pointer to struct containing inputs for f </p></li>
+<li><p><strong>output</strong> – pointer to var containing output from transform </p></li>
+<li><p><strong>n_strategy</strong> – an integer number between 6 and 11 (determines which weightings to use for the transform and corresponds to SASfit strategies 6-11) </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv418compute_hankel_FBTi13form_factor_fPvdiid">
+<span id="_CPPv318compute_hankel_FBTi13form_factor_fPvdiid"></span><span id="_CPPv218compute_hankel_FBTi13form_factor_fPvdiid"></span><span id="compute_hankel_FBT__i.form_factor_f.voidP.double.i.i.double"></span><span class="target" id="libhankel_8h_1a0413bf125eb226d94b78ba11ff5dfed2"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">compute_hankel_FBT</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nu</span></span>, <a class="reference internal" href="#_CPPv413form_factor_f" title="form_factor_f"><span class="n"><span class="pre">form_factor_f</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">intern_fct</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">ctx</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">n_method</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">n_eval</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">f_max</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv418compute_hankel_FBTi13form_factor_fPvdiid" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv420hankel_transform_FBTiPFddPAL50E_dEdPAL50E_dPdiid">
+<span id="_CPPv320hankel_transform_FBTiPFddPAL50E_dEdPAL50E_dPdiid"></span><span id="_CPPv220hankel_transform_FBTiPFddPA50_dEdPA50_dPdiid"></span><span class="target" id="libhankel_8h_1a90bc633a1ef4e7022cec668b3b2ad96a"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hankel_transform_FBT</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nu</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">f</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">(</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">[</span></span><span class="m"><span class="pre">50</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">)</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">f_params</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">[</span></span><span class="m"><span class="pre">50</span></span><span class="p"><span class="pre">]</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">output</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">n_method</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">n_eval</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">f_max</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv420hankel_transform_FBTiPFddPAL50E_dEdPAL50E_dPdiid" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv425hankel_transform_DE_Oourai13form_factor_fKdPvPdid">
+<span id="_CPPv325hankel_transform_DE_Oourai13form_factor_fKdPvPdid"></span><span id="_CPPv225hankel_transform_DE_Oourai13form_factor_fKdPvPdid"></span><span id="hankel_transform_DE_Ooura__i.form_factor_f.doubleC.voidP.doubleP.i.double"></span><span class="target" id="libhankel_8h_1ab59eed68ae4b66aa38bae302d028f26f"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hankel_transform_DE_Ooura</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nu</span></span>, <a class="reference internal" href="#_CPPv413form_factor_f" title="form_factor_f"><span class="n"><span class="pre">form_factor_f</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">f</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">f_ctx</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">output</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">n_eval</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">eps_rel</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv425hankel_transform_DE_Oourai13form_factor_fKdPvPdid" title="Link to this definition"></a><br /></dt>
+<dd><p>Computes Hankel transform, using de-quadrature. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Corresponds to strategy 0 in SASfit, or HANKEL_OOURA_DEO.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nu</strong> – order of bessel function - must be 0 or 1 </p></li>
+<li><p><strong>f</strong> – pointer to function to transform </p></li>
+<li><p><strong>x</strong> – value at which to compute the transform </p></li>
+<li><p><strong>f_ctx</strong> – pointer to struct containing inputs for f </p></li>
+<li><p><strong>output</strong> – pointer to var containing output from transform </p></li>
+<li><p><strong>n_eval</strong> – integer indicating number of function evaluations (N_ogata in SASfit) </p></li>
+<li><p><strong>eps_rel</strong> – relative error allowed e.g. 1e-9 (eps_nriq in SASfit) </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv425hankel_transform_DE_Ogatai13form_factor_fKdPvPdid">
+<span id="_CPPv325hankel_transform_DE_Ogatai13form_factor_fKdPvPdid"></span><span id="_CPPv225hankel_transform_DE_Ogatai13form_factor_fKdPvPdid"></span><span id="hankel_transform_DE_Ogata__i.form_factor_f.doubleC.voidP.doubleP.i.double"></span><span class="target" id="libhankel_8h_1a796e38bd6e3edd71299fd70895857e90"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hankel_transform_DE_Ogata</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nu</span></span>, <a class="reference internal" href="#_CPPv413form_factor_f" title="form_factor_f"><span class="n"><span class="pre">form_factor_f</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">f</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">f_ctx</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">output</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">n_eval</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">f_max</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv425hankel_transform_DE_Ogatai13form_factor_fKdPvPdid" title="Link to this definition"></a><br /></dt>
+<dd><p>Computes Hankel transform, using de-quadrature. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Corresponds to strategy 1 in SASfit or HANKEL_OGATA_2005.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nu</strong> – order of bessel function - must be 0 or 1 </p></li>
+<li><p><strong>f</strong> – pointer to function to transform </p></li>
+<li><p><strong>x</strong> – value at which to compute the transform </p></li>
+<li><p><strong>f_ctx</strong> – pointer to struct containing inputs for f </p></li>
+<li><p><strong>output</strong> – pointer to var containing output from transform </p></li>
+<li><p><strong>n_eval</strong> – integer indicating number of function evaluations (N_ogata in SASfit) </p></li>
+<li><p><strong>f_max</strong> – float indicating starting guess for max in form factor (h_ogata in SASfit) </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv424hankel_transform_QWE_Keyi13form_factor_fKdPvPdid">
+<span id="_CPPv324hankel_transform_QWE_Keyi13form_factor_fKdPvPdid"></span><span id="_CPPv224hankel_transform_QWE_Keyi13form_factor_fKdPvPdid"></span><span id="hankel_transform_QWE_Key__i.form_factor_f.doubleC.voidP.doubleP.i.double"></span><span class="target" id="libhankel_8h_1ad45f2421887472f1cc8b5e568f49b6ec"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hankel_transform_QWE_Key</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nu</span></span>, <a class="reference internal" href="#_CPPv413form_factor_f" title="form_factor_f"><span class="n"><span class="pre">form_factor_f</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">f</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">f_ctx</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">output</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">n_eval</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">eps_rel</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv424hankel_transform_QWE_Keyi13form_factor_fKdPvPdid" title="Link to this definition"></a><br /></dt>
+<dd><p>Computes Hankel transform using the Quadrature With Extrapolation method by Key. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Corresponds to strategy 12 in SASfit.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nu</strong> – order of bessel function - must be 0 or 1 </p></li>
+<li><p><strong>f</strong> – pointer to function to transform </p></li>
+<li><p><strong>x</strong> – value at which to compute the transform </p></li>
+<li><p><strong>f_ctx</strong> – pointer to struct containing inputs for f </p></li>
+<li><p><strong>output</strong> – pointer to var containing output from transform </p></li>
+<li><p><strong>n_eval</strong> – integer indicating number of function evaluations (N_ogata in SASfit) </p></li>
+<li><p><strong>eps_rel</strong> – relative error allowed e.g. 1e-9 (eps_nriq in SASfit) </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv426hankel_transform_QWE_Chavei13form_factor_fKdPvPdid">
+<span id="_CPPv326hankel_transform_QWE_Chavei13form_factor_fKdPvPdid"></span><span id="_CPPv226hankel_transform_QWE_Chavei13form_factor_fKdPvPdid"></span><span id="hankel_transform_QWE_Chave__i.form_factor_f.doubleC.voidP.doubleP.i.double"></span><span class="target" id="libhankel_8h_1ae09cf89efd135afa916d0790daae8121"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hankel_transform_QWE_Chave</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nu</span></span>, <a class="reference internal" href="#_CPPv413form_factor_f" title="form_factor_f"><span class="n"><span class="pre">form_factor_f</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">f</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">f_ctx</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">output</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">n_eval</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">eps_rel</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv426hankel_transform_QWE_Chavei13form_factor_fKdPvPdid" title="Link to this definition"></a><br /></dt>
+<dd><p>Computes Hankel transform using the Quadrature With Extrapolation method by Chave. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Corresponds to strategy 13 in SASfit.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nu</strong> – order of bessel function - must be 0 or 1 </p></li>
+<li><p><strong>f</strong> – pointer to function to transform </p></li>
+<li><p><strong>x</strong> – value at which to compute the transform </p></li>
+<li><p><strong>f_ctx</strong> – pointer to struct containing inputs for f </p></li>
+<li><p><strong>output</strong> – pointer to var containing output from transform </p></li>
+<li><p><strong>n_eval</strong> – integer indicating number of function evaluations (N_ogata in SASfit) </p></li>
+<li><p><strong>eps_rel</strong> – relative error allowed e.g. 1e-9 (eps_nriq in SASfit) </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv415strategy_params">
+<span id="_CPPv315strategy_params"></span><span id="_CPPv215strategy_params"></span><span id="strategy_params"></span><span class="target" id="structstrategy__params"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">strategy_params</span></span></span><a class="headerlink" href="#_CPPv415strategy_params" title="Link to this definition"></a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;libhankel.h&gt;</em></div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N15strategy_params6n_evalE">
+<span id="_CPPv3N15strategy_params6n_evalE"></span><span id="_CPPv2N15strategy_params6n_evalE"></span><span id="strategy_params::n_eval__i"></span><span class="target" id="structstrategy__params_1a9e5655c2549b2dff884116acc625a955"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">n_eval</span></span></span><a class="headerlink" href="#_CPPv4N15strategy_params6n_evalE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N15strategy_params7eps_relE">
+<span id="_CPPv3N15strategy_params7eps_relE"></span><span id="_CPPv2N15strategy_params7eps_relE"></span><span id="strategy_params::eps_rel__double"></span><span class="target" id="structstrategy__params_1a151596b1adab70fe9de8419ed2936240"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">eps_rel</span></span></span><a class="headerlink" href="#_CPPv4N15strategy_params7eps_relE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N15strategy_params5f_maxE">
+<span id="_CPPv3N15strategy_params5f_maxE"></span><span id="_CPPv2N15strategy_params5f_maxE"></span><span id="strategy_params::f_max__double"></span><span class="target" id="structstrategy__params_1ad788f9a97317a1a70c052b63201fca64"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">f_max</span></span></span><a class="headerlink" href="#_CPPv4N15strategy_params5f_maxE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv415form_factor_ctx">
+<span id="_CPPv315form_factor_ctx"></span><span id="_CPPv215form_factor_ctx"></span><span id="form_factor_ctx"></span><span class="target" id="structform__factor__ctx"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">form_factor_ctx</span></span></span><a class="headerlink" href="#_CPPv415form_factor_ctx" title="Link to this definition"></a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;libhankel.h&gt;</em></div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N15form_factor_ctx6paramsE">
+<span id="_CPPv3N15form_factor_ctx6paramsE"></span><span id="_CPPv2N15form_factor_ctx6paramsE"></span><span id="form_factor_ctx::params__doubleP"></span><span class="target" id="structform__factor__ctx_1afe6aa615ef02b2f3607cde85fbdcd771"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">params</span></span></span><a class="headerlink" href="#_CPPv4N15form_factor_ctx6paramsE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="install.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="usage.html" class="btn btn-neutral float-right" title="Usage Guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Letizia.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

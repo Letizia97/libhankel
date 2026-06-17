@@ -72,13 +72,26 @@ $(function() {
 <div class="title">form_factors.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><div class="dynheader">
+<div class="textblock"><code>#include &quot;<a class="el" href="libhankel_8h_source.html">libhankel.h</a>&quot;</code><br />
+<code>#include &lt;stddef.h&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for form_factors.h:</div>
+<div class="dyncontent">
+<div class="center"><img src="form__factors_8h__incl.png" border="0" usemap="#ainclude_2form__factors_8h" alt=""/></div>
+<map name="ainclude_2form__factors_8h" id="ainclude_2form__factors_8h">
+<area shape="rect" title=" " alt="" coords="9,5,177,32"/>
+<area shape="rect" href="libhankel_8h.html" title=" " alt="" coords="5,80,99,107"/>
+<area shape="rect" title=" " alt="" coords="56,155,131,181"/>
+</map>
+</div>
+</div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="form__factors_8h__dep__incl.png" border="0" usemap="#ainclude_2form__factors_8hdep" alt=""/></div>
 <map name="ainclude_2form__factors_8hdep" id="ainclude_2form__factors_8hdep">
-<area shape="rect" title=" " alt="" coords="5,5,173,32"/>
-<area shape="rect" href="form__factors_8c.html" title=" " alt="" coords="20,80,159,107"/>
+<area shape="rect" title=" " alt="" coords="72,5,240,32"/>
+<area shape="rect" href="form__factors_8c.html" title=" " alt="" coords="5,80,144,107"/>
+<area shape="rect" href="py__interface_8c.html" title=" " alt="" coords="169,80,306,107"/>
 </map>
 </div>
 </div>
@@ -86,19 +99,21 @@ This graph shows which files directly or indirectly include this file:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aae792362bdf2202ba303bae532134c48"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="form__factors_8h.html#aae792362bdf2202ba303bae532134c48">form_factor_g_dab</a> (double q, double(*params)[50])</td></tr>
-<tr class="memdesc:aae792362bdf2202ba303bae532134c48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the g_dab form factor.  <a href="form__factors_8h.html#aae792362bdf2202ba303bae532134c48">More...</a><br /></td></tr>
-<tr class="separator:aae792362bdf2202ba303bae532134c48"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a720612bb3d12c6b6c608f30c3705d64c"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="form__factors_8h.html#a720612bb3d12c6b6c608f30c3705d64c">form_factor_sphere</a> (double q, double(*params)[50])</td></tr>
-<tr class="memdesc:a720612bb3d12c6b6c608f30c3705d64c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the sphere form factor.  <a href="form__factors_8h.html#a720612bb3d12c6b6c608f30c3705d64c">More...</a><br /></td></tr>
-<tr class="separator:a720612bb3d12c6b6c608f30c3705d64c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a40d045fff6a6f27cb5fc959379152ece"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="form__factors_8h.html#a40d045fff6a6f27cb5fc959379152ece">form_factor_broad_peak</a> (double q, double(*params)[50])</td></tr>
-<tr class="memdesc:a40d045fff6a6f27cb5fc959379152ece"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the broad_peak form factor.  <a href="form__factors_8h.html#a40d045fff6a6f27cb5fc959379152ece">More...</a><br /></td></tr>
-<tr class="separator:a40d045fff6a6f27cb5fc959379152ece"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05ade8d244a85f173cc26c3aea472e60"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="form__factors_8h.html#a05ade8d244a85f173cc26c3aea472e60">form_factor_g_dab</a> (double q, void *f_ctx)</td></tr>
+<tr class="memdesc:a05ade8d244a85f173cc26c3aea472e60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the g_dab form factor.  <a href="form__factors_8h.html#a05ade8d244a85f173cc26c3aea472e60">More...</a><br /></td></tr>
+<tr class="separator:a05ade8d244a85f173cc26c3aea472e60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5440e6f208c6bdf8caba50294f2da5fd"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="form__factors_8h.html#a5440e6f208c6bdf8caba50294f2da5fd">form_factor_sphere</a> (double q, void *f_ctx)</td></tr>
+<tr class="memdesc:a5440e6f208c6bdf8caba50294f2da5fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the sphere form factor.  <a href="form__factors_8h.html#a5440e6f208c6bdf8caba50294f2da5fd">More...</a><br /></td></tr>
+<tr class="separator:a5440e6f208c6bdf8caba50294f2da5fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb46bd8febc742b0d81dbafc7df1749d"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="form__factors_8h.html#adb46bd8febc742b0d81dbafc7df1749d">form_factor_broad_peak</a> (double q, void *f_ctx)</td></tr>
+<tr class="memdesc:adb46bd8febc742b0d81dbafc7df1749d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the broad_peak form factor.  <a href="form__factors_8h.html#adb46bd8febc742b0d81dbafc7df1749d">More...</a><br /></td></tr>
+<tr class="separator:adb46bd8febc742b0d81dbafc7df1749d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3f6584528169d3d49a5b6327557e3d6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="libhankel_8h.html#a8e20b1325721b16e0a41c95b642fd74b">form_factor_f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="form__factors_8h.html#ad3f6584528169d3d49a5b6327557e3d6">get_form_factor_by_name</a> (const char *name)</td></tr>
+<tr class="separator:ad3f6584528169d3d49a5b6327557e3d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a40d045fff6a6f27cb5fc959379152ece"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a40d045fff6a6f27cb5fc959379152ece">&#9670;&nbsp;</a></span>form_factor_broad_peak()</h2>
+<a id="adb46bd8febc742b0d81dbafc7df1749d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb46bd8febc742b0d81dbafc7df1749d">&#9670;&nbsp;</a></span>form_factor_broad_peak()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -112,8 +127,8 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double(*)&#160;</td>
-          <td class="paramname"><em>params</em>[50]&#160;</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>f_ctx</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -126,8 +141,8 @@ Functions</h2></td></tr>
 <p>Computes the broad_peak form factor. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">q</td><td>value at which to compute the Hankel t </td></tr>
-    <tr><td class="paramname">params</td><td>pointer to an array of params for the function</td></tr>
+    <tr><td class="paramname">q</td><td>value at which to compute the transform </td></tr>
+    <tr><td class="paramname">f_ctx</td><td>pointer to struct containing inputs for form factor</td></tr>
   </table>
   </dd>
 </dl>
@@ -142,8 +157,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="aae792362bdf2202ba303bae532134c48"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aae792362bdf2202ba303bae532134c48">&#9670;&nbsp;</a></span>form_factor_g_dab()</h2>
+<a id="a05ade8d244a85f173cc26c3aea472e60"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05ade8d244a85f173cc26c3aea472e60">&#9670;&nbsp;</a></span>form_factor_g_dab()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -157,8 +172,8 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double(*)&#160;</td>
-          <td class="paramname"><em>params</em>[50]&#160;</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>f_ctx</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -171,8 +186,8 @@ Functions</h2></td></tr>
 <p>Computes the g_dab form factor. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">q</td><td>value at which to compute the Hankel t </td></tr>
-    <tr><td class="paramname">params</td><td>pointer to an array of params for the function</td></tr>
+    <tr><td class="paramname">q</td><td>value at which to compute the transform </td></tr>
+    <tr><td class="paramname">f_ctx</td><td>pointer to struct containing inputs for form factor</td></tr>
   </table>
   </dd>
 </dl>
@@ -185,8 +200,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a720612bb3d12c6b6c608f30c3705d64c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a720612bb3d12c6b6c608f30c3705d64c">&#9670;&nbsp;</a></span>form_factor_sphere()</h2>
+<a id="a5440e6f208c6bdf8caba50294f2da5fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5440e6f208c6bdf8caba50294f2da5fd">&#9670;&nbsp;</a></span>form_factor_sphere()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -200,8 +215,8 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double(*)&#160;</td>
-          <td class="paramname"><em>params</em>[50]&#160;</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>f_ctx</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -214,8 +229,8 @@ Functions</h2></td></tr>
 <p>Computes the sphere form factor. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">q</td><td>value at which to compute the Hankel t </td></tr>
-    <tr><td class="paramname">params</td><td>pointer to an array of params for the function</td></tr>
+    <tr><td class="paramname">q</td><td>value at which to compute the transform </td></tr>
+    <tr><td class="paramname">f_ctx</td><td>pointer to struct containing inputs for form factor</td></tr>
   </table>
   </dd>
 </dl>
@@ -224,6 +239,24 @@ Functions</h2></td></tr>
 <li>ETA scattering contrast (e.g., 1.0) </li>
 </ul>
 </dd></dl>
+
+</div>
+</div>
+<a id="ad3f6584528169d3d49a5b6327557e3d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3f6584528169d3d49a5b6327557e3d6">&#9670;&nbsp;</a></span>get_form_factor_by_name()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="libhankel_8h.html#a8e20b1325721b16e0a41c95b642fd74b">form_factor_f</a> get_form_factor_by_name </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>

@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['n_5feval_82',['n_eval',['../structstrategy__params.html#a9e5655c2549b2dff884116acc625a955',1,'strategy_params']]],
-  ['nu_83',['nu',['../structparams__struct.html#af9900b998a31c2dc79311116ab680afd',1,'params_struct']]]
+  ['f_5fmax_105',['f_max',['../structstrategy__params.html#ad788f9a97317a1a70c052b63201fca64',1,'strategy_params']]],
+  ['f_5fparams_106',['f_params',['../structparams__struct.html#a637ceb8525729bf27104c68e77bdad8c',1,'params_struct']]],
+  ['func_107',['func',['../structentry.html#af18439dab346f24033193785eea7a0d4',1,'entry']]],
+  ['function_108',['function',['../structparams__struct.html#a2c09081864ba36e037171ba61636b977',1,'params_struct']]]
 ];

@@ -73,43 +73,39 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="libhankel_8h_source.html">libhankel.h</a>&quot;</code><br />
+<code>#include &quot;../external_libs/qwe_Chave/qwe_Chave.h&quot;</code><br />
+<code>#include &quot;../external_libs/qwe_Key/qwe_Key.h&quot;</code><br />
+<code>#include &lt;float.h&gt;</code><br />
 <code>#include &lt;math.h&gt;</code><br />
 <code>#include &lt;stdio.h&gt;</code><br />
-<code>#include &lt;gsl/gsl_math.h&gt;</code><br />
-<code>#include &lt;gsl/gsl_sf.h&gt;</code><br />
-<code>#include &lt;gsl/gsl_sf_bessel.h&gt;</code><br />
-<code>#include &quot;../external_libs/qwe_Key/qwe_Key.h&quot;</code><br />
-<code>#include &quot;../external_libs/qwe_Chave/qwe_Chave.h&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for hankel_QWE.c:</div>
 <div class="dyncontent">
 <div class="center"><img src="hankel__QWE_8c__incl.png" border="0" usemap="#asrc_2hankel__QWE_8c" alt=""/></div>
 <map name="asrc_2hankel__QWE_8c" id="asrc_2hankel__QWE_8c">
-<area shape="rect" title=" " alt="" coords="362,5,499,32"/>
+<area shape="rect" title=" " alt="" coords="381,5,518,32"/>
 <area shape="rect" href="libhankel_8h.html" title=" " alt="" coords="5,87,99,114"/>
-<area shape="rect" title=" " alt="" coords="123,87,191,114"/>
-<area shape="rect" title=" " alt="" coords="216,87,283,114"/>
-<area shape="rect" title=" " alt="" coords="307,87,424,114"/>
-<area shape="rect" title=" " alt="" coords="449,87,543,114"/>
-<area shape="rect" title=" " alt="" coords="568,87,712,114"/>
-<area shape="rect" title=" " alt="" coords="736,80,885,121"/>
-<area shape="rect" title=" " alt="" coords="910,80,1071,121"/>
+<area shape="rect" title=" " alt="" coords="123,80,285,121"/>
+<area shape="rect" title=" " alt="" coords="309,80,459,121"/>
+<area shape="rect" title=" " alt="" coords="483,87,546,114"/>
+<area shape="rect" title=" " alt="" coords="570,87,638,114"/>
+<area shape="rect" title=" " alt="" coords="663,87,729,114"/>
 <area shape="rect" title=" " alt="" coords="15,169,89,196"/>
 </map>
 </div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a39228fe4efc207cc321ca4b9f0423ff0"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hankel__QWE_8c.html#a39228fe4efc207cc321ca4b9f0423ff0">hankel_transform_QWE_Key</a> (int nu, double(*f)(double, double(*)[50]), double x, double(*f_params)[50], double *output, int n_eval, double eps_rel)</td></tr>
-<tr class="memdesc:a39228fe4efc207cc321ca4b9f0423ff0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes Hankel transform using the Quadrature With Extrapolation method by Key.  <a href="hankel__QWE_8c.html#a39228fe4efc207cc321ca4b9f0423ff0">More...</a><br /></td></tr>
-<tr class="separator:a39228fe4efc207cc321ca4b9f0423ff0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9090f7e1fce93cc33ef875d694f9e075"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hankel__QWE_8c.html#a9090f7e1fce93cc33ef875d694f9e075">hankel_transform_QWE_Chave</a> (int nu, double(*f)(double, double(*)[50]), double x, double(*f_params)[50], double *output, int n_eval, double eps_rel)</td></tr>
-<tr class="memdesc:a9090f7e1fce93cc33ef875d694f9e075"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes Hankel transform using the Quadrature With Extrapolation method by Chave.  <a href="hankel__QWE_8c.html#a9090f7e1fce93cc33ef875d694f9e075">More...</a><br /></td></tr>
-<tr class="separator:a9090f7e1fce93cc33ef875d694f9e075"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad45f2421887472f1cc8b5e568f49b6ec"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hankel__QWE_8c.html#ad45f2421887472f1cc8b5e568f49b6ec">hankel_transform_QWE_Key</a> (int nu, <a class="el" href="libhankel_8h.html#a8e20b1325721b16e0a41c95b642fd74b">form_factor_f</a> f, const double x, void *f_ctx, double *output, int n_eval, double eps_rel)</td></tr>
+<tr class="memdesc:ad45f2421887472f1cc8b5e568f49b6ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes Hankel transform using the Quadrature With Extrapolation method by Key.  <a href="hankel__QWE_8c.html#ad45f2421887472f1cc8b5e568f49b6ec">More...</a><br /></td></tr>
+<tr class="separator:ad45f2421887472f1cc8b5e568f49b6ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae09cf89efd135afa916d0790daae8121"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hankel__QWE_8c.html#ae09cf89efd135afa916d0790daae8121">hankel_transform_QWE_Chave</a> (int nu, <a class="el" href="libhankel_8h.html#a8e20b1325721b16e0a41c95b642fd74b">form_factor_f</a> f, const double x, void *f_ctx, double *output, int n_eval, double eps_rel)</td></tr>
+<tr class="memdesc:ae09cf89efd135afa916d0790daae8121"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes Hankel transform using the Quadrature With Extrapolation method by Chave.  <a href="hankel__QWE_8c.html#ae09cf89efd135afa916d0790daae8121">More...</a><br /></td></tr>
+<tr class="separator:ae09cf89efd135afa916d0790daae8121"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a9090f7e1fce93cc33ef875d694f9e075"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9090f7e1fce93cc33ef875d694f9e075">&#9670;&nbsp;</a></span>hankel_transform_QWE_Chave()</h2>
+<a id="ae09cf89efd135afa916d0790daae8121"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae09cf89efd135afa916d0790daae8121">&#9670;&nbsp;</a></span>hankel_transform_QWE_Chave()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -123,20 +119,20 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double(*)(double, double(*)[50])&#160;</td>
+          <td class="paramtype"><a class="el" href="libhankel_8h.html#a8e20b1325721b16e0a41c95b642fd74b">form_factor_f</a>&#160;</td>
           <td class="paramname"><em>f</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double&#160;</td>
+          <td class="paramtype">const double&#160;</td>
           <td class="paramname"><em>x</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double(*)&#160;</td>
-          <td class="paramname"><em>f_params</em>[50], </td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>f_ctx</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -169,9 +165,9 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">nu</td><td>order of bessel function - must be 0 or 1 </td></tr>
-    <tr><td class="paramname">f</td><td>pointer to form factor function </td></tr>
+    <tr><td class="paramname">f</td><td>pointer to function to transform </td></tr>
     <tr><td class="paramname">x</td><td>value at which to compute the transform </td></tr>
-    <tr><td class="paramname">f_params</td><td>params for form factor </td></tr>
+    <tr><td class="paramname">f_ctx</td><td>pointer to struct containing inputs for f </td></tr>
     <tr><td class="paramname">output</td><td>pointer to var containing output from transform </td></tr>
     <tr><td class="paramname">n_eval</td><td>integer indicating number of function evaluations (N_ogata in SASfit) </td></tr>
     <tr><td class="paramname">eps_rel</td><td>relative error allowed e.g. 1e-9 (eps_nriq in SASfit) </td></tr>
@@ -181,8 +177,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a39228fe4efc207cc321ca4b9f0423ff0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a39228fe4efc207cc321ca4b9f0423ff0">&#9670;&nbsp;</a></span>hankel_transform_QWE_Key()</h2>
+<a id="ad45f2421887472f1cc8b5e568f49b6ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad45f2421887472f1cc8b5e568f49b6ec">&#9670;&nbsp;</a></span>hankel_transform_QWE_Key()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -196,20 +192,20 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double(*)(double, double(*)[50])&#160;</td>
+          <td class="paramtype"><a class="el" href="libhankel_8h.html#a8e20b1325721b16e0a41c95b642fd74b">form_factor_f</a>&#160;</td>
           <td class="paramname"><em>f</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double&#160;</td>
+          <td class="paramtype">const double&#160;</td>
           <td class="paramname"><em>x</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double(*)&#160;</td>
-          <td class="paramname"><em>f_params</em>[50], </td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>f_ctx</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -242,9 +238,9 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">nu</td><td>order of bessel function - must be 0 or 1 </td></tr>
-    <tr><td class="paramname">f</td><td>pointer to form factor function </td></tr>
+    <tr><td class="paramname">f</td><td>pointer to function to transform </td></tr>
     <tr><td class="paramname">x</td><td>value at which to compute the transform </td></tr>
-    <tr><td class="paramname">f_params</td><td>params for form factor </td></tr>
+    <tr><td class="paramname">f_ctx</td><td>pointer to struct containing inputs for f </td></tr>
     <tr><td class="paramname">output</td><td>pointer to var containing output from transform </td></tr>
     <tr><td class="paramname">n_eval</td><td>integer indicating number of function evaluations (N_ogata in SASfit) </td></tr>
     <tr><td class="paramname">eps_rel</td><td>relative error allowed e.g. 1e-9 (eps_nriq in SASfit) </td></tr>

@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['pageorder_2edox_36',['pageOrder.dox',['../pageOrder_8dox.html',1,'']]],
-  ['params_5fstruct_37',['params_struct',['../structparams__struct.html',1,'']]]
+  ['n_5feval_41',['n_eval',['../structstrategy__params.html#a9e5655c2549b2dff884116acc625a955',1,'strategy_params']]],
+  ['n_5fparams_42',['n_params',['../structpy__f__ctx.html#adf3dd817c23cd7a33ce164162c07c18d',1,'py_f_ctx']]],
+  ['name_43',['name',['../structentry.html#aebb0525a45ca32f4a89b9180c988edb4',1,'entry']]],
+  ['nu_44',['nu',['../structparams__struct.html#af9900b998a31c2dc79311116ab680afd',1,'params_struct']]]
 ];

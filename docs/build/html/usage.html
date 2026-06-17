@@ -1,0 +1,200 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Usage Guide &mdash; libhankel v0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=fa47ad08"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Examples" href="examples.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            libhankel
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html#c-api">C API</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Usage Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#main-function">Main function</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">libhankel</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Usage Guide</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/usage.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="usage-guide">
+<h1>Usage Guide<a class="headerlink" href="#usage-guide" title="Link to this heading"></a></h1>
+<section id="main-function">
+<span id="usage"></span><h2>Main function<a class="headerlink" href="#main-function" title="Link to this heading"></a></h2>
+<p>The main function a user will be using is <code class="docutils literal notranslate"><span class="pre">hankel_transform()</span></code>. Please click on the name to find out what parameters the user receives as well as their types. The parameter <code class="docutils literal notranslate"><span class="pre">strategy_name</span></code> essentially allows the user the select one of the 14 Hankel transform strategies available. This is further explained under “Note” at <code class="docutils literal notranslate"><span class="pre">hankel_transform()</span></code>.</p>
+<p>Among the input parameters to the function, there is a C struct called <code class="docutils literal notranslate"><span class="pre">strategy_params</span></code>. This struct needs to contain different parameters depending on <code class="docutils literal notranslate"><span class="pre">strategy_name</span></code>. Clicking on <code class="docutils literal notranslate"><span class="pre">strategy_params</span></code> will give an idea of all possible fields this struct can contain. Each strategy only uses some of these, and it’s important that <code class="docutils literal notranslate"><span class="pre">strategy_params</span></code> contains the right parameters required by the selected strategy. If it doesn’t, an error will be thrown.</p>
+<p>Below is a summary of the parameters required by each strategy.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>index (as in SASfit)</p></th>
+<th class="head"><p>Strategy Name</p></th>
+<th class="head"><p>Field names needed in <code class="docutils literal notranslate"><span class="pre">strategy_params</span></code></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>DE_Ooura</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">n_eval</span></code>, <code class="docutils literal notranslate"><span class="pre">eps_rel</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>DE_Ogata</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">n_eval</span></code>, <code class="docutils literal notranslate"><span class="pre">f_max</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>6 to 11</p></td>
+<td><p>DHT_6 to DHT_11</p></td>
+<td><p>N/A</p></td>
+</tr>
+<tr class="row-odd"><td><p>12</p></td>
+<td><p>QWE_Key</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">n_eval</span></code>, <code class="docutils literal notranslate"><span class="pre">eps_rel</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>13</p></td>
+<td><p>QWE_Chave</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">n_eval</span></code>, <code class="docutils literal notranslate"><span class="pre">eps_rel</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+</tr>
+</tbody>
+</table>
+<p>Here is an explanation of each parameter:
+- <code class="docutils literal notranslate"><span class="pre">n_eval</span></code>: integer indicating number of function evaluations
+- <code class="docutils literal notranslate"><span class="pre">eps_rel</span></code>: relative error allowed e.g. 1e-9
+- <code class="docutils literal notranslate"><span class="pre">f_max</span></code>:    float indicating starting guess for max in form factor</p>
+<p>Please note, for DHT strategies (that is, DHT_6 to DHT_11) feel free to supply an empty struct for <code class="docutils literal notranslate"><span class="pre">strategy_params</span></code> . Any field within it will be ignored in these strategies as they do not require such additional parameters.</p>
+<p>## Status codes</p>
+<p>When successful, the <code class="docutils literal notranslate"><span class="pre">hankel_transform()</span></code> function returns 0 . When unsuccessful, it returns an error code. To find out more about the error, the table below lists all possible error codes one might receive plus corresponding explanations.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Status codes</p></th>
+<th class="head"><p>Explanation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>Success</p></td>
+</tr>
+<tr class="row-odd"><td><p>-1</p></td>
+<td><p>Wrong nu (order of bessel function)</p></td>
+</tr>
+<tr class="row-even"><td><p>-2</p></td>
+<td><p>Wrong number for DHT strategy, must be int between 6 and 11</p></td>
+</tr>
+<tr class="row-odd"><td><p>-3</p></td>
+<td><p>Failed to allocate variables</p></td>
+</tr>
+<tr class="row-even"><td><p>-4</p></td>
+<td><p>Did not converge</p></td>
+</tr>
+<tr class="row-odd"><td><p>-5</p></td>
+<td><p>Internal error: division by zero</p></td>
+</tr>
+<tr class="row-even"><td><p>-6</p></td>
+<td><p>Internal error: wrong nzeros in function bessel_j_zero (must be &gt;= 1)</p></td>
+</tr>
+<tr class="row-odd"><td><p>-7</p></td>
+<td><p>Internal error: wrong n of iterations in pade sum (must be &gt;= 1)</p></td>
+</tr>
+<tr class="row-even"><td><p>-8</p></td>
+<td><p>Wrong strategy parameters supplied to hankel transform function</p></td>
+</tr>
+<tr class="row-odd"><td><p>-9</p></td>
+<td><p>Wrong parameters supplied to form factor</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="examples.html" class="btn btn-neutral float-left" title="Examples" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Letizia.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

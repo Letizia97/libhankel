@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['installation_86',['Installation',['../install.html',1,'']]],
-  ['introduction_87',['Introduction',['../intro.html',1,'']]]
+  ['installation_122',['Installation',['../md_docs_installation.html',1,'']]],
+  ['introduction_123',['Introduction',['../md_docs_intro.html',1,'']]]
 ];

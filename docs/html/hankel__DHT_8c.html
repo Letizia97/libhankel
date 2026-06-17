@@ -75,9 +75,6 @@ $(function() {
 <div class="textblock"><code>#include &quot;<a class="el" href="libhankel_8h_source.html">libhankel.h</a>&quot;</code><br />
 <code>#include &lt;math.h&gt;</code><br />
 <code>#include &lt;stdio.h&gt;</code><br />
-<code>#include &lt;gsl/gsl_math.h&gt;</code><br />
-<code>#include &lt;gsl/gsl_sf.h&gt;</code><br />
-<code>#include &lt;gsl/gsl_sf_bessel.h&gt;</code><br />
 <code>#include &quot;../src/utils/strateg6_const.h&quot;</code><br />
 <code>#include &quot;../src/utils/strateg7_const.h&quot;</code><br />
 <code>#include &quot;../src/utils/strateg8_const.h&quot;</code><br />
@@ -89,32 +86,29 @@ Include dependency graph for hankel_DHT.c:</div>
 <div class="dyncontent">
 <div class="center"><img src="hankel__DHT_8c__incl.png" border="0" usemap="#asrc_2hankel__DHT_8c" alt=""/></div>
 <map name="asrc_2hankel__DHT_8c" id="asrc_2hankel__DHT_8c">
-<area shape="rect" title=" " alt="" coords="657,5,791,32"/>
+<area shape="rect" title=" " alt="" coords="479,5,612,32"/>
 <area shape="rect" href="libhankel_8h.html" title=" " alt="" coords="5,87,99,114"/>
 <area shape="rect" title=" " alt="" coords="123,87,191,114"/>
 <area shape="rect" title=" " alt="" coords="216,87,283,114"/>
-<area shape="rect" title=" " alt="" coords="307,87,424,114"/>
-<area shape="rect" title=" " alt="" coords="449,87,543,114"/>
-<area shape="rect" title=" " alt="" coords="568,87,712,114"/>
-<area shape="rect" title=" " alt="" coords="737,80,879,121"/>
-<area shape="rect" title=" " alt="" coords="903,80,1046,121"/>
-<area shape="rect" title=" " alt="" coords="1070,80,1213,121"/>
-<area shape="rect" title=" " alt="" coords="1237,80,1379,121"/>
-<area shape="rect" title=" " alt="" coords="1403,80,1554,121"/>
-<area shape="rect" title=" " alt="" coords="1578,80,1729,121"/>
+<area shape="rect" title=" " alt="" coords="307,80,450,121"/>
+<area shape="rect" title=" " alt="" coords="474,80,617,121"/>
+<area shape="rect" title=" " alt="" coords="641,80,783,121"/>
+<area shape="rect" title=" " alt="" coords="807,80,950,121"/>
+<area shape="rect" title=" " alt="" coords="974,80,1125,121"/>
+<area shape="rect" title=" " alt="" coords="1149,80,1299,121"/>
 <area shape="rect" title=" " alt="" coords="15,169,89,196"/>
 </map>
 </div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a5659b38515ac61ce3244b82fa0e86c72"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hankel__DHT_8c.html#a5659b38515ac61ce3244b82fa0e86c72">hankel_transform_DHT</a> (int nu, double(*f)(double, double(*)[50]), double x, double(*f_params)[50], double *output, int n_strategy)</td></tr>
-<tr class="memdesc:a5659b38515ac61ce3244b82fa0e86c72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes Hankel transform, using digital filters.  <a href="hankel__DHT_8c.html#a5659b38515ac61ce3244b82fa0e86c72">More...</a><br /></td></tr>
-<tr class="separator:a5659b38515ac61ce3244b82fa0e86c72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1afd349b27c3678a014332090788d4fa"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hankel__DHT_8c.html#a1afd349b27c3678a014332090788d4fa">hankel_transform_DHT</a> (int nu, <a class="el" href="libhankel_8h.html#a8e20b1325721b16e0a41c95b642fd74b">form_factor_f</a> f, const double x, void *f_ctx, double *output, int n_strategy)</td></tr>
+<tr class="memdesc:a1afd349b27c3678a014332090788d4fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes Hankel transform, using digital filters.  <a href="hankel__DHT_8c.html#a1afd349b27c3678a014332090788d4fa">More...</a><br /></td></tr>
+<tr class="separator:a1afd349b27c3678a014332090788d4fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a5659b38515ac61ce3244b82fa0e86c72"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5659b38515ac61ce3244b82fa0e86c72">&#9670;&nbsp;</a></span>hankel_transform_DHT()</h2>
+<a id="a1afd349b27c3678a014332090788d4fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1afd349b27c3678a014332090788d4fa">&#9670;&nbsp;</a></span>hankel_transform_DHT()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -128,20 +122,20 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double(*)(double, double(*)[50])&#160;</td>
+          <td class="paramtype"><a class="el" href="libhankel_8h.html#a8e20b1325721b16e0a41c95b642fd74b">form_factor_f</a>&#160;</td>
           <td class="paramname"><em>f</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double&#160;</td>
+          <td class="paramtype">const double&#160;</td>
           <td class="paramname"><em>x</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double(*)&#160;</td>
-          <td class="paramname"><em>f_params</em>[50], </td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>f_ctx</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -172,9 +166,9 @@ Perform wells for simple form factors, but it does struggle with oscillatory one
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">nu</td><td>order of bessel function - must be 0 or 1 </td></tr>
-    <tr><td class="paramname">f</td><td>pointer to form factor function </td></tr>
+    <tr><td class="paramname">f</td><td>pointer to function to transform </td></tr>
     <tr><td class="paramname">x</td><td>value at which to compute the transform </td></tr>
-    <tr><td class="paramname">f_params</td><td>params for form factor </td></tr>
+    <tr><td class="paramname">f_ctx</td><td>pointer to struct containing inputs for f </td></tr>
     <tr><td class="paramname">output</td><td>pointer to var containing output from transform </td></tr>
     <tr><td class="paramname">n_strategy</td><td>an integer number between 6 and 11 (determines which weightings to use for the transform and corresponds to SASfit strategies 6-11) </td></tr>
   </table>

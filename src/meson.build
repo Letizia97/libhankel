@@ -9,7 +9,7 @@ ogata_cpp_src = files(
   '../external_libs/Ogata/FTB.cpp',
 )
 
-# Compile them as a static or object library (object library avoids archive)
+# Compile as a static or object library 
 ogata_objlib = static_library(
   'ogata_cpp',
   sources: ogata_cpp_src,
@@ -21,7 +21,6 @@ ogata_dep = declare_dependency(
   include_directories: [ogata_inc],
 )
 
-# ---- Your C++ wrapper that exposes a C ABI ----
 wrapper_cpp = files('wrappers/wrapper_FBT.cpp')
 
 wrapper_lib = static_library(
@@ -36,7 +35,6 @@ wrapper_dep = declare_dependency(
   link_with: wrapper_lib,
   include_directories: [inc_root],
 )
-
 
 # ---- Main C library ----
 sources = files(
@@ -57,7 +55,7 @@ sources = files(
 )
 
 libhankel = shared_library(
-  'libhankel',                             # builds liblibhankel.so/.a
+  'libhankel',                           
   sources: sources,
   include_directories: [inc_root],
   dependencies: [wrapper_dep, gsl_dep],          

@@ -1,0 +1,900 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="libhankel_8h" kind="file" language="C++">
+    <compoundname>libhankel.h</compoundname>
+    <includes local="no">stddef.h</includes>
+    <includedby refid="form__factors_8h" local="yes">include/form_factors.h</includedby>
+    <includedby refid="hankel__DE__quadrature_8c" local="yes">src/hankel_DE_quadrature.c</includedby>
+    <includedby refid="hankel__DHT_8c" local="yes">src/hankel_DHT.c</includedby>
+    <includedby refid="hankel__QWE_8c" local="yes">src/hankel_QWE.c</includedby>
+    <includedby refid="hankel__transform_8c" local="yes">src/hankel_transform.c</includedby>
+    <includedby refid="py__interface_8c" local="yes">src/py_interface.c</includedby>
+    <incdepgraph>
+      <node id="2">
+        <label>stddef.h</label>
+      </node>
+      <node id="1">
+        <label>include/libhankel.h</label>
+        <link refid="libhankel_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="5">
+        <label>src/hankel_DE_quadrature.c</label>
+        <link refid="hankel__DE__quadrature_8c"/>
+      </node>
+      <node id="8">
+        <label>src/hankel_transform.c</label>
+        <link refid="hankel__transform_8c"/>
+      </node>
+      <node id="7">
+        <label>src/hankel_QWE.c</label>
+        <link refid="hankel__QWE_8c"/>
+      </node>
+      <node id="2">
+        <label>include/form_factors.h</label>
+        <link refid="form__factors_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>src/hankel_DHT.c</label>
+        <link refid="hankel__DHT_8c"/>
+      </node>
+      <node id="1">
+        <label>include/libhankel.h</label>
+        <link refid="libhankel_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>src/form_factors.c</label>
+        <link refid="form__factors_8c"/>
+      </node>
+      <node id="4">
+        <label>src/py_interface.c</label>
+        <link refid="py__interface_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structstrategy__params" prot="public">strategy_params</innerclass>
+    <innerclass refid="structform__factor__ctx" prot="public">form_factor_ctx</innerclass>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="libhankel_8h_1a8e20b1325721b16e0a41c95b642fd74b" prot="public" static="no">
+        <type>double(*</type>
+        <definition>typedef double(* form_factor_f) (double x, void *ctx)</definition>
+        <argsstring>)(double x, void *ctx)</argsstring>
+        <name>form_factor_f</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/libhankel.h" line="12" column="9" bodyfile="include/libhankel.h" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="libhankel_8h_1ac61e4e7e81a12c1006283542141730e8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int hankel_transform</definition>
+        <argsstring>(int nu, form_factor_f f, double *x, size_t len_x, void *f_ctx, double *output, const char *strategy_name, strategy_params strategy_params)</argsstring>
+        <name>hankel_transform</name>
+        <param>
+          <type>int</type>
+          <declname>nu</declname>
+        </param>
+        <param>
+          <type><ref refid="libhankel_8h_1a8e20b1325721b16e0a41c95b642fd74b" kindref="member">form_factor_f</ref></type>
+          <declname>f</declname>
+        </param>
+        <param>
+          <type>double *</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>len_x</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>f_ctx</declname>
+        </param>
+        <param>
+          <type>double *</type>
+          <declname>output</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>strategy_name</declname>
+        </param>
+        <param>
+          <type><ref refid="structstrategy__params" kindref="compound">strategy_params</ref></type>
+          <declname>strategy_params</declname>
+        </param>
+        <briefdescription>
+<para>Computes Hankel transform using the method specified by the user. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>The parameter strategy_name can be any of &quot;QWE_Chave&quot;, &quot;QWE_Key&quot;, &quot;DHT_6&quot;, &quot;DHT_7&quot;, &quot;DHT_8&quot;, &quot;DHT_9&quot;, &quot;DHT_10&quot;, &quot;DHT_11&quot;.</para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>nu</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>order of bessel function - must be 0 or 1 </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>f</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to function to transform </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to array of x at which to compute the transform </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>f_ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to struct containing inputs for f </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>output</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to array containing output from transform </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>strategy_name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>str corresponding to the strategy name </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername><ref refid="structstrategy__params" kindref="compound">strategy_params</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para>struct containing params for the specific strategy (please use the docs to find params required by each strategy) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/libhankel.h" line="18" column="5" bodyfile="src/hankel_transform.c" bodystart="46" bodyend="232" declfile="include/libhankel.h" declline="18" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="libhankel_8h_1a1afd349b27c3678a014332090788d4fa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double hankel_transform_DHT</definition>
+        <argsstring>(int nu, form_factor_f f, const double x, void *f_ctx, double *output, int n_strategy)</argsstring>
+        <name>hankel_transform_DHT</name>
+        <param>
+          <type>int</type>
+          <declname>nu</declname>
+        </param>
+        <param>
+          <type><ref refid="libhankel_8h_1a8e20b1325721b16e0a41c95b642fd74b" kindref="member">form_factor_f</ref></type>
+          <declname>f</declname>
+        </param>
+        <param>
+          <type>const double</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>f_ctx</declname>
+        </param>
+        <param>
+          <type>double *</type>
+          <declname>output</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>n_strategy</declname>
+        </param>
+        <briefdescription>
+<para>Computes Hankel transform, using digital filters. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>Corresponds to strategies 6-11 in SASfit. </para>
+</simplesect>
+<simplesect kind="note"><para>Does not allow any error control. </para>
+</simplesect>
+<simplesect kind="note"><para>Perform wells for simple form factors, but it does struggle with oscillatory ones. For oscillatory form factors, it is advisable to start with this method for a rough Hankel transform computation, and then refine it with &quot;hankel_transform_QWE_Chave&quot; or &quot;hankel_transform_QWE_Key&quot;.</para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>nu</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>order of bessel function - must be 0 or 1 </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>f</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to function to transform </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>value at which to compute the transform </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>f_ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to struct containing inputs for f </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>output</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to var containing output from transform </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>n_strategy</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>an integer number between 6 and 11 (determines which weightings to use for the transform and corresponds to SASfit strategies 6-11) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/libhankel.h" line="31" column="8" bodyfile="src/hankel_DHT.c" bodystart="43" bodyend="133" declfile="include/libhankel.h" declline="31" declcolumn="8"/>
+      </memberdef>
+      <memberdef kind="function" id="libhankel_8h_1a0413bf125eb226d94b78ba11ff5dfed2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double compute_hankel_FBT</definition>
+        <argsstring>(int nu, form_factor_f intern_fct, void *ctx, double x, int n_method, int n_eval, double f_max)</argsstring>
+        <name>compute_hankel_FBT</name>
+        <param>
+          <type>int</type>
+          <declname>nu</declname>
+        </param>
+        <param>
+          <type><ref refid="libhankel_8h_1a8e20b1325721b16e0a41c95b642fd74b" kindref="member">form_factor_f</ref></type>
+          <declname>intern_fct</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>n_method</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>n_eval</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>f_max</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/libhankel.h" line="41" column="8" declfile="include/libhankel.h" declline="41" declcolumn="8"/>
+      </memberdef>
+      <memberdef kind="function" id="libhankel_8h_1a90bc633a1ef4e7022cec668b3b2ad96a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double hankel_transform_FBT</definition>
+        <argsstring>(int nu, double(*f)(double, double(*)[50]), double x, double(*f_params)[50], double *output, int n_method, int n_eval, double f_max)</argsstring>
+        <name>hankel_transform_FBT</name>
+        <param>
+          <type>int</type>
+          <declname>nu</declname>
+        </param>
+        <param>
+          <type>double(*)(double, double(*)[50])</type>
+          <declname>f</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>double(*)</type>
+          <declname>f_params</declname>
+          <array>[50]</array>
+        </param>
+        <param>
+          <type>double *</type>
+          <declname>output</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>n_method</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>n_eval</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>f_max</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/libhankel.h" line="50" column="8" declfile="include/libhankel.h" declline="50" declcolumn="8"/>
+      </memberdef>
+      <memberdef kind="function" id="libhankel_8h_1ab59eed68ae4b66aa38bae302d028f26f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double hankel_transform_DE_Ooura</definition>
+        <argsstring>(int nu, form_factor_f f, const double x, void *f_ctx, double *output, int n_eval, double eps_rel)</argsstring>
+        <name>hankel_transform_DE_Ooura</name>
+        <param>
+          <type>int</type>
+          <declname>nu</declname>
+        </param>
+        <param>
+          <type><ref refid="libhankel_8h_1a8e20b1325721b16e0a41c95b642fd74b" kindref="member">form_factor_f</ref></type>
+          <declname>f</declname>
+        </param>
+        <param>
+          <type>const double</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>f_ctx</declname>
+        </param>
+        <param>
+          <type>double *</type>
+          <declname>output</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>n_eval</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>eps_rel</declname>
+        </param>
+        <briefdescription>
+<para>Computes Hankel transform, using de-quadrature. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>Corresponds to strategy 0 in SASfit, or HANKEL_OOURA_DEO.</para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>nu</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>order of bessel function - must be 0 or 1 </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>f</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to function to transform </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>value at which to compute the transform </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>f_ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to struct containing inputs for f </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>output</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to var containing output from transform </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>n_eval</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>integer indicating number of function evaluations (N_ogata in SASfit) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>eps_rel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>relative error allowed e.g. 1e-9 (eps_nriq in SASfit) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/libhankel.h" line="62" column="8" bodyfile="src/hankel_DE_quadrature.c" bodystart="96" bodyend="171" declfile="include/libhankel.h" declline="62" declcolumn="8"/>
+      </memberdef>
+      <memberdef kind="function" id="libhankel_8h_1a796e38bd6e3edd71299fd70895857e90" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double hankel_transform_DE_Ogata</definition>
+        <argsstring>(int nu, form_factor_f f, const double x, void *f_ctx, double *output, int n_eval, double f_max)</argsstring>
+        <name>hankel_transform_DE_Ogata</name>
+        <param>
+          <type>int</type>
+          <declname>nu</declname>
+        </param>
+        <param>
+          <type><ref refid="libhankel_8h_1a8e20b1325721b16e0a41c95b642fd74b" kindref="member">form_factor_f</ref></type>
+          <declname>f</declname>
+        </param>
+        <param>
+          <type>const double</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>f_ctx</declname>
+        </param>
+        <param>
+          <type>double *</type>
+          <declname>output</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>n_eval</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>f_max</declname>
+        </param>
+        <briefdescription>
+<para>Computes Hankel transform, using de-quadrature. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>Corresponds to strategy 1 in SASfit or HANKEL_OGATA_2005.</para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>nu</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>order of bessel function - must be 0 or 1 </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>f</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to function to transform </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>value at which to compute the transform </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>f_ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to struct containing inputs for f </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>output</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to var containing output from transform </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>n_eval</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>integer indicating number of function evaluations (N_ogata in SASfit) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>f_max</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>float indicating starting guess for max in form factor (h_ogata in SASfit) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/libhankel.h" line="73" column="8" bodyfile="src/hankel_DE_quadrature.c" bodystart="185" bodyend="241" declfile="include/libhankel.h" declline="73" declcolumn="8"/>
+      </memberdef>
+      <memberdef kind="function" id="libhankel_8h_1ad45f2421887472f1cc8b5e568f49b6ec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double hankel_transform_QWE_Key</definition>
+        <argsstring>(int nu, form_factor_f f, const double x, void *f_ctx, double *output, int n_eval, double eps_rel)</argsstring>
+        <name>hankel_transform_QWE_Key</name>
+        <param>
+          <type>int</type>
+          <declname>nu</declname>
+        </param>
+        <param>
+          <type><ref refid="libhankel_8h_1a8e20b1325721b16e0a41c95b642fd74b" kindref="member">form_factor_f</ref></type>
+          <declname>f</declname>
+        </param>
+        <param>
+          <type>const double</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>f_ctx</declname>
+        </param>
+        <param>
+          <type>double *</type>
+          <declname>output</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>n_eval</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>eps_rel</declname>
+        </param>
+        <briefdescription>
+<para>Computes Hankel transform using the Quadrature With Extrapolation method by Key. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>Corresponds to strategy 12 in SASfit.</para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>nu</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>order of bessel function - must be 0 or 1 </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>f</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to function to transform </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>value at which to compute the transform </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>f_ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to struct containing inputs for f </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>output</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to var containing output from transform </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>n_eval</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>integer indicating number of function evaluations (N_ogata in SASfit) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>eps_rel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>relative error allowed e.g. 1e-9 (eps_nriq in SASfit) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/libhankel.h" line="84" column="8" bodyfile="src/hankel_QWE.c" bodystart="32" bodyend="54" declfile="include/libhankel.h" declline="84" declcolumn="8"/>
+      </memberdef>
+      <memberdef kind="function" id="libhankel_8h_1ae09cf89efd135afa916d0790daae8121" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double hankel_transform_QWE_Chave</definition>
+        <argsstring>(int nu, form_factor_f f, const double x, void *f_ctx, double *output, int n_eval, double eps_rel)</argsstring>
+        <name>hankel_transform_QWE_Chave</name>
+        <param>
+          <type>int</type>
+          <declname>nu</declname>
+        </param>
+        <param>
+          <type><ref refid="libhankel_8h_1a8e20b1325721b16e0a41c95b642fd74b" kindref="member">form_factor_f</ref></type>
+          <declname>f</declname>
+        </param>
+        <param>
+          <type>const double</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>f_ctx</declname>
+        </param>
+        <param>
+          <type>double *</type>
+          <declname>output</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>n_eval</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>eps_rel</declname>
+        </param>
+        <briefdescription>
+<para>Computes Hankel transform using the Quadrature With Extrapolation method by Chave. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>Corresponds to strategy 13 in SASfit.</para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>nu</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>order of bessel function - must be 0 or 1 </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>f</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to function to transform </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>value at which to compute the transform </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>f_ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to struct containing inputs for f </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>output</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to var containing output from transform </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>n_eval</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>integer indicating number of function evaluations (N_ogata in SASfit) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>eps_rel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>relative error allowed e.g. 1e-9 (eps_nriq in SASfit) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/libhankel.h" line="95" column="8" bodyfile="src/hankel_QWE.c" bodystart="68" bodyend="89" declfile="include/libhankel.h" declline="95" declcolumn="8"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>LIBHANKEL_H</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>LIBHANKEL_H</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stddef.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6" refid="structstrategy__params" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="7" refid="structstrategy__params_1a9e5655c2549b2dff884116acc625a955" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structstrategy__params_1a9e5655c2549b2dff884116acc625a955" kindref="member">n_eval</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>integer<sp/>indicating<sp/>number<sp/>of<sp/>function<sp/>evaluations<sp/>(N_ogata<sp/>in<sp/>SASfit)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8" refid="structstrategy__params_1a151596b1adab70fe9de8419ed2936240" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="structstrategy__params_1a151596b1adab70fe9de8419ed2936240" kindref="member">eps_rel</ref>;<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>relative<sp/>error<sp/>allowed<sp/>e.g.<sp/>1e-9<sp/>(eps_nriq<sp/>in<sp/>SASfit)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9" refid="structstrategy__params_1ad788f9a97317a1a70c052b63201fca64" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="structstrategy__params_1ad788f9a97317a1a70c052b63201fca64" kindref="member">f_max</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>float<sp/>indicating<sp/>starting<sp/>guess<sp/>for<sp/>max<sp/>in<sp/>form<sp/>factor<sp/>(h_ogata<sp/>in<sp/>SASfit)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal">}<sp/><ref refid="structstrategy__params" kindref="compound">strategy_params</ref>;</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12" refid="libhankel_8h_1a8e20b1325721b16e0a41c95b642fd74b" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>double<sp/>(*<ref refid="libhankel_8h_1a8e20b1325721b16e0a41c95b642fd74b" kindref="member">form_factor_f</ref>)(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>x,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*ctx);</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14" refid="structform__factor__ctx" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="15" refid="structform__factor__ctx_1afe6aa615ef02b2f3607cde85fbdcd771" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*<ref refid="structform__factor__ctx_1afe6aa615ef02b2f3607cde85fbdcd771" kindref="member">params</ref>;</highlight></codeline>
+<codeline lineno="16"><highlight class="normal">}<sp/><ref refid="structform__factor__ctx" kindref="compound">form_factor_ctx</ref>;</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="libhankel_8h_1ac61e4e7e81a12c1006283542141730e8" kindref="member">hankel_transform</ref>(</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nu,<sp/></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="libhankel_8h_1a8e20b1325721b16e0a41c95b642fd74b" kindref="member">form_factor_f</ref><sp/>f,<sp/></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*x,</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len_x,</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*f_ctx,</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*output,</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*strategy_name,</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structstrategy__params" kindref="compound">strategy_params</ref><sp/><ref refid="structstrategy__params" kindref="compound">strategy_params</ref></highlight></codeline>
+<codeline lineno="27"><highlight class="normal">);<sp/></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="comment">//<sp/>strategies<sp/>6-11<sp/>(DHT)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="libhankel_8h_1a1afd349b27c3678a014332090788d4fa" kindref="member">hankel_transform_DHT</ref>(</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nu,<sp/></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="libhankel_8h_1a8e20b1325721b16e0a41c95b642fd74b" kindref="member">form_factor_f</ref><sp/>f,<sp/></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>x,</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*f_ctx,</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*<sp/>output,</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>n_strategy</highlight></codeline>
+<codeline lineno="38"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">//<sp/>corresponding<sp/>to<sp/>strategies<sp/>2-4<sp/>(FBT)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41" refid="libhankel_8h_1a0413bf125eb226d94b78ba11ff5dfed2" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="libhankel_8h_1a0413bf125eb226d94b78ba11ff5dfed2" kindref="member">compute_hankel_FBT</ref>(</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nu,<sp/></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="libhankel_8h_1a8e20b1325721b16e0a41c95b642fd74b" kindref="member">form_factor_f</ref><sp/>intern_fct,</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*ctx,</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>x,<sp/></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>n_method,<sp/></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>n_eval,<sp/></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>f_max</highlight></codeline>
+<codeline lineno="49"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="50" refid="libhankel_8h_1a90bc633a1ef4e7022cec668b3b2ad96a" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="libhankel_8h_1a90bc633a1ef4e7022cec668b3b2ad96a" kindref="member">hankel_transform_FBT</ref>(</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nu,<sp/></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>(*f)(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>(*)[50]),<sp/></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>x,<sp/></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>(*f_params)[50],<sp/></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*output,</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>n_method,<sp/></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>n_eval,<sp/></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>f_max</highlight></codeline>
+<codeline lineno="59"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="comment">//<sp/>strategy<sp/>0<sp/>(DE<sp/>QUADRATURE)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="libhankel_8h_1ab59eed68ae4b66aa38bae302d028f26f" kindref="member">hankel_transform_DE_Ooura</ref>(</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nu,<sp/></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="libhankel_8h_1a8e20b1325721b16e0a41c95b642fd74b" kindref="member">form_factor_f</ref><sp/>f,<sp/></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>x,</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*f_ctx,</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*<sp/>output,</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>n_eval,<sp/></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>eps_rel</highlight></codeline>
+<codeline lineno="70"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="comment">//<sp/>strategy<sp/>1<sp/>(DE<sp/>QUADRATURE)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="libhankel_8h_1a796e38bd6e3edd71299fd70895857e90" kindref="member">hankel_transform_DE_Ogata</ref>(</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nu,<sp/></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="libhankel_8h_1a8e20b1325721b16e0a41c95b642fd74b" kindref="member">form_factor_f</ref><sp/>f,<sp/></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>x,</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*f_ctx,</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*<sp/>output,</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>n_eval,<sp/></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>f_max</highlight></codeline>
+<codeline lineno="81"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="comment">//<sp/>strategy<sp/>12</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="libhankel_8h_1ad45f2421887472f1cc8b5e568f49b6ec" kindref="member">hankel_transform_QWE_Key</ref>(</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nu,<sp/></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="libhankel_8h_1a8e20b1325721b16e0a41c95b642fd74b" kindref="member">form_factor_f</ref><sp/>f,<sp/></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>x,</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*f_ctx,</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*<sp/>output,</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>n_eval,<sp/></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>eps_rel</highlight></codeline>
+<codeline lineno="92"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight><highlight class="comment">//<sp/>strategy<sp/>13</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="libhankel_8h_1ae09cf89efd135afa916d0790daae8121" kindref="member">hankel_transform_QWE_Chave</ref>(</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nu,<sp/></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="libhankel_8h_1a8e20b1325721b16e0a41c95b642fd74b" kindref="member">form_factor_f</ref><sp/>f,<sp/></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>x,</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*f_ctx,</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*<sp/>output,</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>n_eval,<sp/></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>eps_rel</highlight></codeline>
+<codeline lineno="103"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">//<sp/>LIBHANKEL_H</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="include/libhankel.h"/>
+  </compounddef>
+</doxygen>

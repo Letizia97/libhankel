@@ -1,0 +1,41 @@
+.. \+\_\+usage\+:\hypertarget{md_docs_usage_autotoc_md0}{}\doxysection{Main function}\label{md_docs_usage_autotoc_md0}
+The main function a user will be using is {\ttfamily \mbox{\hyperlink{libhankel_8h_ac61e4e7e81a12c1006283542141730e8}{hankel\+\_\+transform()}}}. Please click on the name to find out what parameters the user receives as well as their types. The parameter {\ttfamily strategy\+\_\+name} essentially allows the user the select one of the 14 Hankel transform strategies available. This is further explained under \char`\"{}\+Note\char`\"{} at {\ttfamily \mbox{\hyperlink{libhankel_8h_ac61e4e7e81a12c1006283542141730e8}{hankel\+\_\+transform()}}}.
+
+Among the input parameters to the function, there is a C struct called {\ttfamily \mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}}}. This struct needs to contain different parameters depending on {\ttfamily strategy\+\_\+name}. Clicking on {\ttfamily \mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}}} will give an idea of all possible fields this struct can contain. Each strategy only uses some of these, and it\textquotesingle{}s important that {\ttfamily \mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}}} contains the right parameters required by the selected strategy. If it doesn\textquotesingle{}t, an error will be thrown.
+
+Below is a summary of the parameters required by each strategy.
+
++-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---+ $\vert$ index (as in SASfit) $\vert$ Strategy Name $\vert$ Field names needed in {\ttfamily \mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}}} $\vert$ +==========================+=====================+============================================+ $\vert$ 0 $\vert$ DE\+\_\+\+Ooura $\vert$ {\ttfamily n\+\_\+eval}, {\ttfamily eps\+\_\+rel} $\vert$ +-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---+ $\vert$ 1 $\vert$ DE\+\_\+\+Ogata $\vert$ {\ttfamily n\+\_\+eval}, {\ttfamily f\+\_\+max} $\vert$ +-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---+ $\vert$ 6 to 11 $\vert$ DHT\+\_\+6 to DHT\+\_\+11 $\vert$ N/A $\vert$ +-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---+ $\vert$ 12 $\vert$ QWE\+\_\+\+Key $\vert$ {\ttfamily n\+\_\+eval}, {\ttfamily eps\+\_\+rel} $\vert$ +-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---+ $\vert$ 13 $\vert$ QWE\+\_\+\+Chave $\vert$ {\ttfamily n\+\_\+eval}, {\ttfamily eps\+\_\+rel} $\vert$ +-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---+ $\vert$ ... $\vert$ ... $\vert$ ... $\vert$ +-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---+
+
+Here is an explanation of each parameter\+:
+\begin{DoxyItemize}
+\item {\ttfamily n\+\_\+eval}\+: integer indicating number of function evaluations
+\item {\ttfamily eps\+\_\+rel}\+: relative error allowed e.\+g. 1e-\/9
+\item {\ttfamily f\+\_\+max}\+: float indicating starting guess for max in form factor
+\end{DoxyItemize}
+
+Please note, for DHT strategies (that is, DHT\+\_\+6 to DHT\+\_\+11) feel free to supply an empty struct for {\ttfamily \mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}}} . Any field within it will be ignored in these strategies as they do not require such additional parameters. ~\newline
+\hypertarget{md_docs_usage_autotoc_md1}{}\doxysection{Status codes}\label{md_docs_usage_autotoc_md1}
+When successful, the {\ttfamily \mbox{\hyperlink{libhankel_8h_ac61e4e7e81a12c1006283542141730e8}{hankel\+\_\+transform()}}} function returns 0 . When unsuccessful, it returns an error code. To find out more about the error, the table below lists all possible error codes one might receive plus corresponding explanations.
+
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Status codes   }&\cellcolor{\tableheadbgcolor}\textbf{ Explanation    }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Status codes   }&\cellcolor{\tableheadbgcolor}\textbf{ Explanation    }\\\cline{1-2}
+\endhead
+0   &Success    \\\cline{1-2}
+-\/1   &Wrong nu (order of bessel function)    \\\cline{1-2}
+-\/2   &Wrong number for DHT strategy, must be int between 6 and 11    \\\cline{1-2}
+-\/3   &Failed to allocate variables    \\\cline{1-2}
+-\/4   &Did not converge    \\\cline{1-2}
+-\/5   &Internal error\+: division by zero    \\\cline{1-2}
+-\/6   &Internal error\+: wrong nzeros in function bessel\+\_\+j\+\_\+zero (must be $>$= 1)    \\\cline{1-2}
+-\/7   &Internal error\+: wrong n of iterations in pade sum (must be $>$= 1)    \\\cline{1-2}
+-\/8   &Wrong strategy parameters supplied to hankel transform function    \\\cline{1-2}
+-\/9   &Wrong parameters supplied to form factor   \\\cline{1-2}
+\end{longtabu}
