@@ -1,0 +1,245 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Python examples &mdash; libhankel v0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=fa47ad08"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="C examples" href="c_examples.html" />
+    <link rel="prev" title="Installation for C users" href="../getting_started/quickstart_c.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            libhankel
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview/the_hankel_transform.html">The Hankel Transform</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overview/the_hankel_transform.html#hankel-transform-strategies">Hankel Transform Strategies</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/quickstart_python.html">Installation for Python users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/quickstart_c.html">Installation for C users</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Examples</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Python examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#with-built-in-form-factor">With built-in form factor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#with-custom-form-factor">With custom form factor</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="c_examples.html">C examples</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Usage</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../guides/usage.html">Strategy Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/usage.html#status-codes">Status codes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/python_api.html">Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/c_api.html">C API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">libhankel</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Python examples</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/examples/python_examples.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="python-examples">
+<h1>Python examples<a class="headerlink" href="#python-examples" title="Link to this heading"></a></h1>
+<section id="with-built-in-form-factor">
+<span id="python-examples-builtin-f"></span><h2>With built-in form factor<a class="headerlink" href="#with-built-in-form-factor" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">libhankel</span>
+
+<span class="n">nu</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">params_gdab</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">10.0</span><span class="p">,</span>  <span class="mf">0.5</span><span class="p">,</span> <span class="mf">1e-4</span><span class="p">])</span>
+<span class="n">x_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="mf">15.</span><span class="p">,</span>          <span class="mf">18.54166667</span><span class="p">,</span>  <span class="mf">22.08333333</span><span class="p">,</span>  <span class="mf">25.625</span><span class="p">,</span>       <span class="mf">29.16666667</span><span class="p">,</span>
+    <span class="mf">32.70833333</span><span class="p">,</span>  <span class="mf">36.25</span><span class="p">,</span>        <span class="mf">39.79166667</span><span class="p">,</span>  <span class="mf">43.33333333</span><span class="p">,</span>  <span class="mf">46.875</span><span class="p">,</span>
+    <span class="mf">50.41666667</span><span class="p">,</span>  <span class="mf">53.95833333</span><span class="p">,</span>  <span class="mf">57.5</span><span class="p">,</span>         <span class="mf">61.04166667</span><span class="p">,</span>  <span class="mf">64.58333333</span><span class="p">,</span>
+    <span class="mf">68.125</span><span class="p">,</span>       <span class="mf">71.66666667</span><span class="p">,</span>  <span class="mf">75.20833333</span><span class="p">,</span>  <span class="mf">78.75</span><span class="p">,</span>        <span class="mf">82.29166667</span><span class="p">,</span>
+    <span class="mf">85.83333333</span><span class="p">,</span>  <span class="mf">89.375</span><span class="p">,</span>       <span class="mf">92.91666667</span><span class="p">,</span>  <span class="mf">96.45833333</span><span class="p">,</span>  <span class="mf">100.</span><span class="p">,</span>   
+<span class="p">])</span>
+
+<span class="n">strategy_p_dict</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;n_eval&#39;</span><span class="p">:</span> <span class="mi">250</span><span class="p">,</span> 
+    <span class="s1">&#39;eps_rel&#39;</span><span class="p">:</span> <span class="mf">1e-9</span>
+<span class="p">}</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">libhankel</span><span class="o">.</span><span class="n">hankel_transform</span><span class="p">(</span>
+    <span class="n">nu</span><span class="p">,</span>
+    <span class="s2">&quot;gdab&quot;</span><span class="p">,</span>
+    <span class="n">x_arr</span><span class="p">,</span>
+    <span class="n">params_gdab</span><span class="p">,</span>
+    <span class="s2">&quot;QWE_Chave&quot;</span><span class="p">,</span>
+    <span class="n">strategy_p_dict</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span>
+    <span class="s2">&quot;Result of calling the hankel_transform with g_dab form factor&quot;</span><span class="p">,</span> 
+    <span class="n">result</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="with-custom-form-factor">
+<h2>With custom form factor<a class="headerlink" href="#with-custom-form-factor" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate" id="python-examples-custom-f"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">libhankel</span>
+
+<span class="n">nu</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">params_gdab</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">10.0</span><span class="p">,</span>  <span class="mf">0.5</span><span class="p">,</span> <span class="mf">1e-4</span><span class="p">])</span>
+<span class="n">x_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="mf">15.</span><span class="p">,</span>          <span class="mf">18.54166667</span><span class="p">,</span>  <span class="mf">22.08333333</span><span class="p">,</span>  <span class="mf">25.625</span><span class="p">,</span>       <span class="mf">29.16666667</span><span class="p">,</span>
+    <span class="mf">32.70833333</span><span class="p">,</span>  <span class="mf">36.25</span><span class="p">,</span>        <span class="mf">39.79166667</span><span class="p">,</span>  <span class="mf">43.33333333</span><span class="p">,</span>  <span class="mf">46.875</span><span class="p">,</span>
+    <span class="mf">50.41666667</span><span class="p">,</span>  <span class="mf">53.95833333</span><span class="p">,</span>  <span class="mf">57.5</span><span class="p">,</span>         <span class="mf">61.04166667</span><span class="p">,</span>  <span class="mf">64.58333333</span><span class="p">,</span>
+    <span class="mf">68.125</span><span class="p">,</span>       <span class="mf">71.66666667</span><span class="p">,</span>  <span class="mf">75.20833333</span><span class="p">,</span>  <span class="mf">78.75</span><span class="p">,</span>        <span class="mf">82.29166667</span><span class="p">,</span>
+    <span class="mf">85.83333333</span><span class="p">,</span>  <span class="mf">89.375</span><span class="p">,</span>       <span class="mf">92.91666667</span><span class="p">,</span>  <span class="mf">96.45833333</span><span class="p">,</span>  <span class="mf">100.</span><span class="p">,</span>   
+<span class="p">])</span>
+
+<span class="n">strategy_p_dict</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;n_eval&#39;</span><span class="p">:</span> <span class="mi">250</span><span class="p">,</span> 
+    <span class="s1">&#39;eps_rel&#39;</span><span class="p">:</span> <span class="mf">1e-9</span>
+<span class="p">}</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">sf_poch</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">gamma</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">x</span><span class="p">)</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">gamma</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">dab</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Example Debye-Anderson-Brumberger (DAB) model.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">XI</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">H</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">ETA</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+    <span class="n">factor1</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">XI</span><span class="p">)</span> <span class="o">**</span> <span class="mi">3</span>
+    <span class="n">factor2</span> <span class="o">=</span> <span class="n">sf_poch</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">)</span>
+
+    <span class="n">numer</span> <span class="o">=</span> <span class="p">(</span><span class="n">factor1</span> <span class="o">*</span> <span class="n">factor2</span> <span class="o">*</span> <span class="n">ETA</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">**</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="n">denom</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="p">(</span><span class="n">q</span> <span class="o">*</span> <span class="n">XI</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">**</span> <span class="p">(</span><span class="mf">1.5</span> <span class="o">+</span> <span class="n">H</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">numer</span> <span class="o">/</span> <span class="n">denom</span>
+
+
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">libhankel</span><span class="o">.</span><span class="n">hankel_transform</span><span class="p">(</span>
+    <span class="n">nu</span><span class="p">,</span>
+    <span class="s2">&quot;gdab&quot;</span><span class="p">,</span>
+    <span class="n">x_arr</span><span class="p">,</span>
+    <span class="n">params_gdab</span><span class="p">,</span>
+    <span class="s2">&quot;QWE_Chave&quot;</span><span class="p">,</span>
+    <span class="n">strategy_p_dict</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span>
+    <span class="s2">&quot;Result of calling the hankel_transform &quot;</span>
+    <span class="s2">&quot;with g_dab form factor (BUILT IN)</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> 
+    <span class="n">result</span>
+<span class="p">)</span>
+
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">libhankel</span><span class="o">.</span><span class="n">hankel_transform</span><span class="p">(</span>
+    <span class="n">nu</span><span class="p">,</span>
+    <span class="n">dab</span><span class="p">,</span>
+    <span class="n">x_arr</span><span class="p">,</span>
+    <span class="n">params_gdab</span><span class="p">,</span>
+    <span class="s2">&quot;QWE_Chave&quot;</span><span class="p">,</span>
+    <span class="n">strategy_p_dict</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="s2">&quot;Result of calling the hankel_transform with g_dab &quot;</span>
+    <span class="s2">&quot;form factor (USER-DEFINED python function)</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> 
+    <span class="n">result</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../getting_started/quickstart_c.html" class="btn btn-neutral float-left" title="Installation for C users" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="c_examples.html" class="btn btn-neutral float-right" title="C examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Letizia.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -5,6 +5,7 @@
 
 import subprocess
 import os
+import sys
 
 
 # -- Project information -----------------------------------------------------
@@ -18,8 +19,12 @@ release = 'v0.1.0'
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
+sys.path.insert(0, '../..')  # adjust path
 
-extensions = ["breathe"]
+extensions = [
+    "breathe",
+    "sphinx.ext.autodoc",
+]
 
 breathe_projects = {
     "libhankel": "../xml"
@@ -40,6 +45,7 @@ exclude_patterns = []
 html_static_path = ['_static']
 html_theme =  "sphinx_rtd_theme"
 
+autodoc_docstring_signature = True
 
 # Hook doxygen
 def run_doxygen(app):
@@ -50,3 +56,9 @@ def run_doxygen(app):
 
 def setup(app):
     app.connect("builder-inited", run_doxygen)
+
+
+autodoc_default_options = {
+    'members': True,
+    'imported-members': True,
+}
