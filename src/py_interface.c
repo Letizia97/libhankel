@@ -252,15 +252,18 @@ static char hankel_t_doc[] =
     ":type f:                callable or str\n"
     ":param x_arr:           The points at which to evaluate the Hankel transform of the function f.\n"
     ":type x_arr:            numpy.ndarray of float64\n"
-    ":param f_params:        Input parameters needed by the function f.\n"
+    ":param f_params:        Input parameters needed by the function f (ordered).\n"
     ":type f_params:         numpy.ndarray of float64\n"
-    ":param strategy:        The name of the Hankel strategy to use. "
+    ":param strategy_name:   The name of Hankel strategy to use. "
+    "Refer to the table in :ref:`strategy-parameters` for a list of possible strategies.\n"
+    ":type strategy_name:    str \n"
+    ":param strategy_params: The parameters needed by the chosen strategy. "
     "See :ref:`strategy-parameters` for details.\n"
-    ":type strategy:         str \n"
-    ":param strategy_params: The parameters needed by the chosen strategy.\n"
     ":type strategy_params:  dict[str, float | int]\n"       
     ":returns:               The hankel transform.\n"
     ":rtype:                 numpy.ndarray of float64\n"
+    "Please refer to :ref:`python-examples` for examples on how to use this function with either a "
+    "builtin form factor or a custom input function."
     "\n" ;
 
 
@@ -272,7 +275,7 @@ static PyMethodDef Methods[] = {
 static struct PyModuleDef module = {
     PyModuleDef_HEAD_INIT,
     "libhankel",
-    "module-level docs",
+    " ",
     -1,
     Methods
 };

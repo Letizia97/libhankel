@@ -21,6 +21,7 @@ the Hankel transform.
 
 .. toctree::
    :maxdepth: 2
+   :titlesonly:
    :caption: Overview
 
    overview/the_hankel_transform
@@ -29,6 +30,7 @@ the Hankel transform.
 
 .. toctree::
    :maxdepth: 2
+   :titlesonly:
    :caption: Getting Started
 
    getting_started/quickstart_python
@@ -49,7 +51,8 @@ the Hankel transform.
    :maxdepth: 2
    :caption: Usage
 
-   guides/usage
+   usage/strategy_params
+   usage/status_codes
 
 
 

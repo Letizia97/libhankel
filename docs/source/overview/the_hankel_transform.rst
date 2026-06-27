@@ -1,5 +1,11 @@
 .. _hankel-intro:
 
+
+#######################################################
+Intro to LibHankel
+#######################################################
+
+
 The Hankel Transform
 ---------------------------
 
@@ -26,8 +32,8 @@ Hankel Transform Strategies
 LibHankel includes various implementations of the Hankel transform, corresponding to 
 different ways of approximating the Hankel transform integral.
 
-The following table lists the strategies that are available through this library. 
-The column named as "index" in the table essentially refers to the numbering used in SASfit.
+The following table lists the strategies that are available in LibHankel. 
+The column named "index" in the table essentially refers to the numbering used in SASfit.
 
 
 .. table:: Hankel transform strategies available in LibHankel.

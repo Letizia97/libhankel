@@ -20,7 +20,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Installation for C users" href="quickstart_c.html" />
-    <link rel="prev" title="The Hankel Transform" href="../overview/the_hankel_transform.html" /> 
+    <link rel="prev" title="Intro to LibHankel" href="../overview/the_hankel_transform.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -44,8 +44,7 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../overview/the_hankel_transform.html">The Hankel Transform</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../overview/the_hankel_transform.html#hankel-transform-strategies">Hankel Transform Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overview/the_hankel_transform.html">Intro to LibHankel</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul class="current">
@@ -59,8 +58,8 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Usage</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../guides/usage.html">Strategy Parameters</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../guides/usage.html#status-codes">Status codes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage/strategy_params.html">Strategy Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage/status_codes.html">Status codes</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API References</span></p>
 <ul>
@@ -94,23 +93,39 @@
              
   <section id="installation-for-python-users">
 <h1>Installation for Python users<a class="headerlink" href="#installation-for-python-users" title="Link to this heading"></a></h1>
-<p id="quickstart-python">Install via pip:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>libhankel
+<p id="quickstart-python">The easiest way to install LibHankel is by using the Python package manager, <a class="reference external" href="https://pip.pypa.io/en/stable/">pip</a>.
+Alternatively, it can be installed from source through git clone. In either case, it is recommended to create a virtual
+environment in which to install LibHankel, by typing for example :</p>
+<section id="installing-via-pip">
+<h2>Installing via <code class="docutils literal notranslate"><span class="pre">pip</span></code><a class="headerlink" href="#installing-via-pip" title="Link to this heading"></a></h2>
+<p>LibHankel can be installed via the command line by entering:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>libhankel
 </pre></div>
 </div>
-<p>From source:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/libhankel
-<span class="nb">cd</span><span class="w"> </span>libhankel
-pip<span class="w"> </span>install<span class="w"> </span>.
+</section>
+<section id="installing-from-source">
+<h2>Installing from source<a class="headerlink" href="#installing-from-source" title="Link to this heading"></a></h2>
+<p>You may instead wish to install from source, e.g., to get the very latest version
+of the code that is still in development.</p>
+<ol class="arabic">
+<li><p>Download this repository or clone it using:
+<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://github.com/libhankel.git</span></code></p></li>
+<li><p>Open up a terminal (command prompt) and go into the
+<code class="docutils literal notranslate"><span class="pre">libhankel</span></code> directory.</p></li>
+<li><p>Once you are in the right directory, type</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>.
 </pre></div>
 </div>
+</li>
+</ol>
+</section>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../overview/the_hankel_transform.html" class="btn btn-neutral float-left" title="The Hankel Transform" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../overview/the_hankel_transform.html" class="btn btn-neutral float-left" title="Intro to LibHankel" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="quickstart_c.html" class="btn btn-neutral float-right" title="Installation for C users" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

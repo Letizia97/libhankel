@@ -3,17 +3,14 @@ Installation for C users
 
 .. _quickstart-c:
 
-
-Requirements:
+LibHankel has been tested on Linux, although it should work on other platforms. It requires:
 
 - Meson
-
-- Ninja (recommended)
 
 - A C compiler
 
 
-Build and install:
+To build and install:
 
 .. code-block:: bash
 

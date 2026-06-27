@@ -37,26 +37,7 @@ double hankel_transform_DHT(
     int n_strategy
 );
 
-// corresponding to strategies 2-4 (FBT)
-double compute_hankel_FBT(
-    int nu, 
-    form_factor_f intern_fct,
-    void *ctx,
-    double x, 
-    int n_method, 
-    int n_eval, 
-    double f_max
-);
-double hankel_transform_FBT(
-    int nu, 
-    double (*f)(double, double (*)[50]), 
-    double x, 
-    double (*f_params)[50], 
-    double *output,
-    int n_method, 
-    int n_eval, 
-    double f_max
-);
+
 
 // strategy 0 (DE QUADRATURE)
 double hankel_transform_DE_Ooura(

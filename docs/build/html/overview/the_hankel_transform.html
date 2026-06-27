@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The Hankel Transform &mdash; libhankel v0.1.0 documentation</title>
+  <title>Intro to LibHankel &mdash; libhankel v0.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
 
@@ -44,8 +44,7 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">The Hankel Transform</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#hankel-transform-strategies">Hankel Transform Strategies</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Intro to LibHankel</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
@@ -59,8 +58,8 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Usage</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../guides/usage.html">Strategy Parameters</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../guides/usage.html#status-codes">Status codes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage/strategy_params.html">Strategy Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage/status_codes.html">Status codes</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API References</span></p>
 <ul>
@@ -82,7 +81,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">The Hankel Transform</li>
+      <li class="breadcrumb-item active">Intro to LibHankel</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/overview/the_hankel_transform.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -92,8 +91,10 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="the-hankel-transform">
-<span id="hankel-intro"></span><h1>The Hankel Transform<a class="headerlink" href="#the-hankel-transform" title="Link to this heading"></a></h1>
+  <section id="intro-to-libhankel">
+<span id="hankel-intro"></span><h1>Intro to LibHankel<a class="headerlink" href="#intro-to-libhankel" title="Link to this heading"></a></h1>
+<section id="the-hankel-transform">
+<h2>The Hankel Transform<a class="headerlink" href="#the-hankel-transform" title="Link to this heading"></a></h2>
 <p>The Hankel transform, also known as the Fourier–Bessel transform, is widely used in scattering, specifically for:</p>
 <ul class="simple">
 <li><p>calculating scattering functions;</p></li>
@@ -106,11 +107,11 @@ to study the structure of materials on the nanoscale (roughly 1–1000 nm). SAS 
 is scattered at very small angles, which tells us about large-scale structures inside the sample.</p>
 </section>
 <section id="hankel-transform-strategies">
-<span id="id1"></span><h1>Hankel Transform Strategies<a class="headerlink" href="#hankel-transform-strategies" title="Link to this heading"></a></h1>
+<span id="id1"></span><h2>Hankel Transform Strategies<a class="headerlink" href="#hankel-transform-strategies" title="Link to this heading"></a></h2>
 <p>LibHankel includes various implementations of the Hankel transform, corresponding to
 different ways of approximating the Hankel transform integral.</p>
-<p>The following table lists the strategies that are available through this library.
-The column named as “index” in the table essentially refers to the numbering used in SASfit.</p>
+<p>The following table lists the strategies that are available in LibHankel.
+The column named “index” in the table essentially refers to the numbering used in SASfit.</p>
 <table class="docutils align-default" id="id2">
 <caption><span class="caption-text">Hankel transform strategies available in LibHankel.</span><a class="headerlink" href="#id2" title="Link to this table"></a></caption>
 <thead>
@@ -152,6 +153,7 @@ parameter (called <code class="docutils literal notranslate"><span class="pre">e
 iterations are stopped when the difference in the solution of two consecutive iterations is less than
 the tolerance. For this reasons, strategies that require eps_rel generally perform better than the DHT
 ones on complex form factors, though they are more slow.</p>
+</section>
 </section>
 
 
