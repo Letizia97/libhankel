@@ -18,8 +18,6 @@ The methods are effectively different ways of approximating the integral that co
 the Hankel transform.
 
 
-Overview
----------------
 
 .. toctree::
    :maxdepth: 2
@@ -28,8 +26,6 @@ Overview
    overview/the_hankel_transform
 
 
-Getting Started
----------------
 
 .. toctree::
    :maxdepth: 2
@@ -40,13 +36,6 @@ Getting Started
 
 
 
-
-
-Examples
---------
-
-Browse practical examples demonstrating common workflows.
-
 .. toctree::
    :maxdepth: 1
    :caption: Examples
@@ -56,11 +45,6 @@ Browse practical examples demonstrating common workflows.
 
 
 
-Usage
------------
-
-Usage info.
-
 .. toctree::
    :maxdepth: 2
    :caption: Usage
@@ -69,15 +53,10 @@ Usage info.
 
 
 
-API Reference
--------------
-
-Detailed reference documentation for both interfaces.
-
 .. toctree::
    :maxdepth: 2
    :caption: API References
-
+   
    api/python_api
    api/c_api
 
