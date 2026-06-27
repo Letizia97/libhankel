@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-libhankel documentation
+LibHankel documentation
 =======================
 
 .. Add your content using ``reStructuredText`` syntax. See the
@@ -13,7 +13,7 @@ libhankel documentation
 Welcome to the documentation for **Libhankel**.
 
 LibHankel is a C library with a number of methods for computing Hankel transforms, 
-re-implemented based on the strategies available in [SASfit](https://github.com/SASfit/SASfit). 
+re-implemented based on the strategies available in `SASfit <https://github.com/SASfit/SASfit>`_. 
 The methods are effectively different ways of approximating the integral that constitutes 
 the Hankel transform.
 

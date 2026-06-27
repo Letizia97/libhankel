@@ -20,7 +20,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Installation for Python users" href="../getting_started/quickstart_python.html" />
-    <link rel="prev" title="libhankel documentation" href="../index.html" /> 
+    <link rel="prev" title="LibHankel documentation" href="../index.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -109,7 +109,10 @@ is scattered at very small angles, which tells us about large-scale structures i
 <span id="id1"></span><h1>Hankel Transform Strategies<a class="headerlink" href="#hankel-transform-strategies" title="Link to this heading"></a></h1>
 <p>LibHankel includes various implementations of the Hankel transform, corresponding to
 different ways of approximating the Hankel transform integral.</p>
-<table class="docutils align-default">
+<p>The following table lists the strategies that are available through this library.
+The column named as “index” in the table essentially refers to the numbering used in SASfit.</p>
+<table class="docutils align-default" id="id2">
+<caption><span class="caption-text">Hankel transform strategies available in LibHankel.</span><a class="headerlink" href="#id2" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>index (as in SASfit)</p></th>
 <th class="head"><p>Strategy Name</p></th>
@@ -139,7 +142,6 @@ different ways of approximating the Hankel transform integral.</p>
 </tr>
 </tbody>
 </table>
-<p>The column named as “index” in the table essentially refers to the numbering used in SASfit.</p>
 <p>Strategies 6 to 11 in SASfit, which in this library are referred to as “DHT_6”, “DHT_7” …
 “DHT_11”,  are fixed-grid digital filter strategies. They are fast and perform well on simple form
 factors but their accuracy decreases on more complex or oscillatory ones. They are not iterative,
@@ -156,7 +158,7 @@ ones on complex form factors, though they are more slow.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../index.html" class="btn btn-neutral float-left" title="libhankel documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../index.html" class="btn btn-neutral float-left" title="LibHankel documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="../getting_started/quickstart_python.html" class="btn btn-neutral float-right" title="Installation for Python users" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

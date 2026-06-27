@@ -26,23 +26,26 @@ Hankel Transform Strategies
 LibHankel includes various implementations of the Hankel transform, corresponding to 
 different ways of approximating the Hankel transform integral.
 
-
-+--------------------------+---------------------+---------------------------------------+
-| index (as in SASfit)     | Strategy Name       | Type                                  |
-+==========================+=====================+=======================================+
-| 0                        | DE_Ooura            | Double-exponential quadrature         |
-+--------------------------+---------------------+---------------------------------------+
-| 1                        | DE_Ogata            | Double-exponential quadrature         |
-+--------------------------+---------------------+---------------------------------------+
-| 6 to 11                  | DHT_6 to DHT_11     | Digital filters                       |
-+--------------------------+---------------------+---------------------------------------+
-| 12                       | QWE_Key             | QWE with continued fraction expansion |
-+--------------------------+---------------------+---------------------------------------+
-| 13                       | QWE_Chave           | QWE with Shanks transformation        |
-+--------------------------+---------------------+---------------------------------------+
-
-
+The following table lists the strategies that are available through this library. 
 The column named as "index" in the table essentially refers to the numbering used in SASfit.
+
+
+.. table:: Hankel transform strategies available in LibHankel.
+
+    +--------------------------+---------------------+---------------------------------------+
+    | index (as in SASfit)     | Strategy Name       | Type                                  |
+    +==========================+=====================+=======================================+
+    | 0                        | DE_Ooura            | Double-exponential quadrature         |
+    +--------------------------+---------------------+---------------------------------------+
+    | 1                        | DE_Ogata            | Double-exponential quadrature         |
+    +--------------------------+---------------------+---------------------------------------+
+    | 6 to 11                  | DHT_6 to DHT_11     | Digital filters                       |
+    +--------------------------+---------------------+---------------------------------------+
+    | 12                       | QWE_Key             | QWE with continued fraction expansion |
+    +--------------------------+---------------------+---------------------------------------+
+    | 13                       | QWE_Chave           | QWE with Shanks transformation        |
+    +--------------------------+---------------------+---------------------------------------+
+
 
 Strategies 6 to 11 in SASfit, which in this library are referred to as "DHT_6", "DHT_7" ... 
 "DHT_11",  are fixed-grid digital filter strategies. They are fast and perform well on simple form
