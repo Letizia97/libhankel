@@ -68,13 +68,20 @@ $(function() {
 <div class="title">form_factor_ctx Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Context structure for form factor callbacks.  
+ <a href="structform__factor__ctx.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
 <tr class="memitem:afe6aa615ef02b2f3607cde85fbdcd771"><td class="memItemLeft" align="right" valign="top">double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structform__factor__ctx.html#afe6aa615ef02b2f3607cde85fbdcd771">params</a></td></tr>
+<tr class="memdesc:afe6aa615ef02b2f3607cde85fbdcd771"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to user-defined parameter array.  <a href="structform__factor__ctx.html#afe6aa615ef02b2f3607cde85fbdcd771">More...</a><br /></td></tr>
 <tr class="separator:afe6aa615ef02b2f3607cde85fbdcd771"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Field Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Context structure for form factor callbacks. </p>
+<p>This structure is used to pass user-defined data to functions of type <a class="el" href="libhankel_8h.html#a0e1024037ef107f5a9e37d6932af02c2">form_factor_f</a>. The contents of the context are managed by the user and interpreted by the callback implementation. </p>
+</div><h2 class="groupheader">Field Documentation</h2>
 <a id="afe6aa615ef02b2f3607cde85fbdcd771"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afe6aa615ef02b2f3607cde85fbdcd771">&#9670;&nbsp;</a></span>params</h2>
 
@@ -86,6 +93,9 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Pointer to user-defined parameter array. </p>
+<p>This array stores the data required by the form factor callback. For indication of what this should contain, please refer to the documentation for each form factor. </p>
 
 </div>
 </div>

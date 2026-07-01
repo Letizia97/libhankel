@@ -4,7 +4,7 @@
 \begin{DoxyCompactItemize}
 \item 
 struct \mbox{\hyperlink{structform__factor__ctx}{form\+\_\+factor\+\_\+ctx}}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Context structure for form factor callbacks. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -33,19 +33,16 @@ Computes the broad\+\_\+peak form factor.
 \begin{DoxyParams}{Parameters}
 {\em q} & value at which to compute the transform \\
 \hline
-{\em f\+\_\+ctx} & pointer to struct containing inputs for form factor\\
+{\em f\+\_\+ctx} & pointer to struct containing inputs for form factor. f\+\_\+ctx must contain a pointer to an array of parameters. The parameters, which appear in the formula \[ I(Q) = \frac{I_0}{\left(1 + (|q - q_0| \xi)^m \right)^p} \] need to be in the following order\+:
+\begin{DoxyItemize}
+\item $ I_0 $ \+: Forward scattering intensity (e.\+g. 1e5)
+\item $ \xi $ \+: Correlation length (e.\+g. 1000)
+\item $ q_0 $\+: Peak position, related to d-\/spacing\+: $ q_0 = \frac{2\pi}{d} $ (e.\+g. 0.\+01)
+\item $ m $ \+: Exponent $m$ (e.\+g. 2)
+\item $ p $ \+: Exponent $p$ (e.\+g. 2) 
+\end{DoxyItemize}\\
 \hline
 \end{DoxyParams}
-\begin{DoxyNote}{Note}
-Params must contain \+:
-\begin{DoxyItemize}
-\item I0 forward scattering (e.\+g., 10e5)
-\item XI correlation length (e.\+g., 1000)
-\item Q0 peak position which is related to the d-\/spacing as q0 = 2pi/d (e.\+g., 0.\+01)
-\item M I(\+Q)=I0/(1+($\vert$q-\/q0$\vert$$\ast$xi)$^\wedge$m)$^\wedge$p (e.\+g., 2)
-\item P I(\+Q)=I0/(1+($\vert$q-\/q0$\vert$$\ast$xi)$^\wedge$m)$^\wedge$p (e.\+g., 2) 
-\end{DoxyItemize}
-\end{DoxyNote}
 \mbox{\Hypertarget{form__factors_8h_a05ade8d244a85f173cc26c3aea472e60}\label{form__factors_8h_a05ade8d244a85f173cc26c3aea472e60}} 
 \index{form\_factors.h@{form\_factors.h}!form\_factor\_g\_dab@{form\_factor\_g\_dab}}
 \index{form\_factor\_g\_dab@{form\_factor\_g\_dab}!form\_factors.h@{form\_factors.h}}
@@ -60,17 +57,14 @@ Computes the g\+\_\+dab form factor.
 \begin{DoxyParams}{Parameters}
 {\em q} & value at which to compute the transform \\
 \hline
-{\em f\+\_\+ctx} & pointer to struct containing inputs for form factor\\
+{\em f\+\_\+ctx} & pointer to struct containing inputs for form factor f\+\_\+ctx must contain a pointer to an array with the following parameters, in this order\+:
+\begin{DoxyItemize}
+\item $ \xi $\+: correlation length (e.\+g., 10.\+0)
+\item H \+: Hurst exponent (e.\+g., 0.\+5)
+\item ETA \+: scattering length density contrast (e.\+g., 1e-\/4) 
+\end{DoxyItemize}\\
 \hline
 \end{DoxyParams}
-\begin{DoxyNote}{Note}
-Params must contain \+:
-\begin{DoxyItemize}
-\item XI correlation length (e.\+g., 10.\+0)
-\item H Hurst exponent (e.\+g., 0.\+5)
-\item ETA scattering length density contrast (e.\+g., 1e-\/4) 
-\end{DoxyItemize}
-\end{DoxyNote}
 \mbox{\Hypertarget{form__factors_8h_a5440e6f208c6bdf8caba50294f2da5fd}\label{form__factors_8h_a5440e6f208c6bdf8caba50294f2da5fd}} 
 \index{form\_factors.h@{form\_factors.h}!form\_factor\_sphere@{form\_factor\_sphere}}
 \index{form\_factor\_sphere@{form\_factor\_sphere}!form\_factors.h@{form\_factors.h}}
@@ -85,16 +79,13 @@ Computes the sphere form factor.
 \begin{DoxyParams}{Parameters}
 {\em q} & value at which to compute the transform \\
 \hline
-{\em f\+\_\+ctx} & pointer to struct containing inputs for form factor\\
+{\em f\+\_\+ctx} & pointer to struct containing inputs for form factor f\+\_\+ctx must contain a pointer to an array with the following parameters, in this order\+:
+\begin{DoxyItemize}
+\item R \+: radius (e.\+g., 10.\+0)
+\item ETA \+: scattering contrast (e.\+g., 1.\+0) 
+\end{DoxyItemize}\\
 \hline
 \end{DoxyParams}
-\begin{DoxyNote}{Note}
-Params must contain \+:
-\begin{DoxyItemize}
-\item R radius (e.\+g., 10.\+0)
-\item ETA scattering contrast (e.\+g., 1.\+0) 
-\end{DoxyItemize}
-\end{DoxyNote}
 \mbox{\Hypertarget{form__factors_8h_ad3f6584528169d3d49a5b6327557e3d6}\label{form__factors_8h_ad3f6584528169d3d49a5b6327557e3d6}} 
 \index{form\_factors.h@{form\_factors.h}!get\_form\_factor\_by\_name@{get\_form\_factor\_by\_name}}
 \index{get\_form\_factor\_by\_name@{get\_form\_factor\_by\_name}!form\_factors.h@{form\_factors.h}}

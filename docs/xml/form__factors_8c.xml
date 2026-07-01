@@ -55,17 +55,15 @@
 <parametername>f_ctx</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>pointer to struct containing inputs for form factor</para>
+<para>pointer to struct containing inputs for form factor f_ctx must contain a pointer to an array with the following parameters, in this order:<itemizedlist>
+<listitem><para><formula id="0">$ \xi $</formula>: correlation length (e.g., 10.0)</para>
+</listitem><listitem><para>H : Hurst exponent (e.g., 0.5)</para>
+</listitem><listitem><para>ETA : scattering length density contrast (e.g., 1e-4) </para>
+</listitem></itemizedlist>
+</para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="note"><para>Params must contain :<itemizedlist>
-<listitem><para>XI correlation length (e.g., 10.0)</para>
-</listitem><listitem><para>H Hurst exponent (e.g., 0.5)</para>
-</listitem><listitem><para>ETA scattering length density contrast (e.g., 1e-4) </para>
-</listitem></itemizedlist>
-</para>
-</simplesect>
 </para>
         </detaileddescription>
         <inbodydescription>
@@ -102,16 +100,14 @@
 <parametername>f_ctx</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>pointer to struct containing inputs for form factor</para>
+<para>pointer to struct containing inputs for form factor f_ctx must contain a pointer to an array with the following parameters, in this order:<itemizedlist>
+<listitem><para>R : radius (e.g., 10.0)</para>
+</listitem><listitem><para>ETA : scattering contrast (e.g., 1.0) </para>
+</listitem></itemizedlist>
+</para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="note"><para>Params must contain :<itemizedlist>
-<listitem><para>R radius (e.g., 10.0)</para>
-</listitem><listitem><para>ETA scattering contrast (e.g., 1.0) </para>
-</listitem></itemizedlist>
-</para>
-</simplesect>
 </para>
         </detaileddescription>
         <inbodydescription>
@@ -148,19 +144,17 @@
 <parametername>f_ctx</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>pointer to struct containing inputs for form factor</para>
+<para>pointer to struct containing inputs for form factor. f_ctx must contain a pointer to an array of parameters. The parameters, which appear in the formula <formula id="1">\[ I(Q) = \frac{I_0}{\left(1 + (|q - q_0| \xi)^m \right)^p} \]</formula> need to be in the following order:<itemizedlist>
+<listitem><para><formula id="2">$ I_0 $</formula> : Forward scattering intensity (e.g. 1e5)</para>
+</listitem><listitem><para><formula id="0">$ \xi $</formula> : Correlation length (e.g. 1000)</para>
+</listitem><listitem><para><formula id="3">$ q_0 $</formula>: Peak position, related to d-spacing: <formula id="4">$ q_0 = \frac{2\pi}{d} $</formula> (e.g. 0.01)</para>
+</listitem><listitem><para><formula id="5">$ m $</formula> : Exponent <formula id="6">$m$</formula> (e.g. 2)</para>
+</listitem><listitem><para><formula id="7">$ p $</formula> : Exponent <formula id="8">$p$</formula> (e.g. 2) </para>
+</listitem></itemizedlist>
+</para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="note"><para>Params must contain :<itemizedlist>
-<listitem><para>I0 forward scattering (e.g., 10e5)</para>
-</listitem><listitem><para>XI correlation length (e.g., 1000)</para>
-</listitem><listitem><para>Q0 peak position which is related to the d-spacing as q0 = 2pi/d (e.g., 0.01)</para>
-</listitem><listitem><para>M I(Q)=I0/(1+(|q-q0|*xi)^m)^p (e.g., 2)</para>
-</listitem><listitem><para>P I(Q)=I0/(1+(|q-q0|*xi)^m)^p (e.g., 2) </para>
-</listitem></itemizedlist>
-</para>
-</simplesect>
 </para>
         </detaileddescription>
         <inbodydescription>
