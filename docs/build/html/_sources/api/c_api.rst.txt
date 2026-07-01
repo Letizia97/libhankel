@@ -3,5 +3,39 @@
 C API
 ===========
 
+This page contains explanations of the main functions / structs
+a user might need, when using the library from C.
 
-.. doxygenfile:: libhankel.h
+
+
+.. _strategy_params_c_api:
+
+Strategy params
+------------------
+.. doxygenstruct:: strategy_params
+   :members:
+
+
+.. _hankel_transform_c_api:
+
+Hankel transform functions
+---------------------------
+.. doxygenfunction:: hankel_transform
+.. doxygenfunction:: hankel_transform_DHT
+.. doxygenfunction:: hankel_transform_DE_Ooura
+.. doxygenfunction:: hankel_transform_DE_Ogata
+.. doxygenfunction:: hankel_transform_QWE_Key
+.. doxygenfunction:: hankel_transform_QWE_Chave
+
+
+.. _form_factors_c_api:
+
+For form factors usage
+----------------------
+.. doxygentypedef:: form_factor_f
+.. doxygenstruct:: form_factor_ctx
+   :members:
+.. doxygenfunction:: form_factor_g_dab
+.. doxygenfunction:: form_factor_sphere
+.. doxygenfunction:: form_factor_broad_peak
+    

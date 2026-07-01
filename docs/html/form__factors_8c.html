@@ -130,18 +130,20 @@ Variables</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">q</td><td>value at which to compute the transform </td></tr>
-    <tr><td class="paramname">f_ctx</td><td>pointer to struct containing inputs for form factor</td></tr>
+    <tr><td class="paramname">f_ctx</td><td>pointer to struct containing inputs for form factor. f_ctx must contain a pointer to an array of parameters. The parameters, which appear in the formula <p class="formulaDsp">
+<img class="formulaDsp" alt="\[ I(Q) = \frac{I_0}{\left(1 + (|q - q_0| \xi)^m \right)^p} \]" src="form_1.png"/>
+</p>
+ need to be in the following order:<ul>
+<li><img class="formulaInl" alt="$ I_0 $" src="form_2.png"/> : Forward scattering intensity (e.g. 1e5)</li>
+<li><img class="formulaInl" alt="$ \xi $" src="form_0.png"/> : Correlation length (e.g. 1000)</li>
+<li><img class="formulaInl" alt="$ q_0 $" src="form_3.png"/>: Peak position, related to d-spacing: <img class="formulaInl" alt="$ q_0 = \frac{2\pi}{d} $" src="form_4.png"/> (e.g. 0.01)</li>
+<li><img class="formulaInl" alt="$ m $" src="form_5.png"/> : Exponent <img class="formulaInl" alt="$m$" src="form_6.png"/> (e.g. 2)</li>
+<li><img class="formulaInl" alt="$ p $" src="form_7.png"/> : Exponent <img class="formulaInl" alt="$p$" src="form_8.png"/> (e.g. 2) </li>
+</ul>
+</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>Params must contain :<ul>
-<li>I0 forward scattering (e.g., 10e5)</li>
-<li>XI correlation length (e.g., 1000)</li>
-<li>Q0 peak position which is related to the d-spacing as q0 = 2pi/d (e.g., 0.01)</li>
-<li>M I(Q)=I0/(1+(|q-q0|*xi)^m)^p (e.g., 2)</li>
-<li>P I(Q)=I0/(1+(|q-q0|*xi)^m)^p (e.g., 2) </li>
-</ul>
-</dd></dl>
 
 </div>
 </div>
@@ -175,16 +177,15 @@ Variables</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">q</td><td>value at which to compute the transform </td></tr>
-    <tr><td class="paramname">f_ctx</td><td>pointer to struct containing inputs for form factor</td></tr>
+    <tr><td class="paramname">f_ctx</td><td>pointer to struct containing inputs for form factor f_ctx must contain a pointer to an array with the following parameters, in this order:<ul>
+<li><img class="formulaInl" alt="$ \xi $" src="form_0.png"/>: correlation length (e.g., 10.0)</li>
+<li>H : Hurst exponent (e.g., 0.5)</li>
+<li>ETA : scattering length density contrast (e.g., 1e-4) </li>
+</ul>
+</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>Params must contain :<ul>
-<li>XI correlation length (e.g., 10.0)</li>
-<li>H Hurst exponent (e.g., 0.5)</li>
-<li>ETA scattering length density contrast (e.g., 1e-4) </li>
-</ul>
-</dd></dl>
 
 </div>
 </div>
@@ -218,15 +219,14 @@ Variables</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">q</td><td>value at which to compute the transform </td></tr>
-    <tr><td class="paramname">f_ctx</td><td>pointer to struct containing inputs for form factor</td></tr>
+    <tr><td class="paramname">f_ctx</td><td>pointer to struct containing inputs for form factor f_ctx must contain a pointer to an array with the following parameters, in this order:<ul>
+<li>R : radius (e.g., 10.0)</li>
+<li>ETA : scattering contrast (e.g., 1.0) </li>
+</ul>
+</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>Params must contain :<ul>
-<li>R radius (e.g., 10.0)</li>
-<li>ETA scattering contrast (e.g., 1.0) </li>
-</ul>
-</dd></dl>
 
 </div>
 </div>

@@ -10,19 +10,23 @@
         <argsstring></argsstring>
         <name>params</name>
         <briefdescription>
+<para>Pointer to user-defined parameter array. </para>
         </briefdescription>
         <detaileddescription>
+<para>This array stores the data required by the form factor callback. For indication of what this should contain, please refer to the documentation for each form factor. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/form_factors.h" line="10" column="12" bodyfile="include/form_factors.h" bodystart="10" bodyend="-1"/>
+        <location file="include/form_factors.h" line="26" column="12" bodyfile="include/form_factors.h" bodystart="26" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
+<para>Context structure for form factor callbacks. </para>
     </briefdescription>
     <detaileddescription>
+<para>This structure is used to pass user-defined data to functions of type <ref refid="libhankel_8h_1a0e1024037ef107f5a9e37d6932af02c2" kindref="member">form_factor_f</ref>. The contents of the context are managed by the user and interpreted by the callback implementation. </para>
     </detaileddescription>
-    <location file="include/form_factors.h" line="9" column="1" bodyfile="include/form_factors.h" bodystart="9" bodyend="11"/>
+    <location file="include/form_factors.h" line="17" column="1" bodyfile="include/form_factors.h" bodystart="17" bodyend="27"/>
     <listofallmembers>
       <member refid="structform__factor__ctx_1afe6aa615ef02b2f3607cde85fbdcd771" prot="public" virt="non-virtual"><scope>form_factor_ctx</scope><name>params</name></member>
     </listofallmembers>

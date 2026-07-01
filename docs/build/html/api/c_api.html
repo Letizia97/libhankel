@@ -16,6 +16,7 @@
       <script src="../_static/documentation_options.js?v=fa47ad08"></script>
       <script src="../_static/doctools.js?v=9bcbadda"></script>
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -65,17 +66,33 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="python_api.html">Python API</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">C API</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#_CPPv413form_factor_f"><code class="docutils literal notranslate"><span class="pre">form_factor_f</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="#_CPPv416hankel_transformi13form_factor_fPd6size_tPvPdPKc15strategy_params"><code class="docutils literal notranslate"><span class="pre">hankel_transform()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="#_CPPv420hankel_transform_DHTi13form_factor_fKdPvPdi"><code class="docutils literal notranslate"><span class="pre">hankel_transform_DHT()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="#_CPPv425hankel_transform_DE_Oourai13form_factor_fKdPvPdid"><code class="docutils literal notranslate"><span class="pre">hankel_transform_DE_Ooura()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="#_CPPv425hankel_transform_DE_Ogatai13form_factor_fKdPvPdid"><code class="docutils literal notranslate"><span class="pre">hankel_transform_DE_Ogata()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="#_CPPv424hankel_transform_QWE_Keyi13form_factor_fKdPvPdid"><code class="docutils literal notranslate"><span class="pre">hankel_transform_QWE_Key()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="#_CPPv426hankel_transform_QWE_Chavei13form_factor_fKdPvPdid"><code class="docutils literal notranslate"><span class="pre">hankel_transform_QWE_Chave()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="#_CPPv415strategy_params"><code class="docutils literal notranslate"><span class="pre">strategy_params</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N15strategy_params6n_evalE"><code class="docutils literal notranslate"><span class="pre">n_eval</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N15strategy_params7eps_relE"><code class="docutils literal notranslate"><span class="pre">eps_rel</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N15strategy_params5f_maxE"><code class="docutils literal notranslate"><span class="pre">f_max</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#strategy-params">Strategy params</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv415strategy_params"><code class="docutils literal notranslate"><span class="pre">strategy_params</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15strategy_params6n_evalE"><code class="docutils literal notranslate"><span class="pre">n_eval</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15strategy_params7eps_relE"><code class="docutils literal notranslate"><span class="pre">eps_rel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15strategy_params5f_maxE"><code class="docutils literal notranslate"><span class="pre">f_max</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#hankel-transform-functions">Hankel transform functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv416hankel_transformi13form_factor_fPd6size_tPvPdPKc15strategy_params"><code class="docutils literal notranslate"><span class="pre">hankel_transform()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv420hankel_transform_DHTi13form_factor_fKdPvPdi"><code class="docutils literal notranslate"><span class="pre">hankel_transform_DHT()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv425hankel_transform_DE_Oourai13form_factor_fKdPvPdid"><code class="docutils literal notranslate"><span class="pre">hankel_transform_DE_Ooura()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv425hankel_transform_DE_Ogatai13form_factor_fKdPvPdid"><code class="docutils literal notranslate"><span class="pre">hankel_transform_DE_Ogata()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv424hankel_transform_QWE_Keyi13form_factor_fKdPvPdid"><code class="docutils literal notranslate"><span class="pre">hankel_transform_QWE_Key()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv426hankel_transform_QWE_Chavei13form_factor_fKdPvPdid"><code class="docutils literal notranslate"><span class="pre">hankel_transform_QWE_Chave()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#for-form-factors-usage">For form factors usage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv413form_factor_f"><code class="docutils literal notranslate"><span class="pre">form_factor_f</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv415form_factor_ctx"><code class="docutils literal notranslate"><span class="pre">form_factor_ctx</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15form_factor_ctx6paramsE"><code class="docutils literal notranslate"><span class="pre">params</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv417form_factor_g_dabdPv"><code class="docutils literal notranslate"><span class="pre">form_factor_g_dab()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv418form_factor_spheredPv"><code class="docutils literal notranslate"><span class="pre">form_factor_sphere()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv422form_factor_broad_peakdPv"><code class="docutils literal notranslate"><span class="pre">form_factor_broad_peak()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -108,29 +125,41 @@
              
   <section id="c-api">
 <span id="id1"></span><h1>C API<a class="headerlink" href="#c-api" title="Link to this heading"></a></h1>
+<p>This page contains explanations of the main functions / structs
+a user might need, when using the library from C.</p>
+<section id="strategy-params">
+<span id="strategy-params-c-api"></span><h2>Strategy params<a class="headerlink" href="#strategy-params" title="Link to this heading"></a></h2>
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv415strategy_params">
+<span id="_CPPv315strategy_params"></span><span id="_CPPv215strategy_params"></span><span id="strategy_params"></span><span class="target" id="structstrategy__params"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">strategy_params</span></span></span><a class="headerlink" href="#_CPPv415strategy_params" title="Link to this definition"></a><br /></dt>
+<dd><p>Parameters required by the selected Hankel strategy. This structure groups together parameters that influence the behavior and accuracy of the algorithm. </p>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric" id="breathe-section-title-typedefs">Typedefs</p>
-<dl class="cpp type">
-<dt class="sig sig-object cpp" id="_CPPv413form_factor_f">
-<span id="_CPPv313form_factor_f"></span><span id="_CPPv213form_factor_f"></span><span id="form_factor_f"></span><span class="target" id="libhankel_8h_1a0e1024037ef107f5a9e37d6932af02c2"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">form_factor_f</span></span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">(</span></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">ctx</span></span><span class="p"><span class="pre">)</span></span><a class="headerlink" href="#_CPPv413form_factor_f" title="Link to this definition"></a><br /></dt>
-<dd><p>Function pointer type for a form factor callback. </p>
-<p>This callback is used to evaluate the form factor at a given input value.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Param x<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Input variable . </p>
-</dd>
-<dt class="field-even">Param ctx<span class="colon">:</span></dt>
-<dd class="field-even"><p>User-provided context or data pointer (may be NULL).</p>
-</dd>
-<dt class="field-odd">Return<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The value of the form factor evaluated at <code class="docutils literal notranslate"><span class="pre">x</span></code>. </p>
-</dd>
-</dl>
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N15strategy_params6n_evalE">
+<span id="_CPPv3N15strategy_params6n_evalE"></span><span id="_CPPv2N15strategy_params6n_evalE"></span><span id="strategy_params::n_eval__i"></span><span class="target" id="structstrategy__params_1a9e5655c2549b2dff884116acc625a955"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">n_eval</span></span></span><a class="headerlink" href="#_CPPv4N15strategy_params6n_evalE" title="Link to this definition"></a><br /></dt>
+<dd><p>Integer parameter indicating the maximum allowed number of function evaluations. Corresponds to N_ogata in SASfit. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N15strategy_params7eps_relE">
+<span id="_CPPv3N15strategy_params7eps_relE"></span><span id="_CPPv2N15strategy_params7eps_relE"></span><span id="strategy_params::eps_rel__double"></span><span class="target" id="structstrategy__params_1a151596b1adab70fe9de8419ed2936240"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">eps_rel</span></span></span><a class="headerlink" href="#_CPPv4N15strategy_params7eps_relE" title="Link to this definition"></a><br /></dt>
+<dd><p>Tolerance parameter or relative error allowed. </p>
+<p>Determines the numerical precision or convergence threshold of the computation. Smaller values lead to higher accuracy at the cost of increased computation time. Corresponds to eps_nriq in SASfit. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N15strategy_params5f_maxE">
+<span id="_CPPv3N15strategy_params5f_maxE"></span><span id="_CPPv2N15strategy_params5f_maxE"></span><span id="strategy_params::f_max__double"></span><span class="target" id="structstrategy__params_1ad788f9a97317a1a70c052b63201fca64"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">f_max</span></span></span><a class="headerlink" href="#_CPPv4N15strategy_params5f_maxE" title="Link to this definition"></a><br /></dt>
+<dd><p>Starting guess for the maximum in the function x * form_factor. Corresponds to h_ogata in SASfit. </p>
 </dd></dl>
 
 </div>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric" id="breathe-section-title-functions">Functions</p>
+</dd></dl>
+
+</section>
+<section id="hankel-transform-functions">
+<span id="hankel-transform-c-api"></span><h2>Hankel transform functions<a class="headerlink" href="#hankel-transform-functions" title="Link to this heading"></a></h2>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv416hankel_transformi13form_factor_fPd6size_tPvPdPKc15strategy_params">
 <span id="_CPPv316hankel_transformi13form_factor_fPd6size_tPvPdPKc15strategy_params"></span><span id="_CPPv216hankel_transformi13form_factor_fPd6size_tPvPdPKc15strategy_params"></span><span id="hankel_transform__i.form_factor_f.doubleP.s.voidP.doubleP.cCP.strategy_params"></span><span class="target" id="libhankel_8h_1ac61e4e7e81a12c1006283542141730e8"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hankel_transform</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nu</span></span>, <a class="reference internal" href="#_CPPv413form_factor_f" title="form_factor_f"><span class="n"><span class="pre">form_factor_f</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">f</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">x</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">len_x</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">f_ctx</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">output</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">strategy_name</span></span>, <a class="reference internal" href="#_CPPv416hankel_transformi13form_factor_fPd6size_tPvPdPKc15strategy_params" title="hankel_transform::strategy_params"><span class="n"><span class="pre">strategy_params</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">strategy_params</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv416hankel_transformi13form_factor_fPd6size_tPvPdPKc15strategy_params" title="Link to this definition"></a><br /></dt>
@@ -276,35 +305,105 @@
 </dl>
 </dd></dl>
 
-</div>
+</section>
+<section id="for-form-factors-usage">
+<span id="form-factors-c-api"></span><h2>For form factors usage<a class="headerlink" href="#for-form-factors-usage" title="Link to this heading"></a></h2>
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv413form_factor_f">
+<span id="_CPPv313form_factor_f"></span><span id="_CPPv213form_factor_f"></span><span id="form_factor_f"></span><span class="target" id="libhankel_8h_1a0e1024037ef107f5a9e37d6932af02c2"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">form_factor_f</span></span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">(</span></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">ctx</span></span><span class="p"><span class="pre">)</span></span><a class="headerlink" href="#_CPPv413form_factor_f" title="Link to this definition"></a><br /></dt>
+<dd><p>Function pointer type for a form factor callback. </p>
+<p>This callback is used to evaluate the form factor at a given input value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Param x<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Input variable . </p>
+</dd>
+<dt class="field-even">Param ctx<span class="colon">:</span></dt>
+<dd class="field-even"><p>User-provided context or data pointer (may be NULL).</p>
+</dd>
+<dt class="field-odd">Return<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The value of the form factor evaluated at <code class="docutils literal notranslate"><span class="pre">x</span></code>. </p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="cpp struct">
-<dt class="sig sig-object cpp" id="_CPPv415strategy_params">
-<span id="_CPPv315strategy_params"></span><span id="_CPPv215strategy_params"></span><span id="strategy_params"></span><span class="target" id="structstrategy__params"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">strategy_params</span></span></span><a class="headerlink" href="#_CPPv415strategy_params" title="Link to this definition"></a><br /></dt>
-<dd><p>Parameters required by the selected Hankel strategy. This structure groups together parameters that influence the behavior and accuracy of the algorithm. </p>
+<dt class="sig sig-object cpp" id="_CPPv415form_factor_ctx">
+<span id="_CPPv315form_factor_ctx"></span><span id="_CPPv215form_factor_ctx"></span><span id="form_factor_ctx"></span><span class="target" id="structform__factor__ctx"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">form_factor_ctx</span></span></span><a class="headerlink" href="#_CPPv415form_factor_ctx" title="Link to this definition"></a><br /></dt>
+<dd><p>Context structure for form factor callbacks. </p>
+<p>This structure is used to pass user-defined data to functions of type <a class="reference internal" href="#libhankel_8h_1a0e1024037ef107f5a9e37d6932af02c2"><span class="std std-ref">form_factor_f</span></a>. The contents of the context are managed by the user and interpreted by the callback implementation. </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
 <dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N15strategy_params6n_evalE">
-<span id="_CPPv3N15strategy_params6n_evalE"></span><span id="_CPPv2N15strategy_params6n_evalE"></span><span id="strategy_params::n_eval__i"></span><span class="target" id="structstrategy__params_1a9e5655c2549b2dff884116acc625a955"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">n_eval</span></span></span><a class="headerlink" href="#_CPPv4N15strategy_params6n_evalE" title="Link to this definition"></a><br /></dt>
-<dd><p>Integer parameter indicating the maximum allowed number of function evaluations. Corresponds to N_ogata in SASfit. </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N15strategy_params7eps_relE">
-<span id="_CPPv3N15strategy_params7eps_relE"></span><span id="_CPPv2N15strategy_params7eps_relE"></span><span id="strategy_params::eps_rel__double"></span><span class="target" id="structstrategy__params_1a151596b1adab70fe9de8419ed2936240"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">eps_rel</span></span></span><a class="headerlink" href="#_CPPv4N15strategy_params7eps_relE" title="Link to this definition"></a><br /></dt>
-<dd><p>Tolerance parameter or relative error allowed. </p>
-<p>Determines the numerical precision or convergence threshold of the computation. Smaller values lead to higher accuracy at the cost of increased computation time. Corresponds to eps_nriq in SASfit. </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N15strategy_params5f_maxE">
-<span id="_CPPv3N15strategy_params5f_maxE"></span><span id="_CPPv2N15strategy_params5f_maxE"></span><span id="strategy_params::f_max__double"></span><span class="target" id="structstrategy__params_1ad788f9a97317a1a70c052b63201fca64"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">f_max</span></span></span><a class="headerlink" href="#_CPPv4N15strategy_params5f_maxE" title="Link to this definition"></a><br /></dt>
-<dd><p>Starting guess for the maximum in the function x * form_factor. Corresponds to h_ogata in SASfit. </p>
+<dt class="sig sig-object cpp" id="_CPPv4N15form_factor_ctx6paramsE">
+<span id="_CPPv3N15form_factor_ctx6paramsE"></span><span id="_CPPv2N15form_factor_ctx6paramsE"></span><span id="form_factor_ctx::params__doubleP"></span><span class="target" id="structform__factor__ctx_1afe6aa615ef02b2f3607cde85fbdcd771"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">params</span></span></span><a class="headerlink" href="#_CPPv4N15form_factor_ctx6paramsE" title="Link to this definition"></a><br /></dt>
+<dd><p>Pointer to user-defined parameter array. </p>
+<p>This array stores the data required by the form factor callback. For indication of what this should contain, please refer to the documentation for each form factor. </p>
 </dd></dl>
 
 </div>
 </dd></dl>
 
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv417form_factor_g_dabdPv">
+<span id="_CPPv317form_factor_g_dabdPv"></span><span id="_CPPv217form_factor_g_dabdPv"></span><span id="form_factor_g_dab__double.voidP"></span><span class="target" id="form__factors_8h_1a05ade8d244a85f173cc26c3aea472e60"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">form_factor_g_dab</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">q</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">f_ctx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv417form_factor_g_dabdPv" title="Link to this definition"></a><br /></dt>
+<dd><p>Computes the g_dab form factor. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>q</strong> – value at which to compute the transform </p></li>
+<li><p><strong>f_ctx</strong> – pointer to struct containing inputs for form factor f_ctx must contain a pointer to an array with the following parameters, in this order:<ul>
+<li><p><span class="math notranslate nohighlight">\( \xi \)</span>: correlation length (e.g., 10.0)</p></li>
+<li><p>H : Hurst exponent (e.g., 0.5)</p></li>
+<li><p>ETA : scattering length density contrast (e.g., 1e-4) </p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv418form_factor_spheredPv">
+<span id="_CPPv318form_factor_spheredPv"></span><span id="_CPPv218form_factor_spheredPv"></span><span id="form_factor_sphere__double.voidP"></span><span class="target" id="form__factors_8h_1a5440e6f208c6bdf8caba50294f2da5fd"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">form_factor_sphere</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">q</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">f_ctx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv418form_factor_spheredPv" title="Link to this definition"></a><br /></dt>
+<dd><p>Computes the sphere form factor. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>q</strong> – value at which to compute the transform </p></li>
+<li><p><strong>f_ctx</strong> – pointer to struct containing inputs for form factor f_ctx must contain a pointer to an array with the following parameters, in this order:<ul>
+<li><p>R : radius (e.g., 10.0)</p></li>
+<li><p>ETA : scattering contrast (e.g., 1.0) </p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv422form_factor_broad_peakdPv">
+<span id="_CPPv322form_factor_broad_peakdPv"></span><span id="_CPPv222form_factor_broad_peakdPv"></span><span id="form_factor_broad_peak__double.voidP"></span><span class="target" id="form__factors_8h_1adb46bd8febc742b0d81dbafc7df1749d"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">form_factor_broad_peak</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">q</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">f_ctx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv422form_factor_broad_peakdPv" title="Link to this definition"></a><br /></dt>
+<dd><p>Computes the broad_peak form factor. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>q</strong> – value at which to compute the transform </p></li>
+<li><p><strong>f_ctx</strong> – pointer to struct containing inputs for form factor. f_ctx must contain a pointer to an array of parameters. The parameters, which appear in the formula <div class="math notranslate nohighlight">
+\[ I(Q) = \frac{I_0}{\left(1 + (|q - q_0| \xi)^m \right)^p} \]</div>
+ need to be in the following order:<ul>
+<li><p><span class="math notranslate nohighlight">\( I_0 \)</span> : Forward scattering intensity (e.g. 1e5)</p></li>
+<li><p><span class="math notranslate nohighlight">\( \xi \)</span> : Correlation length (e.g. 1000)</p></li>
+<li><p><span class="math notranslate nohighlight">\( q_0 \)</span>: Peak position, related to d-spacing: <span class="math notranslate nohighlight">\( q_0 = \frac{2\pi}{d} \)</span> (e.g. 0.01)</p></li>
+<li><p><span class="math notranslate nohighlight">\( m \)</span> : Exponent <span class="math notranslate nohighlight">\(m\)</span> (e.g. 2)</p></li>
+<li><p><span class="math notranslate nohighlight">\( p \)</span> : Exponent <span class="math notranslate nohighlight">\(p\)</span> (e.g. 2) </p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
 </section>
 
 
