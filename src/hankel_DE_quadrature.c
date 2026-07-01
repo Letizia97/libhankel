@@ -81,18 +81,7 @@ double deriv_DEtransform(double t){
     return M_PI_2 * t * ch * (secH * secH) + tanh(A);
 }
 
-/** 
- * @brief Computes Hankel transform, using de-quadrature.
- * @note Corresponds to strategy 0 in SASfit, or HANKEL_OOURA_DEO.
- *        
- * @param nu         order of bessel function - must be 0 or 1
- * @param f          pointer to function to transform
- * @param x          value at which to compute the transform
- * @param f_ctx      pointer to struct containing inputs for f
- * @param output     pointer to var containing output from transform 
- * @param n_eval     integer indicating number of function evaluations (N_ogata in SASfit)
- * @param eps_rel    relative error allowed e.g. 1e-9 (eps_nriq in SASfit)
- */ 
+
 double hankel_transform_DE_Ooura(
     int nu, 
     form_factor_f f, 
@@ -170,18 +159,7 @@ double hankel_transform_DE_Ooura(
 	return 0;
 }
 
-/** 
- * @brief Computes Hankel transform, using de-quadrature.
- * @note Corresponds to strategy 1 in SASfit or HANKEL_OGATA_2005.
- * 
- * @param nu         order of bessel function - must be 0 or 1
- * @param f          pointer to function to transform
- * @param x          value at which to compute the transform
- * @param f_ctx      pointer to struct containing inputs for f
- * @param output     pointer to var containing output from transform 
- * @param n_eval     integer indicating number of function evaluations (N_ogata in SASfit)
- * @param f_max      float indicating starting guess for max in form factor (h_ogata in SASfit)
- */ 
+
 double hankel_transform_DE_Ogata(
     int nu, 
     form_factor_f f, 

@@ -17,18 +17,7 @@ Specifically:
 */
 
 
-/** 
- * @brief Computes Hankel transform using the Quadrature With Extrapolation method by Key.
- * @note Corresponds to strategy 12 in SASfit.
- * 
- * @param nu         order of bessel function - must be 0 or 1
- * @param f          pointer to function to transform
- * @param x          value at which to compute the transform
- * @param f_ctx      pointer to struct containing inputs for f
- * @param output     pointer to var containing output from transform 
- * @param n_eval     integer indicating number of function evaluations (N_ogata in SASfit)
- * @param eps_rel    relative error allowed e.g. 1e-9 (eps_nriq in SASfit)
- */ 
+
 double hankel_transform_QWE_Key(
     int nu, 
     form_factor_f f, 
@@ -53,18 +42,7 @@ double hankel_transform_QWE_Key(
     return status;
 }
 
-/** 
- * @brief Computes Hankel transform using the Quadrature With Extrapolation method by Chave.
- * @note Corresponds to strategy 13 in SASfit.
- * 
- * @param nu         order of bessel function - must be 0 or 1
- * @param f          pointer to function to transform
- * @param x          value at which to compute the transform
- * @param f_ctx      pointer to struct containing inputs for f
- * @param output     pointer to var containing output from transform 
- * @param n_eval     integer indicating number of function evaluations (N_ogata in SASfit)
- * @param eps_rel    relative error allowed e.g. 1e-9 (eps_nriq in SASfit)
- */ 
+
 double hankel_transform_QWE_Chave(
     int nu, 
     form_factor_f f, 

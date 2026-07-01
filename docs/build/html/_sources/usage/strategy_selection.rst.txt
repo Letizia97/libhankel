@@ -4,8 +4,13 @@ Strategy Selection
 ================================
 
 LibHankel includes various implementations of the Hankel transform, corresponding to 
-different ways of approximating the Hankel transform integral. The following table 
-lists the strategies that are available in LibHankel. 
+different ways of approximating the Hankel transform integral. 
+
+Independently of the interface being used, the ``hankel_transform`` function is designed 
+to receive a parameter named ``strategy_name``, which allows the user the select one of 
+the strategies available. 
+
+The following table lists the strategies that are available in LibHankel. 
 The column named *Strategy Name* in the table essentially contains the possible strings
 the user could pass in as ``strategy_name`` when calling the ``hankel_transform`` function.
 The column named *Index* in the table essentially refers to the numbering used in SASfit.
