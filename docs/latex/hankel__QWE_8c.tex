@@ -1,36 +1,20 @@
 \hypertarget{hankel__QWE_8c}{}\doxysection{src/hankel\+\_\+\+QWE.c File Reference}
 \label{hankel__QWE_8c}\index{src/hankel\_QWE.c@{src/hankel\_QWE.c}}
-{\ttfamily \#include \char`\"{}libhankel.\+h\char`\"{}}\newline
-{\ttfamily \#include $<$math.\+h$>$}\newline
-{\ttfamily \#include $<$stdio.\+h$>$}\newline
-{\ttfamily \#include $<$gsl/gsl\+\_\+math.\+h$>$}\newline
-{\ttfamily \#include $<$gsl/gsl\+\_\+sf.\+h$>$}\newline
-{\ttfamily \#include $<$gsl/gsl\+\_\+sf\+\_\+bessel.\+h$>$}\newline
-{\ttfamily \#include \char`\"{}../external\+\_\+libs/qwe\+\_\+\+Key/qwe\+\_\+\+Key.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}../external\+\_\+libs/qwe\+\_\+\+Chave/qwe\+\_\+\+Chave.\+h\char`\"{}}\newline
-Include dependency graph for hankel\+\_\+\+QWE.\+c\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{hankel__QWE_8c__incl}
-\end{center}
-\end{figure}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-double \mbox{\hyperlink{hankel__QWE_8c_a39228fe4efc207cc321ca4b9f0423ff0}{hankel\+\_\+transform\+\_\+\+QWE\+\_\+\+Key}} (int nu, double($\ast$f)(double, double($\ast$)\mbox{[}50\mbox{]}), double x, double($\ast$f\+\_\+params)\mbox{[}50\mbox{]}, double $\ast$output, int n\+\_\+eval, double eps\+\_\+rel)
+double \mbox{\hyperlink{hankel__QWE_8c_ad45f2421887472f1cc8b5e568f49b6ec}{hankel\+\_\+transform\+\_\+\+QWE\+\_\+\+Key}} (int nu, \mbox{\hyperlink{libhankel_8h_a0e1024037ef107f5a9e37d6932af02c2}{form\+\_\+factor\+\_\+f}} f, const double x, void $\ast$f\+\_\+ctx, double $\ast$output, int n\+\_\+eval, double eps\+\_\+rel)
 \begin{DoxyCompactList}\small\item\em Computes Hankel transform using the Quadrature With Extrapolation method by Key. \end{DoxyCompactList}\item 
-double \mbox{\hyperlink{hankel__QWE_8c_a9090f7e1fce93cc33ef875d694f9e075}{hankel\+\_\+transform\+\_\+\+QWE\+\_\+\+Chave}} (int nu, double($\ast$f)(double, double($\ast$)\mbox{[}50\mbox{]}), double x, double($\ast$f\+\_\+params)\mbox{[}50\mbox{]}, double $\ast$output, int n\+\_\+eval, double eps\+\_\+rel)
+double \mbox{\hyperlink{hankel__QWE_8c_ae09cf89efd135afa916d0790daae8121}{hankel\+\_\+transform\+\_\+\+QWE\+\_\+\+Chave}} (int nu, \mbox{\hyperlink{libhankel_8h_a0e1024037ef107f5a9e37d6932af02c2}{form\+\_\+factor\+\_\+f}} f, const double x, void $\ast$f\+\_\+ctx, double $\ast$output, int n\+\_\+eval, double eps\+\_\+rel)
 \begin{DoxyCompactList}\small\item\em Computes Hankel transform using the Quadrature With Extrapolation method by Chave. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{hankel__QWE_8c_a9090f7e1fce93cc33ef875d694f9e075}\label{hankel__QWE_8c_a9090f7e1fce93cc33ef875d694f9e075}} 
+\mbox{\Hypertarget{hankel__QWE_8c_ae09cf89efd135afa916d0790daae8121}\label{hankel__QWE_8c_ae09cf89efd135afa916d0790daae8121}} 
 \index{hankel\_QWE.c@{hankel\_QWE.c}!hankel\_transform\_QWE\_Chave@{hankel\_transform\_QWE\_Chave}}
 \index{hankel\_transform\_QWE\_Chave@{hankel\_transform\_QWE\_Chave}!hankel\_QWE.c@{hankel\_QWE.c}}
 \doxysubsubsection{\texorpdfstring{hankel\_transform\_QWE\_Chave()}{hankel\_transform\_QWE\_Chave()}}
-{\footnotesize\ttfamily double hankel\+\_\+transform\+\_\+\+QWE\+\_\+\+Chave (\begin{DoxyParamCaption}\item[{int}]{nu,  }\item[{double($\ast$)(double, double($\ast$)\mbox{[}50\mbox{]})}]{f,  }\item[{double}]{x,  }\item[{double($\ast$)}]{f\+\_\+params\mbox{[}50\mbox{]},  }\item[{double $\ast$}]{output,  }\item[{int}]{n\+\_\+eval,  }\item[{double}]{eps\+\_\+rel }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily double hankel\+\_\+transform\+\_\+\+QWE\+\_\+\+Chave (\begin{DoxyParamCaption}\item[{int}]{nu,  }\item[{\mbox{\hyperlink{libhankel_8h_a0e1024037ef107f5a9e37d6932af02c2}{form\+\_\+factor\+\_\+f}}}]{f,  }\item[{const double}]{x,  }\item[{void $\ast$}]{f\+\_\+ctx,  }\item[{double $\ast$}]{output,  }\item[{int}]{n\+\_\+eval,  }\item[{double}]{eps\+\_\+rel }\end{DoxyParamCaption})}
 
 
 
@@ -43,11 +27,11 @@ Corresponds to strategy 13 in SASfit.
 \begin{DoxyParams}{Parameters}
 {\em nu} & order of bessel function -\/ must be 0 or 1 \\
 \hline
-{\em f} & pointer to form factor function \\
+{\em f} & pointer to function to transform \\
 \hline
 {\em x} & value at which to compute the transform \\
 \hline
-{\em f\+\_\+params} & params for form factor \\
+{\em f\+\_\+ctx} & pointer to struct containing inputs for f \\
 \hline
 {\em output} & pointer to var containing output from transform \\
 \hline
@@ -56,11 +40,11 @@ Corresponds to strategy 13 in SASfit.
 {\em eps\+\_\+rel} & relative error allowed e.\+g. 1e-\/9 (eps\+\_\+nriq in SASfit) \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{hankel__QWE_8c_a39228fe4efc207cc321ca4b9f0423ff0}\label{hankel__QWE_8c_a39228fe4efc207cc321ca4b9f0423ff0}} 
+\mbox{\Hypertarget{hankel__QWE_8c_ad45f2421887472f1cc8b5e568f49b6ec}\label{hankel__QWE_8c_ad45f2421887472f1cc8b5e568f49b6ec}} 
 \index{hankel\_QWE.c@{hankel\_QWE.c}!hankel\_transform\_QWE\_Key@{hankel\_transform\_QWE\_Key}}
 \index{hankel\_transform\_QWE\_Key@{hankel\_transform\_QWE\_Key}!hankel\_QWE.c@{hankel\_QWE.c}}
 \doxysubsubsection{\texorpdfstring{hankel\_transform\_QWE\_Key()}{hankel\_transform\_QWE\_Key()}}
-{\footnotesize\ttfamily double hankel\+\_\+transform\+\_\+\+QWE\+\_\+\+Key (\begin{DoxyParamCaption}\item[{int}]{nu,  }\item[{double($\ast$)(double, double($\ast$)\mbox{[}50\mbox{]})}]{f,  }\item[{double}]{x,  }\item[{double($\ast$)}]{f\+\_\+params\mbox{[}50\mbox{]},  }\item[{double $\ast$}]{output,  }\item[{int}]{n\+\_\+eval,  }\item[{double}]{eps\+\_\+rel }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily double hankel\+\_\+transform\+\_\+\+QWE\+\_\+\+Key (\begin{DoxyParamCaption}\item[{int}]{nu,  }\item[{\mbox{\hyperlink{libhankel_8h_a0e1024037ef107f5a9e37d6932af02c2}{form\+\_\+factor\+\_\+f}}}]{f,  }\item[{const double}]{x,  }\item[{void $\ast$}]{f\+\_\+ctx,  }\item[{double $\ast$}]{output,  }\item[{int}]{n\+\_\+eval,  }\item[{double}]{eps\+\_\+rel }\end{DoxyParamCaption})}
 
 
 
@@ -73,11 +57,11 @@ Corresponds to strategy 12 in SASfit.
 \begin{DoxyParams}{Parameters}
 {\em nu} & order of bessel function -\/ must be 0 or 1 \\
 \hline
-{\em f} & pointer to form factor function \\
+{\em f} & pointer to function to transform \\
 \hline
 {\em x} & value at which to compute the transform \\
 \hline
-{\em f\+\_\+params} & params for form factor \\
+{\em f\+\_\+ctx} & pointer to struct containing inputs for f \\
 \hline
 {\em output} & pointer to var containing output from transform \\
 \hline

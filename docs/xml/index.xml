@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.9.1" xml:lang="en-US">
+  <compound refid="structentry" kind="struct"><name>entry</name>
+    <member refid="structentry_1aebb0525a45ca32f4a89b9180c988edb4" kind="variable"><name>name</name></member>
+    <member refid="structentry_1af18439dab346f24033193785eea7a0d4" kind="variable"><name>func</name></member>
+  </compound>
+  <compound refid="structform__factor__ctx" kind="struct"><name>form_factor_ctx</name>
+    <member refid="structform__factor__ctx_1afe6aa615ef02b2f3607cde85fbdcd771" kind="variable"><name>params</name></member>
+  </compound>
+  <compound refid="structparams__struct" kind="struct"><name>params_struct</name>
+    <member refid="structparams__struct_1a637ceb8525729bf27104c68e77bdad8c" kind="variable"><name>f_params</name></member>
+    <member refid="structparams__struct_1a2c09081864ba36e037171ba61636b977" kind="variable"><name>function</name></member>
+    <member refid="structparams__struct_1af9900b998a31c2dc79311116ab680afd" kind="variable"><name>nu</name></member>
+    <member refid="structparams__struct_1ac0d1e7e1890df178b0605032b1a43fc5" kind="variable"><name>Q</name></member>
+  </compound>
+  <compound refid="structpy__f__ctx" kind="struct"><name>py_f_ctx</name>
+    <member refid="structpy__f__ctx_1a867eaca36dd16b6b7bd72474d6eb7391" kind="variable"><name>params</name></member>
+    <member refid="structpy__f__ctx_1adf3dd817c23cd7a33ce164162c07c18d" kind="variable"><name>n_params</name></member>
+    <member refid="structpy__f__ctx_1a096ca27541ce97641840c1811ccf34e3" kind="variable"><name>callable</name></member>
+  </compound>
+  <compound refid="structstrategy__params" kind="struct"><name>strategy_params</name>
+    <member refid="structstrategy__params_1a9e5655c2549b2dff884116acc625a955" kind="variable"><name>n_eval</name></member>
+    <member refid="structstrategy__params_1a151596b1adab70fe9de8419ed2936240" kind="variable"><name>eps_rel</name></member>
+    <member refid="structstrategy__params_1ad788f9a97317a1a70c052b63201fca64" kind="variable"><name>f_max</name></member>
+  </compound>
+  <compound refid="form__factors_8h" kind="file"><name>form_factors.h</name>
+    <member refid="form__factors_8h_1a05ade8d244a85f173cc26c3aea472e60" kind="function"><name>form_factor_g_dab</name></member>
+    <member refid="form__factors_8h_1a5440e6f208c6bdf8caba50294f2da5fd" kind="function"><name>form_factor_sphere</name></member>
+    <member refid="form__factors_8h_1adb46bd8febc742b0d81dbafc7df1749d" kind="function"><name>form_factor_broad_peak</name></member>
+    <member refid="form__factors_8h_1ad3f6584528169d3d49a5b6327557e3d6" kind="function"><name>get_form_factor_by_name</name></member>
+  </compound>
+  <compound refid="libhankel_8h" kind="file"><name>libhankel.h</name>
+    <member refid="libhankel_8h_1a0e1024037ef107f5a9e37d6932af02c2" kind="typedef"><name>form_factor_f</name></member>
+    <member refid="libhankel_8h_1ac61e4e7e81a12c1006283542141730e8" kind="function"><name>hankel_transform</name></member>
+    <member refid="libhankel_8h_1a1afd349b27c3678a014332090788d4fa" kind="function"><name>hankel_transform_DHT</name></member>
+    <member refid="libhankel_8h_1ab59eed68ae4b66aa38bae302d028f26f" kind="function"><name>hankel_transform_DE_Ooura</name></member>
+    <member refid="libhankel_8h_1a796e38bd6e3edd71299fd70895857e90" kind="function"><name>hankel_transform_DE_Ogata</name></member>
+    <member refid="libhankel_8h_1ad45f2421887472f1cc8b5e568f49b6ec" kind="function"><name>hankel_transform_QWE_Key</name></member>
+    <member refid="libhankel_8h_1ae09cf89efd135afa916d0790daae8121" kind="function"><name>hankel_transform_QWE_Chave</name></member>
+  </compound>
+  <compound refid="form__factors_8c" kind="file"><name>form_factors.c</name>
+    <member refid="form__factors_8c_1a00c20f1b44508f03b5d2dcbf4c2111f3" kind="variable"><name>table</name></member>
+    <member refid="form__factors_8c_1a05ade8d244a85f173cc26c3aea472e60" kind="function"><name>form_factor_g_dab</name></member>
+    <member refid="form__factors_8c_1a5440e6f208c6bdf8caba50294f2da5fd" kind="function"><name>form_factor_sphere</name></member>
+    <member refid="form__factors_8c_1adb46bd8febc742b0d81dbafc7df1749d" kind="function"><name>form_factor_broad_peak</name></member>
+    <member refid="form__factors_8c_1ad3f6584528169d3d49a5b6327557e3d6" kind="function"><name>get_form_factor_by_name</name></member>
+  </compound>
+  <compound refid="hankel__DE__quadrature_8c" kind="file"><name>hankel_DE_quadrature.c</name>
+    <member refid="hankel__DE__quadrature_8c_1ae18ef418501c82562c9865b3f40af2a5" kind="function"><name>intdeo_FBT</name></member>
+    <member refid="hankel__DE__quadrature_8c_1a0b592bbf4d81eb176017f3cdf7c74d51" kind="function"><name>DEtransform</name></member>
+    <member refid="hankel__DE__quadrature_8c_1ae1b03fc133041f7c13160312b02afc8c" kind="function"><name>deriv_DEtransform</name></member>
+    <member refid="hankel__DE__quadrature_8c_1ab59eed68ae4b66aa38bae302d028f26f" kind="function"><name>hankel_transform_DE_Ooura</name></member>
+    <member refid="hankel__DE__quadrature_8c_1a796e38bd6e3edd71299fd70895857e90" kind="function"><name>hankel_transform_DE_Ogata</name></member>
+  </compound>
+  <compound refid="hankel__DHT_8c" kind="file"><name>hankel_DHT.c</name>
+    <member refid="hankel__DHT_8c_1a1afd349b27c3678a014332090788d4fa" kind="function"><name>hankel_transform_DHT</name></member>
+  </compound>
+  <compound refid="hankel__FBT__Ogata_8c" kind="file"><name>hankel_FBT_Ogata.c</name>
+  </compound>
+  <compound refid="hankel__QWE_8c" kind="file"><name>hankel_QWE.c</name>
+    <member refid="hankel__QWE_8c_1ad45f2421887472f1cc8b5e568f49b6ec" kind="function"><name>hankel_transform_QWE_Key</name></member>
+    <member refid="hankel__QWE_8c_1ae09cf89efd135afa916d0790daae8121" kind="function"><name>hankel_transform_QWE_Chave</name></member>
+  </compound>
+  <compound refid="hankel__transform_8c" kind="file"><name>hankel_transform.c</name>
+    <member refid="hankel__transform_8c_1a02018326a229a0fcb3388c6e220c92bf" kind="function"><name>validate_n_eval</name></member>
+    <member refid="hankel__transform_8c_1a4568f0630d3465e1d6993e9eb1946409" kind="function"><name>validate_eps_rel</name></member>
+    <member refid="hankel__transform_8c_1a825473c79ffe045666fe8d4dbc052d0d" kind="function"><name>validate_f_max</name></member>
+    <member refid="hankel__transform_8c_1ac61e4e7e81a12c1006283542141730e8" kind="function"><name>hankel_transform</name></member>
+  </compound>
+  <compound refid="py__interface_8c" kind="file"><name>py_interface.c</name>
+    <member refid="py__interface_8c_1a23d8ca811f9512036ea26c3475366a1a" kind="variable"><name>hankel_t_doc</name></member>
+    <member refid="py__interface_8c_1a749d7fa9b1f39c537bd95ed3124d9134" kind="variable"><name>Methods</name></member>
+    <member refid="py__interface_8c_1a664ab1cf69fc4e5c958146785ac89410" kind="variable"><name>module</name></member>
+    <member refid="py__interface_8c_1a81c6888adfc1520be5e77e163c4ad433" kind="function"><name>python_form_factor</name></member>
+    <member refid="py__interface_8c_1aa4a53ff18b3bbd16d626c4748e2a1109" kind="function"><name>py_hankel_transform</name></member>
+    <member refid="py__interface_8c_1ad6ecbdad30b7766eadb462a2a57c012d" kind="function"><name>PyInit_libhankel</name></member>
+  </compound>
+  <compound refid="dir_d44c64559bbebec7f509842c48db8b23" kind="dir"><name>include</name>
+  </compound>
+  <compound refid="dir_68267d1309a1af8e8297ef4c3efbcdba" kind="dir"><name>src</name>
+  </compound>
+</doxygenindex>

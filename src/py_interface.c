@@ -242,15 +242,41 @@ static PyObject* py_hankel_transform(PyObject *self, PyObject *args) {
     return out_list;
 }
 
+// docstring for hankel_tranform python api
+static char hankel_t_doc[] = 
+    "Compute the Hankel transform.\n"
+    "\n"
+    ":param nu:              The order of bessel function, must be 0 or 1.\n"
+    ":type nu:               int \n"
+    ":param f:               Either a function to hankel-transform or a string naming a built-in function, "
+    "i.e. either of 'gdab', 'broad_peak', 'sphere'.\n"
+    ":type f:                callable or str\n"
+    ":param x_arr:           The points at which to evaluate the Hankel transform of the function f.\n"
+    ":type x_arr:            numpy.ndarray of float64\n"
+    ":param f_params:        Input parameters needed by the function f (ordered).\n"
+    ":type f_params:         numpy.ndarray of float64\n"
+    ":param strategy_name:   The name of Hankel strategy to use. "
+    "Refer to the table in :ref:`strategy-parameters` for a list of possible strategies.\n"
+    ":type strategy_name:    str \n"
+    ":param strategy_params: The parameters needed by the chosen strategy. "
+    "See :ref:`strategy-selection` or :ref:`c-api` (strategy_params) for details.\n"
+    ":type strategy_params:  dict[str, float | int]\n"       
+    ":returns:               The hankel transform.\n"
+    ":rtype:                 numpy.ndarray of float64\n"
+    "Please refer to :ref:`python-examples` for examples on how to use this function with either a "
+    "builtin form factor or a custom input function."
+    "\n" ;
+
+
 static PyMethodDef Methods[] = {
-    {"hankel_transform", py_hankel_transform, METH_VARARGS, "Hankel transform"},
+    {"hankel_transform", py_hankel_transform, METH_VARARGS, hankel_t_doc},
     {NULL, NULL, 0, NULL}
 };
 
 static struct PyModuleDef module = {
     PyModuleDef_HEAD_INIT,
     "libhankel",
-    NULL,
+    " ",
     -1,
     Methods
 };

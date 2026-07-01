@@ -1,4 +1,4 @@
-from .hankel import hankel_transform
+from .libhankel import hankel_transform
 
 __all__ = [
     "hankel_transform",

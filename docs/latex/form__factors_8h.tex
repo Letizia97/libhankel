@@ -1,29 +1,29 @@
 \hypertarget{form__factors_8h}{}\doxysection{include/form\+\_\+factors.h File Reference}
 \label{form__factors_8h}\index{include/form\_factors.h@{include/form\_factors.h}}
-This graph shows which files directly or indirectly include this file\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=206pt]{form__factors_8h__dep__incl}
-\end{center}
-\end{figure}
+\doxysubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structform__factor__ctx}{form\+\_\+factor\+\_\+ctx}}
+\end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-double \mbox{\hyperlink{form__factors_8h_aae792362bdf2202ba303bae532134c48}{form\+\_\+factor\+\_\+g\+\_\+dab}} (double q, double($\ast$params)\mbox{[}50\mbox{]})
+double \mbox{\hyperlink{form__factors_8h_a05ade8d244a85f173cc26c3aea472e60}{form\+\_\+factor\+\_\+g\+\_\+dab}} (double q, void $\ast$f\+\_\+ctx)
 \begin{DoxyCompactList}\small\item\em Computes the g\+\_\+dab form factor. \end{DoxyCompactList}\item 
-double \mbox{\hyperlink{form__factors_8h_a720612bb3d12c6b6c608f30c3705d64c}{form\+\_\+factor\+\_\+sphere}} (double q, double($\ast$params)\mbox{[}50\mbox{]})
+double \mbox{\hyperlink{form__factors_8h_a5440e6f208c6bdf8caba50294f2da5fd}{form\+\_\+factor\+\_\+sphere}} (double q, void $\ast$f\+\_\+ctx)
 \begin{DoxyCompactList}\small\item\em Computes the sphere form factor. \end{DoxyCompactList}\item 
-double \mbox{\hyperlink{form__factors_8h_a40d045fff6a6f27cb5fc959379152ece}{form\+\_\+factor\+\_\+broad\+\_\+peak}} (double q, double($\ast$params)\mbox{[}50\mbox{]})
-\begin{DoxyCompactList}\small\item\em Computes the broad\+\_\+peak form factor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+double \mbox{\hyperlink{form__factors_8h_adb46bd8febc742b0d81dbafc7df1749d}{form\+\_\+factor\+\_\+broad\+\_\+peak}} (double q, void $\ast$f\+\_\+ctx)
+\begin{DoxyCompactList}\small\item\em Computes the broad\+\_\+peak form factor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{libhankel_8h_a0e1024037ef107f5a9e37d6932af02c2}{form\+\_\+factor\+\_\+f}} \mbox{\hyperlink{form__factors_8h_ad3f6584528169d3d49a5b6327557e3d6}{get\+\_\+form\+\_\+factor\+\_\+by\+\_\+name}} (const char $\ast$name)
+\end{DoxyCompactItemize}
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{form__factors_8h_a40d045fff6a6f27cb5fc959379152ece}\label{form__factors_8h_a40d045fff6a6f27cb5fc959379152ece}} 
+\mbox{\Hypertarget{form__factors_8h_adb46bd8febc742b0d81dbafc7df1749d}\label{form__factors_8h_adb46bd8febc742b0d81dbafc7df1749d}} 
 \index{form\_factors.h@{form\_factors.h}!form\_factor\_broad\_peak@{form\_factor\_broad\_peak}}
 \index{form\_factor\_broad\_peak@{form\_factor\_broad\_peak}!form\_factors.h@{form\_factors.h}}
 \doxysubsubsection{\texorpdfstring{form\_factor\_broad\_peak()}{form\_factor\_broad\_peak()}}
-{\footnotesize\ttfamily double form\+\_\+factor\+\_\+broad\+\_\+peak (\begin{DoxyParamCaption}\item[{double}]{q,  }\item[{double($\ast$)}]{params\mbox{[}50\mbox{]} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily double form\+\_\+factor\+\_\+broad\+\_\+peak (\begin{DoxyParamCaption}\item[{double}]{q,  }\item[{void $\ast$}]{f\+\_\+ctx }\end{DoxyParamCaption})}
 
 
 
@@ -31,9 +31,9 @@ Computes the broad\+\_\+peak form factor.
 
 
 \begin{DoxyParams}{Parameters}
-{\em q} & value at which to compute the Hankel t \\
+{\em q} & value at which to compute the transform \\
 \hline
-{\em params} & pointer to an array of params for the function\\
+{\em f\+\_\+ctx} & pointer to struct containing inputs for form factor\\
 \hline
 \end{DoxyParams}
 \begin{DoxyNote}{Note}
@@ -46,11 +46,11 @@ Params must contain \+:
 \item P I(\+Q)=I0/(1+($\vert$q-\/q0$\vert$$\ast$xi)$^\wedge$m)$^\wedge$p (e.\+g., 2) 
 \end{DoxyItemize}
 \end{DoxyNote}
-\mbox{\Hypertarget{form__factors_8h_aae792362bdf2202ba303bae532134c48}\label{form__factors_8h_aae792362bdf2202ba303bae532134c48}} 
+\mbox{\Hypertarget{form__factors_8h_a05ade8d244a85f173cc26c3aea472e60}\label{form__factors_8h_a05ade8d244a85f173cc26c3aea472e60}} 
 \index{form\_factors.h@{form\_factors.h}!form\_factor\_g\_dab@{form\_factor\_g\_dab}}
 \index{form\_factor\_g\_dab@{form\_factor\_g\_dab}!form\_factors.h@{form\_factors.h}}
 \doxysubsubsection{\texorpdfstring{form\_factor\_g\_dab()}{form\_factor\_g\_dab()}}
-{\footnotesize\ttfamily double form\+\_\+factor\+\_\+g\+\_\+dab (\begin{DoxyParamCaption}\item[{double}]{q,  }\item[{double($\ast$)}]{params\mbox{[}50\mbox{]} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily double form\+\_\+factor\+\_\+g\+\_\+dab (\begin{DoxyParamCaption}\item[{double}]{q,  }\item[{void $\ast$}]{f\+\_\+ctx }\end{DoxyParamCaption})}
 
 
 
@@ -58,9 +58,9 @@ Computes the g\+\_\+dab form factor.
 
 
 \begin{DoxyParams}{Parameters}
-{\em q} & value at which to compute the Hankel t \\
+{\em q} & value at which to compute the transform \\
 \hline
-{\em params} & pointer to an array of params for the function\\
+{\em f\+\_\+ctx} & pointer to struct containing inputs for form factor\\
 \hline
 \end{DoxyParams}
 \begin{DoxyNote}{Note}
@@ -71,11 +71,11 @@ Params must contain \+:
 \item ETA scattering length density contrast (e.\+g., 1e-\/4) 
 \end{DoxyItemize}
 \end{DoxyNote}
-\mbox{\Hypertarget{form__factors_8h_a720612bb3d12c6b6c608f30c3705d64c}\label{form__factors_8h_a720612bb3d12c6b6c608f30c3705d64c}} 
+\mbox{\Hypertarget{form__factors_8h_a5440e6f208c6bdf8caba50294f2da5fd}\label{form__factors_8h_a5440e6f208c6bdf8caba50294f2da5fd}} 
 \index{form\_factors.h@{form\_factors.h}!form\_factor\_sphere@{form\_factor\_sphere}}
 \index{form\_factor\_sphere@{form\_factor\_sphere}!form\_factors.h@{form\_factors.h}}
 \doxysubsubsection{\texorpdfstring{form\_factor\_sphere()}{form\_factor\_sphere()}}
-{\footnotesize\ttfamily double form\+\_\+factor\+\_\+sphere (\begin{DoxyParamCaption}\item[{double}]{q,  }\item[{double($\ast$)}]{params\mbox{[}50\mbox{]} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily double form\+\_\+factor\+\_\+sphere (\begin{DoxyParamCaption}\item[{double}]{q,  }\item[{void $\ast$}]{f\+\_\+ctx }\end{DoxyParamCaption})}
 
 
 
@@ -83,9 +83,9 @@ Computes the sphere form factor.
 
 
 \begin{DoxyParams}{Parameters}
-{\em q} & value at which to compute the Hankel t \\
+{\em q} & value at which to compute the transform \\
 \hline
-{\em params} & pointer to an array of params for the function\\
+{\em f\+\_\+ctx} & pointer to struct containing inputs for form factor\\
 \hline
 \end{DoxyParams}
 \begin{DoxyNote}{Note}
@@ -95,3 +95,9 @@ Params must contain \+:
 \item ETA scattering contrast (e.\+g., 1.\+0) 
 \end{DoxyItemize}
 \end{DoxyNote}
+\mbox{\Hypertarget{form__factors_8h_ad3f6584528169d3d49a5b6327557e3d6}\label{form__factors_8h_ad3f6584528169d3d49a5b6327557e3d6}} 
+\index{form\_factors.h@{form\_factors.h}!get\_form\_factor\_by\_name@{get\_form\_factor\_by\_name}}
+\index{get\_form\_factor\_by\_name@{get\_form\_factor\_by\_name}!form\_factors.h@{form\_factors.h}}
+\doxysubsubsection{\texorpdfstring{get\_form\_factor\_by\_name()}{get\_form\_factor\_by\_name()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{libhankel_8h_a0e1024037ef107f5a9e37d6932af02c2}{form\+\_\+factor\+\_\+f}} get\+\_\+form\+\_\+factor\+\_\+by\+\_\+name (\begin{DoxyParamCaption}\item[{const char $\ast$}]{name }\end{DoxyParamCaption})}
+

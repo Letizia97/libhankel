@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['sj0_86',['sJ0',['../strateg6__const_8h.html#ade4a0d4d7630ef7f0e969154c247b8ab',1,'strateg6_const.h']]],
-  ['sj0fast_87',['sJ0Fast',['../strateg7__const_8h.html#a3860631c09639ff2b344031e55513e6a',1,'strateg7_const.h']]],
-  ['sj1_88',['sJ1',['../strateg6__const_8h.html#aefdf71ac06f3aab4c4955fc7dc1e23b0',1,'strateg6_const.h']]],
-  ['sj1fast_89',['sJ1Fast',['../strateg7__const_8h.html#aeeb4824a62df759273c5aea1e5f2821b',1,'strateg7_const.h']]]
+  ['n_5feval_92',['n_eval',['../structstrategy__params.html#a9e5655c2549b2dff884116acc625a955',1,'strategy_params']]],
+  ['n_5fparams_93',['n_params',['../structpy__f__ctx.html#adf3dd817c23cd7a33ce164162c07c18d',1,'py_f_ctx']]],
+  ['name_94',['name',['../structentry.html#aebb0525a45ca32f4a89b9180c988edb4',1,'entry']]],
+  ['nu_95',['nu',['../structparams__struct.html#af9900b998a31c2dc79311116ab680afd',1,'params_struct']]]
 ];

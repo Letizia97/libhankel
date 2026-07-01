@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['form_5ffactor_5fbroad_5fpeak_64',['form_factor_broad_peak',['../form__factors_8h.html#a40d045fff6a6f27cb5fc959379152ece',1,'form_factor_broad_peak(double q, double(*params)[50]):&#160;form_factors.c'],['../form__factors_8c.html#a40d045fff6a6f27cb5fc959379152ece',1,'form_factor_broad_peak(double q, double(*params)[50]):&#160;form_factors.c']]],
-  ['form_5ffactor_5fg_5fdab_65',['form_factor_g_dab',['../form__factors_8h.html#aae792362bdf2202ba303bae532134c48',1,'form_factor_g_dab(double q, double(*params)[50]):&#160;form_factors.c'],['../form__factors_8c.html#aae792362bdf2202ba303bae532134c48',1,'form_factor_g_dab(double q, double(*params)[50]):&#160;form_factors.c']]],
-  ['form_5ffactor_5fsphere_66',['form_factor_sphere',['../form__factors_8h.html#a720612bb3d12c6b6c608f30c3705d64c',1,'form_factor_sphere(double q, double(*params)[50]):&#160;form_factors.c'],['../form__factors_8c.html#a720612bb3d12c6b6c608f30c3705d64c',1,'form_factor_sphere(double q, double(*params)[50]):&#160;form_factors.c']]]
+  ['get_5fform_5ffactor_5fby_5fname_69',['get_form_factor_by_name',['../form__factors_8h.html#ad3f6584528169d3d49a5b6327557e3d6',1,'get_form_factor_by_name(const char *name):&#160;form_factors.c'],['../form__factors_8c.html#ad3f6584528169d3d49a5b6327557e3d6',1,'get_form_factor_by_name(const char *name):&#160;form_factors.c']]]
 ];

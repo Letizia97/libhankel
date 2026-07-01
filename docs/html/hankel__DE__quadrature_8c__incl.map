@@ -1,11 +1,11 @@
 <map id="src/hankel_DE_quadrature.c" name="src/hankel_DE_quadrature.c">
-<area shape="rect" id="node1" title=" " alt="" coords="264,5,467,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="313,5,516,32"/>
 <area shape="rect" id="node2" href="$libhankel_8h.html" title=" " alt="" coords="5,87,99,114"/>
-<area shape="rect" id="node4" title=" " alt="" coords="123,87,191,114"/>
-<area shape="rect" id="node5" title=" " alt="" coords="216,87,283,114"/>
-<area shape="rect" id="node6" title=" " alt="" coords="307,87,424,114"/>
-<area shape="rect" id="node7" title=" " alt="" coords="449,87,543,114"/>
-<area shape="rect" id="node8" title=" " alt="" coords="568,87,712,114"/>
-<area shape="rect" id="node9" title=" " alt="" coords="736,80,883,121"/>
+<area shape="rect" id="node4" title=" " alt="" coords="123,80,269,121"/>
+<area shape="rect" id="node5" title=" " alt="" coords="294,87,357,114"/>
+<area shape="rect" id="node6" title=" " alt="" coords="381,87,449,114"/>
+<area shape="rect" id="node7" title=" " alt="" coords="473,87,540,114"/>
+<area shape="rect" id="node8" title=" " alt="" coords="565,87,635,114"/>
+<area shape="rect" id="node9" title=" " alt="" coords="659,80,802,121"/>
 <area shape="rect" id="node3" title=" " alt="" coords="15,169,89,196"/>
 </map>

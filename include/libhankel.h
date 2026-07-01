@@ -3,17 +3,57 @@
 #define LIBHANKEL_H
 #include <stddef.h>
 
+
+
+/**
+ * @struct strategy_params
+ * @brief Parameters required by the selected Hankel strategy.
+ *        This structure groups together parameters that influence 
+ *        the behavior and accuracy of the algorithm.
+ */
+
 typedef struct {
-    int n_eval;      // integer indicating number of function evaluations (N_ogata in SASfit)
-    double eps_rel;     // relative error allowed e.g. 1e-9 (eps_nriq in SASfit)
-    double f_max;       // float indicating starting guess for max in form factor (h_ogata in SASfit)
+    
+    /**
+     * @brief Integer parameter indicating the maximum allowed 
+     *        number of function evaluations. 
+     *        Corresponds to N_ogata in SASfit.
+     */
+    int n_eval;
+    
+    /**
+     * @brief Tolerance parameter or relative error allowed.
+     *
+     * Determines the numerical precision or convergence threshold
+     * of the computation. Smaller values lead to higher accuracy
+     * at the cost of increased computation time.
+     * Corresponds to eps_nriq in SASfit.
+     */    
+    double eps_rel;    
+    
+    
+    /**
+     * @brief Starting guess for the maximum in the function x * form_factor.
+     *        Corresponds to h_ogata in SASfit.
+     */
+    double f_max;    
 } strategy_params;
 
+
+
+/**
+ * @typedef form_factor_f
+ * @brief Function pointer type for a form factor callback.
+ *
+ * This callback is used to evaluate the form factor at a given input value.
+ *
+ * @param x   Input variable .
+ * @param ctx User-provided context or data pointer (may be NULL).
+ *
+ * @return The value of the form factor evaluated at @p x.
+ */
 typedef double (*form_factor_f)(double x, void *ctx);
 
-typedef struct {
-    double *params;
-} form_factor_ctx;
 
 int hankel_transform(
     int nu, 
@@ -37,26 +77,7 @@ double hankel_transform_DHT(
     int n_strategy
 );
 
-// corresponding to strategies 2-4 (FBT)
-double compute_hankel_FBT(
-    int nu, 
-    form_factor_f intern_fct,
-    void *ctx,
-    double x, 
-    int n_method, 
-    int n_eval, 
-    double f_max
-);
-double hankel_transform_FBT(
-    int nu, 
-    double (*f)(double, double (*)[50]), 
-    double x, 
-    double (*f_params)[50], 
-    double *output,
-    int n_method, 
-    int n_eval, 
-    double f_max
-);
+
 
 // strategy 0 (DE QUADRATURE)
 double hankel_transform_DE_Ooura(

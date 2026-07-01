@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>Overview</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><anchor id="index_1md_docs_index"/></para>
+<para>.. toctree:: :maxdepth: 2</para>
+<para>intro install examples usage ``</para>
+<para>.. _overview:</para>
+<para>Welcome to the documentation for <bold>Libhankel</bold>.</para>
+<para>LibHankel is a C library with a number of methods for computing Hankel transforms, re-implemented based on the strategies available in <ulink url="https://github.com/SASfit/SASfit">SASfit</ulink>. The methods are effectively different ways of approximating the integral that constitutes the Hankel transform.</para>
+<para>Please head to &quot;Related Pages&quot; in the above toolbar to find more information on how to install and use the library. </para>
+    </detaileddescription>
+    <location file="docs/index.md"/>
+  </compounddef>
+</doxygen>

@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['validate_5feps_5frel_75',['validate_eps_rel',['../hankel__transform_8c.html#a4568f0630d3465e1d6993e9eb1946409',1,'hankel_transform.c']]],
-  ['validate_5ff_5fmax_76',['validate_f_max',['../hankel__transform_8c.html#a825473c79ffe045666fe8d4dbc052d0d',1,'hankel_transform.c']]],
-  ['validate_5fn_5feval_77',['validate_n_eval',['../hankel__transform_8c.html#a02018326a229a0fcb3388c6e220c92bf',1,'hankel_transform.c']]]
+  ['py_5fhankel_5ftransform_77',['py_hankel_transform',['../py__interface_8c.html#aa4a53ff18b3bbd16d626c4748e2a1109',1,'py_interface.c']]],
+  ['pyinit_5flibhankel_78',['PyInit_libhankel',['../py__interface_8c.html#ad6ecbdad30b7766eadb462a2a57c012d',1,'py_interface.c']]],
+  ['python_5fform_5ffactor_79',['python_form_factor',['../py__interface_8c.html#a81c6888adfc1520be5e77e163c4ad433',1,'py_interface.c']]]
 ];

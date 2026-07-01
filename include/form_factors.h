@@ -5,6 +5,12 @@
 #include "libhankel.h"
 #include <stddef.h>
 
+
+typedef struct {
+    double *params;
+} form_factor_ctx;
+
+
 /** 
  * @brief Computes the g_dab form factor. 
  *

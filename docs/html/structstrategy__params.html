@@ -69,18 +69,24 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="libhankel_8h_source.html">libhankel.h</a>&gt;</code></p>
+<p>Parameters required by the selected Hankel strategy. This structure groups together parameters that influence the behavior and accuracy of the algorithm.  
+ <a href="structstrategy__params.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
 <tr class="memitem:a9e5655c2549b2dff884116acc625a955"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structstrategy__params.html#a9e5655c2549b2dff884116acc625a955">n_eval</a></td></tr>
+<tr class="memdesc:a9e5655c2549b2dff884116acc625a955"><td class="mdescLeft">&#160;</td><td class="mdescRight">Integer parameter indicating the maximum allowed number of function evaluations. Corresponds to N_ogata in SASfit.  <a href="structstrategy__params.html#a9e5655c2549b2dff884116acc625a955">More...</a><br /></td></tr>
 <tr class="separator:a9e5655c2549b2dff884116acc625a955"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a151596b1adab70fe9de8419ed2936240"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structstrategy__params.html#a151596b1adab70fe9de8419ed2936240">eps_rel</a></td></tr>
+<tr class="memdesc:a151596b1adab70fe9de8419ed2936240"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tolerance parameter or relative error allowed.  <a href="structstrategy__params.html#a151596b1adab70fe9de8419ed2936240">More...</a><br /></td></tr>
 <tr class="separator:a151596b1adab70fe9de8419ed2936240"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad788f9a97317a1a70c052b63201fca64"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structstrategy__params.html#ad788f9a97317a1a70c052b63201fca64">f_max</a></td></tr>
+<tr class="memdesc:ad788f9a97317a1a70c052b63201fca64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starting guess for the maximum in the function x * form_factor. Corresponds to h_ogata in SASfit.  <a href="structstrategy__params.html#ad788f9a97317a1a70c052b63201fca64">More...</a><br /></td></tr>
 <tr class="separator:ad788f9a97317a1a70c052b63201fca64"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Field Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Parameters required by the selected Hankel strategy. This structure groups together parameters that influence the behavior and accuracy of the algorithm. </p>
+</div><h2 class="groupheader">Field Documentation</h2>
 <a id="a151596b1adab70fe9de8419ed2936240"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a151596b1adab70fe9de8419ed2936240">&#9670;&nbsp;</a></span>eps_rel</h2>
 
@@ -92,6 +98,9 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Tolerance parameter or relative error allowed. </p>
+<p>Determines the numerical precision or convergence threshold of the computation. Smaller values lead to higher accuracy at the cost of increased computation time. Corresponds to eps_nriq in SASfit. </p>
 
 </div>
 </div>
@@ -107,6 +116,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Starting guess for the maximum in the function x * form_factor. Corresponds to h_ogata in SASfit. </p>
+
 </div>
 </div>
 <a id="a9e5655c2549b2dff884116acc625a955"></a>
@@ -121,11 +132,10 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Integer parameter indicating the maximum allowed number of function evaluations. Corresponds to N_ogata in SASfit. </p>
+
 </div>
 </div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/<a class="el" href="libhankel_8h_source.html">libhankel.h</a></li>
-</ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
