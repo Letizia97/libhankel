@@ -17,7 +17,7 @@
         <location file="src/form_factors.c" line="70" column="16" bodyfile="src/form_factors.c" bodystart="70" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structentry_1af18439dab346f24033193785eea7a0d4" prot="public" static="no" mutable="no">
-        <type><ref refid="libhankel_8h_1a8e20b1325721b16e0a41c95b642fd74b" kindref="member">form_factor_f</ref></type>
+        <type><ref refid="libhankel_8h_1a0e1024037ef107f5a9e37d6932af02c2" kindref="member">form_factor_f</ref></type>
         <definition>form_factor_f entry::func</definition>
         <argsstring></argsstring>
         <name>func</name>

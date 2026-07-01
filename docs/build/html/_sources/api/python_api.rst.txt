@@ -1,8 +1,7 @@
-Python API
-===========
-
 .. _python-api:
 
+Python API
+===========
 
 
 .. automodule:: libhankel

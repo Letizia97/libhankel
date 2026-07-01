@@ -1,75 +1,63 @@
 \hypertarget{libhankel_8h}{}\doxysection{include/libhankel.h File Reference}
 \label{libhankel_8h}\index{include/libhankel.h@{include/libhankel.h}}
-{\ttfamily \#include $<$stddef.\+h$>$}\newline
-Include dependency graph for libhankel.\+h\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=188pt]{libhankel_8h__incl}
-\end{center}
-\end{figure}
-This graph shows which files directly or indirectly include this file\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{libhankel_8h__dep__incl}
-\end{center}
-\end{figure}
 \doxysubsection*{Data Structures}
 \begin{DoxyCompactItemize}
 \item 
 struct \mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}}
-\item 
-struct \mbox{\hyperlink{structform__factor__ctx}{form\+\_\+factor\+\_\+ctx}}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Parameters required by the selected Hankel strategy. This structure groups together parameters that influence the behavior and accuracy of the algorithm. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
-typedef double($\ast$ \mbox{\hyperlink{libhankel_8h_a8e20b1325721b16e0a41c95b642fd74b}{form\+\_\+factor\+\_\+f}}) (double x, void $\ast$ctx)
-\end{DoxyCompactItemize}
+typedef double($\ast$ \mbox{\hyperlink{libhankel_8h_a0e1024037ef107f5a9e37d6932af02c2}{form\+\_\+factor\+\_\+f}}) (double x, void $\ast$ctx)
+\begin{DoxyCompactList}\small\item\em Function pointer type for a form factor callback. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-int \mbox{\hyperlink{libhankel_8h_ac61e4e7e81a12c1006283542141730e8}{hankel\+\_\+transform}} (int nu, \mbox{\hyperlink{libhankel_8h_a8e20b1325721b16e0a41c95b642fd74b}{form\+\_\+factor\+\_\+f}} f, double $\ast$x, size\+\_\+t len\+\_\+x, void $\ast$f\+\_\+ctx, double $\ast$output, const char $\ast$strategy\+\_\+name, \mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}} \mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}})
+int \mbox{\hyperlink{libhankel_8h_ac61e4e7e81a12c1006283542141730e8}{hankel\+\_\+transform}} (int nu, \mbox{\hyperlink{libhankel_8h_a0e1024037ef107f5a9e37d6932af02c2}{form\+\_\+factor\+\_\+f}} f, double $\ast$x, size\+\_\+t len\+\_\+x, void $\ast$f\+\_\+ctx, double $\ast$output, const char $\ast$strategy\+\_\+name, \mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}} \mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}})
 \begin{DoxyCompactList}\small\item\em Computes Hankel transform using the method specified by the user. \end{DoxyCompactList}\item 
-double \mbox{\hyperlink{libhankel_8h_a1afd349b27c3678a014332090788d4fa}{hankel\+\_\+transform\+\_\+\+DHT}} (int nu, \mbox{\hyperlink{libhankel_8h_a8e20b1325721b16e0a41c95b642fd74b}{form\+\_\+factor\+\_\+f}} f, const double x, void $\ast$f\+\_\+ctx, double $\ast$output, int n\+\_\+strategy)
+double \mbox{\hyperlink{libhankel_8h_a1afd349b27c3678a014332090788d4fa}{hankel\+\_\+transform\+\_\+\+DHT}} (int nu, \mbox{\hyperlink{libhankel_8h_a0e1024037ef107f5a9e37d6932af02c2}{form\+\_\+factor\+\_\+f}} f, const double x, void $\ast$f\+\_\+ctx, double $\ast$output, int n\+\_\+strategy)
 \begin{DoxyCompactList}\small\item\em Computes Hankel transform, using digital filters. \end{DoxyCompactList}\item 
-double \mbox{\hyperlink{libhankel_8h_a0413bf125eb226d94b78ba11ff5dfed2}{compute\+\_\+hankel\+\_\+\+FBT}} (int nu, \mbox{\hyperlink{libhankel_8h_a8e20b1325721b16e0a41c95b642fd74b}{form\+\_\+factor\+\_\+f}} intern\+\_\+fct, void $\ast$ctx, double x, int n\+\_\+method, int n\+\_\+eval, double f\+\_\+max)
-\item 
-double \mbox{\hyperlink{libhankel_8h_a90bc633a1ef4e7022cec668b3b2ad96a}{hankel\+\_\+transform\+\_\+\+FBT}} (int nu, double($\ast$f)(double, double($\ast$)\mbox{[}50\mbox{]}), double x, double($\ast$f\+\_\+params)\mbox{[}50\mbox{]}, double $\ast$output, int n\+\_\+method, int n\+\_\+eval, double f\+\_\+max)
-\item 
-double \mbox{\hyperlink{libhankel_8h_ab59eed68ae4b66aa38bae302d028f26f}{hankel\+\_\+transform\+\_\+\+DE\+\_\+\+Ooura}} (int nu, \mbox{\hyperlink{libhankel_8h_a8e20b1325721b16e0a41c95b642fd74b}{form\+\_\+factor\+\_\+f}} f, const double x, void $\ast$f\+\_\+ctx, double $\ast$output, int n\+\_\+eval, double eps\+\_\+rel)
+double \mbox{\hyperlink{libhankel_8h_ab59eed68ae4b66aa38bae302d028f26f}{hankel\+\_\+transform\+\_\+\+DE\+\_\+\+Ooura}} (int nu, \mbox{\hyperlink{libhankel_8h_a0e1024037ef107f5a9e37d6932af02c2}{form\+\_\+factor\+\_\+f}} f, const double x, void $\ast$f\+\_\+ctx, double $\ast$output, int n\+\_\+eval, double eps\+\_\+rel)
 \begin{DoxyCompactList}\small\item\em Computes Hankel transform, using de-\/quadrature. \end{DoxyCompactList}\item 
-double \mbox{\hyperlink{libhankel_8h_a796e38bd6e3edd71299fd70895857e90}{hankel\+\_\+transform\+\_\+\+DE\+\_\+\+Ogata}} (int nu, \mbox{\hyperlink{libhankel_8h_a8e20b1325721b16e0a41c95b642fd74b}{form\+\_\+factor\+\_\+f}} f, const double x, void $\ast$f\+\_\+ctx, double $\ast$output, int n\+\_\+eval, double f\+\_\+max)
+double \mbox{\hyperlink{libhankel_8h_a796e38bd6e3edd71299fd70895857e90}{hankel\+\_\+transform\+\_\+\+DE\+\_\+\+Ogata}} (int nu, \mbox{\hyperlink{libhankel_8h_a0e1024037ef107f5a9e37d6932af02c2}{form\+\_\+factor\+\_\+f}} f, const double x, void $\ast$f\+\_\+ctx, double $\ast$output, int n\+\_\+eval, double f\+\_\+max)
 \begin{DoxyCompactList}\small\item\em Computes Hankel transform, using de-\/quadrature. \end{DoxyCompactList}\item 
-double \mbox{\hyperlink{libhankel_8h_ad45f2421887472f1cc8b5e568f49b6ec}{hankel\+\_\+transform\+\_\+\+QWE\+\_\+\+Key}} (int nu, \mbox{\hyperlink{libhankel_8h_a8e20b1325721b16e0a41c95b642fd74b}{form\+\_\+factor\+\_\+f}} f, const double x, void $\ast$f\+\_\+ctx, double $\ast$output, int n\+\_\+eval, double eps\+\_\+rel)
+double \mbox{\hyperlink{libhankel_8h_ad45f2421887472f1cc8b5e568f49b6ec}{hankel\+\_\+transform\+\_\+\+QWE\+\_\+\+Key}} (int nu, \mbox{\hyperlink{libhankel_8h_a0e1024037ef107f5a9e37d6932af02c2}{form\+\_\+factor\+\_\+f}} f, const double x, void $\ast$f\+\_\+ctx, double $\ast$output, int n\+\_\+eval, double eps\+\_\+rel)
 \begin{DoxyCompactList}\small\item\em Computes Hankel transform using the Quadrature With Extrapolation method by Key. \end{DoxyCompactList}\item 
-double \mbox{\hyperlink{libhankel_8h_ae09cf89efd135afa916d0790daae8121}{hankel\+\_\+transform\+\_\+\+QWE\+\_\+\+Chave}} (int nu, \mbox{\hyperlink{libhankel_8h_a8e20b1325721b16e0a41c95b642fd74b}{form\+\_\+factor\+\_\+f}} f, const double x, void $\ast$f\+\_\+ctx, double $\ast$output, int n\+\_\+eval, double eps\+\_\+rel)
+double \mbox{\hyperlink{libhankel_8h_ae09cf89efd135afa916d0790daae8121}{hankel\+\_\+transform\+\_\+\+QWE\+\_\+\+Chave}} (int nu, \mbox{\hyperlink{libhankel_8h_a0e1024037ef107f5a9e37d6932af02c2}{form\+\_\+factor\+\_\+f}} f, const double x, void $\ast$f\+\_\+ctx, double $\ast$output, int n\+\_\+eval, double eps\+\_\+rel)
 \begin{DoxyCompactList}\small\item\em Computes Hankel transform using the Quadrature With Extrapolation method by Chave. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Typedef Documentation}
-\mbox{\Hypertarget{libhankel_8h_a8e20b1325721b16e0a41c95b642fd74b}\label{libhankel_8h_a8e20b1325721b16e0a41c95b642fd74b}} 
+\mbox{\Hypertarget{libhankel_8h_a0e1024037ef107f5a9e37d6932af02c2}\label{libhankel_8h_a0e1024037ef107f5a9e37d6932af02c2}} 
 \index{libhankel.h@{libhankel.h}!form\_factor\_f@{form\_factor\_f}}
 \index{form\_factor\_f@{form\_factor\_f}!libhankel.h@{libhankel.h}}
 \doxysubsubsection{\texorpdfstring{form\_factor\_f}{form\_factor\_f}}
-{\footnotesize\ttfamily typedef double($\ast$ form\+\_\+factor\+\_\+f) (double x, void $\ast$ctx)}
+{\footnotesize\ttfamily form\+\_\+factor\+\_\+f}
 
+
+
+Function pointer type for a form factor callback. 
+
+This callback is used to evaluate the form factor at a given input value.
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & Input variable . \\
+\hline
+{\em ctx} & User-\/provided context or data pointer (may be NULL).\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value of the form factor evaluated at {\ttfamily x}. 
+\end{DoxyReturn}
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{libhankel_8h_a0413bf125eb226d94b78ba11ff5dfed2}\label{libhankel_8h_a0413bf125eb226d94b78ba11ff5dfed2}} 
-\index{libhankel.h@{libhankel.h}!compute\_hankel\_FBT@{compute\_hankel\_FBT}}
-\index{compute\_hankel\_FBT@{compute\_hankel\_FBT}!libhankel.h@{libhankel.h}}
-\doxysubsubsection{\texorpdfstring{compute\_hankel\_FBT()}{compute\_hankel\_FBT()}}
-{\footnotesize\ttfamily double compute\+\_\+hankel\+\_\+\+FBT (\begin{DoxyParamCaption}\item[{int}]{nu,  }\item[{\mbox{\hyperlink{libhankel_8h_a8e20b1325721b16e0a41c95b642fd74b}{form\+\_\+factor\+\_\+f}}}]{intern\+\_\+fct,  }\item[{void $\ast$}]{ctx,  }\item[{double}]{x,  }\item[{int}]{n\+\_\+method,  }\item[{int}]{n\+\_\+eval,  }\item[{double}]{f\+\_\+max }\end{DoxyParamCaption})}
-
 \mbox{\Hypertarget{libhankel_8h_ac61e4e7e81a12c1006283542141730e8}\label{libhankel_8h_ac61e4e7e81a12c1006283542141730e8}} 
 \index{libhankel.h@{libhankel.h}!hankel\_transform@{hankel\_transform}}
 \index{hankel\_transform@{hankel\_transform}!libhankel.h@{libhankel.h}}
 \doxysubsubsection{\texorpdfstring{hankel\_transform()}{hankel\_transform()}}
-{\footnotesize\ttfamily int hankel\+\_\+transform (\begin{DoxyParamCaption}\item[{int}]{nu,  }\item[{\mbox{\hyperlink{libhankel_8h_a8e20b1325721b16e0a41c95b642fd74b}{form\+\_\+factor\+\_\+f}}}]{f,  }\item[{double $\ast$}]{x,  }\item[{size\+\_\+t}]{len\+\_\+x,  }\item[{void $\ast$}]{f\+\_\+ctx,  }\item[{double $\ast$}]{output,  }\item[{const char $\ast$}]{strategy\+\_\+name,  }\item[{\mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}}}]{strategy\+\_\+params }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily int hankel\+\_\+transform (\begin{DoxyParamCaption}\item[{int}]{nu,  }\item[{\mbox{\hyperlink{libhankel_8h_a0e1024037ef107f5a9e37d6932af02c2}{form\+\_\+factor\+\_\+f}}}]{f,  }\item[{double $\ast$}]{x,  }\item[{size\+\_\+t}]{len\+\_\+x,  }\item[{void $\ast$}]{f\+\_\+ctx,  }\item[{double $\ast$}]{output,  }\item[{const char $\ast$}]{strategy\+\_\+name,  }\item[{\mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}}}]{strategy\+\_\+params }\end{DoxyParamCaption})}
 
 
 
@@ -82,7 +70,7 @@ The parameter strategy\+\_\+name can be any of \char`\"{}\+QWE\+\_\+\+Chave\char
 \begin{DoxyParams}{Parameters}
 {\em nu} & order of bessel function -\/ must be 0 or 1 \\
 \hline
-{\em f} & pointer to function to transform \\
+{\em f} & pointer to function to transform (see \mbox{\hyperlink{libhankel_8h_a0e1024037ef107f5a9e37d6932af02c2}{form\+\_\+factor\+\_\+f}}). \\
 \hline
 {\em x} & pointer to array of x at which to compute the transform \\
 \hline
@@ -92,14 +80,14 @@ The parameter strategy\+\_\+name can be any of \char`\"{}\+QWE\+\_\+\+Chave\char
 \hline
 {\em strategy\+\_\+name} & str corresponding to the strategy name \\
 \hline
-{\em \mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}}} & struct containing params for the specific strategy (please use the docs to find params required by each strategy) \\
+{\em \mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}}} & struct containing params for the specific strategy. See \mbox{\hyperlink{structstrategy__params}{strategy\+\_\+params}} for all elements this struct can contain and the page \href{../usage/strategy_params.html}{\texttt{ Strategy Parameters}} to check the params required by each strategy. \\
 \hline
 \end{DoxyParams}
 \mbox{\Hypertarget{libhankel_8h_a796e38bd6e3edd71299fd70895857e90}\label{libhankel_8h_a796e38bd6e3edd71299fd70895857e90}} 
 \index{libhankel.h@{libhankel.h}!hankel\_transform\_DE\_Ogata@{hankel\_transform\_DE\_Ogata}}
 \index{hankel\_transform\_DE\_Ogata@{hankel\_transform\_DE\_Ogata}!libhankel.h@{libhankel.h}}
 \doxysubsubsection{\texorpdfstring{hankel\_transform\_DE\_Ogata()}{hankel\_transform\_DE\_Ogata()}}
-{\footnotesize\ttfamily double hankel\+\_\+transform\+\_\+\+DE\+\_\+\+Ogata (\begin{DoxyParamCaption}\item[{int}]{nu,  }\item[{\mbox{\hyperlink{libhankel_8h_a8e20b1325721b16e0a41c95b642fd74b}{form\+\_\+factor\+\_\+f}}}]{f,  }\item[{const double}]{x,  }\item[{void $\ast$}]{f\+\_\+ctx,  }\item[{double $\ast$}]{output,  }\item[{int}]{n\+\_\+eval,  }\item[{double}]{f\+\_\+max }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily double hankel\+\_\+transform\+\_\+\+DE\+\_\+\+Ogata (\begin{DoxyParamCaption}\item[{int}]{nu,  }\item[{\mbox{\hyperlink{libhankel_8h_a0e1024037ef107f5a9e37d6932af02c2}{form\+\_\+factor\+\_\+f}}}]{f,  }\item[{const double}]{x,  }\item[{void $\ast$}]{f\+\_\+ctx,  }\item[{double $\ast$}]{output,  }\item[{int}]{n\+\_\+eval,  }\item[{double}]{f\+\_\+max }\end{DoxyParamCaption})}
 
 
 
@@ -129,7 +117,7 @@ Corresponds to strategy 1 in SASfit or HANKEL\+\_\+\+OGATA\+\_\+2005.
 \index{libhankel.h@{libhankel.h}!hankel\_transform\_DE\_Ooura@{hankel\_transform\_DE\_Ooura}}
 \index{hankel\_transform\_DE\_Ooura@{hankel\_transform\_DE\_Ooura}!libhankel.h@{libhankel.h}}
 \doxysubsubsection{\texorpdfstring{hankel\_transform\_DE\_Ooura()}{hankel\_transform\_DE\_Ooura()}}
-{\footnotesize\ttfamily double hankel\+\_\+transform\+\_\+\+DE\+\_\+\+Ooura (\begin{DoxyParamCaption}\item[{int}]{nu,  }\item[{\mbox{\hyperlink{libhankel_8h_a8e20b1325721b16e0a41c95b642fd74b}{form\+\_\+factor\+\_\+f}}}]{f,  }\item[{const double}]{x,  }\item[{void $\ast$}]{f\+\_\+ctx,  }\item[{double $\ast$}]{output,  }\item[{int}]{n\+\_\+eval,  }\item[{double}]{eps\+\_\+rel }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily double hankel\+\_\+transform\+\_\+\+DE\+\_\+\+Ooura (\begin{DoxyParamCaption}\item[{int}]{nu,  }\item[{\mbox{\hyperlink{libhankel_8h_a0e1024037ef107f5a9e37d6932af02c2}{form\+\_\+factor\+\_\+f}}}]{f,  }\item[{const double}]{x,  }\item[{void $\ast$}]{f\+\_\+ctx,  }\item[{double $\ast$}]{output,  }\item[{int}]{n\+\_\+eval,  }\item[{double}]{eps\+\_\+rel }\end{DoxyParamCaption})}
 
 
 
@@ -159,7 +147,7 @@ Corresponds to strategy 0 in SASfit, or HANKEL\+\_\+\+OOURA\+\_\+\+DEO.
 \index{libhankel.h@{libhankel.h}!hankel\_transform\_DHT@{hankel\_transform\_DHT}}
 \index{hankel\_transform\_DHT@{hankel\_transform\_DHT}!libhankel.h@{libhankel.h}}
 \doxysubsubsection{\texorpdfstring{hankel\_transform\_DHT()}{hankel\_transform\_DHT()}}
-{\footnotesize\ttfamily double hankel\+\_\+transform\+\_\+\+DHT (\begin{DoxyParamCaption}\item[{int}]{nu,  }\item[{\mbox{\hyperlink{libhankel_8h_a8e20b1325721b16e0a41c95b642fd74b}{form\+\_\+factor\+\_\+f}}}]{f,  }\item[{const double}]{x,  }\item[{void $\ast$}]{f\+\_\+ctx,  }\item[{double $\ast$}]{output,  }\item[{int}]{n\+\_\+strategy }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily double hankel\+\_\+transform\+\_\+\+DHT (\begin{DoxyParamCaption}\item[{int}]{nu,  }\item[{\mbox{\hyperlink{libhankel_8h_a0e1024037ef107f5a9e37d6932af02c2}{form\+\_\+factor\+\_\+f}}}]{f,  }\item[{const double}]{x,  }\item[{void $\ast$}]{f\+\_\+ctx,  }\item[{double $\ast$}]{output,  }\item[{int}]{n\+\_\+strategy }\end{DoxyParamCaption})}
 
 
 
@@ -187,17 +175,11 @@ Perform wells for simple form factors, but it does struggle with oscillatory one
 {\em n\+\_\+strategy} & an integer number between 6 and 11 (determines which weightings to use for the transform and corresponds to SASfit strategies 6-\/11) \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{libhankel_8h_a90bc633a1ef4e7022cec668b3b2ad96a}\label{libhankel_8h_a90bc633a1ef4e7022cec668b3b2ad96a}} 
-\index{libhankel.h@{libhankel.h}!hankel\_transform\_FBT@{hankel\_transform\_FBT}}
-\index{hankel\_transform\_FBT@{hankel\_transform\_FBT}!libhankel.h@{libhankel.h}}
-\doxysubsubsection{\texorpdfstring{hankel\_transform\_FBT()}{hankel\_transform\_FBT()}}
-{\footnotesize\ttfamily double hankel\+\_\+transform\+\_\+\+FBT (\begin{DoxyParamCaption}\item[{int}]{nu,  }\item[{double($\ast$)(double, double($\ast$)\mbox{[}50\mbox{]})}]{f,  }\item[{double}]{x,  }\item[{double($\ast$)}]{f\+\_\+params\mbox{[}50\mbox{]},  }\item[{double $\ast$}]{output,  }\item[{int}]{n\+\_\+method,  }\item[{int}]{n\+\_\+eval,  }\item[{double}]{f\+\_\+max }\end{DoxyParamCaption})}
-
 \mbox{\Hypertarget{libhankel_8h_ae09cf89efd135afa916d0790daae8121}\label{libhankel_8h_ae09cf89efd135afa916d0790daae8121}} 
 \index{libhankel.h@{libhankel.h}!hankel\_transform\_QWE\_Chave@{hankel\_transform\_QWE\_Chave}}
 \index{hankel\_transform\_QWE\_Chave@{hankel\_transform\_QWE\_Chave}!libhankel.h@{libhankel.h}}
 \doxysubsubsection{\texorpdfstring{hankel\_transform\_QWE\_Chave()}{hankel\_transform\_QWE\_Chave()}}
-{\footnotesize\ttfamily double hankel\+\_\+transform\+\_\+\+QWE\+\_\+\+Chave (\begin{DoxyParamCaption}\item[{int}]{nu,  }\item[{\mbox{\hyperlink{libhankel_8h_a8e20b1325721b16e0a41c95b642fd74b}{form\+\_\+factor\+\_\+f}}}]{f,  }\item[{const double}]{x,  }\item[{void $\ast$}]{f\+\_\+ctx,  }\item[{double $\ast$}]{output,  }\item[{int}]{n\+\_\+eval,  }\item[{double}]{eps\+\_\+rel }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily double hankel\+\_\+transform\+\_\+\+QWE\+\_\+\+Chave (\begin{DoxyParamCaption}\item[{int}]{nu,  }\item[{\mbox{\hyperlink{libhankel_8h_a0e1024037ef107f5a9e37d6932af02c2}{form\+\_\+factor\+\_\+f}}}]{f,  }\item[{const double}]{x,  }\item[{void $\ast$}]{f\+\_\+ctx,  }\item[{double $\ast$}]{output,  }\item[{int}]{n\+\_\+eval,  }\item[{double}]{eps\+\_\+rel }\end{DoxyParamCaption})}
 
 
 
@@ -227,7 +209,7 @@ Corresponds to strategy 13 in SASfit.
 \index{libhankel.h@{libhankel.h}!hankel\_transform\_QWE\_Key@{hankel\_transform\_QWE\_Key}}
 \index{hankel\_transform\_QWE\_Key@{hankel\_transform\_QWE\_Key}!libhankel.h@{libhankel.h}}
 \doxysubsubsection{\texorpdfstring{hankel\_transform\_QWE\_Key()}{hankel\_transform\_QWE\_Key()}}
-{\footnotesize\ttfamily double hankel\+\_\+transform\+\_\+\+QWE\+\_\+\+Key (\begin{DoxyParamCaption}\item[{int}]{nu,  }\item[{\mbox{\hyperlink{libhankel_8h_a8e20b1325721b16e0a41c95b642fd74b}{form\+\_\+factor\+\_\+f}}}]{f,  }\item[{const double}]{x,  }\item[{void $\ast$}]{f\+\_\+ctx,  }\item[{double $\ast$}]{output,  }\item[{int}]{n\+\_\+eval,  }\item[{double}]{eps\+\_\+rel }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily double hankel\+\_\+transform\+\_\+\+QWE\+\_\+\+Key (\begin{DoxyParamCaption}\item[{int}]{nu,  }\item[{\mbox{\hyperlink{libhankel_8h_a0e1024037ef107f5a9e37d6932af02c2}{form\+\_\+factor\+\_\+f}}}]{f,  }\item[{const double}]{x,  }\item[{void $\ast$}]{f\+\_\+ctx,  }\item[{double $\ast$}]{output,  }\item[{int}]{n\+\_\+eval,  }\item[{double}]{eps\+\_\+rel }\end{DoxyParamCaption})}
 
 
 

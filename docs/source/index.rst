@@ -51,6 +51,7 @@ the Hankel transform.
    :maxdepth: 2
    :caption: Usage
 
+   usage/strategy_selection
    usage/strategy_params
    usage/status_codes
 

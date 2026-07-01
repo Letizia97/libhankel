@@ -18,7 +18,7 @@
         <location file="src/hankel_DE_quadrature.c" line="27" column="6" bodyfile="src/hankel_DE_quadrature.c" bodystart="27" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structparams__struct_1a2c09081864ba36e037171ba61636b977" prot="public" static="no" mutable="no">
-        <type><ref refid="libhankel_8h_1a8e20b1325721b16e0a41c95b642fd74b" kindref="member">form_factor_f</ref></type>
+        <type><ref refid="libhankel_8h_1a0e1024037ef107f5a9e37d6932af02c2" kindref="member">form_factor_f</ref></type>
         <definition>form_factor_f params_struct::function</definition>
         <argsstring></argsstring>
         <name>function</name>

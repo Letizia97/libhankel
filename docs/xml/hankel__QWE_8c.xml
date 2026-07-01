@@ -2,54 +2,6 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="hankel__QWE_8c" kind="file" language="C++">
     <compoundname>hankel_QWE.c</compoundname>
-    <includes refid="libhankel_8h" local="yes">libhankel.h</includes>
-    <includes local="yes">../external_libs/qwe_Chave/qwe_Chave.h</includes>
-    <includes local="yes">../external_libs/qwe_Key/qwe_Key.h</includes>
-    <includes local="no">float.h</includes>
-    <includes local="no">math.h</includes>
-    <includes local="no">stdio.h</includes>
-    <incdepgraph>
-      <node id="6">
-        <label>float.h</label>
-      </node>
-      <node id="3">
-        <label>stddef.h</label>
-      </node>
-      <node id="1">
-        <label>src/hankel_QWE.c</label>
-        <link refid="hankel__QWE_8c"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-        <childnode refid="4" relation="include">
-        </childnode>
-        <childnode refid="5" relation="include">
-        </childnode>
-        <childnode refid="6" relation="include">
-        </childnode>
-        <childnode refid="7" relation="include">
-        </childnode>
-        <childnode refid="8" relation="include">
-        </childnode>
-      </node>
-      <node id="4">
-        <label>../external_libs/qwe_Chave/qwe_Chave.h</label>
-      </node>
-      <node id="5">
-        <label>../external_libs/qwe_Key/qwe_Key.h</label>
-      </node>
-      <node id="7">
-        <label>math.h</label>
-      </node>
-      <node id="2">
-        <label>libhankel.h</label>
-        <link refid="libhankel_8h"/>
-        <childnode refid="3" relation="include">
-        </childnode>
-      </node>
-      <node id="8">
-        <label>stdio.h</label>
-      </node>
-    </incdepgraph>
       <sectiondef kind="func">
       <memberdef kind="function" id="hankel__QWE_8c_1ad45f2421887472f1cc8b5e568f49b6ec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
@@ -61,7 +13,7 @@
           <declname>nu</declname>
         </param>
         <param>
-          <type><ref refid="libhankel_8h_1a8e20b1325721b16e0a41c95b642fd74b" kindref="member">form_factor_f</ref></type>
+          <type><ref refid="libhankel_8h_1a0e1024037ef107f5a9e37d6932af02c2" kindref="member">form_factor_f</ref></type>
           <declname>f</declname>
         </param>
         <param>
@@ -163,7 +115,7 @@
           <declname>nu</declname>
         </param>
         <param>
-          <type><ref refid="libhankel_8h_1a8e20b1325721b16e0a41c95b642fd74b" kindref="member">form_factor_f</ref></type>
+          <type><ref refid="libhankel_8h_1a0e1024037ef107f5a9e37d6932af02c2" kindref="member">form_factor_f</ref></type>
           <declname>f</declname>
         </param>
         <param>
@@ -282,7 +234,7 @@
 <codeline lineno="19"><highlight class="normal"></highlight></codeline>
 <codeline lineno="32"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="hankel__QWE_8c_1ad45f2421887472f1cc8b5e568f49b6ec" kindref="member">hankel_transform_QWE_Key</ref>(</highlight></codeline>
 <codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nu,<sp/></highlight></codeline>
-<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="libhankel_8h_1a8e20b1325721b16e0a41c95b642fd74b" kindref="member">form_factor_f</ref><sp/>f,<sp/></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="libhankel_8h_1a0e1024037ef107f5a9e37d6932af02c2" kindref="member">form_factor_f</ref><sp/>f,<sp/></highlight></codeline>
 <codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>x,</highlight></codeline>
 <codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*f_ctx,</highlight></codeline>
 <codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*<sp/>output,</highlight></codeline>
@@ -306,7 +258,7 @@
 <codeline lineno="55"><highlight class="normal"></highlight></codeline>
 <codeline lineno="68"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="hankel__QWE_8c_1ae09cf89efd135afa916d0790daae8121" kindref="member">hankel_transform_QWE_Chave</ref>(</highlight></codeline>
 <codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nu,<sp/></highlight></codeline>
-<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="libhankel_8h_1a8e20b1325721b16e0a41c95b642fd74b" kindref="member">form_factor_f</ref><sp/>f,<sp/></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="libhankel_8h_1a0e1024037ef107f5a9e37d6932af02c2" kindref="member">form_factor_f</ref><sp/>f,<sp/></highlight></codeline>
 <codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>x,</highlight></codeline>
 <codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*f_ctx,</highlight></codeline>
 <codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*<sp/>output,</highlight></codeline>

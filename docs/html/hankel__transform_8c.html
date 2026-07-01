@@ -72,23 +72,7 @@ $(function() {
 <div class="title">hankel_transform.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="libhankel_8h_source.html">libhankel.h</a>&quot;</code><br />
-<code>#include &lt;string.h&gt;</code><br />
-<code>#include &lt;stddef.h&gt;</code><br />
-<code>#include &lt;stdio.h&gt;</code><br />
-</div><div class="textblock"><div class="dynheader">
-Include dependency graph for hankel_transform.c:</div>
-<div class="dyncontent">
-<div class="center"><img src="hankel__transform_8c__incl.png" border="0" usemap="#asrc_2hankel__transform_8c" alt=""/></div>
-<map name="asrc_2hankel__transform_8c" id="asrc_2hankel__transform_8c">
-<area shape="rect" title=" " alt="" coords="87,5,257,32"/>
-<area shape="rect" href="libhankel_8h.html" title=" " alt="" coords="5,80,99,107"/>
-<area shape="rect" title=" " alt="" coords="56,155,131,181"/>
-<area shape="rect" title=" " alt="" coords="174,80,245,107"/>
-<area shape="rect" title=" " alt="" coords="269,80,336,107"/>
-</map>
-</div>
-</div><table class="memberdecls">
+<table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a02018326a229a0fcb3388c6e220c92bf"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hankel__transform_8c.html#a02018326a229a0fcb3388c6e220c92bf">validate_n_eval</a> (<a class="el" href="structstrategy__params.html">strategy_params</a> <a class="el" href="structstrategy__params.html">strategy_params</a>)</td></tr>
@@ -97,7 +81,7 @@ Functions</h2></td></tr>
 <tr class="separator:a4568f0630d3465e1d6993e9eb1946409"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a825473c79ffe045666fe8d4dbc052d0d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hankel__transform_8c.html#a825473c79ffe045666fe8d4dbc052d0d">validate_f_max</a> (<a class="el" href="structstrategy__params.html">strategy_params</a> <a class="el" href="structstrategy__params.html">strategy_params</a>)</td></tr>
 <tr class="separator:a825473c79ffe045666fe8d4dbc052d0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac61e4e7e81a12c1006283542141730e8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hankel__transform_8c.html#ac61e4e7e81a12c1006283542141730e8">hankel_transform</a> (int nu, <a class="el" href="libhankel_8h.html#a8e20b1325721b16e0a41c95b642fd74b">form_factor_f</a> f, double *x, size_t len_x, void *f_ctx, double *output, const char *strategy_name, <a class="el" href="structstrategy__params.html">strategy_params</a> <a class="el" href="structstrategy__params.html">strategy_params</a>)</td></tr>
+<tr class="memitem:ac61e4e7e81a12c1006283542141730e8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hankel__transform_8c.html#ac61e4e7e81a12c1006283542141730e8">hankel_transform</a> (int nu, <a class="el" href="libhankel_8h.html#a0e1024037ef107f5a9e37d6932af02c2">form_factor_f</a> f, double *x, size_t len_x, void *f_ctx, double *output, const char *strategy_name, <a class="el" href="structstrategy__params.html">strategy_params</a> <a class="el" href="structstrategy__params.html">strategy_params</a>)</td></tr>
 <tr class="memdesc:ac61e4e7e81a12c1006283542141730e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes Hankel transform using the method specified by the user.  <a href="hankel__transform_8c.html#ac61e4e7e81a12c1006283542141730e8">More...</a><br /></td></tr>
 <tr class="separator:ac61e4e7e81a12c1006283542141730e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -117,7 +101,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="libhankel_8h.html#a8e20b1325721b16e0a41c95b642fd74b">form_factor_f</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="libhankel_8h.html#a0e1024037ef107f5a9e37d6932af02c2">form_factor_f</a>&#160;</td>
           <td class="paramname"><em>f</em>, </td>
         </tr>
         <tr>
@@ -169,12 +153,12 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">nu</td><td>order of bessel function - must be 0 or 1 </td></tr>
-    <tr><td class="paramname">f</td><td>pointer to function to transform </td></tr>
+    <tr><td class="paramname">f</td><td>pointer to function to transform (see <a class="el" href="libhankel_8h.html#a0e1024037ef107f5a9e37d6932af02c2">form_factor_f</a>). </td></tr>
     <tr><td class="paramname">x</td><td>pointer to array of x at which to compute the transform </td></tr>
     <tr><td class="paramname">f_ctx</td><td>pointer to struct containing inputs for f </td></tr>
     <tr><td class="paramname">output</td><td>pointer to array containing output from transform </td></tr>
     <tr><td class="paramname">strategy_name</td><td>str corresponding to the strategy name </td></tr>
-    <tr><td class="paramname"><a class="el" href="structstrategy__params.html">strategy_params</a></td><td>struct containing params for the specific strategy (please use the docs to find params required by each strategy) </td></tr>
+    <tr><td class="paramname"><a class="el" href="structstrategy__params.html" title="Parameters required by the selected Hankel strategy. This structure groups together parameters that i...">strategy_params</a></td><td>struct containing params for the specific strategy. See <a class="el" href="structstrategy__params.html">strategy_params</a> for all elements this struct can contain and the page <a href="../usage/strategy_params.html">Strategy Parameters</a> to check the params required by each strategy. </td></tr>
   </table>
   </dd>
 </dl>

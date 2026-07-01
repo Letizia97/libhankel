@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Strategy Parameters &mdash; libhankel v0.1.0 documentation</title>
+  <title>Strategy Selection &mdash; libhankel v0.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
 
@@ -19,8 +19,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Status codes" href="status_codes.html" />
-    <link rel="prev" title="Strategy Selection" href="strategy_selection.html" /> 
+    <link rel="next" title="Strategy Parameters" href="strategy_params.html" />
+    <link rel="prev" title="C examples" href="../examples/c_examples.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -58,8 +58,8 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Usage</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="strategy_selection.html">Strategy Selection</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Strategy Parameters</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Strategy Selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strategy_params.html">Strategy Parameters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="status_codes.html">Status codes</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API References</span></p>
@@ -82,9 +82,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Strategy Parameters</li>
+      <li class="breadcrumb-item active">Strategy Selection</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/usage/strategy_params.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/usage/strategy_selection.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -92,62 +92,63 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="strategy-parameters">
-<span id="id1"></span><h1>Strategy Parameters<a class="headerlink" href="#strategy-parameters" title="Link to this heading"></a></h1>
-<p>Independently of the interface being used, the <code class="docutils literal notranslate"><span class="pre">hankel_transform</span></code> function is designed to receive a
-parameter named <code class="docutils literal notranslate"><span class="pre">strategy_name</span></code>, which allows the user the select one of the strategies available.
-This could be any of the strings in the “Strategy Name” column in the table below.</p>
-<p>The user is also required to supply a <code class="docutils literal notranslate"><span class="pre">strategy_params</span></code> input, which will contain the
-parameters required by the particular strategy being used.
-The table below reports the parameters required by each strategy.</p>
+  <section id="strategy-selection">
+<span id="id1"></span><h1>Strategy Selection<a class="headerlink" href="#strategy-selection" title="Link to this heading"></a></h1>
+<p>LibHankel includes various implementations of the Hankel transform, corresponding to
+different ways of approximating the Hankel transform integral. The following table
+lists the strategies that are available in LibHankel.
+The column named <em>Strategy Name</em> in the table essentially contains the possible strings
+the user could pass in as <code class="docutils literal notranslate"><span class="pre">strategy_name</span></code> when calling the <code class="docutils literal notranslate"><span class="pre">hankel_transform</span></code> function.
+The column named <em>Index</em> in the table essentially refers to the numbering used in SASfit.</p>
 <table class="docutils align-default" id="id2">
-<caption><span class="caption-text">Parameters needed by each strategy.</span><a class="headerlink" href="#id2" title="Link to this table"></a></caption>
+<caption><span class="caption-text">Hankel transform strategies available in LibHankel.</span><a class="headerlink" href="#id2" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Strategy Name</p></th>
-<th class="head"><p>Field names needed in <code class="docutils literal notranslate"><span class="pre">strategy_params</span></code></p></th>
+<th class="head"><p>Type / Method</p></th>
 <th class="head"><p>Index (as in SASfit)</p></th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>DE_Ooura</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">n_eval</span></code>, <code class="docutils literal notranslate"><span class="pre">eps_rel</span></code></p></td>
+<td><p>Double-exponential quadrature</p></td>
 <td><p>0</p></td>
 </tr>
 <tr class="row-odd"><td><p>DE_Ogata</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">n_eval</span></code>, <code class="docutils literal notranslate"><span class="pre">f_max</span></code></p></td>
+<td><p>Double-exponential quadrature</p></td>
 <td><p>1</p></td>
 </tr>
 <tr class="row-even"><td><p>DHT_6 to DHT_11</p></td>
-<td><p>N/A</p></td>
+<td><p>Digital filters</p></td>
 <td><p>6 to 11</p></td>
 </tr>
 <tr class="row-odd"><td><p>QWE_Key</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">n_eval</span></code>, <code class="docutils literal notranslate"><span class="pre">eps_rel</span></code></p></td>
+<td><p>QWE with continued fraction expansion</p></td>
 <td><p>12</p></td>
 </tr>
 <tr class="row-even"><td><p>QWE_Chave</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">n_eval</span></code>, <code class="docutils literal notranslate"><span class="pre">eps_rel</span></code></p></td>
+<td><p>QWE with Shanks transformation</p></td>
 <td><p>13</p></td>
 </tr>
 </tbody>
 </table>
-<p>Here is an explanation of each parameter:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">n_eval</span></code>: integer indicating number of function evaluations</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">eps_rel</span></code>: relative error allowed e.g. 1e-9</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">f_max</span></code>:    float indicating starting guess for max in form factor</p></li>
-</ul>
-<p>Please note, for DHT strategies (that is, <strong>DHT_6</strong> to <strong>DHT_11</strong>) feel free to supply an empty struct
-for <code class="docutils literal notranslate"><span class="pre">strategy_params</span></code> . Any field within it will be ignored in these strategies as they do not
-require such additional parameters.</p>
+<p>Strategies 6 to 11 in SASfit, which in this library are referred to as <em>DHT_6</em>, <em>DHT_7</em> …
+<em>DHT_11</em>,  are <strong>fixed-grid digital filter</strong> strategies. They are fast and perform well on simple form
+factors but their accuracy decreases on more complex or oscillatory ones. They are not iterative,
+rely on pre-computed constants, and do not allow the user to control the accuracy of the solution
+in any way.</p>
+<p>All other strategies instead are <strong>iterative</strong>, and some of them require the user to supply a tolerance
+parameter (called <code class="docutils literal notranslate"><span class="pre">eps_rel</span></code>) which is used to determine when to stop interating. Specifically,
+iterations are stopped when the difference in the solution of two consecutive iterations is less than
+the tolerance. For this reasons, strategies that require eps_rel generally perform better than the DHT
+ones on complex form factors, though they are more slow.</p>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="strategy_selection.html" class="btn btn-neutral float-left" title="Strategy Selection" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="status_codes.html" class="btn btn-neutral float-right" title="Status codes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../examples/c_examples.html" class="btn btn-neutral float-left" title="C examples" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="strategy_params.html" class="btn btn-neutral float-right" title="Strategy Parameters" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

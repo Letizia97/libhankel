@@ -2,7 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="structform__factor__ctx" kind="struct" language="C++" prot="public">
     <compoundname>form_factor_ctx</compoundname>
-    <includes refid="libhankel_8h" local="no">libhankel.h</includes>
+    <includes refid="form__factors_8h" local="no">form_factors.h</includes>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="structform__factor__ctx_1afe6aa615ef02b2f3607cde85fbdcd771" prot="public" static="no" mutable="no">
         <type>double *</type>
@@ -15,14 +15,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/libhankel.h" line="15" column="12" bodyfile="include/libhankel.h" bodystart="15" bodyend="-1"/>
+        <location file="include/form_factors.h" line="10" column="12" bodyfile="include/form_factors.h" bodystart="10" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="include/libhankel.h" line="14" column="1" bodyfile="include/libhankel.h" bodystart="14" bodyend="16"/>
+    <location file="include/form_factors.h" line="9" column="1" bodyfile="include/form_factors.h" bodystart="9" bodyend="11"/>
     <listofallmembers>
       <member refid="structform__factor__ctx_1afe6aa615ef02b2f3607cde85fbdcd771" prot="public" virt="non-virtual"><scope>form_factor_ctx</scope><name>params</name></member>
     </listofallmembers>

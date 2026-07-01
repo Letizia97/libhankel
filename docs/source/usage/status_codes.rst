@@ -2,10 +2,11 @@
 .. _status-codes:
 
 Status codes
-------------
+================================
 
-In C, the ``hankel_transform`` function returns 0 when successful, otherwise it returns an error code. 
-The table below lists all possible error codes one might receive plus corresponding explanations.
+The ``hankel_transform`` function is designed to return a 0 status code when successful, 
+and a negative number when not.
+The table below lists all possible error codes the user might encounter plus corresponding explanations.
 
 .. table:: Status codes.
 

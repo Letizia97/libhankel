@@ -46,6 +46,7 @@ html_static_path = ['_static']
 html_theme =  "sphinx_rtd_theme"
 
 autodoc_docstring_signature = True
+breathe_show_include = False
 
 # Hook doxygen
 def run_doxygen(app):
@@ -62,3 +63,4 @@ autodoc_default_options = {
     'members': True,
     'imported-members': True,
 }
+

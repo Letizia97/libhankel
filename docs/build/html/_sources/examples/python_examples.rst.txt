@@ -7,7 +7,7 @@ Python examples
 
 .. _python-examples-builtin-f:
 
-using With built-in form factor
+With built-in form factor
 -----------------------------------
 
 .. literalinclude:: ../../../python_examples/example_usage_g_dab.py

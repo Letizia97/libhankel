@@ -1,7 +1,7 @@
 .. _strategy-parameters:
 
 Strategy Parameters
--------------------
+================================
 
 Independently of the interface being used, the ``hankel_transform`` function is designed to receive a 
 parameter named ``strategy_name``, which allows the user the select one of the strategies available.
@@ -14,19 +14,19 @@ The table below reports the parameters required by each strategy.
 
 .. table:: Parameters needed by each strategy.
 
-    +--------------------------+---------------------+--------------------------------------------+
-    | index (as in SASfit)     | Strategy Name       | Field names needed in ``strategy_params``  |
-    +==========================+=====================+============================================+
-    | 0                        | DE_Ooura            | ``n_eval``, ``eps_rel``                    |
-    +--------------------------+---------------------+--------------------------------------------+
-    | 1                        | DE_Ogata            | ``n_eval``, ``f_max``                      |
-    +--------------------------+---------------------+--------------------------------------------+
-    | 6 to 11                  | DHT_6 to DHT_11     | N/A                                        |
-    +--------------------------+---------------------+--------------------------------------------+
-    | 12                       | QWE_Key             | ``n_eval``, ``eps_rel``                    |
-    +--------------------------+---------------------+--------------------------------------------+
-    | 13                       | QWE_Chave           | ``n_eval``, ``eps_rel``                    |
-    +--------------------------+---------------------+--------------------------------------------+
+    +---------------------+--------------------------------------------+--------------------------+
+    | Strategy Name       | Field names needed in ``strategy_params``  | Index (as in SASfit)     |
+    +=====================+============================================+==========================+
+    | DE_Ooura            | ``n_eval``, ``eps_rel``                    | 0                        |
+    +---------------------+--------------------------------------------+--------------------------+
+    | DE_Ogata            | ``n_eval``, ``f_max``                      | 1                        |
+    +---------------------+--------------------------------------------+--------------------------+
+    | DHT_6 to DHT_11     | N/A                                        | 6 to 11                  |
+    +---------------------+--------------------------------------------+--------------------------+
+    | QWE_Key             | ``n_eval``, ``eps_rel``                    | 12                       |
+    +---------------------+--------------------------------------------+--------------------------+
+    | QWE_Chave           | ``n_eval``, ``eps_rel``                    | 13                       |
+    +---------------------+--------------------------------------------+--------------------------+
 
 
 Here is an explanation of each parameter:
@@ -37,7 +37,6 @@ Here is an explanation of each parameter:
 
 - ``f_max``: 	float indicating starting guess for max in form factor
 
-Please note, for DHT strategies (that is, DHT_6 to DHT_11) feel free to supply an empty struct 
+Please note, for DHT strategies (that is, **DHT_6** to **DHT_11**) feel free to supply an empty struct 
 for ``strategy_params`` . Any field within it will be ignored in these strategies as they do not 
 require such additional parameters.  
-

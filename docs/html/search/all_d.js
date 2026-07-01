@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['sign_55',['SIGN',['../hankel__DE__quadrature_8c.html#a8c5ff70b6b28cd0157c50a22406f92c4',1,'hankel_DE_quadrature.c']]],
-  ['strategy_5fparams_56',['strategy_params',['../structstrategy__params.html',1,'']]]
+  ['table_46',['table',['../form__factors_8c.html#a00c20f1b44508f03b5d2dcbf4c2111f3',1,'form_factors.c']]]
 ];

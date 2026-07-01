@@ -2,72 +2,6 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="hankel__DHT_8c" kind="file" language="C++">
     <compoundname>hankel_DHT.c</compoundname>
-    <includes refid="libhankel_8h" local="yes">libhankel.h</includes>
-    <includes local="no">math.h</includes>
-    <includes local="no">stdio.h</includes>
-    <includes local="yes">../src/utils/strateg6_const.h</includes>
-    <includes local="yes">../src/utils/strateg7_const.h</includes>
-    <includes local="yes">../src/utils/strateg8_const.h</includes>
-    <includes local="yes">../src/utils/strateg9_const.h</includes>
-    <includes local="yes">../src/utils/strateg10_const.h</includes>
-    <includes local="yes">../src/utils/strateg11_const.h</includes>
-    <incdepgraph>
-      <node id="10">
-        <label>../src/utils/strateg10_const.h</label>
-      </node>
-      <node id="6">
-        <label>../src/utils/strateg6_const.h</label>
-      </node>
-      <node id="3">
-        <label>stddef.h</label>
-      </node>
-      <node id="9">
-        <label>../src/utils/strateg9_const.h</label>
-      </node>
-      <node id="11">
-        <label>../src/utils/strateg11_const.h</label>
-      </node>
-      <node id="8">
-        <label>../src/utils/strateg8_const.h</label>
-      </node>
-      <node id="1">
-        <label>src/hankel_DHT.c</label>
-        <link refid="hankel__DHT_8c"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-        <childnode refid="4" relation="include">
-        </childnode>
-        <childnode refid="5" relation="include">
-        </childnode>
-        <childnode refid="6" relation="include">
-        </childnode>
-        <childnode refid="7" relation="include">
-        </childnode>
-        <childnode refid="8" relation="include">
-        </childnode>
-        <childnode refid="9" relation="include">
-        </childnode>
-        <childnode refid="10" relation="include">
-        </childnode>
-        <childnode refid="11" relation="include">
-        </childnode>
-      </node>
-      <node id="4">
-        <label>math.h</label>
-      </node>
-      <node id="2">
-        <label>libhankel.h</label>
-        <link refid="libhankel_8h"/>
-        <childnode refid="3" relation="include">
-        </childnode>
-      </node>
-      <node id="7">
-        <label>../src/utils/strateg7_const.h</label>
-      </node>
-      <node id="5">
-        <label>stdio.h</label>
-      </node>
-    </incdepgraph>
       <sectiondef kind="func">
       <memberdef kind="function" id="hankel__DHT_8c_1a1afd349b27c3678a014332090788d4fa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
@@ -79,7 +13,7 @@
           <declname>nu</declname>
         </param>
         <param>
-          <type><ref refid="libhankel_8h_1a8e20b1325721b16e0a41c95b642fd74b" kindref="member">form_factor_f</ref></type>
+          <type><ref refid="libhankel_8h_1a0e1024037ef107f5a9e37d6932af02c2" kindref="member">form_factor_f</ref></type>
           <declname>f</declname>
         </param>
         <param>
@@ -194,7 +128,7 @@
 <codeline lineno="23"><highlight class="normal"></highlight></codeline>
 <codeline lineno="43"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="hankel__DHT_8c_1a1afd349b27c3678a014332090788d4fa" kindref="member">hankel_transform_DHT</ref>(</highlight></codeline>
 <codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nu,<sp/></highlight></codeline>
-<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="libhankel_8h_1a8e20b1325721b16e0a41c95b642fd74b" kindref="member">form_factor_f</ref><sp/>f,<sp/></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="libhankel_8h_1a0e1024037ef107f5a9e37d6932af02c2" kindref="member">form_factor_f</ref><sp/>f,<sp/></highlight></codeline>
 <codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>x,</highlight></codeline>
 <codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*f_ctx,</highlight></codeline>
 <codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*<sp/>output,</highlight></codeline>

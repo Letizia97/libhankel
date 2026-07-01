@@ -2,75 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="hankel__DE__quadrature_8c" kind="file" language="C++">
     <compoundname>hankel_DE_quadrature.c</compoundname>
-    <includes refid="libhankel_8h" local="yes">libhankel.h</includes>
-    <includes local="yes">../external_libs/DE-quadrature/intde.h</includes>
-    <includes local="no">float.h</includes>
-    <includes local="no">math.h</includes>
-    <includes local="no">stdio.h</includes>
-    <includes local="no">stdlib.h</includes>
-    <includes local="yes">../src/utils/boost_bessel_wrapper.h</includes>
-    <incdepgraph>
-      <node id="5">
-        <label>float.h</label>
-      </node>
-      <node id="8">
-        <label>stdlib.h</label>
-      </node>
-      <node id="1">
-        <label>src/hankel_DE_quadrature.c</label>
-        <link refid="hankel__DE__quadrature_8c"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-        <childnode refid="4" relation="include">
-        </childnode>
-        <childnode refid="5" relation="include">
-        </childnode>
-        <childnode refid="6" relation="include">
-        </childnode>
-        <childnode refid="7" relation="include">
-        </childnode>
-        <childnode refid="8" relation="include">
-        </childnode>
-        <childnode refid="9" relation="include">
-        </childnode>
-      </node>
-      <node id="3">
-        <label>stddef.h</label>
-      </node>
-      <node id="6">
-        <label>math.h</label>
-      </node>
-      <node id="2">
-        <label>libhankel.h</label>
-        <link refid="libhankel_8h"/>
-        <childnode refid="3" relation="include">
-        </childnode>
-      </node>
-      <node id="4">
-        <label>../external_libs/DE-quadrature/intde.h</label>
-      </node>
-      <node id="9">
-        <label>../src/utils/boost_bessel_wrapper.h</label>
-      </node>
-      <node id="7">
-        <label>stdio.h</label>
-      </node>
-    </incdepgraph>
     <innerclass refid="structparams__struct" prot="public">params_struct</innerclass>
-      <sectiondef kind="define">
-      <memberdef kind="define" id="hankel__DE__quadrature_8c_1a8c5ff70b6b28cd0157c50a22406f92c4" prot="public" static="no">
-        <name>SIGN</name>
-        <param><defname>x</defname></param>
-        <initializer>(((x) &gt; 0) - ((x) &lt; 0))</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="src/hankel_DE_quadrature.c" line="21" column="9" bodyfile="src/hankel_DE_quadrature.c" bodystart="21" bodyend="-1"/>
-      </memberdef>
-      </sectiondef>
       <sectiondef kind="func">
       <memberdef kind="function" id="hankel__DE__quadrature_8c_1ae18ef418501c82562c9865b3f40af2a5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
@@ -158,7 +90,7 @@
           <declname>nu</declname>
         </param>
         <param>
-          <type><ref refid="libhankel_8h_1a8e20b1325721b16e0a41c95b642fd74b" kindref="member">form_factor_f</ref></type>
+          <type><ref refid="libhankel_8h_1a0e1024037ef107f5a9e37d6932af02c2" kindref="member">form_factor_f</ref></type>
           <declname>f</declname>
         </param>
         <param>
@@ -260,7 +192,7 @@
           <declname>nu</declname>
         </param>
         <param>
-          <type><ref refid="libhankel_8h_1a8e20b1325721b16e0a41c95b642fd74b" kindref="member">form_factor_f</ref></type>
+          <type><ref refid="libhankel_8h_1a0e1024037ef107f5a9e37d6932af02c2" kindref="member">form_factor_f</ref></type>
           <declname>f</declname>
         </param>
         <param>
@@ -382,7 +314,7 @@
 <codeline lineno="22"><highlight class="normal"></highlight></codeline>
 <codeline lineno="26" refid="structparams__struct" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
 <codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*f_params;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="libhankel_8h_1a8e20b1325721b16e0a41c95b642fd74b" kindref="member">form_factor_f</ref><sp/></highlight><highlight class="keyword">function</highlight><highlight class="normal">;<sp/><sp/></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="libhankel_8h_1a0e1024037ef107f5a9e37d6932af02c2" kindref="member">form_factor_f</ref><sp/></highlight><highlight class="keyword">function</highlight><highlight class="normal">;<sp/><sp/></highlight></codeline>
 <codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>nu;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
 <codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Q;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
 <codeline lineno="31"><highlight class="normal">}<sp/><ref refid="structparams__struct" kindref="compound">params_struct</ref>;</highlight></codeline>
@@ -419,7 +351,7 @@
 <codeline lineno="83"><highlight class="normal"></highlight></codeline>
 <codeline lineno="96"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="hankel__DE__quadrature_8c_1ab59eed68ae4b66aa38bae302d028f26f" kindref="member">hankel_transform_DE_Ooura</ref>(</highlight></codeline>
 <codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nu,<sp/></highlight></codeline>
-<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="libhankel_8h_1a8e20b1325721b16e0a41c95b642fd74b" kindref="member">form_factor_f</ref><sp/>f,<sp/></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="libhankel_8h_1a0e1024037ef107f5a9e37d6932af02c2" kindref="member">form_factor_f</ref><sp/>f,<sp/></highlight></codeline>
 <codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>x,</highlight></codeline>
 <codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*f_ctx,</highlight></codeline>
 <codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*<sp/>output,</highlight></codeline>
@@ -496,7 +428,7 @@
 <codeline lineno="172"><highlight class="normal"></highlight></codeline>
 <codeline lineno="185"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="hankel__DE__quadrature_8c_1a796e38bd6e3edd71299fd70895857e90" kindref="member">hankel_transform_DE_Ogata</ref>(</highlight></codeline>
 <codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nu,<sp/></highlight></codeline>
-<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="libhankel_8h_1a8e20b1325721b16e0a41c95b642fd74b" kindref="member">form_factor_f</ref><sp/>f,<sp/></highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="libhankel_8h_1a0e1024037ef107f5a9e37d6932af02c2" kindref="member">form_factor_f</ref><sp/>f,<sp/></highlight></codeline>
 <codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>x,</highlight></codeline>
 <codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*f_ctx,</highlight></codeline>
 <codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*<sp/>output,</highlight></codeline>
@@ -543,7 +475,7 @@
 <codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>scaled_sum<sp/>=<sp/>(M_PI<sp/>/<sp/>(x<sp/>*<sp/>x))<sp/>*<sp/>sum;</highlight></codeline>
 <codeline lineno="232"><highlight class="normal"></highlight></codeline>
 <codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Parity<sp/>correction<sp/>for<sp/>integer<sp/>Bessel<sp/>order<sp/>(H_-ν<sp/>=<sp/>(-1)^ν<sp/>H_ν)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>parity<sp/>=<sp/>(nu<sp/>==<sp/>0)<sp/>?<sp/>1.0<sp/>:<sp/>pow((</highlight><highlight class="keywordtype">double</highlight><highlight class="normal">)<ref refid="hankel__DE__quadrature_8c_1a8c5ff70b6b28cd0157c50a22406f92c4" kindref="member">SIGN</ref>(nu),<sp/>nu);</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>parity<sp/>=<sp/>(nu<sp/>==<sp/>0)<sp/>?<sp/>1.0<sp/>:<sp/>pow((</highlight><highlight class="keywordtype">double</highlight><highlight class="normal">)SIGN(nu),<sp/>nu);</highlight></codeline>
 <codeline lineno="235"><highlight class="normal"></highlight></codeline>
 <codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Final<sp/>result</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>res<sp/>=<sp/>scaled_sum<sp/>*<sp/>parity;</highlight></codeline>

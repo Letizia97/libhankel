@@ -1,4 +1,7 @@
 var searchData=
 [
-  ['params_115',['params',['../structform__factor__ctx.html#afe6aa615ef02b2f3607cde85fbdcd771',1,'form_factor_ctx::params()'],['../structpy__f__ctx.html#a867eaca36dd16b6b7bd72474d6eb7391',1,'py_f_ctx::params()']]]
+  ['n_5feval_92',['n_eval',['../structstrategy__params.html#a9e5655c2549b2dff884116acc625a955',1,'strategy_params']]],
+  ['n_5fparams_93',['n_params',['../structpy__f__ctx.html#adf3dd817c23cd7a33ce164162c07c18d',1,'py_f_ctx']]],
+  ['name_94',['name',['../structentry.html#aebb0525a45ca32f4a89b9180c988edb4',1,'entry']]],
+  ['nu_95',['nu',['../structparams__struct.html#af9900b998a31c2dc79311116ab680afd',1,'params_struct']]]
 ];

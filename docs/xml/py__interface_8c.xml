@@ -2,68 +2,51 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="py__interface_8c" kind="file" language="C++">
     <compoundname>py_interface.c</compoundname>
-    <includes local="no">Python.h</includes>
-    <includes refid="libhankel_8h" local="yes">libhankel.h</includes>
-    <includes local="no">stdlib.h</includes>
-    <includes refid="form__factors_8h" local="yes">form_factors.h</includes>
-    <incdepgraph>
-      <node id="5">
-        <label>stdlib.h</label>
-      </node>
-      <node id="4">
-        <label>stddef.h</label>
-      </node>
-      <node id="2">
-        <label>Python.h</label>
-      </node>
-      <node id="6">
-        <label>form_factors.h</label>
-        <link refid="form__factors_8h"/>
-        <childnode refid="3" relation="include">
-        </childnode>
-        <childnode refid="4" relation="include">
-        </childnode>
-      </node>
-      <node id="3">
-        <label>libhankel.h</label>
-        <link refid="libhankel_8h"/>
-        <childnode refid="4" relation="include">
-        </childnode>
-      </node>
-      <node id="1">
-        <label>src/py_interface.c</label>
-        <link refid="py__interface_8c"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-        <childnode refid="3" relation="include">
-        </childnode>
-        <childnode refid="5" relation="include">
-        </childnode>
-        <childnode refid="6" relation="include">
-        </childnode>
-      </node>
-    </incdepgraph>
     <innerclass refid="structpy__f__ctx" prot="public">py_f_ctx</innerclass>
-      <sectiondef kind="define">
-      <memberdef kind="define" id="py__interface_8c_1ac9efdaac9411d0868b715edccca3269d" prot="public" static="no">
-        <name>PY_SSIZE_T_CLEAN</name>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="py__interface_8c_1a23d8ca811f9512036ea26c3475366a1a" prot="public" static="yes" mutable="no">
+        <type>char</type>
+        <definition>char hankel_t_doc[]</definition>
+        <argsstring>[]</argsstring>
+        <name>hankel_t_doc</name>
+        <initializer>= 
+    &quot;Compute the Hankel transform.\n&quot;
+    &quot;\n&quot;
+    &quot;:param nu:              The order of bessel function, must be 0 or 1.\n&quot;
+    &quot;:type nu:               int \n&quot;
+    &quot;:param f:               Either a function to hankel-transform or a string naming a built-in function, &quot;
+    &quot;i.e. either of &apos;gdab&apos;, &apos;broad_peak&apos;, &apos;sphere&apos;.\n&quot;
+    &quot;:type f:                callable or str\n&quot;
+    &quot;:param x_arr:           The points at which to evaluate the Hankel transform of the function f.\n&quot;
+    &quot;:type x_arr:            numpy.ndarray of float64\n&quot;
+    &quot;:param f_params:        Input parameters needed by the function f (ordered).\n&quot;
+    &quot;:type f_params:         numpy.ndarray of float64\n&quot;
+    &quot;:param strategy_name:   The name of Hankel strategy to use. &quot;
+    &quot;Refer to the <ref refid="form__factors_8c_1a00c20f1b44508f03b5d2dcbf4c2111f3" kindref="member">table</ref> in :ref:`strategy-parameters` for a list of possible strategies.\n&quot;
+    &quot;:type strategy_name:    str \n&quot;
+    &quot;:param strategy_params: The parameters needed by the chosen strategy. &quot;
+    &quot;See :ref:`strategy-selection` or :ref:`c-api` (<ref refid="structstrategy__params" kindref="compound">strategy_params</ref>) for details.\n&quot;
+    &quot;:type strategy_params:  dict[str, float | int]\n&quot;       
+    &quot;:returns:               The hankel transform.\n&quot;
+    &quot;:rtype:                 numpy.ndarray of float64\n&quot;
+    &quot;Please refer to :ref:`python-examples` for examples on how to use this function with either a &quot;
+    &quot;builtin form factor or a custom input function.&quot;
+    &quot;\n&quot;</initializer>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/py_interface.c" line="2" column="9" bodyfile="src/py_interface.c" bodystart="2" bodyend="-1"/>
+        <location file="src/py_interface.c" line="246" column="13" bodyfile="src/py_interface.c" bodystart="246" bodyend="-1"/>
       </memberdef>
-      </sectiondef>
-      <sectiondef kind="var">
       <memberdef kind="variable" id="py__interface_8c_1a749d7fa9b1f39c537bd95ed3124d9134" prot="public" static="yes" mutable="no">
         <type>PyMethodDef</type>
         <definition>PyMethodDef Methods[]</definition>
         <argsstring>[]</argsstring>
         <name>Methods</name>
         <initializer>= {
-    {&quot;hankel_transform&quot;, py_hankel_transform, METH_VARARGS, &quot;Hankel transform&quot;},
+    {&quot;hankel_transform&quot;, py_hankel_transform, METH_VARARGS, <ref refid="py__interface_8c_1a23d8ca811f9512036ea26c3475366a1a" kindref="member">hankel_t_doc</ref>},
     {NULL, NULL, 0, NULL}
 }</initializer>
         <briefdescription>
@@ -72,7 +55,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/py_interface.c" line="245" column="20" bodyfile="src/py_interface.c" bodystart="245" bodyend="-1"/>
+        <location file="src/py_interface.c" line="271" column="20" bodyfile="src/py_interface.c" bodystart="271" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="py__interface_8c_1a664ab1cf69fc4e5c958146785ac89410" prot="public" static="yes" mutable="no">
         <type>struct PyModuleDef</type>
@@ -82,9 +65,9 @@
         <initializer>= {
     PyModuleDef_HEAD_INIT,
     &quot;libhankel&quot;,
-    NULL,
+    &quot; &quot;,
     -1,
-    <ref refid="py__interface_8c_1a749d7fa9b1f39c537bd95ed3124d9134" kindref="member">Methods</ref>
+    Methods
 }</initializer>
         <briefdescription>
         </briefdescription>
@@ -92,7 +75,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/py_interface.c" line="245" column="20" bodyfile="src/py_interface.c" bodystart="250" bodyend="-1"/>
+        <location file="src/py_interface.c" line="271" column="20" bodyfile="src/py_interface.c" bodystart="276" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -152,7 +135,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/py_interface.c" line="258" column="16" bodyfile="src/py_interface.c" bodystart="258" bodyend="260"/>
+        <location file="src/py_interface.c" line="284" column="16" bodyfile="src/py_interface.c" bodystart="284" bodyend="286"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -342,7 +325,7 @@
 <codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>---------------------------</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Form<sp/>factor<sp/>function</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>---------------------------<sp/></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="libhankel_8h_1a8e20b1325721b16e0a41c95b642fd74b" kindref="member">form_factor_f</ref><sp/>f_ptr<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="libhankel_8h_1a0e1024037ef107f5a9e37d6932af02c2" kindref="member">form_factor_f</ref><sp/>f_ptr<sp/>=<sp/>NULL;</highlight></codeline>
 <codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structpy__f__ctx" kindref="compound">py_f_ctx</ref><sp/>*f_ctx<sp/>=<sp/>malloc(</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="structpy__f__ctx" kindref="compound">py_f_ctx</ref>));</highlight></codeline>
 <codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!f_ctx)<sp/>{</highlight></codeline>
 <codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>free(x);<sp/>free(f_params);<sp/>free(output);</highlight></codeline>
@@ -404,22 +387,48 @@
 <codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>out_list;</highlight></codeline>
 <codeline lineno="243"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="244"><highlight class="normal"></highlight></codeline>
-<codeline lineno="245"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>PyMethodDef<sp/><ref refid="py__interface_8c_1a749d7fa9b1f39c537bd95ed3124d9134" kindref="member">Methods</ref>[]<sp/>=<sp/>{</highlight></codeline>
-<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight><highlight class="stringliteral">&quot;hankel_transform&quot;</highlight><highlight class="normal">,<sp/><ref refid="py__interface_8c_1aa4a53ff18b3bbd16d626c4748e2a1109" kindref="member">py_hankel_transform</ref>,<sp/>METH_VARARGS,<sp/></highlight><highlight class="stringliteral">&quot;Hankel<sp/>transform&quot;</highlight><highlight class="normal">},</highlight></codeline>
-<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/>{NULL,<sp/>NULL,<sp/>0,<sp/>NULL}</highlight></codeline>
-<codeline lineno="248"><highlight class="normal">};</highlight></codeline>
-<codeline lineno="249"><highlight class="normal"></highlight></codeline>
-<codeline lineno="250"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">PyModuleDef<sp/><ref refid="py__interface_8c_1a664ab1cf69fc4e5c958146785ac89410" kindref="member">module</ref><sp/>=<sp/>{</highlight></codeline>
-<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/>PyModuleDef_HEAD_INIT,</highlight></codeline>
-<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;libhankel&quot;</highlight><highlight class="normal">,</highlight></codeline>
-<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/>NULL,</highlight></codeline>
-<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/>-1,</highlight></codeline>
-<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="py__interface_8c_1a749d7fa9b1f39c537bd95ed3124d9134" kindref="member">Methods</ref></highlight></codeline>
-<codeline lineno="256"><highlight class="normal">};</highlight></codeline>
-<codeline lineno="257"><highlight class="normal"></highlight></codeline>
-<codeline lineno="258"><highlight class="normal">PyMODINIT_FUNC<sp/><ref refid="py__interface_8c_1ad6ecbdad30b7766eadb462a2a57c012d" kindref="member">PyInit_libhankel</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
-<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>PyModule_Create(&amp;<ref refid="py__interface_8c_1a664ab1cf69fc4e5c958146785ac89410" kindref="member">module</ref>);</highlight></codeline>
-<codeline lineno="260"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"></highlight><highlight class="comment">//<sp/>docstring<sp/>for<sp/>hankel_tranform<sp/>python<sp/>api</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="246"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="py__interface_8c_1a23d8ca811f9512036ea26c3475366a1a" kindref="member">hankel_t_doc</ref>[]<sp/>=<sp/></highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Compute<sp/>the<sp/>Hankel<sp/>transform.\n&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;\n&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;:param<sp/>nu:<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>The<sp/>order<sp/>of<sp/>bessel<sp/>function,<sp/>must<sp/>be<sp/>0<sp/>or<sp/>1.\n&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;:type<sp/>nu:<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int<sp/>\n&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;:param<sp/>f:<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Either<sp/>a<sp/>function<sp/>to<sp/>hankel-transform<sp/>or<sp/>a<sp/>string<sp/>naming<sp/>a<sp/>built-in<sp/>function,<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;i.e.<sp/>either<sp/>of<sp/>&apos;gdab&apos;,<sp/>&apos;broad_peak&apos;,<sp/>&apos;sphere&apos;.\n&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;:type<sp/>f:<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>callable<sp/>or<sp/>str\n&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;:param<sp/>x_arr:<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>The<sp/>points<sp/>at<sp/>which<sp/>to<sp/>evaluate<sp/>the<sp/>Hankel<sp/>transform<sp/>of<sp/>the<sp/>function<sp/>f.\n&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;:type<sp/>x_arr:<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>numpy.ndarray<sp/>of<sp/>float64\n&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;:param<sp/>f_params:<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Input<sp/>parameters<sp/>needed<sp/>by<sp/>the<sp/>function<sp/>f<sp/>(ordered).\n&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;:type<sp/>f_params:<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>numpy.ndarray<sp/>of<sp/>float64\n&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;:param<sp/>strategy_name:<sp/><sp/><sp/>The<sp/>name<sp/>of<sp/>Hankel<sp/>strategy<sp/>to<sp/>use.<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Refer<sp/>to<sp/>the<sp/>table<sp/>in<sp/>:ref:`strategy-parameters`<sp/>for<sp/>a<sp/>list<sp/>of<sp/>possible<sp/>strategies.\n&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;:type<sp/>strategy_name:<sp/><sp/><sp/><sp/>str<sp/>\n&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;:param<sp/>strategy_params:<sp/>The<sp/>parameters<sp/>needed<sp/>by<sp/>the<sp/>chosen<sp/>strategy.<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;See<sp/>:ref:`strategy-selection`<sp/>or<sp/>:ref:`c-api`<sp/>(strategy_params)<sp/>for<sp/>details.\n&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;:type<sp/>strategy_params:<sp/><sp/>dict[str,<sp/>float<sp/>|<sp/>int]\n&quot;</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;:returns:<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>The<sp/>hankel<sp/>transform.\n&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;:rtype:<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>numpy.ndarray<sp/>of<sp/>float64\n&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Please<sp/>refer<sp/>to<sp/>:ref:`python-examples`<sp/>for<sp/>examples<sp/>on<sp/>how<sp/>to<sp/>use<sp/>this<sp/>function<sp/>with<sp/>either<sp/>a<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;builtin<sp/>form<sp/>factor<sp/>or<sp/>a<sp/>custom<sp/>input<sp/>function.&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;\n&quot;</highlight><highlight class="normal"><sp/>;</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"></highlight></codeline>
+<codeline lineno="270"><highlight class="normal"></highlight></codeline>
+<codeline lineno="271"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>PyMethodDef<sp/><ref refid="py__interface_8c_1a749d7fa9b1f39c537bd95ed3124d9134" kindref="member">Methods</ref>[]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight><highlight class="stringliteral">&quot;hankel_transform&quot;</highlight><highlight class="normal">,<sp/><ref refid="py__interface_8c_1aa4a53ff18b3bbd16d626c4748e2a1109" kindref="member">py_hankel_transform</ref>,<sp/>METH_VARARGS,<sp/><ref refid="py__interface_8c_1a23d8ca811f9512036ea26c3475366a1a" kindref="member">hankel_t_doc</ref>},</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/>{NULL,<sp/>NULL,<sp/>0,<sp/>NULL}</highlight></codeline>
+<codeline lineno="274"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"></highlight></codeline>
+<codeline lineno="276"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">PyModuleDef<sp/><ref refid="py__interface_8c_1a664ab1cf69fc4e5c958146785ac89410" kindref="member">module</ref><sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/>PyModuleDef_HEAD_INIT,</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;libhankel&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/>-1,</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="py__interface_8c_1a749d7fa9b1f39c537bd95ed3124d9134" kindref="member">Methods</ref></highlight></codeline>
+<codeline lineno="282"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"></highlight></codeline>
+<codeline lineno="284"><highlight class="normal">PyMODINIT_FUNC<sp/><ref refid="py__interface_8c_1ad6ecbdad30b7766eadb462a2a57c012d" kindref="member">PyInit_libhankel</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>PyModule_Create(&amp;<ref refid="py__interface_8c_1a664ab1cf69fc4e5c958146785ac89410" kindref="member">module</ref>);</highlight></codeline>
+<codeline lineno="286"><highlight class="normal">}</highlight></codeline>
     </programlisting>
     <location file="src/py_interface.c"/>
   </compounddef>

@@ -44,7 +44,7 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../overview/the_hankel_transform.html">Intro to LibHankel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overview/the_hankel_transform.html">Intro to the Hankel Transform</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
@@ -58,6 +58,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Usage</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../usage/strategy_selection.html">Strategy Selection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../usage/strategy_params.html">Strategy Parameters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../usage/status_codes.html">Status codes</a></li>
 </ul>
@@ -94,21 +95,21 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="python-api">
-<h1>Python API<a class="headerlink" href="#python-api" title="Link to this heading"></a></h1>
-<dl class="py function" id="module-libhankel">
-<span id="id1"></span><dt class="sig sig-object py" id="libhankel.hankel_transform">
+  <section id="module-libhankel">
+<span id="id1"></span><span id="python-api"></span><h1>Python API<a class="headerlink" href="#module-libhankel" title="Link to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="libhankel.hankel_transform">
 <span class="sig-prename descclassname"><span class="pre">libhankel.</span></span><span class="sig-name descname"><span class="pre">hankel_transform</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libhankel.hankel_transform" title="Link to this definition"></a></dt>
 <dd><p>Compute the Hankel transform.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>nu</strong> (<em>int</em>) – The order of bessel function, must be 0 or 1.</p></li>
-<li><p><strong>f</strong> (<em>callable</em><em> or </em><em>str</em>) – Either a function to hankel-transform or a string naming a built-in function.</p></li>
+<li><p><strong>f</strong> (<em>callable</em><em> or </em><em>str</em>) – Either a function to hankel-transform or a string naming a built-in function, i.e. either of ‘gdab’, ‘broad_peak’, ‘sphere’.</p></li>
 <li><p><strong>x_arr</strong> (<em>numpy.ndarray</em><em> of </em><em>float64</em>) – The points at which to evaluate the Hankel transform of the function f.</p></li>
 <li><p><strong>f_params</strong> (<em>numpy.ndarray</em><em> of </em><em>float64</em>) – Input parameters needed by the function f (ordered).</p></li>
 <li><p><strong>strategy_name</strong> (<em>str</em>) – The name of Hankel strategy to use. Refer to the table in <a class="reference internal" href="../usage/strategy_params.html#strategy-parameters"><span class="std std-ref">Strategy Parameters</span></a> for a list of possible strategies.</p></li>
-<li><p><strong>strategy_params</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>float</em><em> | </em><em>int</em><em>]</em>) – The parameters needed by the chosen strategy. See <a class="reference internal" href="../usage/strategy_params.html#strategy-parameters"><span class="std std-ref">Strategy Parameters</span></a> for details.</p></li>
+<li><p><strong>strategy_params</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>float</em><em> | </em><em>int</em><em>]</em>) – The parameters needed by the chosen strategy. See <a class="reference internal" href="../usage/strategy_selection.html#strategy-selection"><span class="std std-ref">Strategy Selection</span></a> or <a class="reference internal" href="c_api.html#c-api"><span class="std std-ref">C API</span></a> (strategy_params) for details.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>

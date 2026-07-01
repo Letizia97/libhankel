@@ -74,145 +74,69 @@ $(function() {
 <div class="title">libhankel.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;stddef.h&gt;</code><br />
-</div><div class="textblock"><div class="dynheader">
-Include dependency graph for libhankel.h:</div>
-<div class="dyncontent">
-<div class="center"><img src="libhankel_8h__incl.png" border="0" usemap="#ainclude_2libhankel_8h" alt=""/></div>
-<map name="ainclude_2libhankel_8h" id="ainclude_2libhankel_8h">
-<area shape="rect" title=" " alt="" coords="5,5,149,32"/>
-<area shape="rect" title=" " alt="" coords="40,80,115,107"/>
-</map>
-</div>
-</div><div class="textblock"><div class="dynheader">
-This graph shows which files directly or indirectly include this file:</div>
-<div class="dyncontent">
-<div class="center"><img src="libhankel_8h__dep__incl.png" border="0" usemap="#ainclude_2libhankel_8hdep" alt=""/></div>
-<map name="ainclude_2libhankel_8hdep" id="ainclude_2libhankel_8hdep">
-<area shape="rect" title=" " alt="" coords="400,5,544,32"/>
-<area shape="rect" href="form__factors_8h.html" title=" " alt="" coords="32,80,200,107"/>
-<area shape="rect" href="py__interface_8c.html" title=" " alt="" coords="169,155,306,181"/>
-<area shape="rect" href="hankel__DE__quadrature_8c.html" title=" " alt="" coords="275,80,477,107"/>
-<area shape="rect" href="hankel__DHT_8c.html" title=" " alt="" coords="501,80,635,107"/>
-<area shape="rect" href="hankel__QWE_8c.html" title=" " alt="" coords="659,80,797,107"/>
-<area shape="rect" href="hankel__transform_8c.html" title=" " alt="" coords="821,80,992,107"/>
-<area shape="rect" href="form__factors_8c.html" title=" " alt="" coords="5,155,144,181"/>
-</map>
-</div>
-</div>
+
 <p><a href="libhankel_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structstrategy__params.html">strategy_params</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structform__factor__ctx.html">form_factor_ctx</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parameters required by the selected Hankel strategy. This structure groups together parameters that influence the behavior and accuracy of the algorithm.  <a href="structstrategy__params.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:a8e20b1325721b16e0a41c95b642fd74b"><td class="memItemLeft" align="right" valign="top">typedef double(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="libhankel_8h.html#a8e20b1325721b16e0a41c95b642fd74b">form_factor_f</a>) (double x, void *ctx)</td></tr>
-<tr class="separator:a8e20b1325721b16e0a41c95b642fd74b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e1024037ef107f5a9e37d6932af02c2"><td class="memItemLeft" align="right" valign="top">typedef double(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="libhankel_8h.html#a0e1024037ef107f5a9e37d6932af02c2">form_factor_f</a>) (double x, void *ctx)</td></tr>
+<tr class="memdesc:a0e1024037ef107f5a9e37d6932af02c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function pointer type for a form factor callback.  <a href="libhankel_8h.html#a0e1024037ef107f5a9e37d6932af02c2">More...</a><br /></td></tr>
+<tr class="separator:a0e1024037ef107f5a9e37d6932af02c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ac61e4e7e81a12c1006283542141730e8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="libhankel_8h.html#ac61e4e7e81a12c1006283542141730e8">hankel_transform</a> (int nu, <a class="el" href="libhankel_8h.html#a8e20b1325721b16e0a41c95b642fd74b">form_factor_f</a> f, double *x, size_t len_x, void *f_ctx, double *output, const char *strategy_name, <a class="el" href="structstrategy__params.html">strategy_params</a> <a class="el" href="structstrategy__params.html">strategy_params</a>)</td></tr>
+<tr class="memitem:ac61e4e7e81a12c1006283542141730e8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="libhankel_8h.html#ac61e4e7e81a12c1006283542141730e8">hankel_transform</a> (int nu, <a class="el" href="libhankel_8h.html#a0e1024037ef107f5a9e37d6932af02c2">form_factor_f</a> f, double *x, size_t len_x, void *f_ctx, double *output, const char *strategy_name, <a class="el" href="structstrategy__params.html">strategy_params</a> <a class="el" href="structstrategy__params.html">strategy_params</a>)</td></tr>
 <tr class="memdesc:ac61e4e7e81a12c1006283542141730e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes Hankel transform using the method specified by the user.  <a href="libhankel_8h.html#ac61e4e7e81a12c1006283542141730e8">More...</a><br /></td></tr>
 <tr class="separator:ac61e4e7e81a12c1006283542141730e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1afd349b27c3678a014332090788d4fa"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="libhankel_8h.html#a1afd349b27c3678a014332090788d4fa">hankel_transform_DHT</a> (int nu, <a class="el" href="libhankel_8h.html#a8e20b1325721b16e0a41c95b642fd74b">form_factor_f</a> f, const double x, void *f_ctx, double *output, int n_strategy)</td></tr>
+<tr class="memitem:a1afd349b27c3678a014332090788d4fa"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="libhankel_8h.html#a1afd349b27c3678a014332090788d4fa">hankel_transform_DHT</a> (int nu, <a class="el" href="libhankel_8h.html#a0e1024037ef107f5a9e37d6932af02c2">form_factor_f</a> f, const double x, void *f_ctx, double *output, int n_strategy)</td></tr>
 <tr class="memdesc:a1afd349b27c3678a014332090788d4fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes Hankel transform, using digital filters.  <a href="libhankel_8h.html#a1afd349b27c3678a014332090788d4fa">More...</a><br /></td></tr>
 <tr class="separator:a1afd349b27c3678a014332090788d4fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0413bf125eb226d94b78ba11ff5dfed2"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="libhankel_8h.html#a0413bf125eb226d94b78ba11ff5dfed2">compute_hankel_FBT</a> (int nu, <a class="el" href="libhankel_8h.html#a8e20b1325721b16e0a41c95b642fd74b">form_factor_f</a> intern_fct, void *ctx, double x, int n_method, int n_eval, double f_max)</td></tr>
-<tr class="separator:a0413bf125eb226d94b78ba11ff5dfed2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a90bc633a1ef4e7022cec668b3b2ad96a"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="libhankel_8h.html#a90bc633a1ef4e7022cec668b3b2ad96a">hankel_transform_FBT</a> (int nu, double(*f)(double, double(*)[50]), double x, double(*f_params)[50], double *output, int n_method, int n_eval, double f_max)</td></tr>
-<tr class="separator:a90bc633a1ef4e7022cec668b3b2ad96a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab59eed68ae4b66aa38bae302d028f26f"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="libhankel_8h.html#ab59eed68ae4b66aa38bae302d028f26f">hankel_transform_DE_Ooura</a> (int nu, <a class="el" href="libhankel_8h.html#a8e20b1325721b16e0a41c95b642fd74b">form_factor_f</a> f, const double x, void *f_ctx, double *output, int n_eval, double eps_rel)</td></tr>
+<tr class="memitem:ab59eed68ae4b66aa38bae302d028f26f"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="libhankel_8h.html#ab59eed68ae4b66aa38bae302d028f26f">hankel_transform_DE_Ooura</a> (int nu, <a class="el" href="libhankel_8h.html#a0e1024037ef107f5a9e37d6932af02c2">form_factor_f</a> f, const double x, void *f_ctx, double *output, int n_eval, double eps_rel)</td></tr>
 <tr class="memdesc:ab59eed68ae4b66aa38bae302d028f26f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes Hankel transform, using de-quadrature.  <a href="libhankel_8h.html#ab59eed68ae4b66aa38bae302d028f26f">More...</a><br /></td></tr>
 <tr class="separator:ab59eed68ae4b66aa38bae302d028f26f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a796e38bd6e3edd71299fd70895857e90"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="libhankel_8h.html#a796e38bd6e3edd71299fd70895857e90">hankel_transform_DE_Ogata</a> (int nu, <a class="el" href="libhankel_8h.html#a8e20b1325721b16e0a41c95b642fd74b">form_factor_f</a> f, const double x, void *f_ctx, double *output, int n_eval, double f_max)</td></tr>
+<tr class="memitem:a796e38bd6e3edd71299fd70895857e90"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="libhankel_8h.html#a796e38bd6e3edd71299fd70895857e90">hankel_transform_DE_Ogata</a> (int nu, <a class="el" href="libhankel_8h.html#a0e1024037ef107f5a9e37d6932af02c2">form_factor_f</a> f, const double x, void *f_ctx, double *output, int n_eval, double f_max)</td></tr>
 <tr class="memdesc:a796e38bd6e3edd71299fd70895857e90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes Hankel transform, using de-quadrature.  <a href="libhankel_8h.html#a796e38bd6e3edd71299fd70895857e90">More...</a><br /></td></tr>
 <tr class="separator:a796e38bd6e3edd71299fd70895857e90"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad45f2421887472f1cc8b5e568f49b6ec"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="libhankel_8h.html#ad45f2421887472f1cc8b5e568f49b6ec">hankel_transform_QWE_Key</a> (int nu, <a class="el" href="libhankel_8h.html#a8e20b1325721b16e0a41c95b642fd74b">form_factor_f</a> f, const double x, void *f_ctx, double *output, int n_eval, double eps_rel)</td></tr>
+<tr class="memitem:ad45f2421887472f1cc8b5e568f49b6ec"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="libhankel_8h.html#ad45f2421887472f1cc8b5e568f49b6ec">hankel_transform_QWE_Key</a> (int nu, <a class="el" href="libhankel_8h.html#a0e1024037ef107f5a9e37d6932af02c2">form_factor_f</a> f, const double x, void *f_ctx, double *output, int n_eval, double eps_rel)</td></tr>
 <tr class="memdesc:ad45f2421887472f1cc8b5e568f49b6ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes Hankel transform using the Quadrature With Extrapolation method by Key.  <a href="libhankel_8h.html#ad45f2421887472f1cc8b5e568f49b6ec">More...</a><br /></td></tr>
 <tr class="separator:ad45f2421887472f1cc8b5e568f49b6ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae09cf89efd135afa916d0790daae8121"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="libhankel_8h.html#ae09cf89efd135afa916d0790daae8121">hankel_transform_QWE_Chave</a> (int nu, <a class="el" href="libhankel_8h.html#a8e20b1325721b16e0a41c95b642fd74b">form_factor_f</a> f, const double x, void *f_ctx, double *output, int n_eval, double eps_rel)</td></tr>
+<tr class="memitem:ae09cf89efd135afa916d0790daae8121"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="libhankel_8h.html#ae09cf89efd135afa916d0790daae8121">hankel_transform_QWE_Chave</a> (int nu, <a class="el" href="libhankel_8h.html#a0e1024037ef107f5a9e37d6932af02c2">form_factor_f</a> f, const double x, void *f_ctx, double *output, int n_eval, double eps_rel)</td></tr>
 <tr class="memdesc:ae09cf89efd135afa916d0790daae8121"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes Hankel transform using the Quadrature With Extrapolation method by Chave.  <a href="libhankel_8h.html#ae09cf89efd135afa916d0790daae8121">More...</a><br /></td></tr>
 <tr class="separator:ae09cf89efd135afa916d0790daae8121"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Typedef Documentation</h2>
-<a id="a8e20b1325721b16e0a41c95b642fd74b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8e20b1325721b16e0a41c95b642fd74b">&#9670;&nbsp;</a></span>form_factor_f</h2>
+<a id="a0e1024037ef107f5a9e37d6932af02c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e1024037ef107f5a9e37d6932af02c2">&#9670;&nbsp;</a></span>form_factor_f</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef double(* form_factor_f) (double x, void *ctx)</td>
+          <td class="memname">form_factor_f</td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Function pointer type for a form factor callback. </p>
+<p>This callback is used to evaluate the form factor at a given input value.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>Input variable . </td></tr>
+    <tr><td class="paramname">ctx</td><td>User-provided context or data pointer (may be NULL).</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The value of the form factor evaluated at <code>x</code>. </dd></dl>
 
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a0413bf125eb226d94b78ba11ff5dfed2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0413bf125eb226d94b78ba11ff5dfed2">&#9670;&nbsp;</a></span>compute_hankel_FBT()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">double compute_hankel_FBT </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>nu</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="libhankel_8h.html#a8e20b1325721b16e0a41c95b642fd74b">form_factor_f</a>&#160;</td>
-          <td class="paramname"><em>intern_fct</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">void *&#160;</td>
-          <td class="paramname"><em>ctx</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>x</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>n_method</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>n_eval</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>f_max</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="ac61e4e7e81a12c1006283542141730e8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac61e4e7e81a12c1006283542141730e8">&#9670;&nbsp;</a></span>hankel_transform()</h2>
 
@@ -228,7 +152,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="libhankel_8h.html#a8e20b1325721b16e0a41c95b642fd74b">form_factor_f</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="libhankel_8h.html#a0e1024037ef107f5a9e37d6932af02c2">form_factor_f</a>&#160;</td>
           <td class="paramname"><em>f</em>, </td>
         </tr>
         <tr>
@@ -280,12 +204,12 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">nu</td><td>order of bessel function - must be 0 or 1 </td></tr>
-    <tr><td class="paramname">f</td><td>pointer to function to transform </td></tr>
+    <tr><td class="paramname">f</td><td>pointer to function to transform (see <a class="el" href="libhankel_8h.html#a0e1024037ef107f5a9e37d6932af02c2">form_factor_f</a>). </td></tr>
     <tr><td class="paramname">x</td><td>pointer to array of x at which to compute the transform </td></tr>
     <tr><td class="paramname">f_ctx</td><td>pointer to struct containing inputs for f </td></tr>
     <tr><td class="paramname">output</td><td>pointer to array containing output from transform </td></tr>
     <tr><td class="paramname">strategy_name</td><td>str corresponding to the strategy name </td></tr>
-    <tr><td class="paramname"><a class="el" href="structstrategy__params.html">strategy_params</a></td><td>struct containing params for the specific strategy (please use the docs to find params required by each strategy) </td></tr>
+    <tr><td class="paramname"><a class="el" href="structstrategy__params.html" title="Parameters required by the selected Hankel strategy. This structure groups together parameters that i...">strategy_params</a></td><td>struct containing params for the specific strategy. See <a class="el" href="structstrategy__params.html">strategy_params</a> for all elements this struct can contain and the page <a href="../usage/strategy_params.html">Strategy Parameters</a> to check the params required by each strategy. </td></tr>
   </table>
   </dd>
 </dl>
@@ -307,7 +231,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="libhankel_8h.html#a8e20b1325721b16e0a41c95b642fd74b">form_factor_f</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="libhankel_8h.html#a0e1024037ef107f5a9e37d6932af02c2">form_factor_f</a>&#160;</td>
           <td class="paramname"><em>f</em>, </td>
         </tr>
         <tr>
@@ -380,7 +304,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="libhankel_8h.html#a8e20b1325721b16e0a41c95b642fd74b">form_factor_f</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="libhankel_8h.html#a0e1024037ef107f5a9e37d6932af02c2">form_factor_f</a>&#160;</td>
           <td class="paramname"><em>f</em>, </td>
         </tr>
         <tr>
@@ -453,7 +377,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="libhankel_8h.html#a8e20b1325721b16e0a41c95b642fd74b">form_factor_f</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="libhankel_8h.html#a0e1024037ef107f5a9e37d6932af02c2">form_factor_f</a>&#160;</td>
           <td class="paramname"><em>f</em>, </td>
         </tr>
         <tr>
@@ -508,70 +432,6 @@ Perform wells for simple form factors, but it does struggle with oscillatory one
 
 </div>
 </div>
-<a id="a90bc633a1ef4e7022cec668b3b2ad96a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a90bc633a1ef4e7022cec668b3b2ad96a">&#9670;&nbsp;</a></span>hankel_transform_FBT()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">double hankel_transform_FBT </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>nu</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double(*)(double, double(*)[50])&#160;</td>
-          <td class="paramname"><em>f</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>x</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double(*)&#160;</td>
-          <td class="paramname"><em>f_params</em>[50], </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double *&#160;</td>
-          <td class="paramname"><em>output</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>n_method</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>n_eval</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>f_max</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="ae09cf89efd135afa916d0790daae8121"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae09cf89efd135afa916d0790daae8121">&#9670;&nbsp;</a></span>hankel_transform_QWE_Chave()</h2>
 
@@ -587,7 +447,7 @@ Perform wells for simple form factors, but it does struggle with oscillatory one
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="libhankel_8h.html#a8e20b1325721b16e0a41c95b642fd74b">form_factor_f</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="libhankel_8h.html#a0e1024037ef107f5a9e37d6932af02c2">form_factor_f</a>&#160;</td>
           <td class="paramname"><em>f</em>, </td>
         </tr>
         <tr>
@@ -660,7 +520,7 @@ Perform wells for simple form factors, but it does struggle with oscillatory one
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="libhankel_8h.html#a8e20b1325721b16e0a41c95b642fd74b">form_factor_f</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="libhankel_8h.html#a0e1024037ef107f5a9e37d6932af02c2">form_factor_f</a>&#160;</td>
           <td class="paramname"><em>f</em>, </td>
         </tr>
         <tr>

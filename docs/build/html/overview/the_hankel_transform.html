@@ -58,6 +58,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Usage</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../usage/strategy_selection.html">Strategy Selection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../usage/strategy_params.html">Strategy Parameters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../usage/status_codes.html">Status codes</a></li>
 </ul>
@@ -106,53 +107,11 @@
 to study the structure of materials on the nanoscale (roughly 1–1000 nm). SAS measures how radiation
 is scattered at very small angles, which tells us about large-scale structures inside the sample.</p>
 </section>
-<section id="hankel-transform-strategies">
-<span id="id1"></span><h2>Hankel Transform Strategies<a class="headerlink" href="#hankel-transform-strategies" title="Link to this heading"></a></h2>
-<p>LibHankel includes various implementations of the Hankel transform, corresponding to
-different ways of approximating the Hankel transform integral.</p>
-<p>The following table lists the strategies that are available in LibHankel.
-The column named “index” in the table essentially refers to the numbering used in SASfit.</p>
-<table class="docutils align-default" id="id2">
-<caption><span class="caption-text">Hankel transform strategies available in LibHankel.</span><a class="headerlink" href="#id2" title="Link to this table"></a></caption>
-<thead>
-<tr class="row-odd"><th class="head"><p>index (as in SASfit)</p></th>
-<th class="head"><p>Strategy Name</p></th>
-<th class="head"><p>Type</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>0</p></td>
-<td><p>DE_Ooura</p></td>
-<td><p>Double-exponential quadrature</p></td>
-</tr>
-<tr class="row-odd"><td><p>1</p></td>
-<td><p>DE_Ogata</p></td>
-<td><p>Double-exponential quadrature</p></td>
-</tr>
-<tr class="row-even"><td><p>6 to 11</p></td>
-<td><p>DHT_6 to DHT_11</p></td>
-<td><p>Digital filters</p></td>
-</tr>
-<tr class="row-odd"><td><p>12</p></td>
-<td><p>QWE_Key</p></td>
-<td><p>QWE with continued fraction expansion</p></td>
-</tr>
-<tr class="row-even"><td><p>13</p></td>
-<td><p>QWE_Chave</p></td>
-<td><p>QWE with Shanks transformation</p></td>
-</tr>
-</tbody>
-</table>
-<p>Strategies 6 to 11 in SASfit, which in this library are referred to as “DHT_6”, “DHT_7” …
-“DHT_11”,  are fixed-grid digital filter strategies. They are fast and perform well on simple form
-factors but their accuracy decreases on more complex or oscillatory ones. They are not iterative,
-rely on pre-computed constants, and do not allow the user to control the “accuracy” of the solution
-in any way.</p>
-<p>All other strategies instead are iterative, and some of them require the user to supply a tolerance
-parameter (called <code class="docutils literal notranslate"><span class="pre">eps_rel</span></code>) which is used to determine when to stop interating. Specifically,
-iterations are stopped when the difference in the solution of two consecutive iterations is less than
-the tolerance. For this reasons, strategies that require eps_rel generally perform better than the DHT
-ones on complex form factors, though they are more slow.</p>
+<section id="why-libhankel">
+<span id="id1"></span><h2>Why LibHankel<a class="headerlink" href="#why-libhankel" title="Link to this heading"></a></h2>
+<p><a class="reference external" href="https://github.com/SASfit/SASfit">SASfit</a> is a tool for analysis of SAS data. LibHankel essentially
+re-implements (some of) the Hankel transform algorithms available in SASfit with the aim of rendering them
+easily callable from Python and C, as well as facilitating maintenance.</p>
 </section>
 </section>
 

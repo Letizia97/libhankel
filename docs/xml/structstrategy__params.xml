@@ -10,12 +10,13 @@
         <argsstring></argsstring>
         <name>n_eval</name>
         <briefdescription>
+<para>Integer parameter indicating the maximum allowed number of function evaluations. Corresponds to N_ogata in SASfit. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/libhankel.h" line="7" column="9" bodyfile="include/libhankel.h" bodystart="7" bodyend="-1"/>
+        <location file="include/libhankel.h" line="22" column="9" bodyfile="include/libhankel.h" bodystart="22" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structstrategy__params_1a151596b1adab70fe9de8419ed2936240" prot="public" static="no" mutable="no">
         <type>double</type>
@@ -23,12 +24,14 @@
         <argsstring></argsstring>
         <name>eps_rel</name>
         <briefdescription>
+<para>Tolerance parameter or relative error allowed. </para>
         </briefdescription>
         <detaileddescription>
+<para>Determines the numerical precision or convergence threshold of the computation. Smaller values lead to higher accuracy at the cost of increased computation time. Corresponds to eps_nriq in SASfit. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/libhankel.h" line="8" column="12" bodyfile="include/libhankel.h" bodystart="8" bodyend="-1"/>
+        <location file="include/libhankel.h" line="32" column="12" bodyfile="include/libhankel.h" bodystart="32" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structstrategy__params_1ad788f9a97317a1a70c052b63201fca64" prot="public" static="no" mutable="no">
         <type>double</type>
@@ -36,19 +39,21 @@
         <argsstring></argsstring>
         <name>f_max</name>
         <briefdescription>
+<para>Starting guess for the maximum in the function x * form_factor. Corresponds to h_ogata in SASfit. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/libhankel.h" line="9" column="12" bodyfile="include/libhankel.h" bodystart="9" bodyend="-1"/>
+        <location file="include/libhankel.h" line="39" column="12" bodyfile="include/libhankel.h" bodystart="39" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
+<para>Parameters required by the selected Hankel strategy. This structure groups together parameters that influence the behavior and accuracy of the algorithm. </para>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="include/libhankel.h" line="6" column="1" bodyfile="include/libhankel.h" bodystart="6" bodyend="10"/>
+    <location file="include/libhankel.h" line="15" column="1" bodyfile="include/libhankel.h" bodystart="15" bodyend="40"/>
     <listofallmembers>
       <member refid="structstrategy__params_1a151596b1adab70fe9de8419ed2936240" prot="public" virt="non-virtual"><scope>strategy_params</scope><name>eps_rel</name></member>
       <member refid="structstrategy__params_1ad788f9a97317a1a70c052b63201fca64" prot="public" virt="non-virtual"><scope>strategy_params</scope><name>f_max</name></member>

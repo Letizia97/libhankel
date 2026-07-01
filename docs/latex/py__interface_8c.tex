@@ -1,26 +1,9 @@
 \hypertarget{py__interface_8c}{}\doxysection{src/py\+\_\+interface.c File Reference}
 \label{py__interface_8c}\index{src/py\_interface.c@{src/py\_interface.c}}
-{\ttfamily \#include $<$Python.\+h$>$}\newline
-{\ttfamily \#include \char`\"{}libhankel.\+h\char`\"{}}\newline
-{\ttfamily \#include $<$stdlib.\+h$>$}\newline
-{\ttfamily \#include \char`\"{}form\+\_\+factors.\+h\char`\"{}}\newline
-Include dependency graph for py\+\_\+interface.\+c\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{py__interface_8c__incl}
-\end{center}
-\end{figure}
 \doxysubsection*{Data Structures}
 \begin{DoxyCompactItemize}
 \item 
 struct \mbox{\hyperlink{structpy__f__ctx}{py\+\_\+f\+\_\+ctx}}
-\end{DoxyCompactItemize}
-\doxysubsection*{Macros}
-\begin{DoxyCompactItemize}
-\item 
-\#define \mbox{\hyperlink{py__interface_8c_ac9efdaac9411d0868b715edccca3269d}{PY\+\_\+\+SSIZE\+\_\+\+T\+\_\+\+CLEAN}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
@@ -34,19 +17,12 @@ Py\+MODINIT\+\_\+\+FUNC \mbox{\hyperlink{py__interface_8c_ad6ecbdad30b7766eadb46
 \doxysubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
+static char \mbox{\hyperlink{py__interface_8c_a23d8ca811f9512036ea26c3475366a1a}{hankel\+\_\+t\+\_\+doc}} \mbox{[}$\,$\mbox{]}
+\item 
 static Py\+Method\+Def \mbox{\hyperlink{py__interface_8c_a749d7fa9b1f39c537bd95ed3124d9134}{Methods}} \mbox{[}$\,$\mbox{]}
 \item 
 static struct Py\+Module\+Def \mbox{\hyperlink{py__interface_8c_a664ab1cf69fc4e5c958146785ac89410}{module}}
 \end{DoxyCompactItemize}
-
-
-\doxysubsection{Macro Definition Documentation}
-\mbox{\Hypertarget{py__interface_8c_ac9efdaac9411d0868b715edccca3269d}\label{py__interface_8c_ac9efdaac9411d0868b715edccca3269d}} 
-\index{py\_interface.c@{py\_interface.c}!PY\_SSIZE\_T\_CLEAN@{PY\_SSIZE\_T\_CLEAN}}
-\index{PY\_SSIZE\_T\_CLEAN@{PY\_SSIZE\_T\_CLEAN}!py\_interface.c@{py\_interface.c}}
-\doxysubsubsection{\texorpdfstring{PY\_SSIZE\_T\_CLEAN}{PY\_SSIZE\_T\_CLEAN}}
-{\footnotesize\ttfamily \#define PY\+\_\+\+SSIZE\+\_\+\+T\+\_\+\+CLEAN}
-
 
 
 \doxysubsection{Function Documentation}
@@ -71,6 +47,39 @@ static struct Py\+Module\+Def \mbox{\hyperlink{py__interface_8c_a664ab1cf69fc4e5
 
 
 \doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{py__interface_8c_a23d8ca811f9512036ea26c3475366a1a}\label{py__interface_8c_a23d8ca811f9512036ea26c3475366a1a}} 
+\index{py\_interface.c@{py\_interface.c}!hankel\_t\_doc@{hankel\_t\_doc}}
+\index{hankel\_t\_doc@{hankel\_t\_doc}!py\_interface.c@{py\_interface.c}}
+\doxysubsubsection{\texorpdfstring{hankel\_t\_doc}{hankel\_t\_doc}}
+{\footnotesize\ttfamily char hankel\+\_\+t\+\_\+doc\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= }
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}Compute the Hankel transform.\(\backslash\)n"{}}}
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}\(\backslash\)n"{}}}
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}:param nu:              The order of bessel function, must be 0 or 1.\(\backslash\)n"{}}}
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}:type nu:               int \(\backslash\)n"{}}}
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}:param f:               Either a function to hankel-\/transform or a string naming a built-\/in function, "{}}}
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}i.e. either of 'gdab', 'broad\_peak', 'sphere'.\(\backslash\)n"{}}}
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}:type f:                callable or str\(\backslash\)n"{}}}
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}:param x\_arr:           The points at which to evaluate the Hankel transform of the function f.\(\backslash\)n"{}}}
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}:type x\_arr:            numpy.ndarray of float64\(\backslash\)n"{}}}
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}:param f\_params:        Input parameters needed by the function f (ordered).\(\backslash\)n"{}}}
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}:type f\_params:         numpy.ndarray of float64\(\backslash\)n"{}}}
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}:param strategy\_name:   The name of Hankel strategy to use. "{}}}
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}Refer to the table in :ref:`strategy-\/parameters` for a list of possible strategies.\(\backslash\)n"{}}}
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}:type strategy\_name:    str \(\backslash\)n"{}}}
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}:param strategy\_params: The parameters needed by the chosen strategy. "{}}}
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}See :ref:`strategy-\/selection` or :ref:`c-\/api` (strategy\_params) for details.\(\backslash\)n"{}}}
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}:type strategy\_params:  dict[str, float | int]\(\backslash\)n"{}}       }
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}:returns:               The hankel transform.\(\backslash\)n"{}}}
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}:rtype:                 numpy.ndarray of float64\(\backslash\)n"{}}}
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}Please refer to :ref:`python-\/examples` for examples on how to use this function with either a "{}}}
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}builtin form factor or a custom input function."{}}}
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}\(\backslash\)n"{}}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{py__interface_8c_a749d7fa9b1f39c537bd95ed3124d9134}\label{py__interface_8c_a749d7fa9b1f39c537bd95ed3124d9134}} 
 \index{py\_interface.c@{py\_interface.c}!Methods@{Methods}}
 \index{Methods@{Methods}!py\_interface.c@{py\_interface.c}}
@@ -80,7 +89,7 @@ static struct Py\+Module\+Def \mbox{\hyperlink{py__interface_8c_a664ab1cf69fc4e5
 {\bfseries Initial value\+:}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{= \{}
-\DoxyCodeLine{    \{\textcolor{stringliteral}{"{}hankel\_transform"{}}, \mbox{\hyperlink{py__interface_8c_aa4a53ff18b3bbd16d626c4748e2a1109}{py\_hankel\_transform}}, METH\_VARARGS, \textcolor{stringliteral}{"{}Hankel transform"{}}\},}
+\DoxyCodeLine{    \{\textcolor{stringliteral}{"{}hankel\_transform"{}}, \mbox{\hyperlink{py__interface_8c_aa4a53ff18b3bbd16d626c4748e2a1109}{py\_hankel\_transform}}, METH\_VARARGS, \mbox{\hyperlink{py__interface_8c_a23d8ca811f9512036ea26c3475366a1a}{hankel\_t\_doc}}\},}
 \DoxyCodeLine{    \{NULL, NULL, 0, NULL\}}
 \DoxyCodeLine{\}}
 
@@ -96,7 +105,7 @@ static struct Py\+Module\+Def \mbox{\hyperlink{py__interface_8c_a664ab1cf69fc4e5
 \DoxyCodeLine{= \{}
 \DoxyCodeLine{    PyModuleDef\_HEAD\_INIT,}
 \DoxyCodeLine{    \textcolor{stringliteral}{"{}libhankel"{}},}
-\DoxyCodeLine{    NULL,}
+\DoxyCodeLine{    \textcolor{stringliteral}{"{} "{}},}
 \DoxyCodeLine{    -\/1,}
 \DoxyCodeLine{    \mbox{\hyperlink{py__interface_8c_a749d7fa9b1f39c537bd95ed3124d9134}{Methods}}}
 \DoxyCodeLine{\}}
