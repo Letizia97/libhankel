@@ -3,12 +3,11 @@
 Strategy Parameters
 ================================
 
-Independently of the interface being used, the ``hankel_transform`` function is designed to receive a 
-parameter named ``strategy_name``, which allows the user the select one of the strategies available.
-This could be any of the strings in the "Strategy Name" column in the table below.
+The ``hankel_transform`` function is designed to receive a both a ``strategy_name``, 
+which allows the user the select one of the strategies available, and ``strategy_params``, 
+which will contain the parameters required by the particular strategy being used. 
+The latter will be a dict when using the Python API and a struct when using the C API.
 
-The user is also required to supply a ``strategy_params`` input, which will contain the 
-parameters required by the particular strategy being used. 
 The table below reports the parameters required by each strategy.
 
 
@@ -31,11 +30,10 @@ The table below reports the parameters required by each strategy.
 
 Here is an explanation of each parameter:
 
-- ``n_eval``: integer indicating number of function evaluations
+.. doxygenstruct:: strategy_params
+   :project: libhankel
+   :members:
 
-- ``eps_rel``: relative error allowed e.g. 1e-9 
-
-- ``f_max``: 	float indicating starting guess for max in form factor
 
 Please note, for DHT strategies (that is, **DHT_6** to **DHT_11**) feel free to supply an empty struct 
 for ``strategy_params`` . Any field within it will be ignored in these strategies as they do not 

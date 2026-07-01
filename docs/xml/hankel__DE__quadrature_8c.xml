@@ -180,7 +180,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/hankel_DE_quadrature.c" line="96" column="8" bodyfile="src/hankel_DE_quadrature.c" bodystart="96" bodyend="171"/>
+        <location file="src/hankel_DE_quadrature.c" line="85" column="8" bodyfile="src/hankel_DE_quadrature.c" bodystart="85" bodyend="160"/>
       </memberdef>
       <memberdef kind="function" id="hankel__DE__quadrature_8c_1a796e38bd6e3edd71299fd70895857e90" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
@@ -282,7 +282,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/hankel_DE_quadrature.c" line="185" column="8" bodyfile="src/hankel_DE_quadrature.c" bodystart="185" bodyend="241"/>
+        <location file="src/hankel_DE_quadrature.c" line="163" column="8" bodyfile="src/hankel_DE_quadrature.c" bodystart="163" bodyend="219"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -349,141 +349,143 @@
 <codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>M_PI_2<sp/>*<sp/>t<sp/>*<sp/>ch<sp/>*<sp/>(secH<sp/>*<sp/>secH)<sp/>+<sp/>tanh(A);</highlight></codeline>
 <codeline lineno="82"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="83"><highlight class="normal"></highlight></codeline>
-<codeline lineno="96"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="hankel__DE__quadrature_8c_1ab59eed68ae4b66aa38bae302d028f26f" kindref="member">hankel_transform_DE_Ooura</ref>(</highlight></codeline>
-<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nu,<sp/></highlight></codeline>
-<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="libhankel_8h_1a0e1024037ef107f5a9e37d6932af02c2" kindref="member">form_factor_f</ref><sp/>f,<sp/></highlight></codeline>
-<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>x,</highlight></codeline>
-<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*f_ctx,</highlight></codeline>
-<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*<sp/>output,</highlight></codeline>
-<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>n_eval,<sp/></highlight></codeline>
-<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>eps_rel</highlight></codeline>
-<codeline lineno="104"><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="hankel__DE__quadrature_8c_1ab59eed68ae4b66aa38bae302d028f26f" kindref="member">hankel_transform_DE_Ooura</ref>(</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nu,<sp/></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="libhankel_8h_1a0e1024037ef107f5a9e37d6932af02c2" kindref="member">form_factor_f</ref><sp/>f,<sp/></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>x,</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*f_ctx,</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*<sp/>output,</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>n_eval,<sp/></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>eps_rel</highlight></codeline>
+<codeline lineno="93"><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>workspace_len<sp/>=<sp/>4000;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rounded_n_eval,<sp/>status;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>res0,<sp/>err0,<sp/>res,<sp/>err;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/>rounded_n_eval<sp/>=<sp/>lround(n_eval);</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structparams__struct" kindref="compound">params_struct</ref><sp/>FBTparam_struct;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/>FBTparam_struct.<ref refid="structparams__struct_1a637ceb8525729bf27104c68e77bdad8c" kindref="member">f_params</ref><sp/>=<sp/>f_ctx;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/>FBTparam_struct.<ref refid="structparams__struct_1a2c09081864ba36e037171ba61636b977" kindref="member">function</ref><sp/>=<sp/>f;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/>FBTparam_struct.<ref refid="structparams__struct_1af9900b998a31c2dc79311116ab680afd" kindref="member">nu</ref><sp/>=<sp/>nu;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/>FBTparam_struct.<ref refid="structparams__struct_1ac0d1e7e1890df178b0605032b1a43fc5" kindref="member">Q</ref><sp/>=<sp/>x;</highlight></codeline>
 <codeline lineno="105"><highlight class="normal"></highlight></codeline>
-<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>workspace_len<sp/>=<sp/>4000;</highlight></codeline>
-<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rounded_n_eval,<sp/>status;</highlight></codeline>
-<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>res0,<sp/>err0,<sp/>res,<sp/>err;</highlight></codeline>
-<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/>rounded_n_eval<sp/>=<sp/>lround(n_eval);</highlight></codeline>
-<codeline lineno="110"><highlight class="normal"></highlight></codeline>
-<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structparams__struct" kindref="compound">params_struct</ref><sp/>FBTparam_struct;</highlight></codeline>
-<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/>FBTparam_struct.<ref refid="structparams__struct_1a637ceb8525729bf27104c68e77bdad8c" kindref="member">f_params</ref><sp/>=<sp/>f_ctx;</highlight></codeline>
-<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/>FBTparam_struct.<ref refid="structparams__struct_1a2c09081864ba36e037171ba61636b977" kindref="member">function</ref><sp/>=<sp/>f;</highlight></codeline>
-<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/>FBTparam_struct.<ref refid="structparams__struct_1af9900b998a31c2dc79311116ab680afd" kindref="member">nu</ref><sp/>=<sp/>nu;</highlight></codeline>
-<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/>FBTparam_struct.<ref refid="structparams__struct_1ac0d1e7e1890df178b0605032b1a43fc5" kindref="member">Q</ref><sp/>=<sp/>x;</highlight></codeline>
-<codeline lineno="116"><highlight class="normal"></highlight></codeline>
-<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>chooses<sp/>which<sp/>zero<sp/>index<sp/>to<sp/>request,<sp/>caps<sp/>it<sp/>at<sp/>10</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>zero_index<sp/>=<sp/>rounded_n_eval<sp/>&lt;<sp/>10<sp/>?<sp/>rounded_n_eval<sp/>:<sp/>10;</highlight></codeline>
-<codeline lineno="119"><highlight class="normal"></highlight></codeline>
-<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>compute<sp/>zero<sp/>through<sp/>bessel<sp/>function<sp/>and<sp/>scale<sp/>it</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>scaled_zero<sp/>=<sp/>bessel_Jnu_zero(nu,<sp/>zero_index)<sp/>/<sp/>x;</highlight></codeline>
-<codeline lineno="122"><highlight class="normal"></highlight></codeline>
-<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>allocates<sp/>an<sp/>array<sp/>of<sp/>doubles<sp/>and<sp/>returns<sp/>a<sp/>pointer<sp/>to<sp/>it</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*workspace<sp/>=<sp/>malloc(workspace_len<sp/>*<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal"><sp/>*workspace);</highlight></codeline>
-<codeline lineno="125"><highlight class="normal"></highlight></codeline>
-<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>precompute<sp/>nodes<sp/>&amp;<sp/>weights<sp/>for<sp/>DE<sp/>integration<sp/>on<sp/>a<sp/>finite<sp/>interval<sp/>[a,<sp/>b]</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/>sasfit_intdeini(</highlight></codeline>
-<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>workspace_len,<sp/></highlight></codeline>
-<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DBL_MIN,<sp/></highlight></codeline>
-<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>eps_rel,<sp/></highlight></codeline>
-<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>workspace</highlight></codeline>
-<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/>);</highlight></codeline>
-<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>compute<sp/>integral<sp/>using<sp/>DE<sp/>quadrature<sp/>with<sp/>weights<sp/>created<sp/>by<sp/>sasfit_intdeini</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/>sasfit_intde(</highlight></codeline>
-<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;<ref refid="hankel__DE__quadrature_8c_1ae18ef418501c82562c9865b3f40af2a5" kindref="member">intdeo_FBT</ref>,<sp/></highlight></codeline>
-<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0,<sp/></highlight></codeline>
-<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>scaled_zero,<sp/></highlight></codeline>
-<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>workspace,<sp/></highlight></codeline>
-<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;res0,<sp/></highlight></codeline>
-<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;err0,<sp/></highlight></codeline>
-<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;FBTparam_struct</highlight></codeline>
-<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/>);</highlight></codeline>
-<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>precompute<sp/>nodes/weights<sp/>for<sp/>oscillatory<sp/>integrals</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>e.g.<sp/>f(x)<sp/>cos(omega<sp/>x)<sp/>,<sp/>over<sp/>[a,<sp/>inf]</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/>sasfit_intdeoini(</highlight></codeline>
-<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>workspace_len,<sp/></highlight></codeline>
-<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DBL_MIN,<sp/></highlight></codeline>
-<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>eps_rel,<sp/></highlight></codeline>
-<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>workspace</highlight></codeline>
-<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/>);</highlight></codeline>
-<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>evaluate<sp/>oscillatory<sp/>integrals<sp/>using<sp/>the<sp/>table<sp/>built<sp/>by<sp/>intdeoini.</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/>sasfit_intdeo(</highlight></codeline>
-<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;<ref refid="hankel__DE__quadrature_8c_1ae18ef418501c82562c9865b3f40af2a5" kindref="member">intdeo_FBT</ref>,<sp/></highlight></codeline>
-<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>scaled_zero,<sp/></highlight></codeline>
-<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FBTparam_struct.<ref refid="structparams__struct_1ac0d1e7e1890df178b0605032b1a43fc5" kindref="member">Q</ref>,<sp/></highlight></codeline>
-<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>workspace,<sp/></highlight></codeline>
-<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;res,<sp/></highlight></codeline>
-<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;err,<sp/></highlight></codeline>
-<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;FBTparam_struct</highlight></codeline>
-<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/>);</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>chooses<sp/>which<sp/>zero<sp/>index<sp/>to<sp/>request,<sp/>caps<sp/>it<sp/>at<sp/>10</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>zero_index<sp/>=<sp/>rounded_n_eval<sp/>&lt;<sp/>10<sp/>?<sp/>rounded_n_eval<sp/>:<sp/>10;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>compute<sp/>zero<sp/>through<sp/>bessel<sp/>function<sp/>and<sp/>scale<sp/>it</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>scaled_zero<sp/>=<sp/>bessel_Jnu_zero(nu,<sp/>zero_index)<sp/>/<sp/>x;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>allocates<sp/>an<sp/>array<sp/>of<sp/>doubles<sp/>and<sp/>returns<sp/>a<sp/>pointer<sp/>to<sp/>it</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*workspace<sp/>=<sp/>malloc(workspace_len<sp/>*<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal"><sp/>*workspace);</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>precompute<sp/>nodes<sp/>&amp;<sp/>weights<sp/>for<sp/>DE<sp/>integration<sp/>on<sp/>a<sp/>finite<sp/>interval<sp/>[a,<sp/>b]</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/>sasfit_intdeini(</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>workspace_len,<sp/></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DBL_MIN,<sp/></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>eps_rel,<sp/></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>workspace</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/>);</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>compute<sp/>integral<sp/>using<sp/>DE<sp/>quadrature<sp/>with<sp/>weights<sp/>created<sp/>by<sp/>sasfit_intdeini</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/>sasfit_intde(</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;<ref refid="hankel__DE__quadrature_8c_1ae18ef418501c82562c9865b3f40af2a5" kindref="member">intdeo_FBT</ref>,<sp/></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0,<sp/></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>scaled_zero,<sp/></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>workspace,<sp/></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;res0,<sp/></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;err0,<sp/></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;FBTparam_struct</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/>);</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>precompute<sp/>nodes/weights<sp/>for<sp/>oscillatory<sp/>integrals</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>e.g.<sp/>f(x)<sp/>cos(omega<sp/>x)<sp/>,<sp/>over<sp/>[a,<sp/>inf]</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/>sasfit_intdeoini(</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>workspace_len,<sp/></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DBL_MIN,<sp/></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>eps_rel,<sp/></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>workspace</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/>);</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>evaluate<sp/>oscillatory<sp/>integrals<sp/>using<sp/>the<sp/>table<sp/>built<sp/>by<sp/>intdeoini.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/>sasfit_intdeo(</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;<ref refid="hankel__DE__quadrature_8c_1ae18ef418501c82562c9865b3f40af2a5" kindref="member">intdeo_FBT</ref>,<sp/></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>scaled_zero,<sp/></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FBTparam_struct.<ref refid="structparams__struct_1ac0d1e7e1890df178b0605032b1a43fc5" kindref="member">Q</ref>,<sp/></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>workspace,<sp/></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;res,<sp/></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;err,<sp/></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;FBTparam_struct</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/>);</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/>free(workspace);</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/>res<sp/>+=<sp/>res0;</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>estimate<sp/>of<sp/>the<sp/>numerical<sp/>integration<sp/>error<sp/>for<sp/>the<sp/>computed<sp/>integral<sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>FIXME:<sp/>need<sp/>to<sp/>figure<sp/>out<sp/>what<sp/>to<sp/>do<sp/>with<sp/>this</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/>err<sp/>+=<sp/>err0;<sp/></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/>*output<sp/>=<sp/>res;</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="160"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="161"><highlight class="normal"></highlight></codeline>
-<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/>free(workspace);</highlight></codeline>
-<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/>res<sp/>+=<sp/>res0;</highlight></codeline>
-<codeline lineno="164"><highlight class="normal"></highlight></codeline>
-<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>estimate<sp/>of<sp/>the<sp/>numerical<sp/>integration<sp/>error<sp/>for<sp/>the<sp/>computed<sp/>integral<sp/></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>FIXME:<sp/>need<sp/>to<sp/>figure<sp/>out<sp/>what<sp/>to<sp/>do<sp/>with<sp/>this</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/>err<sp/>+=<sp/>err0;<sp/></highlight></codeline>
-<codeline lineno="168"><highlight class="normal"></highlight></codeline>
-<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/>*output<sp/>=<sp/>res;</highlight></codeline>
-<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
-<codeline lineno="171"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="hankel__DE__quadrature_8c_1a796e38bd6e3edd71299fd70895857e90" kindref="member">hankel_transform_DE_Ogata</ref>(</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nu,<sp/></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="libhankel_8h_1a0e1024037ef107f5a9e37d6932af02c2" kindref="member">form_factor_f</ref><sp/>f,<sp/></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>x,</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*f_ctx,</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*<sp/>output,</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>n_eval,<sp/></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>f_max</highlight></codeline>
+<codeline lineno="171"><highlight class="normal">)<sp/>{</highlight></codeline>
 <codeline lineno="172"><highlight class="normal"></highlight></codeline>
-<codeline lineno="185"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="hankel__DE__quadrature_8c_1a796e38bd6e3edd71299fd70895857e90" kindref="member">hankel_transform_DE_Ogata</ref>(</highlight></codeline>
-<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nu,<sp/></highlight></codeline>
-<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="libhankel_8h_1a0e1024037ef107f5a9e37d6932af02c2" kindref="member">form_factor_f</ref><sp/>f,<sp/></highlight></codeline>
-<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>x,</highlight></codeline>
-<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*f_ctx,</highlight></codeline>
-<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*<sp/>output,</highlight></codeline>
-<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>n_eval,<sp/></highlight></codeline>
-<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>f_max</highlight></codeline>
-<codeline lineno="193"><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>sum;</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>status;</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/>sum<sp/>=<sp/>0.0;</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>1;<sp/>i<sp/>&lt;=<sp/>n_eval;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>----<sp/>Get<sp/>Bessel<sp/>zero<sp/>α_{ν,i}<sp/>scaled<sp/>by<sp/>π<sp/>----<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>zero_i<sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>bessel_Jnu_zero(nu,<sp/>i);</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>zero_scaled<sp/>=<sp/>zero_i<sp/>/<sp/>M_PI;</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>----<sp/>Apply<sp/>DE<sp/>transform<sp/>&amp;<sp/>its<sp/>derivative<sp/>----<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>f_max<sp/>*<sp/>zero_scaled;</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>phi<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/><ref refid="hankel__DE__quadrature_8c_1a0b592bbf4d81eb176017f3cdf7c74d51" kindref="member">DEtransform</ref>(t);</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>phi_prime<sp/><sp/><sp/>=<sp/><ref refid="hankel__DE__quadrature_8c_1ae1b03fc133041f7c13160312b02afc8c" kindref="member">deriv_DEtransform</ref>(t);<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Jacobian<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>----<sp/>Map<sp/>DE<sp/>node<sp/>into<sp/>actual<sp/>integration<sp/>node<sp/>y_k<sp/>----<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>y_k<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>phi<sp/>*<sp/>(M_PI<sp/>/<sp/>f_max);</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>----<sp/>Precompute<sp/>Bessel<sp/>factors<sp/>----<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Jnu_yk<sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>jn(nu,<sp/>y_k);</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Jnu1_zero<sp/><sp/><sp/>=<sp/>jn(nu<sp/>+<sp/>1,<sp/>zero_i);</highlight></codeline>
 <codeline lineno="194"><highlight class="normal"></highlight></codeline>
-<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>sum;</highlight></codeline>
-<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>status;</highlight></codeline>
-<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/>sum<sp/>=<sp/>0.0;</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>----<sp/>Quadrature<sp/>weight<sp/>for<sp/>α_{ν,i}<sp/>----<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>denom<sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>M_PI<sp/>*<sp/>Jnu1_zero;</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>weight<sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>2.0<sp/>/<sp/>(<sp/>(denom<sp/>*<sp/>denom)<sp/>*<sp/>zero_scaled<sp/>);</highlight></codeline>
 <codeline lineno="198"><highlight class="normal"></highlight></codeline>
-<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>1;<sp/>i<sp/>&lt;=<sp/>n_eval;<sp/>i++)<sp/>{</highlight></codeline>
-<codeline lineno="200"><highlight class="normal"></highlight></codeline>
-<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>----<sp/>Get<sp/>Bessel<sp/>zero<sp/>α_{ν,i}<sp/>scaled<sp/>by<sp/>π<sp/>----<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>zero_i<sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>bessel_Jnu_zero(nu,<sp/>i);</highlight></codeline>
-<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>zero_scaled<sp/>=<sp/>zero_i<sp/>/<sp/>M_PI;</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>----<sp/>Evaluate<sp/>integrand<sp/>at<sp/>scaled<sp/>location<sp/>----<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>f_val<sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>(*f)(y_k<sp/>/<sp/>x,<sp/>f_ctx);</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>----<sp/>Assemble<sp/>quadrature<sp/>contribution<sp/>----<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>term<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>weight<sp/>*<sp/>y_k<sp/>*<sp/>f_val<sp/>*<sp/>Jnu_yk<sp/>*<sp/>phi_prime;</highlight></codeline>
 <codeline lineno="204"><highlight class="normal"></highlight></codeline>
-<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>----<sp/>Apply<sp/>DE<sp/>transform<sp/>&amp;<sp/>its<sp/>derivative<sp/>----<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>f_max<sp/>*<sp/>zero_scaled;</highlight></codeline>
-<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>phi<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/><ref refid="hankel__DE__quadrature_8c_1a0b592bbf4d81eb176017f3cdf7c74d51" kindref="member">DEtransform</ref>(t);</highlight></codeline>
-<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>phi_prime<sp/><sp/><sp/>=<sp/><ref refid="hankel__DE__quadrature_8c_1ae1b03fc133041f7c13160312b02afc8c" kindref="member">deriv_DEtransform</ref>(t);<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Jacobian<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="209"><highlight class="normal"></highlight></codeline>
-<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>----<sp/>Map<sp/>DE<sp/>node<sp/>into<sp/>actual<sp/>integration<sp/>node<sp/>y_k<sp/>----<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>y_k<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>phi<sp/>*<sp/>(M_PI<sp/>/<sp/>f_max);</highlight></codeline>
-<codeline lineno="212"><highlight class="normal"></highlight></codeline>
-<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>----<sp/>Precompute<sp/>Bessel<sp/>factors<sp/>----<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Jnu_yk<sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>jn(nu,<sp/>y_k);</highlight></codeline>
-<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Jnu1_zero<sp/><sp/><sp/>=<sp/>jn(nu<sp/>+<sp/>1,<sp/>zero_i);</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sum<sp/>+=<sp/>term;</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Apply<sp/>normalization<sp/>from<sp/>the<sp/>change<sp/>of<sp/>variables<sp/>t<sp/>=<sp/>x<sp/>*<sp/>r</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>scaled_sum<sp/>=<sp/>(M_PI<sp/>/<sp/>(x<sp/>*<sp/>x))<sp/>*<sp/>sum;</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Parity<sp/>correction<sp/>for<sp/>integer<sp/>Bessel<sp/>order<sp/>(H_-ν<sp/>=<sp/>(-1)^ν<sp/>H_ν)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>parity<sp/>=<sp/>(nu<sp/>==<sp/>0)<sp/>?<sp/>1.0<sp/>:<sp/>pow((</highlight><highlight class="keywordtype">double</highlight><highlight class="normal">)SIGN(nu),<sp/>nu);</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Final<sp/>result</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>res<sp/>=<sp/>scaled_sum<sp/>*<sp/>parity;</highlight></codeline>
 <codeline lineno="216"><highlight class="normal"></highlight></codeline>
-<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>----<sp/>Quadrature<sp/>weight<sp/>for<sp/>α_{ν,i}<sp/>----<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>denom<sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>M_PI<sp/>*<sp/>Jnu1_zero;</highlight></codeline>
-<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>weight<sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>2.0<sp/>/<sp/>(<sp/>(denom<sp/>*<sp/>denom)<sp/>*<sp/>zero_scaled<sp/>);</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/>*output<sp/>=<sp/>res;</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="219"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="220"><highlight class="normal"></highlight></codeline>
-<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>----<sp/>Evaluate<sp/>integrand<sp/>at<sp/>scaled<sp/>location<sp/>----<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>f_val<sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>(*f)(y_k<sp/>/<sp/>x,<sp/>f_ctx);</highlight></codeline>
-<codeline lineno="223"><highlight class="normal"></highlight></codeline>
-<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>----<sp/>Assemble<sp/>quadrature<sp/>contribution<sp/>----<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>term<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>weight<sp/>*<sp/>y_k<sp/>*<sp/>f_val<sp/>*<sp/>Jnu_yk<sp/>*<sp/>phi_prime;</highlight></codeline>
-<codeline lineno="226"><highlight class="normal"></highlight></codeline>
-<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sum<sp/>+=<sp/>term;</highlight></codeline>
-<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="229"><highlight class="normal"></highlight></codeline>
-<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Apply<sp/>normalization<sp/>from<sp/>the<sp/>change<sp/>of<sp/>variables<sp/>t<sp/>=<sp/>x<sp/>*<sp/>r</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>scaled_sum<sp/>=<sp/>(M_PI<sp/>/<sp/>(x<sp/>*<sp/>x))<sp/>*<sp/>sum;</highlight></codeline>
-<codeline lineno="232"><highlight class="normal"></highlight></codeline>
-<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Parity<sp/>correction<sp/>for<sp/>integer<sp/>Bessel<sp/>order<sp/>(H_-ν<sp/>=<sp/>(-1)^ν<sp/>H_ν)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>parity<sp/>=<sp/>(nu<sp/>==<sp/>0)<sp/>?<sp/>1.0<sp/>:<sp/>pow((</highlight><highlight class="keywordtype">double</highlight><highlight class="normal">)SIGN(nu),<sp/>nu);</highlight></codeline>
-<codeline lineno="235"><highlight class="normal"></highlight></codeline>
-<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Final<sp/>result</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>res<sp/>=<sp/>scaled_sum<sp/>*<sp/>parity;</highlight></codeline>
-<codeline lineno="238"><highlight class="normal"></highlight></codeline>
-<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/>*output<sp/>=<sp/>res;</highlight></codeline>
-<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
-<codeline lineno="241"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="242"><highlight class="normal"></highlight></codeline>
     </programlisting>
     <location file="src/hankel_DE_quadrature.c"/>
   </compounddef>

@@ -21,25 +21,7 @@ They have been grouped together under one function, as they are very similar, an
 changing the n_strategy parameter allows to switch between them
 */
 
-/** 
- * @brief Computes Hankel transform, using digital filters.
- * @note Corresponds to strategies 6-11 in SASfit.
- * @note Does not allow any error control.
- * @note Perform wells for simple form factors, but it does struggle 
- *       with oscillatory ones. For oscillatory form factors, it is 
- *       advisable to start with this method for a rough Hankel transform
- *       computation, and then refine it with "hankel_transform_QWE_Chave"
- *       or "hankel_transform_QWE_Key".
- * 
- * @param nu         order of bessel function - must be 0 or 1
- * @param f          pointer to function to transform
- * @param x          value at which to compute the transform
- * @param f_ctx      pointer to struct containing inputs for f
- * @param output     pointer to var containing output from transform 
- * @param n_strategy an integer number between 6 and 11 
- *                   (determines which weightings to use for the transform
- *                   and corresponds to SASfit strategies 6-11)
- */
+
 double hankel_transform_DHT(
     int nu, 
     form_factor_f f, 

@@ -44,7 +44,7 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../overview/the_hankel_transform.html">Intro to the Hankel Transform</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overview/the_hankel_transform.html">Intro to LibHankel</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
@@ -95,8 +95,11 @@
   <section id="strategy-selection">
 <span id="id1"></span><h1>Strategy Selection<a class="headerlink" href="#strategy-selection" title="Link to this heading"></a></h1>
 <p>LibHankel includes various implementations of the Hankel transform, corresponding to
-different ways of approximating the Hankel transform integral. The following table
-lists the strategies that are available in LibHankel.
+different ways of approximating the Hankel transform integral.</p>
+<p>Independently of the interface being used, the <code class="docutils literal notranslate"><span class="pre">hankel_transform</span></code> function is designed
+to receive a parameter named <code class="docutils literal notranslate"><span class="pre">strategy_name</span></code>, which allows the user the select one of
+the strategies available.</p>
+<p>The following table lists the strategies that are available in LibHankel.
 The column named <em>Strategy Name</em> in the table essentially contains the possible strings
 the user could pass in as <code class="docutils literal notranslate"><span class="pre">strategy_name</span></code> when calling the <code class="docutils literal notranslate"><span class="pre">hankel_transform</span></code> function.
 The column named <em>Index</em> in the table essentially refers to the numbering used in SASfit.</p>

@@ -37,7 +37,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/libhankel.h" line="55" column="9" bodyfile="include/libhankel.h" bodystart="55" bodyend="-1"/>
+        <location file="include/libhankel.h" line="52" column="9" bodyfile="include/libhankel.h" bodystart="52" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -145,7 +145,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/libhankel.h" line="58" column="5" bodyfile="src/hankel_transform.c" bodystart="48" bodyend="234" declfile="include/libhankel.h" declline="58" declcolumn="5"/>
+        <location file="include/libhankel.h" line="71" column="5" bodyfile="src/hankel_transform.c" bodystart="32" bodyend="218" declfile="include/libhankel.h" declline="71" declcolumn="5"/>
       </memberdef>
       <memberdef kind="function" id="libhankel_8h_1a1afd349b27c3678a014332090788d4fa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
@@ -239,7 +239,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/libhankel.h" line="71" column="8" bodyfile="src/hankel_DHT.c" bodystart="43" bodyend="133" declfile="include/libhankel.h" declline="71" declcolumn="8"/>
+        <location file="include/libhankel.h" line="102" column="8" bodyfile="src/hankel_DHT.c" bodystart="25" bodyend="115" declfile="include/libhankel.h" declline="102" declcolumn="8"/>
       </memberdef>
       <memberdef kind="function" id="libhankel_8h_1ab59eed68ae4b66aa38bae302d028f26f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
@@ -341,7 +341,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/libhankel.h" line="83" column="8" bodyfile="src/hankel_DE_quadrature.c" bodystart="96" bodyend="171" declfile="include/libhankel.h" declline="83" declcolumn="8"/>
+        <location file="include/libhankel.h" line="124" column="8" bodyfile="src/hankel_DE_quadrature.c" bodystart="85" bodyend="160" declfile="include/libhankel.h" declline="124" declcolumn="8"/>
       </memberdef>
       <memberdef kind="function" id="libhankel_8h_1a796e38bd6e3edd71299fd70895857e90" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
@@ -443,7 +443,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/libhankel.h" line="94" column="8" bodyfile="src/hankel_DE_quadrature.c" bodystart="185" bodyend="241" declfile="include/libhankel.h" declline="94" declcolumn="8"/>
+        <location file="include/libhankel.h" line="147" column="8" bodyfile="src/hankel_DE_quadrature.c" bodystart="163" bodyend="219" declfile="include/libhankel.h" declline="147" declcolumn="8"/>
       </memberdef>
       <memberdef kind="function" id="libhankel_8h_1ad45f2421887472f1cc8b5e568f49b6ec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
@@ -545,7 +545,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/libhankel.h" line="105" column="8" bodyfile="src/hankel_QWE.c" bodystart="32" bodyend="54" declfile="include/libhankel.h" declline="105" declcolumn="8"/>
+        <location file="include/libhankel.h" line="170" column="8" bodyfile="src/hankel_QWE.c" bodystart="21" bodyend="43" declfile="include/libhankel.h" declline="170" declcolumn="8"/>
       </memberdef>
       <memberdef kind="function" id="libhankel_8h_1ae09cf89efd135afa916d0790daae8121" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
@@ -647,7 +647,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/libhankel.h" line="116" column="8" bodyfile="src/hankel_QWE.c" bodystart="68" bodyend="89" declfile="include/libhankel.h" declline="116" declcolumn="8"/>
+        <location file="include/libhankel.h" line="193" column="8" bodyfile="src/hankel_QWE.c" bodystart="46" bodyend="67" declfile="include/libhankel.h" declline="193" declcolumn="8"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -661,91 +661,86 @@
 <codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stddef.h&gt;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="5"><highlight class="normal"></highlight></codeline>
 <codeline lineno="6"><highlight class="normal"></highlight></codeline>
-<codeline lineno="7"><highlight class="normal"></highlight></codeline>
-<codeline lineno="15" refid="structstrategy__params" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="22" refid="structstrategy__params_1a9e5655c2549b2dff884116acc625a955" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structstrategy__params_1a9e5655c2549b2dff884116acc625a955" kindref="member">n_eval</ref>;</highlight></codeline>
-<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="32" refid="structstrategy__params_1a151596b1adab70fe9de8419ed2936240" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="structstrategy__params_1a151596b1adab70fe9de8419ed2936240" kindref="member">eps_rel</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="39" refid="structstrategy__params_1ad788f9a97317a1a70c052b63201fca64" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="structstrategy__params_1ad788f9a97317a1a70c052b63201fca64" kindref="member">f_max</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="40"><highlight class="normal">}<sp/><ref refid="structstrategy__params" kindref="compound">strategy_params</ref>;</highlight></codeline>
-<codeline lineno="41"><highlight class="normal"></highlight></codeline>
-<codeline lineno="42"><highlight class="normal"></highlight></codeline>
-<codeline lineno="43"><highlight class="normal"></highlight></codeline>
-<codeline lineno="55" refid="libhankel_8h_1a0e1024037ef107f5a9e37d6932af02c2" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>double<sp/>(*<ref refid="libhankel_8h_1a0e1024037ef107f5a9e37d6932af02c2" kindref="member">form_factor_f</ref>)(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>x,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*ctx);</highlight></codeline>
-<codeline lineno="56"><highlight class="normal"></highlight></codeline>
-<codeline lineno="57"><highlight class="normal"></highlight></codeline>
-<codeline lineno="58"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="libhankel_8h_1ac61e4e7e81a12c1006283542141730e8" kindref="member">hankel_transform</ref>(</highlight></codeline>
-<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nu,<sp/></highlight></codeline>
-<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="libhankel_8h_1a0e1024037ef107f5a9e37d6932af02c2" kindref="member">form_factor_f</ref><sp/>f,<sp/></highlight></codeline>
-<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*x,</highlight></codeline>
-<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len_x,</highlight></codeline>
-<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*f_ctx,</highlight></codeline>
-<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*output,</highlight></codeline>
-<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*strategy_name,</highlight></codeline>
-<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structstrategy__params" kindref="compound">strategy_params</ref><sp/><ref refid="structstrategy__params" kindref="compound">strategy_params</ref></highlight></codeline>
-<codeline lineno="67"><highlight class="normal">);<sp/></highlight></codeline>
-<codeline lineno="68"><highlight class="normal"></highlight></codeline>
-<codeline lineno="69"><highlight class="normal"></highlight></codeline>
-<codeline lineno="70"><highlight class="normal"></highlight><highlight class="comment">//<sp/>strategies<sp/>6-11<sp/>(DHT)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="71"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="libhankel_8h_1a1afd349b27c3678a014332090788d4fa" kindref="member">hankel_transform_DHT</ref>(</highlight></codeline>
+<codeline lineno="13" refid="structstrategy__params" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="20" refid="structstrategy__params_1a9e5655c2549b2dff884116acc625a955" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structstrategy__params_1a9e5655c2549b2dff884116acc625a955" kindref="member">n_eval</ref>;</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="30" refid="structstrategy__params_1a151596b1adab70fe9de8419ed2936240" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="structstrategy__params_1a151596b1adab70fe9de8419ed2936240" kindref="member">eps_rel</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="37" refid="structstrategy__params_1ad788f9a97317a1a70c052b63201fca64" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="structstrategy__params_1ad788f9a97317a1a70c052b63201fca64" kindref="member">f_max</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="38"><highlight class="normal">}<sp/><ref refid="structstrategy__params" kindref="compound">strategy_params</ref>;</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52" refid="libhankel_8h_1a0e1024037ef107f5a9e37d6932af02c2" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>double<sp/>(*<ref refid="libhankel_8h_1a0e1024037ef107f5a9e37d6932af02c2" kindref="member">form_factor_f</ref>)(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>x,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*ctx);</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="libhankel_8h_1ac61e4e7e81a12c1006283542141730e8" kindref="member">hankel_transform</ref>(</highlight></codeline>
 <codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nu,<sp/></highlight></codeline>
 <codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="libhankel_8h_1a0e1024037ef107f5a9e37d6932af02c2" kindref="member">form_factor_f</ref><sp/>f,<sp/></highlight></codeline>
-<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>x,</highlight></codeline>
-<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*f_ctx,</highlight></codeline>
-<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*<sp/>output,</highlight></codeline>
-<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>n_strategy</highlight></codeline>
-<codeline lineno="78"><highlight class="normal">);</highlight></codeline>
-<codeline lineno="79"><highlight class="normal"></highlight></codeline>
-<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*x,</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len_x,</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*f_ctx,</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*output,</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*strategy_name,</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structstrategy__params" kindref="compound">strategy_params</ref><sp/><ref refid="structstrategy__params" kindref="compound">strategy_params</ref></highlight></codeline>
+<codeline lineno="80"><highlight class="normal">);<sp/></highlight></codeline>
 <codeline lineno="81"><highlight class="normal"></highlight></codeline>
-<codeline lineno="82"><highlight class="normal"></highlight><highlight class="comment">//<sp/>strategy<sp/>0<sp/>(DE<sp/>QUADRATURE)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="83"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="libhankel_8h_1ab59eed68ae4b66aa38bae302d028f26f" kindref="member">hankel_transform_DE_Ooura</ref>(</highlight></codeline>
-<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nu,<sp/></highlight></codeline>
-<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="libhankel_8h_1a0e1024037ef107f5a9e37d6932af02c2" kindref="member">form_factor_f</ref><sp/>f,<sp/></highlight></codeline>
-<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>x,</highlight></codeline>
-<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*f_ctx,</highlight></codeline>
-<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*<sp/>output,</highlight></codeline>
-<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>n_eval,<sp/></highlight></codeline>
-<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>eps_rel</highlight></codeline>
-<codeline lineno="91"><highlight class="normal">);</highlight></codeline>
-<codeline lineno="92"><highlight class="normal"></highlight></codeline>
-<codeline lineno="93"><highlight class="normal"></highlight><highlight class="comment">//<sp/>strategy<sp/>1<sp/>(DE<sp/>QUADRATURE)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="94"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="libhankel_8h_1a796e38bd6e3edd71299fd70895857e90" kindref="member">hankel_transform_DE_Ogata</ref>(</highlight></codeline>
-<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nu,<sp/></highlight></codeline>
-<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="libhankel_8h_1a0e1024037ef107f5a9e37d6932af02c2" kindref="member">form_factor_f</ref><sp/>f,<sp/></highlight></codeline>
-<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>x,</highlight></codeline>
-<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*f_ctx,</highlight></codeline>
-<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*<sp/>output,</highlight></codeline>
-<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>n_eval,<sp/></highlight></codeline>
-<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>f_max</highlight></codeline>
-<codeline lineno="102"><highlight class="normal">);</highlight></codeline>
-<codeline lineno="103"><highlight class="normal"></highlight></codeline>
-<codeline lineno="104"><highlight class="normal"></highlight><highlight class="comment">//<sp/>strategy<sp/>12</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="105"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="libhankel_8h_1ad45f2421887472f1cc8b5e568f49b6ec" kindref="member">hankel_transform_QWE_Key</ref>(</highlight></codeline>
-<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nu,<sp/></highlight></codeline>
-<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="libhankel_8h_1a0e1024037ef107f5a9e37d6932af02c2" kindref="member">form_factor_f</ref><sp/>f,<sp/></highlight></codeline>
-<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>x,</highlight></codeline>
-<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*f_ctx,</highlight></codeline>
-<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*<sp/>output,</highlight></codeline>
-<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>n_eval,<sp/></highlight></codeline>
-<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>eps_rel</highlight></codeline>
-<codeline lineno="113"><highlight class="normal">);</highlight></codeline>
-<codeline lineno="114"><highlight class="normal"></highlight></codeline>
-<codeline lineno="115"><highlight class="normal"></highlight><highlight class="comment">//<sp/>strategy<sp/>13</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="116"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="libhankel_8h_1ae09cf89efd135afa916d0790daae8121" kindref="member">hankel_transform_QWE_Chave</ref>(</highlight></codeline>
-<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nu,<sp/></highlight></codeline>
-<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="libhankel_8h_1a0e1024037ef107f5a9e37d6932af02c2" kindref="member">form_factor_f</ref><sp/>f,<sp/></highlight></codeline>
-<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>x,</highlight></codeline>
-<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*f_ctx,</highlight></codeline>
-<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*<sp/>output,</highlight></codeline>
-<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>n_eval,<sp/></highlight></codeline>
-<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>eps_rel</highlight></codeline>
-<codeline lineno="124"><highlight class="normal">);</highlight></codeline>
-<codeline lineno="125"><highlight class="normal"></highlight></codeline>
-<codeline lineno="126"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">//<sp/>LIBHANKEL_H</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="libhankel_8h_1a1afd349b27c3678a014332090788d4fa" kindref="member">hankel_transform_DHT</ref>(</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nu,<sp/></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="libhankel_8h_1a0e1024037ef107f5a9e37d6932af02c2" kindref="member">form_factor_f</ref><sp/>f,<sp/></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>x,</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*f_ctx,</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*<sp/>output,</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>n_strategy</highlight></codeline>
+<codeline lineno="109"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="libhankel_8h_1ab59eed68ae4b66aa38bae302d028f26f" kindref="member">hankel_transform_DE_Ooura</ref>(</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nu,<sp/></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="libhankel_8h_1a0e1024037ef107f5a9e37d6932af02c2" kindref="member">form_factor_f</ref><sp/>f,<sp/></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>x,</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*f_ctx,</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*<sp/>output,</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>n_eval,<sp/></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>eps_rel</highlight></codeline>
+<codeline lineno="132"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="libhankel_8h_1a796e38bd6e3edd71299fd70895857e90" kindref="member">hankel_transform_DE_Ogata</ref>(</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nu,<sp/></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="libhankel_8h_1a0e1024037ef107f5a9e37d6932af02c2" kindref="member">form_factor_f</ref><sp/>f,<sp/></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>x,</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*f_ctx,</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*<sp/>output,</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>n_eval,<sp/></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>f_max</highlight></codeline>
+<codeline lineno="155"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="libhankel_8h_1ad45f2421887472f1cc8b5e568f49b6ec" kindref="member">hankel_transform_QWE_Key</ref>(</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nu,<sp/></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="libhankel_8h_1a0e1024037ef107f5a9e37d6932af02c2" kindref="member">form_factor_f</ref><sp/>f,<sp/></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>x,</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*f_ctx,</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*<sp/>output,</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>n_eval,<sp/></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>eps_rel</highlight></codeline>
+<codeline lineno="178"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="libhankel_8h_1ae09cf89efd135afa916d0790daae8121" kindref="member">hankel_transform_QWE_Chave</ref>(</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nu,<sp/></highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="libhankel_8h_1a0e1024037ef107f5a9e37d6932af02c2" kindref="member">form_factor_f</ref><sp/>f,<sp/></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>x,</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*f_ctx,</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*<sp/>output,</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>n_eval,<sp/></highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>eps_rel</highlight></codeline>
+<codeline lineno="201"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">//<sp/>LIBHANKEL_H</highlight><highlight class="normal"></highlight></codeline>
     </programlisting>
     <location file="include/libhankel.h"/>
   </compounddef>
