@@ -48,9 +48,6 @@ int main(void) {
     for (int i = 0; i < ARRAY_LEN; i++) {
         printf("%.15g ", result[i]);
     }
-    printf("\n");
-
-    /* Add cleanup */
 
     return 0;
 
