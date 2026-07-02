@@ -1,7 +1,7 @@
+.. _quickstart-python:
+
 Installation for Python users
 =================================
-
-.. _quickstart-python:
 
 The easiest way to install LibHankel is by using the Python package manager, `pip <https://pip.pypa.io/en/stable/>`__.
 Alternatively, it can be installed from source through git clone. In either case, it is recommended to create a virtual

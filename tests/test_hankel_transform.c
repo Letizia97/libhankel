@@ -112,44 +112,38 @@ void setUp(void) {
     };
 
     // COMPUTATIONS 
-    for (size_t i = 0; i < ARRAY_LEN; ++i) {
-        hankel_transform(
-            nu, 
-            form_factor_sphere, 
-            r_array_spheres, 
-            ARRAY_LEN,
-            (void *)&ctx_spheres,
-            ctx.actual_spheres, 
-            "QWE_Key", 
-            strategy_params_general
-        );
-    }
-    
-    for (size_t i = 0; i < ARRAY_LEN; ++i) {
-        hankel_transform(
-            nu, 
-            form_factor_g_dab, 
-            r_array_gdab, 
-            ARRAY_LEN,
-            (void *)&ctx_gdab,
-            ctx.actual_gdab, 
-            "QWE_Key", 
-            strategy_params_general
-        );
-    }
+    hankel_transform(
+        nu, 
+        form_factor_sphere, 
+        r_array_spheres, 
+        ARRAY_LEN,
+        (void *)&ctx_spheres,
+        ctx.actual_spheres, 
+        "QWE_Key", 
+        strategy_params_general
+    );
 
-    for (size_t i = 0; i < ARRAY_LEN; ++i) {
-        hankel_transform(
-            nu, 
-            form_factor_broad_peak, 
-            r_array_broad_peak, 
-            ARRAY_LEN,
-            (void *)&ctx_broad_peak,
-            ctx.actual_broad_peak, 
-            "QWE_Key", 
-            strategy_params_b_peak
-        );
-    }  
+    hankel_transform(
+        nu, 
+        form_factor_g_dab, 
+        r_array_gdab, 
+        ARRAY_LEN,
+        (void *)&ctx_gdab,
+        ctx.actual_gdab, 
+        "QWE_Key", 
+        strategy_params_general
+    );
+
+    hankel_transform(
+        nu, 
+        form_factor_broad_peak, 
+        r_array_broad_peak, 
+        ARRAY_LEN,
+        (void *)&ctx_broad_peak,
+        ctx.actual_broad_peak, 
+        "QWE_Key", 
+        strategy_params_b_peak
+    );
 }
 
 

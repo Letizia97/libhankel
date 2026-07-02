@@ -7,7 +7,6 @@ This page contains explanations of the main functions / structs
 a user might need, when using the library from C.
 
 
-
 .. _strategy_params_c_api:
 
 Strategy params
@@ -30,7 +29,7 @@ Hankel transform functions
 
 .. _form_factors_c_api:
 
-For form factors usage
+For form factors
 ----------------------
 .. doxygentypedef:: form_factor_f
 .. doxygenstruct:: form_factor_ctx

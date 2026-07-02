@@ -1,7 +1,7 @@
+.. _quickstart-c:
+
 Installation for C users
 =================================
-
-.. _quickstart-c:
 
 LibHankel has been tested on Linux, although it should work on other platforms. It requires:
 
