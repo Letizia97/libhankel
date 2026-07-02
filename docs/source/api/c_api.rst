@@ -6,6 +6,8 @@ C API
 This page contains explanations of the main functions / structs
 a user might need, when using the library from C.
 
+Please refer to the :ref:`c-examples` for details on how to use the 
+hankel transform with either a built-in form factor or a custom input function.
 
 .. _strategy_params_c_api:
 

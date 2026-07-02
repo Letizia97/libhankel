@@ -23,7 +23,7 @@ With built-in form factor
 
 The following is an example with a built-in form factor.
 
-.. literalinclude:: ../../../c_examples/example_usage_g_dab.c
+.. literalinclude:: ../../../examples/c/example_usage_g_dab.c
    :language: c
    :lines: 1-1000
 
@@ -33,7 +33,7 @@ you should be able to compile and run the above example with:
 .. code-block:: bash
     
     cd libhankel
-    gcc  c_examples/example_usage_g_dab.c -llibhankel -o example_usage_g_dab
+    gcc  examples/c/example_usage_g_dab.c -llibhankel -o example_usage_g_dab
     ./example_usage_g_dab
 
 
@@ -45,7 +45,7 @@ With custom form factor
 
 The following is an example with a custom form factor.
 
-.. literalinclude:: ../../../c_examples/example_usage_custom_form_factor.c
+.. literalinclude:: ../../../examples/c/example_usage_custom_form_factor.c
    :language: c
    :lines: 1-1000
 
@@ -55,5 +55,5 @@ you should be able to compile and run the above example with:
 .. code-block:: bash
 
     cd libhankel
-    gcc  c_examples/example_usage_custom_form_factor.c -llibhankel -o example_usage_custom_form_factor -lm
+    gcc  examples/c/example_usage_custom_form_factor.c -llibhankel -o example_usage_custom_form_factor -lm
     ./example_usage_custom_form_factor

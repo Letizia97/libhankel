@@ -15,15 +15,16 @@ To run these examples, please follow the Python installation instructions
 :ref:`quickstart-python`. After this the tests can be through:
 
 .. code-block:: bash
+   
    cd libhankel
-   python python_examples/example_usage_g_dab.py
-   python python_examples/example_usage_custom_form_factor.py
+   python examples/python/example_usage_g_dab.py
+   python examples/python/example_usage_custom_form_factor.py
 
 
 With built-in form factor
 --------------------------
 
-.. literalinclude:: ../../../python_examples/example_usage_g_dab.py
+.. literalinclude:: ../../../examples/python/example_usage_g_dab.py
    :language: python
    :lines: 1-1000
 
@@ -35,7 +36,7 @@ With built-in form factor
 With custom form factor
 ------------------------
 
-.. literalinclude:: ../../../python_examples/example_usage_custom_form_factor.py
+.. literalinclude:: ../../../examples/python/example_usage_custom_form_factor.py
    :language: python
    :lines: 1-1000
 
