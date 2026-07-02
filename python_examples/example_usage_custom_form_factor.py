@@ -17,7 +17,6 @@ strategy_p_dict = {
     'eps_rel': 1e-9
 }
 
-
 def sf_poch(a, x):
     return math.gamma(a + x) / math.gamma(a)
 
@@ -37,24 +36,6 @@ def dab(q, params):
 
     return numer / denom
 
-
-
-result = libhankel.hankel_transform(
-    nu,
-    "gdab",
-    x_arr,
-    params_gdab,
-    "QWE_Chave",
-    strategy_p_dict
-)
-
-print(
-    "Result of calling the hankel_transform "
-    "with g_dab form factor (BUILT IN)\n", 
-    result
-)
-
-
 result = libhankel.hankel_transform(
     nu,
     dab,
@@ -63,8 +44,9 @@ result = libhankel.hankel_transform(
     "QWE_Chave",
     strategy_p_dict
 )
+
 print(
-    "Result of calling the hankel_transform with g_dab "
-    "form factor (USER-DEFINED python function)\n", 
+    "Result of calling the hankel_transform with a "
+    "user-defined python function \n", 
     result
 )

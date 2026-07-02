@@ -26,6 +26,7 @@ result = libhankel.hankel_transform(
 )
 
 print(
-    "Result of calling the hankel_transform with g_dab form factor", 
+    "Result of calling the hankel_transform with " 
+    "the built-in g_dab form factor", 
     result
 )
