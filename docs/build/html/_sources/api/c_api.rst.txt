@@ -19,14 +19,10 @@ Strategy params
 
 .. _hankel_transform_c_api:
 
-Hankel transform functions
+Hankel transform function
 ---------------------------
+
 .. doxygenfunction:: hankel_transform
-.. doxygenfunction:: hankel_transform_DHT
-.. doxygenfunction:: hankel_transform_DE_Ooura
-.. doxygenfunction:: hankel_transform_DE_Ogata
-.. doxygenfunction:: hankel_transform_QWE_Key
-.. doxygenfunction:: hankel_transform_QWE_Chave
 
 
 .. _form_factors_c_api:
