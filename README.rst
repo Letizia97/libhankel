@@ -61,7 +61,11 @@ You may instead wish to install from source, e.g., to get the very latest versio
 of the code that is still in development.
 
 1. Download this repository or clone it using:
-   ``git clone https://github.com/Letizia97/libhankel.git``
+
+   .. code-block:: bash
+
+      git clone https://github.com/Letizia97/libhankel.git
+
 
 2. Open up a terminal (command prompt) and go into the
    ``libhankel`` directory.
