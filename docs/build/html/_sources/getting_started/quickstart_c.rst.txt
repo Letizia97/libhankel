@@ -3,7 +3,7 @@
 Installation for C users
 =================================
 
-.. include:: ../../README.rst  
+.. include:: ../../../README.rst  
    :start-after: .. c-installation-start
    :end-before: .. c-installation-end
 

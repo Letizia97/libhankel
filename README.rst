@@ -73,5 +73,9 @@ of the code that is still in development.
       python -m pip install .
 
 
+Please note that this should install all dependencies required. If it does not,
+the exact dependencies are available in the file "requirements_dev.txt".
+
+
 .. python-installation-end
 

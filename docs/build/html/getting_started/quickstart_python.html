@@ -94,6 +94,38 @@
              
   <section id="installation-for-python-users">
 <span id="quickstart-python"></span><h1>Installation for Python users<a class="headerlink" href="#installation-for-python-users" title="Link to this heading"></a></h1>
+<p>The easiest way to install LibHankel is by using the Python package manager, <a class="reference external" href="https://pip.pypa.io/en/stable/">pip</a>.
+Alternatively, it can be installed from source through git clone. In either case, it is recommended to create a virtual
+environment in which to install LibHankel, by typing for example :</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>-mvenv<span class="w"> </span>venv
+.<span class="w"> </span>venv/bin/activate
+</pre></div>
+</div>
+<section id="installing-via-pip">
+<h2>Installing via <code class="docutils literal notranslate"><span class="pre">pip</span></code><a class="headerlink" href="#installing-via-pip" title="Link to this heading"></a></h2>
+<p>LibHankel can be installed via the command line by entering:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>libhankel
+</pre></div>
+</div>
+</section>
+<section id="installing-from-source">
+<h2>Installing from source<a class="headerlink" href="#installing-from-source" title="Link to this heading"></a></h2>
+<p>You may instead wish to install from source, e.g., to get the very latest version
+of the code that is still in development.</p>
+<ol class="arabic">
+<li><p>Download this repository or clone it using:
+<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://github.com/Letizia97/libhankel.git</span></code></p></li>
+<li><p>Open up a terminal (command prompt) and go into the
+<code class="docutils literal notranslate"><span class="pre">libhankel</span></code> directory.</p></li>
+<li><p>Once you are in the right directory, type</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>.
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Please note that this should install all dependencies required. If it does not,
+the exact dependencies are available in the file “requirements_dev.txt”.</p>
+</section>
 </section>
 
 
