@@ -2,9 +2,11 @@ name: CI (Meson C Library)
 
 on:
   push:
-    branches: [ main ]
+    branches: 
+      - main
   pull_request:
-    branches: [ main ]
+    branches: 
+      - main
 
 jobs:
   build-test:
@@ -12,12 +14,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest]
-        compiler: [gcc]
+        os:
+          - ubuntu-latest
+        compiler:
+          - gcc
+
     runs-on: ${{ matrix.os }}
 
     env:
-      # Meson build directory
       BUILD_DIR: builddir
 
     steps:
@@ -32,29 +36,17 @@ jobs:
         with:
           python-version: '3.11'
 
-      # --------------------------
-      # OS-specific dependencies
-      # --------------------------
-      - name: Install Meson & Ninja (Linux)
-        if: runner.os == 'Linux'
+      - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y python3-pip ninja-build
-          pip install --upgrade meson
+          sudo apt-get install -y \
+            python3-pip \
+            ninja-build \
+            libgsl-dev \
+            libboost-all-dev
 
-
-      # --------------------------
-      # Project-specific dependencies
-      # --------------------------
-      - name: Install GSL on Linux
-        run: |
-          sudo apt-get update
-          sudo apt install libgsl-dev
-
-      - name: Install Boost
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y libboost-all-dev
+          python -m pip install --upgrade pip
+          python -m pip install meson pytest
 
       # --------------------------
       # Compiler selection (Linux/macOS)
@@ -76,19 +68,17 @@ jobs:
       # --------------------------
       - name: Configure (meson setup)
         run: meson setup "$BUILD_DIR" --backend ninja
+
       - name: Build (meson compile)
         run: meson compile -C "$BUILD_DIR"
+
+      - name: Install Python test dependencies
+        run: |
+          python -m pip install pytest
+
+      - name: Run pytest
+        run: |
+          pytest -v
+
       - name: Test (meson test)
         run: meson test -C "$BUILD_DIR" --print-errorlogs
-
-      # --------------------------
-      # Package artifacts (library + headers)
-      # --------------------------
-      # - name: Install to staging (pkg-config, headers, .a/.so/.dylib/.lib)
-      #   run: |
-      #     DESTDIR="$PWD/staging" meson install -C "$BUILD_DIR"
-      #     ls -R staging
-      # - name: Upload build artifacts
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: "${{ runner.os }}-${{ matrix.compiler }}-install"
