@@ -41,8 +41,8 @@ result = libhankel.hankel_transform(
     dab,
     x_arr,
     params_gdab,
-    "QWE_Chave",
-    strategy_p_dict
+    "DHT_10",
+    {}
 )
 
 print(
