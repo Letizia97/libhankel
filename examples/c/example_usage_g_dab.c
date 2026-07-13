@@ -44,7 +44,7 @@ double g_dab(double q, void *f_ctx) {
 
 int main(void) {
 
-    double nu = 0;
+    int nu = 0;
 
     // Build the context needed for the form factor
     form_factor_ctx ctx_gdab;

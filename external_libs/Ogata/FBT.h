@@ -11,7 +11,7 @@
 
 class FBT {
   private:
-    double nu;  // nu is Bessel function order
+    int nu;     // nu is Bessel function order
     int N;      // N is number of function calls
     double Q;   // a rough estimate where the function x*f(x) has maximum x = Q
     int option; // 0 - modified Ogata (default), 1 - unmodified Ogata, 2 -

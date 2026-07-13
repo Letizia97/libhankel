@@ -130,7 +130,7 @@ double pade_sum(double *s, int n) {
         goto cleanup_and_exit;
     }
     for (i = 3; i <= n; i++) {
-        L = 2 * lround(floor((i - 1.) / 2.));
+        L = ((i - 1) / 2) * 2;
         // update x vector
         for (k = L; k >= 4; k = k - 2) {
             x[k] = x[k - 1] + d[i - 1] * x[k - 2];
@@ -185,8 +185,8 @@ cleanup_and_exit:
  * @param rtol         relative error
  * @param atol         absolute error
  */
-double qwe_Chave(double nu, form_factor_f f, double r, void *f_params, double *output,
-                 int n_max_iters, double rtol, double atol) {
+double qwe_Chave(int nu, form_factor_f f, double r, void *f_params, double *output, int n_max_iters,
+                 double rtol, double atol) {
 
     double res, a, b, last_res, *s, req_accuracy;
     int nzero;

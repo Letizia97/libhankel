@@ -135,7 +135,7 @@ double f_for_ogata(double x, std::function<double(double)> g, double q) { return
 
 // Transformed Ogata quadrature sum. Equation ? in the reference.
 double FBT::ogatat(std::function<double(double)> f, double q, double h) {
-    double nu = this->nu;
+    int nu = this->nu;
     int N = this->N;
 
     double knots, Jnu, psip, F;
@@ -168,7 +168,7 @@ double FBT::ogatat(std::function<double(double)> f, double q, double h) {
 
 //"""Untransformed Ogata quadrature sum. Equation ? in the reference."""
 double FBT::ogatau(std::function<double(double)> f, double q, double h) {
-    double nu = this->nu;
+    int nu = this->nu;
     int N = this->N;
 
     double knots, F;

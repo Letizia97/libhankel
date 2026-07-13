@@ -26,7 +26,7 @@ corresponding to:
 typedef struct {
     void *f_params;         /**< parameters for the supplied function */
     form_factor_f function; /**< function to integrate */
-    double nu;              /**< order of the Bessel function */
+    int nu;                 /**< order of the Bessel function */
     double Q;               /**< radial Fourier variable, i.e. conj wavenumber to radius */
 } params_struct;
 
@@ -47,7 +47,7 @@ double intdeo_FBT(double r, void *FBTparams) {
     if (r == 0)
         return 0;
 
-    double nu = FBTparam_struct->nu;
+    int nu = FBTparam_struct->nu;
     double Q = FBTparam_struct->Q;
 
     double bessel = jn(nu, Q * r);

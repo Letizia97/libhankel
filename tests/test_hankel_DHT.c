@@ -16,7 +16,7 @@
 #define NUM_CASES 6
 #define ARRAY_LEN 25
 
-double nu;
+int nu;
 double z;
 size_t int_strategy;
 

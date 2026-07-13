@@ -19,7 +19,7 @@
 #define MAX_COLS 25
 #define MAX_ROWS 6
 
-double nu;
+int nu;
 double z;
 
 form_factor_ctx ctx_spheres;

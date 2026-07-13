@@ -198,8 +198,8 @@ end % function qwe
  * @param rtol         relative error
  * @param atol         absolute error
  */
-double qwe_Key(double nu, form_factor_f f, double x, void *f_params, double *output,
-               int n_max_iters, double rtol, double atol) {
+double qwe_Key(int nu, form_factor_f f, double x, void *f_params, double *output, int n_max_iters,
+               double rtol, double atol) {
 
     int idx_of_zero = 1; // index of the zero to compute, must be >= 1, but 1 is
                          // usually sufficient

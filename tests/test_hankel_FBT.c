@@ -15,7 +15,7 @@
 
 #define ARRAY_LEN 19
 
-double nu;
+int nu;
 double z;
 
 double params_spheres[50];

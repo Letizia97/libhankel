@@ -16,7 +16,7 @@
 
 #define ARRAY_LEN 25
 
-double nu;
+int nu;
 double z;
 
 form_factor_ctx ctx_spheres;
