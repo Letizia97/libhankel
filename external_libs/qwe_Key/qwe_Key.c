@@ -74,26 +74,26 @@ function T = qwe(rtol,atol,nIntervalsMax,func,varargin)
 %
     prev = 0;
     for i = 1:nDelay
-        prev    = prev + func(i,varargin{:}); % Call to func returns quadrature sum
-    end
+        prev    = prev + func(i,varargin{:}); % Call to func returns quadrature
+sum end
 
 %
 % Then initialize the T structure for the extrapolation results:
 %
-    nKernels = length(prev);  % func from nDelay loop above returns nKernels results, so now we
-                              % know how many related kernels are being handled
+    nKernels = length(prev);  % func from nDelay loop above returns nKernels
+results, so now we % know how many related kernels are being handled
 
-    nTerms   = nIntervalsMax-nDelay-1;  % maximum number of terms in extrapolation
+    nTerms   = nIntervalsMax-nDelay-1;  % maximum number of terms in
+extrapolation
 
     rmin     = realmin;
 
     for i = 1:nKernels  % Preallocating arrays at maximum size for speed:
-        T(i).S      = zeros(nTerms,1); % working array used for the recursion coefficients for the Epsilon algorithm
-        T(i).extrap = zeros(nTerms,1); % extrapolated result for each order of the expansion
-        T(i).relErr = zeros(nTerms,1); % relative error for each order
-        T(i).absErr = zeros(nTerms,1); % absolute error for each order
-        converged   = false(nKernels,1);
-    end
+        T(i).S      = zeros(nTerms,1); % working array used for the recursion
+coefficients for the Epsilon algorithm T(i).extrap = zeros(nTerms,1); %
+extrapolated result for each order of the expansion T(i).relErr =
+zeros(nTerms,1); % relative error for each order T(i).absErr = zeros(nTerms,1);
+% absolute error for each order converged   = false(nKernels,1); end
 
 %
 % The extrapolation transformation loop:
@@ -148,8 +148,8 @@ function T = qwe(rtol,atol,nIntervalsMax,func,varargin)
             if n > 1
                 T(j).absErr(n) = abs( T(j).extrap(n) - T(j).extrap(n-1));
                 T(j).relErr(n) = T(j).absErr(n) / abs(T(j).extrap(n)) ;
-                converged(j)   = T(j).relErr(n) < rtol + atol/abs(T(j).extrap(n));
-            end
+                converged(j)   = T(j).relErr(n) < rtol +
+atol/abs(T(j).extrap(n)); end
 
         end % loop over nKernels
 
@@ -186,78 +186,70 @@ end % function qwe
 #include "src/utils/boost_bessel_wrapper.h"
 #include "src/utils/sasfit_integrate.h"
 
-
-/** 
+/**
  * @brief Computes Hankel transform integral using strategy 13 from SASfit
- * 
+ *
  * @param nu           order of the Bessel function, either 0 or 1
  * @param f            function to compute kernel called as f(x,f_params)
  * @param r            x where to compute the Hankel transform
  * @param f_params      input params for f
- * @param output       pointer to var containing output from transform 
+ * @param output       pointer to var containing output from transform
  * @param n_max_iters  max number of partial integral intervals
  * @param rtol         relative error
  * @param atol         absolute error
  */
-double qwe_Key(
-    double nu, 
-    form_factor_f f, 
-    double x, 
-    void *f_params, 
-    double *output,
-    int n_max_iters,
-    double rtol, 
-    double atol
-) {
+double qwe_Key(double nu, form_factor_f f, double x, void *f_params, double *output,
+               int n_max_iters, double rtol, double atol) {
 
-	int idx_of_zero = 1; // index of the zero to compute, must be >= 1, but 1 is usually sufficient
-	int n_terms;  // maximum number of terms in extrapolation
-	double last_res = 0;  //latest res in iters
-	double *S; // array used for the recursion coefficients for the Epsilon algorithm
-    double *extrap;  // extrapolated result for each order of the expansion
-    double *rel_err, *abs_err; // rel and abs errors 
-    double r_min, r_max; // start and end of integration range 
+    int idx_of_zero = 1; // index of the zero to compute, must be >= 1, but 1 is
+                         // usually sufficient
+    int n_terms;         // maximum number of terms in extrapolation
+    double last_res = 0; // latest res in iters
+    double *S;           // array used for the recursion coefficients for the Epsilon algorithm
+    double *extrap;      // extrapolated result for each order of the expansion
+    double *rel_err, *abs_err; // rel and abs errors
+    double r_min, r_max;       // start and end of integration range
     int i, k, n;
     double f_i, aux2, aux1, diff, res;
-	bool converged = false;
+    bool converged = false;
 
-    if (!(nu==0 || nu==1)) {
-        fprintf(stderr, 
-            "nu needs to be 0 or 1 in order to use "
-            "QWE_Key\n"
-        );
+    if (!(nu == 0 || nu == 1)) {
+        fprintf(stderr, "nu needs to be 0 or 1 in order to use "
+                        "QWE_Key\n");
         return -1;
     }
 
     hankel_inputs inputs;
-	inputs.function = f;
-	inputs.other_inputs[0] = nu;
-	inputs.other_inputs[1] = x;
-    inputs.f_params=f_params;
+    inputs.function = f;
+    inputs.other_inputs[0] = nu;
+    inputs.other_inputs[1] = x;
+    inputs.f_params = f_params;
 
-	r_max = bessel_Jnu_zero(nu, idx_of_zero) / inputs.other_inputs[1];
-	r_min = r_max * (rtol / 10);
+    r_max = bessel_Jnu_zero(nu, idx_of_zero) / inputs.other_inputs[1];
+    r_min = r_max * (rtol / 10);
 
-    // First compute idx_of_zero partial integrals before starting the Shanks transformation iters
-	last_res = last_res + sasfit_integrate_ctm(r_min, r_max, &FrJnu, &inputs, 10000, atol, rtol);
-	n_terms = n_max_iters - idx_of_zero - 1; 
+    // First compute idx_of_zero partial integrals before starting the Shanks
+    // transformation iters
+    last_res = last_res + sasfit_integrate_ctm(r_min, r_max, &FrJnu, &inputs, 10000, atol, rtol);
+    n_terms = n_max_iters - idx_of_zero - 1;
 
-	S = calloc(n_terms+1,sizeof(double));
-	extrap = calloc(n_terms+1,sizeof(double));
-	rel_err = calloc(n_terms+1,sizeof(double));
-	abs_err = calloc(n_terms+1,sizeof(double));
+    S = calloc(n_terms + 1, sizeof(double));
+    extrap = calloc(n_terms + 1, sizeof(double));
+    rel_err = calloc(n_terms + 1, sizeof(double));
+    abs_err = calloc(n_terms + 1, sizeof(double));
 
     if (!S || !extrap || !rel_err || !abs_err) {
         // Allocation failed, free any successful allocations
-        free(S); free(extrap); free(rel_err); free(abs_err);
-        fprintf(stderr, 
-            "Failed to allocate internal variables "
-            "in function pade_sum.\n"
-        );
-        return -3;    
+        free(S);
+        free(extrap);
+        free(rel_err);
+        free(abs_err);
+        fprintf(stderr, "Failed to allocate internal variables "
+                        "in function pade_sum.\n");
+        return -3;
     }
 
-    for (i=idx_of_zero+1; i<=n_terms; i++) {
+    for (i = idx_of_zero + 1; i <= n_terms; i++) {
         r_min = r_max;
         r_max = bessel_Jnu_zero(nu, i) / inputs.other_inputs[1];
 
@@ -265,47 +257,47 @@ double qwe_Key(
         f_i = sasfit_integrate_ctm(r_min, r_max, &FrJnu, &inputs, 10000, atol, rtol);
 
         n = i - idx_of_zero; // order of the expansion
-        S[n+1] = S[n] + f_i;
+        S[n + 1] = S[n] + f_i;
 
         // Compute the Shanks transform using the Epsilon algorithm:
         // Structured after Weniger (1989, p26)
         aux2 = 0.0;
-        for (k=n+1; k>=2; k--) {
+        for (k = n + 1; k >= 2; k--) {
             aux1 = aux2;
-            aux2 = S[k-1];
+            aux2 = S[k - 1];
             diff = S[k] - aux2;
             if (fabs(diff) < DBL_MIN) {
-                S[k-1] = DBL_MAX;
+                S[k - 1] = DBL_MAX;
             } else {
-                S[k-1] = aux1 + 1./diff;
+                S[k - 1] = aux1 + 1. / diff;
             }
         }
 
-        extrap[n] = S[(n % 2)+1] + last_res;
+        extrap[n] = S[(n % 2) + 1] + last_res;
         res = extrap[n];
 
         if (n > 1) {
-            abs_err[n] = fabs( extrap[n] - extrap[n-1]);
-            rel_err[n] = abs_err[n] / fabs(extrap[n]) ;
-            if (rel_err[n] < rtol + atol/fabs(extrap[n]))
+            abs_err[n] = fabs(extrap[n] - extrap[n - 1]);
+            rel_err[n] = abs_err[n] / fabs(extrap[n]);
+            if (rel_err[n] < rtol + atol / fabs(extrap[n]))
                 converged = true;
         }
-        if (converged) break;
+        if (converged)
+            break;
     }
-	free(S);
-	free(extrap);
-	free(rel_err);
-	free(abs_err);
+    free(S);
+    free(extrap);
+    free(rel_err);
+    free(abs_err);
 
     if (!converged) {
-        fprintf(stderr, 
-            "QWE_Key algorithm did not converge "
-            "after maximum allowed intervals (%d)\n",n_max_iters
-        );
+        fprintf(stderr,
+                "QWE_Key algorithm did not converge "
+                "after maximum allowed intervals (%d)\n",
+                n_max_iters);
         return -4;
     };
 
     *output = res;
-	return 0;
+    return 0;
 }
-

@@ -1,15 +1,17 @@
-#include <stdio.h>
-#include <stddef.h>
-#include <math.h>
-#include <stdbool.h>
+// clang-format off
 #include "utils/unity_config.h"
 #include "unity.h"
+// clang-format on
+#include <math.h>
+#include <stdbool.h>
+#include <stddef.h>
+#include <stdio.h>
 #include <string.h>
 
-#include "libhankel.h"
 #include "form_factors.h"
+#include "libhankel.h"
 #include "src/utils/sasfit_integrate.h"
-#include "utils/test_utils.h" 
+#include "utils/test_utils.h"
 
 #define ARRAY_LEN 19
 
@@ -38,38 +40,29 @@ typedef struct {
 } TestContext;
 
 TestContext ctx = {
-    .expected_spheres = {
-        387507.47872702,  371194.86504067,  349050.89244560,  
-        322866.82508137,  293957.89067697,  263387.28834352,  
-        232057.32254606,  200753.93208662,  170170.35793398,  
-        140920.01392396,  113542.66309246,  88506.35995189,  
-        66205.92725291,  46958.33549706,  30994.65355484,  
-        18447.53465675,  9331.79386106,  3512.36330444,  643.29844390
-    },
-    .actual_spheres = { 0 }, 
-    .expected_gdab = { 
-        0.01314100,  0.00994096,  0.00744536,  0.00553396,  0.00408864,  
-        0.00300617,  0.00220143,  0.00160669,  0.00116926,  0.00084882,  
-        0.00061486,  0.00044454,  0.00032086,  0.00023125,  0.00016643,  
-        0.00011964,  0.00008591,  0.00006162,  0.00004416
-    },
-    .actual_gdab = { 0 }, 
-    .expected_broad_peak =  {
-        15.3478, 14.7545, 13.8463, 12.7398, 11.3539, 9.86578, 8.1652,
-        6.37775, 4.64776, 2.84404, 1.19288, 1.19288, -0.433731, 
-        -1.904, -3.12269, -4.19016, -4.98079, -5.56571, -5.88294, 
-        -5.97027, -5.81729, -5.4678, -4.91068, -4.23042, -3.39016
-     }, 
-    .actual_broad_peak = { 0 }, 
+    .expected_spheres = {387507.47872702, 371194.86504067, 349050.89244560, 322866.82508137,
+                         293957.89067697, 263387.28834352, 232057.32254606, 200753.93208662,
+                         170170.35793398, 140920.01392396, 113542.66309246, 88506.35995189,
+                         66205.92725291, 46958.33549706, 30994.65355484, 18447.53465675,
+                         9331.79386106, 3512.36330444, 643.29844390},
+    .actual_spheres = {0},
+    .expected_gdab = {0.01314100, 0.00994096, 0.00744536, 0.00553396, 0.00408864, 0.00300617,
+                      0.00220143, 0.00160669, 0.00116926, 0.00084882, 0.00061486, 0.00044454,
+                      0.00032086, 0.00023125, 0.00016643, 0.00011964, 0.00008591, 0.00006162,
+                      0.00004416},
+    .actual_gdab = {0},
+    .expected_broad_peak = {15.3478,  14.7545,  13.8463,  12.7398,  11.3539,  9.86578,   8.1652,
+                            6.37775,  4.64776,  2.84404,  1.19288,  1.19288,  -0.433731, -1.904,
+                            -3.12269, -4.19016, -4.98079, -5.56571, -5.88294, -5.97027,  -5.81729,
+                            -5.4678,  -4.91068, -4.23042, -3.39016},
+    .actual_broad_peak = {0},
 };
-
-
 
 void setUp(void) {
     /*
     Function that runs before tests, for a shared set-up.
     Anything computed inside it is available in tests
-    because previously declared outside the function.        
+    because previously declared outside the function.
     */
     nu = 0;
 
@@ -83,69 +76,36 @@ void setUp(void) {
     double params_broad_peak[] = {10e5, 1000, 0.01, 2, 2};
     ctx_broad_peak.params = params_broad_peak;
 
-    strategy_params strategy_params_general = {
-        .n_eval = 250, 
-        .eps_rel = 1e-9
-    };
+    strategy_params strategy_params_general = {.n_eval = 250, .eps_rel = 1e-9};
 
-    strategy_params strategy_params_b_peak = {
-        .n_eval = 150, 
-        .eps_rel = 1e-9
-    };
+    strategy_params strategy_params_b_peak = {.n_eval = 150, .eps_rel = 1e-9};
 
     // setup the x (or r) array
-    double r_array_spheres[ARRAY_LEN] = {
-        1.0,  2.0,  3.0,  4.0,  5.0,  6.0,  7.0,  8.0,  9.0,  10.0,
-        11.0, 12.0, 13.0, 14.0, 15.0, 16.0, 17.0, 18.0, 19.0
-    };
+    double r_array_spheres[ARRAY_LEN] = {1.0,  2.0,  3.0,  4.0,  5.0,  6.0,  7.0,  8.0,  9.0, 10.0,
+                                         11.0, 12.0, 13.0, 14.0, 15.0, 16.0, 17.0, 18.0, 19.0};
 
     double r_array_gdab[ARRAY_LEN] = {
-        15.,          18.54166667,  22.08333333,  25.625,       29.16666667,
-        32.70833333,  36.25,        39.79166667,  43.33333333,  46.875,
-        50.41666667,  53.95833333,  57.5,         61.04166667,  64.58333333,
-        68.125,       71.66666667,  75.20833333,  78.75,             
+        15.,         18.54166667, 22.08333333, 25.625,      29.16666667, 32.70833333, 36.25,
+        39.79166667, 43.33333333, 46.875,      50.41666667, 53.95833333, 57.5,        61.04166667,
+        64.58333333, 68.125,      71.66666667, 75.20833333, 78.75,
     };
 
     double r_array_broad_peak[ARRAY_LEN] = {
-        30.,   49.,   69.,   88.,   108.,  127.,  147.,  167.,  186.,  206.,  225., 
-        225.,  245.,  265.,  284.,  304.,  323.,  343.,  362.,       
+        30.,  49.,  69.,  88.,  108., 127., 147., 167., 186., 206.,
+        225., 225., 245., 265., 284., 304., 323., 343., 362.,
     };
 
-    // COMPUTATIONS 
-    hankel_transform(
-        nu, 
-        form_factor_sphere, 
-        r_array_spheres, 
-        ARRAY_LEN,
-        (void *)&ctx_spheres,
-        ctx.actual_spheres, 
-        "QWE_Key", 
-        strategy_params_general
-    );
+    // COMPUTATIONS
+    hankel_transform(nu, form_factor_sphere, r_array_spheres, ARRAY_LEN, (void *)&ctx_spheres,
+                     ctx.actual_spheres, "QWE_Key", strategy_params_general);
 
-    hankel_transform(
-        nu, 
-        form_factor_g_dab, 
-        r_array_gdab, 
-        ARRAY_LEN,
-        (void *)&ctx_gdab,
-        ctx.actual_gdab, 
-        "QWE_Key", 
-        strategy_params_general
-    );
+    hankel_transform(nu, form_factor_g_dab, r_array_gdab, ARRAY_LEN, (void *)&ctx_gdab,
+                     ctx.actual_gdab, "QWE_Key", strategy_params_general);
 
-    hankel_transform(
-        nu, 
-        form_factor_broad_peak, 
-        r_array_broad_peak, 
-        ARRAY_LEN,
-        (void *)&ctx_broad_peak,
-        ctx.actual_broad_peak, 
-        "QWE_Key", 
-        strategy_params_b_peak
-    );
+    hankel_transform(nu, form_factor_broad_peak, r_array_broad_peak, ARRAY_LEN,
+                     (void *)&ctx_broad_peak, ctx.actual_broad_peak, "QWE_Key",
+                     strategy_params_b_peak);
 }
-
 
 void tearDown(void) {}
 
@@ -154,11 +114,7 @@ void test_hankel_transform_spheres(void) {
     Regression test for QWE on spheres.
     */
     for (size_t i = 0; i < ARRAY_LEN; ++i) {
-        TEST_ASSERT_DOUBLE_WITHIN(
-            1e-4, 
-            ctx.expected_spheres[i], 
-            ctx.actual_spheres[i]
-        );
+        TEST_ASSERT_DOUBLE_WITHIN(1e-4, ctx.expected_spheres[i], ctx.actual_spheres[i]);
     }
 }
 
@@ -167,11 +123,7 @@ void test_hankel_transform_gdab(void) {
     Regression test for QWE on gdab.
     */
     for (size_t i = 0; i < ARRAY_LEN; ++i) {
-        TEST_ASSERT_DOUBLE_WITHIN(
-            1e-4, 
-            ctx.expected_gdab[i], 
-            ctx.actual_gdab[i]
-        );
+        TEST_ASSERT_DOUBLE_WITHIN(1e-4, ctx.expected_gdab[i], ctx.actual_gdab[i]);
     }
 }
 
@@ -180,11 +132,7 @@ void test_hankel_transform_broad_peak(void) {
     Regression test for QWE on broad peak.
     */
     for (size_t i = 0; i < ARRAY_LEN; ++i) {
-        TEST_ASSERT_DOUBLE_WITHIN(
-            1e-4, 
-            ctx.expected_broad_peak[i], 
-            ctx.actual_broad_peak[i]
-        );
+        TEST_ASSERT_DOUBLE_WITHIN(1e-4, ctx.expected_broad_peak[i], ctx.actual_broad_peak[i]);
     }
 }
 
@@ -194,30 +142,16 @@ void test_hankel_transform_throws_error_when_n_eval_not_defined(void) {
     error when n_eval not provided (when using QWE_Key).
     */
     char captured[1024];
-    strategy_params strategy_params_wrong = {
-        .eps_rel = 1e-9
-    };
+    strategy_params strategy_params_wrong = {.eps_rel = 1e-9};
 
     start_capture_stderr();
-    int status = hankel_transform(
-        nu, 
-        form_factor_g_dab, 
-        r_array_gdab, 
-        ARRAY_LEN,
-        (void *)&ctx_gdab,
-        ctx.actual_gdab, 
-        "QWE_Key", 
-        strategy_params_wrong
-    );
+    int status = hankel_transform(nu, form_factor_g_dab, r_array_gdab, ARRAY_LEN, (void *)&ctx_gdab,
+                                  ctx.actual_gdab, "QWE_Key", strategy_params_wrong);
 
     stop_capture_stderr(captured, sizeof(captured));
     TEST_ASSERT_EQUAL_INT_MESSAGE(-8, status, "");
-    TEST_ASSERT_EQUAL_STRING(
-        captured, 
-        "Error: n_eval must be provided and cannot be zero\n"
-    );
+    TEST_ASSERT_EQUAL_STRING(captured, "Error: n_eval must be provided and cannot be zero\n");
 }
-
 
 void test_hankel_transform_throws_error_when_eps_rel_not_defined(void) {
     /*
@@ -225,28 +159,15 @@ void test_hankel_transform_throws_error_when_eps_rel_not_defined(void) {
     error when eps_rel not provided (when using QWE_Key).
     */
     char captured[1024];
-    strategy_params strategy_params_wrong = {
-        .n_eval = 250
-    };
+    strategy_params strategy_params_wrong = {.n_eval = 250};
 
     start_capture_stderr();
-    int status = hankel_transform(
-        nu, 
-        form_factor_g_dab, 
-        r_array_gdab, 
-        ARRAY_LEN,
-        (void *)&ctx_gdab,
-        ctx.actual_gdab, 
-        "QWE_Key", 
-        strategy_params_wrong
-    );
+    int status = hankel_transform(nu, form_factor_g_dab, r_array_gdab, ARRAY_LEN, (void *)&ctx_gdab,
+                                  ctx.actual_gdab, "QWE_Key", strategy_params_wrong);
 
     stop_capture_stderr(captured, sizeof(captured));
     TEST_ASSERT_EQUAL_INT_MESSAGE(-8, status, "");
-    TEST_ASSERT_EQUAL_STRING(
-        captured, 
-        "Error: eps_rel must be provided and cannot be zero\n"
-    );
+    TEST_ASSERT_EQUAL_STRING(captured, "Error: eps_rel must be provided and cannot be zero\n");
 }
 
 void test_hankel_transform_throws_error_when_nu_wrong(void) {
@@ -255,29 +176,16 @@ void test_hankel_transform_throws_error_when_nu_wrong(void) {
     error when nu is neither 0 nor 1.
     */
     char captured[1024];
-    strategy_params strategy_params = {
-        .eps_rel = 1e-9,
-        .n_eval = 250
-    };
+    strategy_params strategy_params = {.eps_rel = 1e-9, .n_eval = 250};
 
     start_capture_stderr();
-    int status = hankel_transform(
-        5, 
-        form_factor_g_dab, 
-        r_array_gdab, 
-        ARRAY_LEN,
-        (void *)&ctx_gdab, 
-        ctx.actual_gdab, 
-        "QWE_Key", 
-        strategy_params
-    );
+    int status = hankel_transform(5, form_factor_g_dab, r_array_gdab, ARRAY_LEN, (void *)&ctx_gdab,
+                                  ctx.actual_gdab, "QWE_Key", strategy_params);
 
     stop_capture_stderr(captured, sizeof(captured));
     TEST_ASSERT_EQUAL_INT_MESSAGE(-1, status, "");
-    TEST_ASSERT_EQUAL_STRING(
-        captured, 
-        "nu needs to be 0 or 1 in order to use the selected strategy\n"
-    );
+    TEST_ASSERT_EQUAL_STRING(captured,
+                             "nu needs to be 0 or 1 in order to use the selected strategy\n");
 }
 
 void test_hankel_transform_throws_error_when_f_max_not_defined(void) {
@@ -286,28 +194,15 @@ void test_hankel_transform_throws_error_when_f_max_not_defined(void) {
     error when f_max not provided (when using DE_Ogata).
     */
     char captured[1024];
-    strategy_params strategy_params_wrong = {
-        .n_eval = 250
-    };
+    strategy_params strategy_params_wrong = {.n_eval = 250};
 
     start_capture_stderr();
-    int status = hankel_transform(
-        nu, 
-        form_factor_g_dab, 
-        r_array_gdab,  
-        ARRAY_LEN,
-        (void *)&ctx_gdab,
-        ctx.actual_gdab, 
-        "DE_Ogata", 
-        strategy_params_wrong
-    );
+    int status = hankel_transform(nu, form_factor_g_dab, r_array_gdab, ARRAY_LEN, (void *)&ctx_gdab,
+                                  ctx.actual_gdab, "DE_Ogata", strategy_params_wrong);
 
     stop_capture_stderr(captured, sizeof(captured));
     TEST_ASSERT_EQUAL_INT_MESSAGE(-8, status, "");
-    TEST_ASSERT_EQUAL_STRING(
-        captured, 
-        "Error: f_max must be provided and cannot be zero\n"
-    );
+    TEST_ASSERT_EQUAL_STRING(captured, "Error: f_max must be provided and cannot be zero\n");
 }
 
 int main(void) {

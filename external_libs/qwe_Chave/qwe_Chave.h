@@ -4,16 +4,7 @@
 #include "libhankel.h"
 
 // sasfit strategy 13
-double qwe_Chave(
-    double nu, 
-    form_factor_f f, 
-    double r, 
-    void *f_params, 
-    double *output,
-    int n_max_iters, 
-    double rtol, 
-    double atol
-);
-
+double qwe_Chave(double nu, form_factor_f f, double r, void *f_params, double *output,
+                 int n_max_iters, double rtol, double atol);
 
 #endif // QWE_CHAVE
