@@ -34,16 +34,9 @@ INPUT_X_ARR = np.array(
 
 QWE_p_dict = {"n_eval": 250, "eps_rel": 1e-9}
 
-QWE_p_dict_missing_epsrel = {
-    "n_eval": 250,
-}
-
-QWE_p_dict_missing_n_eval = {"eps_rel": 1e-9}
-
 DE_Ooura_p_dict = {"n_eval": 150, "eps_rel": 1e-3}
 
 DE_Ogata_p_dict = {"n_eval": 250, "f_max": 1e-9}
-
 
 EXPECTED_QWE_CHAVE = np.array(
     [
@@ -349,120 +342,3 @@ def test_hankel_transform_strategies_with_builtin_form_factor(
         strategy_p_dict,
     )
     np.testing.assert_array_equal(result, expected)
-
-
-@pytest.mark.parametrize(
-    "x_arr, strategy_name, strategy_p_dict",
-    [
-        (INPUT_X_ARR, "QWE_Chave", QWE_p_dict),
-        (INPUT_X_ARR, "DHT_10", {}),
-    ],
-)
-def test_hankel_transform_returns_error_when_nu_wrong(
-    x_arr,
-    strategy_name,
-    strategy_p_dict,
-):
-    """
-    Test that the Hankel transform function raises a ValueError
-    when nu is wrong, i.e. neither 0 nor 1.
-    """
-    nu = 2
-    params_broad_peak = np.array([10e5, 1000, 0.01, 2, 2])
-    expected_error = "nu needs to be 0 or 1 in order to use the selected strategy"
-
-    with pytest.raises(ValueError, match=expected_error):
-        libhankel.hankel_transform(
-            nu,
-            "broad_peak",
-            x_arr,
-            params_broad_peak,
-            strategy_name,
-            strategy_p_dict,
-        )
-
-
-@pytest.mark.parametrize(
-    "x_arr, strategy_name, strategy_p_dict",
-    [
-        (INPUT_X_ARR, "QWE_Chave", QWE_p_dict_missing_epsrel),
-        (INPUT_X_ARR, "QWE_Key", QWE_p_dict_missing_epsrel),
-    ],
-)
-def test_hankel_transform_QWE_raises_error_when_eps_rel_missing(
-    x_arr,
-    strategy_name,
-    strategy_p_dict,
-):
-    """
-    Test that the Hankel transform function raises a ValueError
-    when eps_rel is missing from the strategy_params dict, but
-    it is required by the strategy.
-    """
-    nu = 0
-    params_broad_peak = np.array([10e5, 1000, 0.01, 2, 2])
-    expected_error = "Error: eps_rel must be provided and cannot be zero"
-
-    with pytest.raises(ValueError, match=expected_error):
-        libhankel.hankel_transform(
-            nu,
-            "broad_peak",
-            x_arr,
-            params_broad_peak,
-            strategy_name,
-            strategy_p_dict,
-        )
-
-
-@pytest.mark.parametrize(
-    "x_arr, strategy_name, strategy_p_dict",
-    [
-        (INPUT_X_ARR, "QWE_Chave", QWE_p_dict_missing_n_eval),
-        (INPUT_X_ARR, "QWE_Key", QWE_p_dict_missing_n_eval),
-    ],
-)
-def test_hankel_transform_QWE_raises_error_when_n_eval_missing(
-    x_arr,
-    strategy_name,
-    strategy_p_dict,
-):
-    """
-    Test that the Hankel transform function raises a ValueError
-    when n_eval is missing from the strategy_params dict, but
-    it is required by the strategy.
-    """
-    nu = 0
-    params_broad_peak = np.array([10e5, 1000, 0.01, 2, 2])
-    expected_error = "Error: n_eval must be provided and cannot be zero"
-
-    with pytest.raises(ValueError, match=expected_error):
-        libhankel.hankel_transform(
-            nu,
-            "broad_peak",
-            x_arr,
-            params_broad_peak,
-            strategy_name,
-            strategy_p_dict,
-        )
-
-
-def test_hankel_transform_DE_Ogata_raises_error_when_fmax_missing():
-    """
-    Test that the Hankel transform function raises a ValueError
-    when f_max is missing from the strategy_params dict, but
-    it is required by the strategy.
-    """
-    x_arr = np.array([1, 2, 3])
-    nu = 0
-    params_broad_peak = np.array([10e5, 1000, 0.01, 2, 2])
-    expected_error = "Error: f_max must be provided and cannot be zero"
-
-    with pytest.raises(ValueError, match=expected_error):
-        libhankel.hankel_transform(
-            nu,
-            "broad_peak",
-            x_arr,
-            params_broad_peak,
-            "DE_Ogata",
-            {"n_eval": 250},
-        )

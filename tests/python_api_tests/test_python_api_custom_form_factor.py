@@ -34,9 +34,11 @@ INPUT_X_ARR = np.array(
     ]
 )
 
-QWE_CHAVE_p_dict = {"n_eval": 250, "eps_rel": 1e-9}
+QWE_p_dict = {"n_eval": 250, "eps_rel": 1e-9}
 
-QWE_KEY_p_dict = {"n_eval": 250, "eps_rel": 1e-9}
+DE_Ooura_p_dict = {"n_eval": 150, "eps_rel": 1e-3}
+
+DE_Ogata_p_dict = {"n_eval": 250, "f_max": 1e-9}
 
 EXPECTED_QWE_CHAVE = np.array(
     [
@@ -97,6 +99,67 @@ EXPECTED_QWE_KEY = np.array(
         5.8897925297022626e-06,
     ]
 )
+
+EXPECTED_DE_OOURA = np.array(
+    [
+        0.013140996896823508,
+        0.009940958752931097,
+        0.00744536154206769,
+        0.005533955963698539,
+        0.0040886403139548735,
+        0.0030061666022441146,
+        0.002201429251638864,
+        0.0016066898638870102,
+        0.0011692599776392844,
+        0.0008488151535270624,
+        0.0006148600958416091,
+        0.00044454288828716504,
+        0.00032086242301512124,
+        0.00023124393258824782,
+        0.00016643109909830826,
+        0.00011963763470055091,
+        8.590479806251082e-05,
+        6.162078673817521e-05,
+        4.416019048581729e-05,
+        3.161996655830629e-05,
+        2.26226721933276e-05,
+        1.617328940519642e-05,
+        1.1554319249437041e-05,
+        8.248831387943966e-06,
+        5.88501976636914e-06,
+    ]
+)
+
+EXPECTED_DE_OGATA = np.array(
+    [
+        1.3406021449606163e-09,
+        8.773742733123029e-10,
+        6.185191954843866e-10,
+        4.5936160442765116e-10,
+        3.545755987170806e-10,
+        2.8194578903166025e-10,
+        2.29544251683031e-10,
+        1.9050140542699427e-10,
+        1.606342867092208e-10,
+        1.372776648742319e-10,
+        1.1866815428307322e-10,
+        1.0360134453163862e-10,
+        9.123190761381536e-11,
+        8.095239077791142e-11,
+        7.231718833787117e-11,
+        6.499342367518237e-11,
+        5.872838190318807e-11,
+        5.3327413105689996e-11,
+        4.863862856416616e-11,
+        4.454210417625838e-11,
+        4.09421352507049e-11,
+        3.776159554749063e-11,
+        3.493777175430056e-11,
+        3.2419248155337716e-11,
+        3.016354951314068e-11,
+    ]
+)
+
 
 EXPECTED_DHT_6 = np.array(
     [
@@ -273,8 +336,10 @@ def dab(q, params):
 @pytest.mark.parametrize(
     "x_arr, strategy_name, strategy_p_dict, expected",
     [
-        (INPUT_X_ARR, "QWE_Chave", QWE_CHAVE_p_dict, EXPECTED_QWE_CHAVE),
-        (INPUT_X_ARR, "QWE_Key", QWE_KEY_p_dict, EXPECTED_QWE_KEY),
+        (INPUT_X_ARR, "QWE_Chave", QWE_p_dict, EXPECTED_QWE_CHAVE),
+        (INPUT_X_ARR, "QWE_Key", QWE_p_dict, EXPECTED_QWE_KEY),
+        (INPUT_X_ARR, "DE_Ogata", DE_Ogata_p_dict, EXPECTED_DE_OGATA),
+        (INPUT_X_ARR, "DE_Ooura", DE_Ooura_p_dict, EXPECTED_DE_OOURA),
         (INPUT_X_ARR, "DHT_6", {}, EXPECTED_DHT_6),
         (INPUT_X_ARR, "DHT_7", {}, EXPECTED_DHT_7),
         (INPUT_X_ARR, "DHT_8", {}, EXPECTED_DHT_8),
