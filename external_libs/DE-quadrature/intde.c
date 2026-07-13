@@ -686,13 +686,15 @@ void sasfit_intdeo(double (*f)(double, void *), double a, double omega, double *
                         s1 += fm * aw[j];
                         s2 += fm * aw[j + 1];
                     }
-                    if (s2 <= *err || l >= lmax)
+                    if (s2 <= *err || l >= lmax) {
                         break;
+                    }
                     *i += w02 * s0;
                 }
                 *i += s1;
-                if (s2 > *err)
+                if (s2 > *err) {
                     *err = s2;
+                }
             }
             t += h;
         } while (t < 1);

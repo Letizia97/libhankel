@@ -100,6 +100,9 @@ double hankel_transform_DHT(int nu, form_factor_f f, const double x, void *f_ctx
         }
         break;
     }
+    default:
+        /* Unreachable: validated above */
+        return -2;
     }
     *output = res;
     return 0;

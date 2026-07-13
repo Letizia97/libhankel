@@ -18,7 +18,7 @@
 
 int nu;
 double z;
-size_t int_strategy;
+int int_strategy;
 
 form_factor_ctx ctx_spheres;
 form_factor_ctx ctx_gdab;
@@ -140,7 +140,8 @@ void test_hankel_DHT_throws_error_when_int_strategy_wrong(void) {
     double *output = &value;
 
     start_capture_stderr();
-    int status = hankel_transform_DHT(nu, form_factor_sphere, z, (void *)&ctx_spheres, output, 1);
+    int status =
+        hankel_transform_DHT(nu, form_factor_sphere, z, (void *)&ctx_spheres, output, int_strategy);
 
     stop_capture_stderr(captured, sizeof(captured));
     TEST_ASSERT_EQUAL_INT_MESSAGE(-2, status, "");

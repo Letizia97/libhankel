@@ -84,9 +84,9 @@ double compute_analytical_spheres(double (*params)[50], const double *arr_z, dou
             }
         }
         return 1;
-    } else {
-        return 0; // added
     }
+
+    return 0;
 }
 
 double compute_analytical_gdab(double (*params)[50], const double *arr_z, double *out, size_t n) {

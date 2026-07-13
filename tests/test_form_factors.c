@@ -19,7 +19,7 @@
 #define ARRAY_LEN 25
 
 int nu = 0;
-size_t int_strategy;
+int int_strategy;
 int z;
 
 double r_array_spheres[ARRAY_LEN];

@@ -82,7 +82,7 @@ double bessel_j_zero(int nzero, double order) {
  * @param s    series of values to be summed
  * @param n    end of summation
  */
-double pade_sum(double *s, int n) {
+double pade_sum(const double *s, int n) {
     double *D;     // intermediate “modified moments” (linear combinations of the inputs)
     double *d;     // continued‑fraction coefficients
     double *x, *t; // temporary workspaces used to update polynomial/CF terms
@@ -119,6 +119,10 @@ double pade_sum(double *s, int n) {
     D[2] = s[2];
 
     if (D[1] == 0) {
+        free(D);
+        free(d);
+        free(x);
+        free(t);
         fprintf(stderr, "Division by 0 encountered in pade_sum!"
                         " s[1] must be different from 0. \n");
         return -5;
@@ -151,6 +155,10 @@ double pade_sum(double *s, int n) {
         //    D[i] = s[i] + s[i-1:-1:i-L/2]*x[1:2:L-1];
 
         if (D[i - 1] == 0) {
+            free(D);
+            free(d);
+            free(x);
+            free(t);
             fprintf(stderr, "Division by 0 encountered in pade_sum!\n");
             return -5;
         }
@@ -224,19 +232,21 @@ double qwe_Chave(int nu, form_factor_f f, double r, void *f_params, double *outp
 
         req_accuracy = rtol * fabs(res) + atol;
         if (fabs(res - last_res) <= req_accuracy) {
+            // NOLINTNEXTLINE(clang-analyzer-deadcode.DeadStores)
             converged = true;
             *output = res;
+            free(s);
             return 0;
         }
         last_res = res;
     }
-    free(s);
 
     if (!converged) {
         fprintf(stderr,
                 "QWE_Chave algorithm did not converge "
                 "after maximum allowed intervals (%d)\n",
                 n_max_iters);
+        free(s);
         return -4;
     };
 

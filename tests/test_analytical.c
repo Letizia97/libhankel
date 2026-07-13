@@ -17,7 +17,7 @@
 #define ARRAY_LEN 25
 
 int nu = 0;
-size_t int_strategy;
+int int_strategy;
 int z;
 double params_spheres[50];
 double params_gdab[50];

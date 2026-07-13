@@ -88,7 +88,7 @@ int hankel_transform(int nu, form_factor_f f, double *x, size_t len_x, void *f_c
  *                   (determines which weightings to use for the transform
  *                   and corresponds to SASfit strategies 6-11)
  */
-double hankel_transform_DHT(int nu, form_factor_f f, const double x, void *f_ctx, double *output,
+double hankel_transform_DHT(int nu, form_factor_f f, double x, void *f_ctx, double *output,
                             int n_strategy);
 
 /**
@@ -104,8 +104,8 @@ double hankel_transform_DHT(int nu, form_factor_f f, const double x, void *f_ctx
  * in SASfit)
  * @param eps_rel    relative error allowed e.g. 1e-9 (eps_nriq in SASfit)
  */
-double hankel_transform_DE_Ooura(int nu, form_factor_f f, const double x, void *f_ctx,
-                                 double *output, int n_eval, double eps_rel);
+double hankel_transform_DE_Ooura(int nu, form_factor_f f, double x, void *f_ctx, double *output,
+                                 int n_eval, double eps_rel);
 
 /**
  * @brief Computes Hankel transform, using de-quadrature.
@@ -121,8 +121,8 @@ double hankel_transform_DE_Ooura(int nu, form_factor_f f, const double x, void *
  * @param f_max      float indicating starting guess for max in form factor
  * (h_ogata in SASfit)
  */
-double hankel_transform_DE_Ogata(int nu, form_factor_f f, const double x, void *f_ctx,
-                                 double *output, int n_eval, double f_max);
+double hankel_transform_DE_Ogata(int nu, form_factor_f f, double x, void *f_ctx, double *output,
+                                 int n_eval, double f_max);
 
 /**
  * @brief Computes Hankel transform using the Quadrature With Extrapolation
@@ -138,8 +138,8 @@ double hankel_transform_DE_Ogata(int nu, form_factor_f f, const double x, void *
  * in SASfit)
  * @param eps_rel    relative error allowed e.g. 1e-9 (eps_nriq in SASfit)
  */
-double hankel_transform_QWE_Key(int nu, form_factor_f f, const double x, void *f_ctx,
-                                double *output, int n_eval, double eps_rel);
+double hankel_transform_QWE_Key(int nu, form_factor_f f, double x, void *f_ctx, double *output,
+                                int n_eval, double eps_rel);
 
 /**
  * @brief Computes Hankel transform using the Quadrature With Extrapolation
@@ -155,7 +155,7 @@ double hankel_transform_QWE_Key(int nu, form_factor_f f, const double x, void *f
  * in SASfit)
  * @param eps_rel    relative error allowed e.g. 1e-9 (eps_nriq in SASfit)
  */
-double hankel_transform_QWE_Chave(int nu, form_factor_f f, const double x, void *f_ctx,
-                                  double *output, int n_eval, double eps_rel);
+double hankel_transform_QWE_Chave(int nu, form_factor_f f, double x, void *f_ctx, double *output,
+                                  int n_eval, double eps_rel);
 
 #endif // LIBHANKEL_H
