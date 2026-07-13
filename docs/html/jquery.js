@@ -1,5 +1,4 @@
-/*! jQuery v3.4.1 | (c) JS Foundation and other contributors |
- * jquery.org/license */
+/*! jQuery v3.4.1 | (c) JS Foundation and other contributors | jquery.org/license */
 !function(e, t) {
     "use strict";
     "object" == typeof module && "object" == typeof module.exports ? module.exports = e.document ? t(e, !0) : function(e) {
@@ -3443,11 +3442,10 @@
 });
 /*! jQuery UI - v1.12.1 - 2019-01-27
  * http://jqueryui.com
- * Includes: widget.js, position.js, data.js, disable-selection.js,
- * focusable.js, form-reset-mixin.js, jquery-1-7.js, keycode.js, labels.js,
- * scroll-parent.js, tabbable.js, unique-id.js, widgets/resizable.js,
- * widgets/mouse.js Copyright jQuery Foundation and other contributors; Licensed
- * MIT */
+ * Includes: widget.js, position.js, data.js, disable-selection.js, focusable.js,
+ * form-reset-mixin.js, jquery-1-7.js, keycode.js, labels.js, scroll-parent.js, tabbable.js,
+ * unique-id.js, widgets/resizable.js, widgets/mouse.js Copyright jQuery Foundation and other
+ * contributors; Licensed MIT */
 
 (function(t) { "function" == typeof define && define.amd ? define([ "jquery" ], t) : t(jQuery) })(
     function(t) {
@@ -4786,8 +4784,8 @@ t(document).on("mouseup", function() { n = !1 }), t.widget("ui.mouse", {
     }),
     t.ui.resizable
     }); /**
-         * Copyright (c) 2007 Ariel Flesler - aflesler ○ gmail • com |
-         * https://github.com/flesler Licensed under MIT
+         * Copyright (c) 2007 Ariel Flesler - aflesler ○ gmail • com | https://github.com/flesler
+         * Licensed under MIT
          * @author Ariel Flesler
          * @version 2.1.2
          */
@@ -5633,8 +5631,7 @@ return $.powerTip
     }
 }(jQuery); /*! SmartMenus jQuery Plugin - v1.1.0 - September 17, 2017
             * http://www.smartmenus.org/
-            * Copyright Vasil Dinkov, Vadikom Web Ltd. http://vadikom.com;
-            * Licensed MIT */
+            * Copyright Vasil Dinkov, Vadikom Web Ltd. http://vadikom.com; Licensed MIT */
 (function(t) {
 "function" == typeof define && define.amd ? define([ "jquery" ], t)
 : "object" == typeof module && "object" == typeof module.exports

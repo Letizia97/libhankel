@@ -94,21 +94,21 @@ Functions</h2></td></tr>
 <tr class="memitem:ac61e4e7e81a12c1006283542141730e8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="libhankel_8h.html#ac61e4e7e81a12c1006283542141730e8">hankel_transform</a> (int nu, <a class="el" href="libhankel_8h.html#a0e1024037ef107f5a9e37d6932af02c2">form_factor_f</a> f, double *x, size_t len_x, void *f_ctx, double *output, const char *strategy_name, <a class="el" href="structstrategy__params.html">strategy_params</a> <a class="el" href="structstrategy__params.html">strategy_params</a>)</td></tr>
 <tr class="memdesc:ac61e4e7e81a12c1006283542141730e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes Hankel transform using the method specified by the user.  <a href="libhankel_8h.html#ac61e4e7e81a12c1006283542141730e8">More...</a><br /></td></tr>
 <tr class="separator:ac61e4e7e81a12c1006283542141730e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1afd349b27c3678a014332090788d4fa"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="libhankel_8h.html#a1afd349b27c3678a014332090788d4fa">hankel_transform_DHT</a> (int nu, <a class="el" href="libhankel_8h.html#a0e1024037ef107f5a9e37d6932af02c2">form_factor_f</a> f, const double x, void *f_ctx, double *output, int n_strategy)</td></tr>
-<tr class="memdesc:a1afd349b27c3678a014332090788d4fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes Hankel transform, using digital filters.  <a href="libhankel_8h.html#a1afd349b27c3678a014332090788d4fa">More...</a><br /></td></tr>
-<tr class="separator:a1afd349b27c3678a014332090788d4fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab59eed68ae4b66aa38bae302d028f26f"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="libhankel_8h.html#ab59eed68ae4b66aa38bae302d028f26f">hankel_transform_DE_Ooura</a> (int nu, <a class="el" href="libhankel_8h.html#a0e1024037ef107f5a9e37d6932af02c2">form_factor_f</a> f, const double x, void *f_ctx, double *output, int n_eval, double eps_rel)</td></tr>
-<tr class="memdesc:ab59eed68ae4b66aa38bae302d028f26f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes Hankel transform, using de-quadrature.  <a href="libhankel_8h.html#ab59eed68ae4b66aa38bae302d028f26f">More...</a><br /></td></tr>
-<tr class="separator:ab59eed68ae4b66aa38bae302d028f26f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a796e38bd6e3edd71299fd70895857e90"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="libhankel_8h.html#a796e38bd6e3edd71299fd70895857e90">hankel_transform_DE_Ogata</a> (int nu, <a class="el" href="libhankel_8h.html#a0e1024037ef107f5a9e37d6932af02c2">form_factor_f</a> f, const double x, void *f_ctx, double *output, int n_eval, double f_max)</td></tr>
-<tr class="memdesc:a796e38bd6e3edd71299fd70895857e90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes Hankel transform, using de-quadrature.  <a href="libhankel_8h.html#a796e38bd6e3edd71299fd70895857e90">More...</a><br /></td></tr>
-<tr class="separator:a796e38bd6e3edd71299fd70895857e90"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad45f2421887472f1cc8b5e568f49b6ec"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="libhankel_8h.html#ad45f2421887472f1cc8b5e568f49b6ec">hankel_transform_QWE_Key</a> (int nu, <a class="el" href="libhankel_8h.html#a0e1024037ef107f5a9e37d6932af02c2">form_factor_f</a> f, const double x, void *f_ctx, double *output, int n_eval, double eps_rel)</td></tr>
-<tr class="memdesc:ad45f2421887472f1cc8b5e568f49b6ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes Hankel transform using the Quadrature With Extrapolation method by Key.  <a href="libhankel_8h.html#ad45f2421887472f1cc8b5e568f49b6ec">More...</a><br /></td></tr>
-<tr class="separator:ad45f2421887472f1cc8b5e568f49b6ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae09cf89efd135afa916d0790daae8121"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="libhankel_8h.html#ae09cf89efd135afa916d0790daae8121">hankel_transform_QWE_Chave</a> (int nu, <a class="el" href="libhankel_8h.html#a0e1024037ef107f5a9e37d6932af02c2">form_factor_f</a> f, const double x, void *f_ctx, double *output, int n_eval, double eps_rel)</td></tr>
-<tr class="memdesc:ae09cf89efd135afa916d0790daae8121"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes Hankel transform using the Quadrature With Extrapolation method by Chave.  <a href="libhankel_8h.html#ae09cf89efd135afa916d0790daae8121">More...</a><br /></td></tr>
-<tr class="separator:ae09cf89efd135afa916d0790daae8121"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d8bcb9e960ce198492785053c677cfd"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="libhankel_8h.html#a9d8bcb9e960ce198492785053c677cfd">hankel_transform_DHT</a> (int nu, <a class="el" href="libhankel_8h.html#a0e1024037ef107f5a9e37d6932af02c2">form_factor_f</a> f, double x, void *f_ctx, double *output, int n_strategy)</td></tr>
+<tr class="memdesc:a9d8bcb9e960ce198492785053c677cfd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes Hankel transform, using digital filters.  <a href="libhankel_8h.html#a9d8bcb9e960ce198492785053c677cfd">More...</a><br /></td></tr>
+<tr class="separator:a9d8bcb9e960ce198492785053c677cfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e4c26194be6a33fc07c3696acd5468c"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="libhankel_8h.html#a4e4c26194be6a33fc07c3696acd5468c">hankel_transform_DE_Ooura</a> (int nu, <a class="el" href="libhankel_8h.html#a0e1024037ef107f5a9e37d6932af02c2">form_factor_f</a> f, double x, void *f_ctx, double *output, int n_eval, double eps_rel)</td></tr>
+<tr class="memdesc:a4e4c26194be6a33fc07c3696acd5468c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes Hankel transform, using de-quadrature.  <a href="libhankel_8h.html#a4e4c26194be6a33fc07c3696acd5468c">More...</a><br /></td></tr>
+<tr class="separator:a4e4c26194be6a33fc07c3696acd5468c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4764e25ba31c328c91dbb676348d57c8"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="libhankel_8h.html#a4764e25ba31c328c91dbb676348d57c8">hankel_transform_DE_Ogata</a> (int nu, <a class="el" href="libhankel_8h.html#a0e1024037ef107f5a9e37d6932af02c2">form_factor_f</a> f, double x, void *f_ctx, double *output, int n_eval, double f_max)</td></tr>
+<tr class="memdesc:a4764e25ba31c328c91dbb676348d57c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes Hankel transform, using de-quadrature.  <a href="libhankel_8h.html#a4764e25ba31c328c91dbb676348d57c8">More...</a><br /></td></tr>
+<tr class="separator:a4764e25ba31c328c91dbb676348d57c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40716169eff5f37e5afc5c6628a1a53a"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="libhankel_8h.html#a40716169eff5f37e5afc5c6628a1a53a">hankel_transform_QWE_Key</a> (int nu, <a class="el" href="libhankel_8h.html#a0e1024037ef107f5a9e37d6932af02c2">form_factor_f</a> f, double x, void *f_ctx, double *output, int n_eval, double eps_rel)</td></tr>
+<tr class="memdesc:a40716169eff5f37e5afc5c6628a1a53a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes Hankel transform using the Quadrature With Extrapolation method by Key.  <a href="libhankel_8h.html#a40716169eff5f37e5afc5c6628a1a53a">More...</a><br /></td></tr>
+<tr class="separator:a40716169eff5f37e5afc5c6628a1a53a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d0880b1fe5a749d00135053cab80eee"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="libhankel_8h.html#a7d0880b1fe5a749d00135053cab80eee">hankel_transform_QWE_Chave</a> (int nu, <a class="el" href="libhankel_8h.html#a0e1024037ef107f5a9e37d6932af02c2">form_factor_f</a> f, double x, void *f_ctx, double *output, int n_eval, double eps_rel)</td></tr>
+<tr class="memdesc:a7d0880b1fe5a749d00135053cab80eee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes Hankel transform using the Quadrature With Extrapolation method by Chave.  <a href="libhankel_8h.html#a7d0880b1fe5a749d00135053cab80eee">More...</a><br /></td></tr>
+<tr class="separator:a7d0880b1fe5a749d00135053cab80eee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Typedef Documentation</h2>
 <a id="a0e1024037ef107f5a9e37d6932af02c2"></a>
@@ -216,8 +216,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a796e38bd6e3edd71299fd70895857e90"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a796e38bd6e3edd71299fd70895857e90">&#9670;&nbsp;</a></span>hankel_transform_DE_Ogata()</h2>
+<a id="a4764e25ba31c328c91dbb676348d57c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4764e25ba31c328c91dbb676348d57c8">&#9670;&nbsp;</a></span>hankel_transform_DE_Ogata()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -237,7 +237,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const double&#160;</td>
+          <td class="paramtype">double&#160;</td>
           <td class="paramname"><em>x</em>, </td>
         </tr>
         <tr>
@@ -289,8 +289,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ab59eed68ae4b66aa38bae302d028f26f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab59eed68ae4b66aa38bae302d028f26f">&#9670;&nbsp;</a></span>hankel_transform_DE_Ooura()</h2>
+<a id="a4e4c26194be6a33fc07c3696acd5468c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e4c26194be6a33fc07c3696acd5468c">&#9670;&nbsp;</a></span>hankel_transform_DE_Ooura()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -310,7 +310,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const double&#160;</td>
+          <td class="paramtype">double&#160;</td>
           <td class="paramname"><em>x</em>, </td>
         </tr>
         <tr>
@@ -362,8 +362,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a1afd349b27c3678a014332090788d4fa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1afd349b27c3678a014332090788d4fa">&#9670;&nbsp;</a></span>hankel_transform_DHT()</h2>
+<a id="a9d8bcb9e960ce198492785053c677cfd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d8bcb9e960ce198492785053c677cfd">&#9670;&nbsp;</a></span>hankel_transform_DHT()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -383,7 +383,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const double&#160;</td>
+          <td class="paramtype">double&#160;</td>
           <td class="paramname"><em>x</em>, </td>
         </tr>
         <tr>
@@ -432,8 +432,8 @@ Perform wells for simple form factors, but it does struggle with oscillatory one
 
 </div>
 </div>
-<a id="ae09cf89efd135afa916d0790daae8121"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae09cf89efd135afa916d0790daae8121">&#9670;&nbsp;</a></span>hankel_transform_QWE_Chave()</h2>
+<a id="a7d0880b1fe5a749d00135053cab80eee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d0880b1fe5a749d00135053cab80eee">&#9670;&nbsp;</a></span>hankel_transform_QWE_Chave()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -453,7 +453,7 @@ Perform wells for simple form factors, but it does struggle with oscillatory one
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const double&#160;</td>
+          <td class="paramtype">double&#160;</td>
           <td class="paramname"><em>x</em>, </td>
         </tr>
         <tr>
@@ -505,8 +505,8 @@ Perform wells for simple form factors, but it does struggle with oscillatory one
 
 </div>
 </div>
-<a id="ad45f2421887472f1cc8b5e568f49b6ec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad45f2421887472f1cc8b5e568f49b6ec">&#9670;&nbsp;</a></span>hankel_transform_QWE_Key()</h2>
+<a id="a40716169eff5f37e5afc5c6628a1a53a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40716169eff5f37e5afc5c6628a1a53a">&#9670;&nbsp;</a></span>hankel_transform_QWE_Key()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -526,7 +526,7 @@ Perform wells for simple form factors, but it does struggle with oscillatory one
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const double&#160;</td>
+          <td class="paramtype">double&#160;</td>
           <td class="paramname"><em>x</em>, </td>
         </tr>
         <tr>

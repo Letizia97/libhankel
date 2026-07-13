@@ -16,7 +16,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/libhankel.h" line="20" column="9" bodyfile="include/libhankel.h" bodystart="20" bodyend="-1"/>
+        <location file="include/libhankel.h" line="19" column="9" bodyfile="include/libhankel.h" bodystart="19" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structstrategy__params_1a151596b1adab70fe9de8419ed2936240" prot="public" static="no" mutable="no">
         <type>double</type>
@@ -31,7 +31,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/libhankel.h" line="30" column="12" bodyfile="include/libhankel.h" bodystart="30" bodyend="-1"/>
+        <location file="include/libhankel.h" line="29" column="12" bodyfile="include/libhankel.h" bodystart="29" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structstrategy__params_1ad788f9a97317a1a70c052b63201fca64" prot="public" static="no" mutable="no">
         <type>double</type>
@@ -45,7 +45,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="include/libhankel.h" line="37" column="12" bodyfile="include/libhankel.h" bodystart="37" bodyend="-1"/>
+        <location file="include/libhankel.h" line="35" column="12" bodyfile="include/libhankel.h" bodystart="35" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -53,7 +53,7 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="include/libhankel.h" line="13" column="1" bodyfile="include/libhankel.h" bodystart="13" bodyend="38"/>
+    <location file="include/libhankel.h" line="12" column="1" bodyfile="include/libhankel.h" bodystart="12" bodyend="36"/>
     <listofallmembers>
       <member refid="structstrategy__params_1a151596b1adab70fe9de8419ed2936240" prot="public" virt="non-virtual"><scope>strategy_params</scope><name>eps_rel</name></member>
       <member refid="structstrategy__params_1ad788f9a97317a1a70c052b63201fca64" prot="public" virt="non-virtual"><scope>strategy_params</scope><name>f_max</name></member>

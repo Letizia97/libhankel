@@ -1,31 +1,26 @@
 /*
- @licstart  The following is the entire license notice for the JavaScript code
- in this file.
+ @licstart  The following is the entire license notice for the JavaScript code in this file.
 
  The MIT License (MIT)
 
  Copyright (C) 1997-2020 by Dimitri van Heesch
 
- Permission is hereby granted, free of charge, to any person obtaining a copy of
- this software and associated documentation files (the "Software"), to deal in
- the Software without restriction, including without limitation the rights to
- use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
- of the Software, and to permit persons to whom the Software is furnished to do
- so, subject to the following conditions:
+ Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+ and associated documentation files (the "Software"), to deal in the Software without restriction,
+ including without limitation the rights to use, copy, modify, merge, publish, distribute,
+ sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
 
- The above copyright notice and this permission notice shall be included in all
- copies or substantial portions of the Software.
+ The above copyright notice and this permission notice shall be included in all copies or
+ substantial portions of the Software.
 
- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- SOFTWARE.
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+ BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+ DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
- @licend  The above is the entire license notice for the JavaScript code in this
- file
+ @licend  The above is the entire license notice for the JavaScript code in this file
  */
 function convertToId(search) {
     var result = '';
@@ -119,8 +114,7 @@ function SearchBox(name, resultsPath, inFrame, label, extension) {
 
                             // ------------ Event Handlers
 
-                            // Called when focus is added or removed from the
-                            // search field.
+                            // Called when focus is added or removed from the search field.
                             this.OnSearchFieldFocus = function(
                                                           isActive) { this.Activate(isActive); }
 
@@ -165,8 +159,7 @@ function SearchBox(name, resultsPath, inFrame, label, extension) {
             setTimeout(this.name + ".CloseSelectionWindow()", this.closeSelectionTimeout);
     }
 
-                                    // Called when the content of the
-                                    // search field is changed.
+                                    // Called when the content of the search field is changed.
                                     this.OnSearchFieldChange =
                                         function(evt) {
         if (this.keyTimeout) // kill running timer
@@ -250,11 +243,8 @@ function SearchBox(name, resultsPath, inFrame, label, extension) {
         }
     }
 
-                                                // Called when an search
-                                                // filter selection is
-                                                // made. set item with
-                                                // index id as the active
-                                                // item
+                                                // Called when an search filter selection is made.
+                                                // set item with index id as the active item
                                                 this.OnSelectItem =
                                                     function(id) {
         this.searchIndex = id;
@@ -285,11 +275,9 @@ function SearchBox(name, resultsPath, inFrame, label, extension) {
         return false;
     }
 
-                                                        // ---------
-                                                        // Actions
+                                                        // --------- Actions
 
-                                                        // Closes the
-                                                        // results window.
+                                                        // Closes the results window.
                                                         this.CloseResultsWindow =
                                                             function() {
         this.DOMPopupSearchResultsWindow().style.display = 'none';
@@ -302,9 +290,7 @@ function SearchBox(name, resultsPath, inFrame, label, extension) {
         this.DOMSearchSelectWindow().style.display = 'none';
     }
 
-                                                                // Performs
-                                                                // a
-                                                                // search.
+                                                                // Performs a search.
                                                                 this.Search =
                                                                     function() {
         this.keyTimeout = 0;
@@ -365,24 +351,12 @@ function SearchBox(name, resultsPath, inFrame, label, extension) {
         this.lastResultsPage = resultsPage;
     }
 
-                                                                    // --------
-                                                                    // Activation
-                                                                    // Functions
+                                                                    // -------- Activation Functions
 
-                                                                    // Activates
-                                                                    // or
-                                                                    // deactivates
-                                                                    // the
-                                                                    // search
-                                                                    // panel,
-                                                                    // resetting
-                                                                    // things
-                                                                    // to
-                                                                    // their
-                                                                    // default
-                                                                    // values
-                                                                    // if
-                                                                    // necessary.
+                                                                    // Activates or deactivates the
+                                                                    // search panel, resetting
+                                                                    // things to their default
+                                                                    // values if necessary.
                                                                     this.Activate = function(
                                                                         isActive) {
         if (isActive || // open it
@@ -505,8 +479,7 @@ function SearchResults(name) {
         return true;
     }
 
-                // return the first item with index index or higher that is
-                // visible
+                // return the first item with index index or higher that is visible
                 this.NavNext =
                     function(index) {
         var focusItem;

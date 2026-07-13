@@ -8,10 +8,8 @@
  */
 if (typeof Scorer === "undefined") {
     var Scorer = {
-        // Implement the following function to further tweak the score for each
-        // result
-        // The function takes a result array [docname, title, anchor, descr, score,
-        // filename]
+        // Implement the following function to further tweak the score for each result
+        // The function takes a result array [docname, title, anchor, descr, score, filename]
         // and returns the new score.
         /*
         score: result => {
@@ -56,8 +54,7 @@ const _removeChildren = (element) => {
 };
 
 /**
- * See
- * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions#escaping
+ * See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions#escaping
  */
 const _escapeRegExp = (string) =>
     string.replace(/[.*+\-?^${}()|[\]\\]/g, "\\$&"); // $& means the whole matched string
@@ -144,10 +141,9 @@ const _displayNextItem = (
         _finishSearch(resultCount);
 };
 // Helper function used by query() to order search results.
-// Each input is an array of [docname, title, anchor, descr, score, filename,
-// kind]. Order the results by score (in opposite order of appearance, since the
-// `_displayNextItem` function uses pop() to retrieve items) and then
-// alphabetically.
+// Each input is an array of [docname, title, anchor, descr, score, filename, kind].
+// Order the results by score (in opposite order of appearance, since the
+// `_displayNextItem` function uses pop() to retrieve items) and then alphabetically.
 const _orderResultsByScoreThenName = (a, b) => {
     const leftScore = a[4];
     const rightScore = b[4];
@@ -166,10 +162,9 @@ const _orderResultsByScoreThenName = (a, b) => {
  * Default splitQuery function. Can be overridden in ``sphinx.search`` with a
  * custom function per language.
  *
- * The regular expression works by splitting the string on consecutive
- * characters that are not Unicode letters, numbers, underscores, or emoji
- * characters. This is the same as ``\W+`` in Python, preserving the surrogate
- * pair area.
+ * The regular expression works by splitting the string on consecutive characters
+ * that are not Unicode letters, numbers, underscores, or emoji characters.
+ * This is the same as ``\W+`` in Python, preserving the surrogate pair area.
  */
 if (typeof splitQuery === "undefined") {
     var splitQuery = (query) => query.split(/[^\p{Letter}\p{Number}_\p{Emoji_Presentation}]+/gu)
@@ -328,8 +323,7 @@ const Search = {
         const indexEntries = Search._index.indexentries;
 
         // Collect multiple result groups to be sorted separately and then ordered.
-        // Each is an array of [docname, title, anchor, descr, score, filename,
-        // kind].
+        // Each is an array of [docname, title, anchor, descr, score, filename, kind].
         const normalResults = [];
         const nonMainIndexResults = [];
 
@@ -401,8 +395,8 @@ const Search = {
         let results = [...nonMainIndexResults, ...normalResults ];
 
         // remove duplicate search results
-        // note the reversing of results, so that in the case of duplicates, the
-        // highest-scoring entry is kept
+        // note the reversing of results, so that in the case of duplicates, the highest-scoring
+        // entry is kept
         let seen = new Set();
         results = results.reverse().reduce((acc, result) => {
             let resultStr = result.slice(0, 4).concat([ result[5] ]).map(v => String(v)).join(',');

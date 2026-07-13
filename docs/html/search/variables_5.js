@@ -24,7 +24,7 @@ var searchData = [
         'nu_95',
         [
             'nu',
-            [ '../structparams__struct.html#af9900b998a31c2dc79311116ab680afd', 1, 'params_struct' ]
+            [ '../structparams__struct.html#a42c05432977c6e946ff299d5a67a805f', 1, 'params_struct' ]
         ]
     ]
 ];

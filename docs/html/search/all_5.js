@@ -43,8 +43,8 @@ var searchData = [
                 'hankel_transform_DE_Ogata(int nu, form_factor_f f, const double x, void *f_ctx, double *output, int n_eval, double f_max):&#160;hankel_DE_quadrature.c'
             ],
             [
-                '../libhankel_8h.html#a796e38bd6e3edd71299fd70895857e90', 1,
-                'hankel_transform_DE_Ogata(int nu, form_factor_f f, const double x, void *f_ctx, double *output, int n_eval, double f_max):&#160;hankel_DE_quadrature.c'
+                '../libhankel_8h.html#a4764e25ba31c328c91dbb676348d57c8', 1,
+                'hankel_transform_DE_Ogata(int nu, form_factor_f f, double x, void *f_ctx, double *output, int n_eval, double f_max):&#160;hankel_DE_quadrature.c'
             ]
         ]
     ],
@@ -53,8 +53,8 @@ var searchData = [
         [
             'hankel_transform_DE_Ooura',
             [
-                '../libhankel_8h.html#ab59eed68ae4b66aa38bae302d028f26f', 1,
-                'hankel_transform_DE_Ooura(int nu, form_factor_f f, const double x, void *f_ctx, double *output, int n_eval, double eps_rel):&#160;hankel_DE_quadrature.c'
+                '../libhankel_8h.html#a4e4c26194be6a33fc07c3696acd5468c', 1,
+                'hankel_transform_DE_Ooura(int nu, form_factor_f f, double x, void *f_ctx, double *output, int n_eval, double eps_rel):&#160;hankel_DE_quadrature.c'
             ],
             [
                 '../hankel__DE__quadrature_8c.html#ab59eed68ae4b66aa38bae302d028f26f', 1,
@@ -67,8 +67,8 @@ var searchData = [
         [
             'hankel_transform_DHT',
             [
-                '../libhankel_8h.html#a1afd349b27c3678a014332090788d4fa', 1,
-                'hankel_transform_DHT(int nu, form_factor_f f, const double x, void *f_ctx, double *output, int n_strategy):&#160;hankel_DHT.c'
+                '../libhankel_8h.html#a9d8bcb9e960ce198492785053c677cfd', 1,
+                'hankel_transform_DHT(int nu, form_factor_f f, double x, void *f_ctx, double *output, int n_strategy):&#160;hankel_DHT.c'
             ],
             [
                 '../hankel__DHT_8c.html#a1afd349b27c3678a014332090788d4fa', 1,
@@ -81,8 +81,8 @@ var searchData = [
         [
             'hankel_transform_QWE_Chave',
             [
-                '../libhankel_8h.html#ae09cf89efd135afa916d0790daae8121', 1,
-                'hankel_transform_QWE_Chave(int nu, form_factor_f f, const double x, void *f_ctx, double *output, int n_eval, double eps_rel):&#160;hankel_QWE.c'
+                '../libhankel_8h.html#a7d0880b1fe5a749d00135053cab80eee', 1,
+                'hankel_transform_QWE_Chave(int nu, form_factor_f f, double x, void *f_ctx, double *output, int n_eval, double eps_rel):&#160;hankel_QWE.c'
             ],
             [
                 '../hankel__QWE_8c.html#ae09cf89efd135afa916d0790daae8121', 1,
@@ -95,8 +95,8 @@ var searchData = [
         [
             'hankel_transform_QWE_Key',
             [
-                '../libhankel_8h.html#ad45f2421887472f1cc8b5e568f49b6ec', 1,
-                'hankel_transform_QWE_Key(int nu, form_factor_f f, const double x, void *f_ctx, double *output, int n_eval, double eps_rel):&#160;hankel_QWE.c'
+                '../libhankel_8h.html#a40716169eff5f37e5afc5c6628a1a53a', 1,
+                'hankel_transform_QWE_Key(int nu, form_factor_f f, double x, void *f_ctx, double *output, int n_eval, double eps_rel):&#160;hankel_QWE.c'
             ],
             [
                 '../hankel__QWE_8c.html#ad45f2421887472f1cc8b5e568f49b6ec', 1,

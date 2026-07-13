@@ -54,17 +54,16 @@ typedef double (*form_factor_f)(double x, void *ctx);
  *       "DHT_6", "DHT_7", "DHT_8", "DHT_9", "DHT_10", "DHT_11".
  *
  * @param nu               order of bessel function - must be 0 or 1
- * @param f                pointer to function to transform (see @ref
- * form_factor_f).
- * @param x                pointer to array of x at which to compute the
- * transform
+ * @param f                pointer to function to transform (see @ref form_factor_f).
+ * @param x                pointer to array of x at which to compute the transform
  * @param f_ctx            pointer to struct containing inputs for f
  * @param output           pointer to array containing output from transform
  * @param strategy_name    str corresponding to the strategy name
  * @param strategy_params  struct containing params for the specific strategy.
  *                         See @ref strategy_params for all elements this struct
- * can contain and the page <a href="../usage/strategy_params.html">Strategy
- * Parameters</a> to check the params required by each strategy.
+ *                         can contain and the page
+ *                         <a href="../usage/strategy_params.html">Strategy Parameters</a>
+ *                         to check the params required by each strategy.
  */
 int hankel_transform(int nu, form_factor_f f, double *x, size_t len_x, void *f_ctx, double *output,
                      const char *strategy_name, strategy_params strategy_params);
@@ -100,8 +99,7 @@ double hankel_transform_DHT(int nu, form_factor_f f, double x, void *f_ctx, doub
  * @param x          value at which to compute the transform
  * @param f_ctx      pointer to struct containing inputs for f
  * @param output     pointer to var containing output from transform
- * @param n_eval     integer indicating number of function evaluations (N_ogata
- * in SASfit)
+ * @param n_eval     integer indicating number of function evaluations (N_ogata in SASfit)
  * @param eps_rel    relative error allowed e.g. 1e-9 (eps_nriq in SASfit)
  */
 double hankel_transform_DE_Ooura(int nu, form_factor_f f, double x, void *f_ctx, double *output,
@@ -116,17 +114,14 @@ double hankel_transform_DE_Ooura(int nu, form_factor_f f, double x, void *f_ctx,
  * @param x          value at which to compute the transform
  * @param f_ctx      pointer to struct containing inputs for f
  * @param output     pointer to var containing output from transform
- * @param n_eval     integer indicating number of function evaluations (N_ogata
- * in SASfit)
- * @param f_max      float indicating starting guess for max in form factor
- * (h_ogata in SASfit)
+ * @param n_eval     integer indicating number of function evaluations (N_ogata in SASfit)
+ * @param f_max      float indicating starting guess for max in form factor (h_ogata in SASfit)
  */
 double hankel_transform_DE_Ogata(int nu, form_factor_f f, double x, void *f_ctx, double *output,
                                  int n_eval, double f_max);
 
 /**
- * @brief Computes Hankel transform using the Quadrature With Extrapolation
- * method by Key.
+ * @brief Computes Hankel transform using the Quadrature With Extrapolation method by Key.
  * @note Corresponds to strategy 12 in SASfit.
  *
  * @param nu         order of bessel function - must be 0 or 1
@@ -134,16 +129,14 @@ double hankel_transform_DE_Ogata(int nu, form_factor_f f, double x, void *f_ctx,
  * @param x          value at which to compute the transform
  * @param f_ctx      pointer to struct containing inputs for f
  * @param output     pointer to var containing output from transform
- * @param n_eval     integer indicating number of function evaluations (N_ogata
- * in SASfit)
+ * @param n_eval     integer indicating number of function evaluations (N_ogata in SASfit)
  * @param eps_rel    relative error allowed e.g. 1e-9 (eps_nriq in SASfit)
  */
 double hankel_transform_QWE_Key(int nu, form_factor_f f, double x, void *f_ctx, double *output,
                                 int n_eval, double eps_rel);
 
 /**
- * @brief Computes Hankel transform using the Quadrature With Extrapolation
- * method by Chave.
+ * @brief Computes Hankel transform using the Quadrature With Extrapolation method by Chave.
  * @note Corresponds to strategy 13 in SASfit.
  *
  * @param nu         order of bessel function - must be 0 or 1
@@ -151,8 +144,7 @@ double hankel_transform_QWE_Key(int nu, form_factor_f f, double x, void *f_ctx, 
  * @param x          value at which to compute the transform
  * @param f_ctx      pointer to struct containing inputs for f
  * @param output     pointer to var containing output from transform
- * @param n_eval     integer indicating number of function evaluations (N_ogata
- * in SASfit)
+ * @param n_eval     integer indicating number of function evaluations (N_ogata in SASfit)
  * @param eps_rel    relative error allowed e.g. 1e-9 (eps_nriq in SASfit)
  */
 double hankel_transform_QWE_Chave(int nu, form_factor_f f, double x, void *f_ctx, double *output,
