@@ -75,8 +75,9 @@ static entry table[] = {{"gdab", form_factor_g_dab},
 
 form_factor_f get_form_factor_by_name(const char *name) {
     for (int i = 0; table[i].name != NULL; i++) {
-        if (strcmp(name, table[i].name) == 0)
+        if (strcmp(name, table[i].name) == 0) {
             return table[i].func;
+        }
     }
     return NULL;
 }

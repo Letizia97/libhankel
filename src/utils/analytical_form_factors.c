@@ -13,7 +13,7 @@
 
 #include "../src/utils/sf_functions.h"
 
-double compute_analytical_spheres(double (*params)[50], double *arr_z, double *G, size_t n) {
+double compute_analytical_spheres(double (*params)[50], const double *arr_z, double *G, size_t n) {
     /*
     Unnormalized SESANS correlation function for a homogeneous sphere of radius R.
     Parameters
@@ -89,7 +89,7 @@ double compute_analytical_spheres(double (*params)[50], double *arr_z, double *G
     }
 }
 
-double compute_analytical_gdab(double (*params)[50], double *arr_z, double *out, size_t n) {
+double compute_analytical_gdab(double (*params)[50], const double *arr_z, double *out, size_t n) {
     const double A = (*params)[0];
     const double H = (*params)[1];
     const double ETA = (*params)[2];

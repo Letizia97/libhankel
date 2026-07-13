@@ -9,7 +9,8 @@ Checks: >
   -readability-identifier-length,
   -bugprone-easily-swappable-parameters,
   -readability-math-missing-parentheses,
-  -readability-isolate-declaration
+  -readability-isolate-declaration,
+  -readability-else-after-return
 
 WarningsAsErrors: ''
 
