@@ -49,20 +49,24 @@ static PyObject *py_hankel_transform(PyObject *self, PyObject *args) {
     const char *strategy_name;
 
     if (!PyArg_ParseTuple(args, "iOOOsO", &nu, &f_obj, &x_obj, &params_obj, &strategy_name,
-                          &strategy_param_obj))
+                          &strategy_param_obj)) {
         return NULL;
+    }
 
     // ---------------------------
     // Convert x → C array
     // ---------------------------
     if (!PySequence_Check(x_obj)) {
         PyErr_SetString(PyExc_TypeError, "x must be a sequence");
-        return NULL;
+        {
+            return NULL;
+        }
     }
 
     Py_ssize_t len_x = PySequence_Size(x_obj);
-    if (len_x < 0)
+    if (len_x < 0) {
         return NULL;
+    }
 
     double *x = malloc(len_x * sizeof(double));
     if (!x) {
@@ -129,7 +133,7 @@ static PyObject *py_hankel_transform(PyObject *self, PyObject *args) {
     PyObject *f_max_obj = PyDict_GetItemString(strategy_param_obj, "f_max");
 
     if (!n_eval_obj) {
-        sp.n_eval = 0.0;
+        sp.n_eval = 0;
     } else {
         sp.n_eval = PyFloat_AsDouble(n_eval_obj);
     }
@@ -205,7 +209,61 @@ static PyObject *py_hankel_transform(PyObject *self, PyObject *args) {
         return NULL;
     }
 
-    hankel_transform(nu, f_ptr, x, len_x, f_ctx, output, strategy_name, sp);
+    int status_code = hankel_transform(nu, f_ptr, x, len_x, f_ctx, output, strategy_name, sp);
+
+    // Error handling
+    switch (status_code) {
+    case 0:
+        break;
+
+    case -1:
+        PyErr_SetString(PyExc_ValueError,
+                        "nu needs to be 0 or 1 in order to use the selected strategy");
+        return NULL;
+
+    case -2:
+        PyErr_SetString(PyExc_ValueError,
+                        "Wrong number for DHT strategy, must be int between 6 and 11");
+        return NULL;
+
+    case -3:
+        PyErr_SetString(PyExc_MemoryError, "Failed to allocate internal variables");
+        return NULL;
+
+    case -4:
+        PyErr_SetString(PyExc_RuntimeError, "Failed to converge");
+        return NULL;
+
+    case -5:
+        PyErr_SetString(PyExc_ZeroDivisionError, "Internal error: division by zero");
+        return NULL;
+
+    case -6:
+        PyErr_SetString(PyExc_ValueError,
+                        "Internal error: wrong nzeros in function bessel_j_zero (must be >= 1)");
+        return NULL;
+
+    case -7:
+        PyErr_SetString(PyExc_ValueError,
+                        "Internal error: wrong n of iterations in pade sum (must be >= 1)");
+        return NULL;
+
+    case -8:
+        PyErr_SetString(PyExc_ValueError, "Error: n_eval must be provided and cannot be zero");
+        return NULL;
+
+    case -9:
+        PyErr_SetString(PyExc_ValueError, "Error: eps_rel must be provided and cannot be zero");
+        return NULL;
+
+    case -10:
+        PyErr_SetString(PyExc_ValueError, "Error: f_max must be provided and cannot be zero");
+        return NULL;
+
+    default:
+        PyErr_SetString(PyExc_RuntimeError, "unknown error");
+        return NULL;
+    }
 
     PyObject *out_list = PyList_New(len_x);
     for (Py_ssize_t i = 0; i < len_x; i++) {

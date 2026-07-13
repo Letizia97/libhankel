@@ -14,7 +14,7 @@ int validate_n_eval(strategy_params strategy_params) {
 int validate_eps_rel(strategy_params strategy_params) {
     if (strategy_params.eps_rel == 0) {
         fprintf(stderr, "Error: eps_rel must be provided and cannot be zero\n");
-        return -8;
+        return -9;
     }
     return 0;
 }
@@ -22,7 +22,7 @@ int validate_eps_rel(strategy_params strategy_params) {
 int validate_f_max(strategy_params strategy_params) {
     if (strategy_params.f_max == 0) {
         fprintf(stderr, "Error: f_max must be provided and cannot be zero\n");
-        return -8;
+        return -10;
     }
     return 0;
 }
@@ -166,7 +166,8 @@ int hankel_transform(int nu, form_factor_f f, double *x, size_t len_x, void *f_c
                 return status;
             }
         }
+    } else {
+        fprintf(stderr, "strategy_name must be one of the strings specified in the docs\n");
+        return -11;
     }
-
-    return status;
 }
