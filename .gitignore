@@ -1,3 +1,21 @@
 .venv
 *.egg-info/
 src/*.so
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Build artifacts
+build/
+dist/
+
+# C extension outputs
+*.so
+
+# macOS
+*.dylib
+
+# Windows
+*.pyd
+*.dll

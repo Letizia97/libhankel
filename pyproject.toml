@@ -10,3 +10,9 @@ readme = "README.md"
 requires-python = ">=3.8"
 authors = [{name = "Letizia Protopapa"}]
 dependencies = ["numpy"]
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
