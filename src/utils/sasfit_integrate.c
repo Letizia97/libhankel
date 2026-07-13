@@ -1,13 +1,12 @@
 #include "src/utils/sasfit_integrate.h"
 
-#include <stdio.h>
 #include <math.h>
+#include <stdio.h>
 
-#include "libhankel.h"
 #include "../external_libs/utils/tanhsinh.h"
+#include "libhankel.h"
 
-
-typedef double sasfit_func_one_t (double, hankel_inputs *);
+typedef double sasfit_func_one_t(double, hankel_inputs *);
 
 typedef struct {
     hankel_inputs *param;
@@ -15,51 +14,42 @@ typedef struct {
 } int_cub;
 
 double Kernel_1D(double x, void *pam) {
-    /* 
-    Auxiliary function. 
-    Adapts a SASfit kernel function to the generic interface 
-    required by the integration routine, forwarding x and the 
-    real SASfit parameter structure to the actual kernel function. 
+    /*
+    Auxiliary function.
+    Adapts a SASfit kernel function to the generic interface
+    required by the integration routine, forwarding x and the
+    real SASfit parameter structure to the actual kernel function.
     */
-	int_cub *cub = (int_cub *) pam;
-    hankel_inputs *param = (hankel_inputs *) cub->param;
-	return cub->Kernel1D_fct(x,param);
+    int_cub *cub = (int_cub *)pam;
+    hankel_inputs *param = (hankel_inputs *)cub->param;
+    return cub->Kernel1D_fct(x, param);
 }
 
-double sasfit_integrate_ctm(
-    double int_start,
-    double int_end,
-    sasfit_func_one_t intKern_fct,
-    hankel_inputs *param,
-    int limit,
-    double epsabs,
-    double epsrel)
-{
-	double res; 
+double sasfit_integrate_ctm(double int_start, double int_end, sasfit_func_one_t intKern_fct,
+                            hankel_inputs *param, int limit, double epsabs, double epsrel) {
+    double res;
     int_cub cubstruct;
     double ferr[1];
 
-    cubstruct.Kernel1D_fct=intKern_fct;
-    cubstruct.param=param;
+    cubstruct.Kernel1D_fct = intKern_fct;
+    cubstruct.param = param;
 
     // nothing to integrate
-    if ( isfinite(int_start) && isfinite(int_end) &&
-	     (int_end - int_start) == 0.0 ) {
-		return 0.0;
-	}
+    if (isfinite(int_start) && isfinite(int_end) && (int_end - int_start) == 0.0) {
+        return 0.0;
+    }
 
-    cubstruct.Kernel1D_fct=intKern_fct;
-    cubstruct.param=param;
+    cubstruct.Kernel1D_fct = intKern_fct;
+    cubstruct.param = param;
 
     res = TanhSinhQuad(&Kernel_1D, &cubstruct, int_start, int_end, 7, epsrel, &ferr[0]);
-	return res;
+    return res;
 }
 
 // Used in both sasfit_HankelChave and sasfit_qwe
-double FrJnu(double r, hankel_inputs * inputs) {
-    double Q,nu;
+double FrJnu(double r, hankel_inputs *inputs) {
+    double Q, nu;
     nu = inputs->other_inputs[0];
-    Q  = inputs->other_inputs[1];
-    return r*jn(nu,Q*r)*inputs->function(r,inputs->f_params);
+    Q = inputs->other_inputs[1];
+    return r * jn(nu, Q * r) * inputs->function(r, inputs->f_params);
 }
-

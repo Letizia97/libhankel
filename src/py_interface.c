@@ -1,26 +1,20 @@
 
 #define PY_SSIZE_T_CLEAN
-#include <Python.h>
-#include "libhankel.h"
-#include <stdlib.h>
 #include "form_factors.h"
-
+#include "libhankel.h"
+#include <Python.h>
+#include <stdlib.h>
 
 typedef struct {
     double *params;
     size_t n_params;
-    PyObject *callable;   // NULL for built-ins
+    PyObject *callable; // NULL for built-ins
 } py_f_ctx;
 
-
-double python_form_factor(
-    double x,
-    void *f_ctx
-) {
+double python_form_factor(double x, void *f_ctx) {
     py_f_ctx *c = (py_f_ctx *)f_ctx;
 
     PyGILState_STATE gstate = PyGILState_Ensure();
-
 
     PyObject *args = PyTuple_New(2);
     PyTuple_SetItem(args, 0, PyFloat_FromDouble(x));
@@ -49,22 +43,14 @@ double python_form_factor(
     return val;
 }
 
-static PyObject* py_hankel_transform(PyObject *self, PyObject *args) {
+static PyObject *py_hankel_transform(PyObject *self, PyObject *args) {
     int nu;
     PyObject *f_obj, *x_obj, *params_obj, *strategy_param_obj;
     const char *strategy_name;
 
-    if (!PyArg_ParseTuple(
-            args,
-            "iOOOsO",
-            &nu,
-            &f_obj,
-            &x_obj,
-            &params_obj,
-            &strategy_name,
-            &strategy_param_obj)) 
+    if (!PyArg_ParseTuple(args, "iOOOsO", &nu, &f_obj, &x_obj, &params_obj, &strategy_name,
+                          &strategy_param_obj))
         return NULL;
-
 
     // ---------------------------
     // Convert x → C array
@@ -75,7 +61,8 @@ static PyObject* py_hankel_transform(PyObject *self, PyObject *args) {
     }
 
     Py_ssize_t len_x = PySequence_Size(x_obj);
-    if (len_x < 0) return NULL;
+    if (len_x < 0)
+        return NULL;
 
     double *x = malloc(len_x * sizeof(double));
     if (!x) {
@@ -84,7 +71,7 @@ static PyObject* py_hankel_transform(PyObject *self, PyObject *args) {
     }
 
     for (Py_ssize_t i = 0; i < len_x; i++) {
-        PyObject* item = PySequence_GetItem(x_obj, i);
+        PyObject *item = PySequence_GetItem(x_obj, i);
         if (!item) {
             free(x);
             return NULL;
@@ -112,7 +99,7 @@ static PyObject* py_hankel_transform(PyObject *self, PyObject *args) {
     double *f_params = malloc(n_params * sizeof(double));
 
     for (Py_ssize_t i = 0; i < n_params; i++) {
-        PyObject* item = PySequence_GetItem(params_obj, i);
+        PyObject *item = PySequence_GetItem(params_obj, i);
         if (!item) {
             free(x);
             return NULL;
@@ -132,17 +119,14 @@ static PyObject* py_hankel_transform(PyObject *self, PyObject *args) {
     // ---------------------------
     if (!PyDict_Check(strategy_param_obj)) {
         free(x);
-        PyErr_SetString(
-            PyExc_TypeError,
-            "strategy_params must be dict"
-        );
+        PyErr_SetString(PyExc_TypeError, "strategy_params must be dict");
         return NULL;
     }
 
     strategy_params sp;
-    PyObject* n_eval_obj = PyDict_GetItemString(strategy_param_obj, "n_eval");
-    PyObject* eps_rel_obj = PyDict_GetItemString(strategy_param_obj, "eps_rel");
-    PyObject* f_max_obj = PyDict_GetItemString(strategy_param_obj, "f_max");
+    PyObject *n_eval_obj = PyDict_GetItemString(strategy_param_obj, "n_eval");
+    PyObject *eps_rel_obj = PyDict_GetItemString(strategy_param_obj, "eps_rel");
+    PyObject *f_max_obj = PyDict_GetItemString(strategy_param_obj, "f_max");
 
     if (!n_eval_obj) {
         sp.n_eval = 0.0;
@@ -160,13 +144,13 @@ static PyObject* py_hankel_transform(PyObject *self, PyObject *args) {
         sp.f_max = 0.0;
     } else {
         sp.f_max = PyFloat_AsDouble(f_max_obj);
-    }    
+    }
 
     if (PyErr_Occurred()) {
         free(x);
         return NULL;
     }
-    
+
     // ---------------------------
     // Output allocation
     // ---------------------------
@@ -179,11 +163,13 @@ static PyObject* py_hankel_transform(PyObject *self, PyObject *args) {
 
     // ---------------------------
     // Form factor function
-    // --------------------------- 
+    // ---------------------------
     form_factor_f f_ptr = NULL;
     py_f_ctx *f_ctx = malloc(sizeof(py_f_ctx));
     if (!f_ctx) {
-        free(x); free(f_params); free(output);
+        free(x);
+        free(f_params);
+        free(output);
         PyErr_SetString(PyExc_MemoryError, "f_ctx alloc failed");
         return NULL;
     }
@@ -198,33 +184,28 @@ static PyObject* py_hankel_transform(PyObject *self, PyObject *args) {
         f_ctx->callable = f_obj;
         Py_INCREF(f_obj);
 
-    /* or whether the user wants to use built-in form factor */
+        /* or whether the user wants to use built-in form factor */
     } else if (PyUnicode_Check(f_obj)) {
         const char *name = PyUnicode_AsUTF8(f_obj);
         f_ptr = get_form_factor_by_name(name);
 
         if (!f_ptr) {
-            free(x); free(f_params); free(output);
+            free(x);
+            free(f_params);
+            free(output);
             PyErr_SetString(PyExc_ValueError, "Unknown function name");
             return NULL;
         }
 
     } else {
-        free(x); free(f_params); free(output);
+        free(x);
+        free(f_params);
+        free(output);
         PyErr_SetString(PyExc_TypeError, "f must be callable or string");
         return NULL;
     }
 
-    hankel_transform(
-        nu,
-        f_ptr,
-        x,
-        len_x,
-        f_ctx,
-        output,
-        strategy_name,
-        sp
-    );
+    hankel_transform(nu, f_ptr, x, len_x, f_ctx, output, strategy_name, sp);
 
     PyObject *out_list = PyList_New(len_x);
     for (Py_ssize_t i = 0; i < len_x; i++) {
@@ -243,44 +224,39 @@ static PyObject* py_hankel_transform(PyObject *self, PyObject *args) {
 }
 
 // docstring for hankel_tranform python api
-static char hankel_t_doc[] = 
+static char hankel_t_doc[] =
     "Compute the Hankel transform.\n"
     "\n"
     ":param nu:              The order of bessel function, must be 0 or 1.\n"
     ":type nu:               int \n"
-    ":param f:               Either a function to hankel-transform or a string naming a built-in function, "
+    ":param f:               Either a function to hankel-transform or a string "
+    "naming a built-in function, "
     "i.e. either of 'gdab', 'broad_peak', 'sphere'.\n"
     ":type f:                callable or str\n"
-    ":param x_arr:           The points at which to evaluate the Hankel transform of the function f.\n"
+    ":param x_arr:           The points at which to evaluate the Hankel "
+    "transform of the function f.\n"
     ":type x_arr:            numpy.ndarray of float64\n"
-    ":param f_params:        Input parameters needed by the function f (ordered).\n"
+    ":param f_params:        Input parameters needed by the function f "
+    "(ordered).\n"
     ":type f_params:         numpy.ndarray of float64\n"
     ":param strategy_name:   The name of Hankel strategy to use. "
-    "Refer to the table in :ref:`strategy-parameters` for a list of possible strategies.\n"
+    "Refer to the table in :ref:`strategy-parameters` for a list of possible "
+    "strategies.\n"
     ":type strategy_name:    str \n"
     ":param strategy_params: The parameters needed by the chosen strategy. "
-    "See :ref:`strategy-selection` or :ref:`c-api` (strategy_params) for details.\n"
-    ":type strategy_params:  dict[str, float | int]\n"       
+    "See :ref:`strategy-selection` or :ref:`c-api` (strategy_params) for "
+    "details.\n"
+    ":type strategy_params:  dict[str, float | int]\n"
     ":returns:               The hankel transform.\n"
     ":rtype:                 numpy.ndarray of float64\n"
-    "Please refer to :ref:`python-examples` for examples on how to use this function with either a "
+    "Please refer to :ref:`python-examples` for examples on how to use this "
+    "function with either a "
     "builtin form factor or a custom input function."
-    "\n" ;
-
+    "\n";
 
 static PyMethodDef Methods[] = {
-    {"hankel_transform", py_hankel_transform, METH_VARARGS, hankel_t_doc},
-    {NULL, NULL, 0, NULL}
-};
+    {"hankel_transform", py_hankel_transform, METH_VARARGS, hankel_t_doc}, {NULL, NULL, 0, NULL}};
 
-static struct PyModuleDef module = {
-    PyModuleDef_HEAD_INIT,
-    "libhankel",
-    " ",
-    -1,
-    Methods
-};
+static struct PyModuleDef module = {PyModuleDef_HEAD_INIT, "libhankel", " ", -1, Methods};
 
-PyMODINIT_FUNC PyInit_libhankel(void) {
-    return PyModule_Create(&module);
-}
+PyMODINIT_FUNC PyInit_libhankel(void) { return PyModule_Create(&module); }

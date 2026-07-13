@@ -1,6 +1,6 @@
 
-#include "libhankel.h"
 #include "../external_libs/DE-quadrature/intde.h"
+#include "libhankel.h"
 
 // Standard library headers
 #include <float.h>
@@ -11,9 +11,9 @@
 // Project / local headers
 #include "../src/utils/boost_bessel_wrapper.h"
 
-
 /*
-This file contains only 2 Hankel strategies, both DE quadrature algorithms, corresponding to:
+This file contains only 2 Hankel strategies, both DE quadrature algorithms,
+corresponding to:
     - HANKEL_OOURA_DEO , i.e. strategy 0 in SASfit
     - OGATA_2005 , i.e. strategy 1 in SASfit
 */
@@ -24,39 +24,40 @@ This file contains only 2 Hankel strategies, both DE quadrature algorithms, corr
  * @brief Struct of parameters to be used in DE hankel functions.
  */
 typedef struct {
-	void *f_params;          /**< parameters for the supplied function */
-	form_factor_f function;  /**< function to integrate */
-	double nu;               /**< order of the Bessel function */
-	double Q;                /**< radial Fourier variable, i.e. conj wavenumber to radius */
+    void *f_params;         /**< parameters for the supplied function */
+    form_factor_f function; /**< function to integrate */
+    int nu;                 /**< order of the Bessel function */
+    double Q;               /**< radial Fourier variable, i.e. conj wavenumber to radius */
 } params_struct;
 
-
-/** 
- * @brief Auxiliary function that computes the value of the 
+/**
+ * @brief Auxiliary function that computes the value of the
  *        Hankel‑transform integrand at the current radius r.
- *        Computes a product between the radius r, the Bessel 
+ *        Computes a product between the radius r, the Bessel
  *        function of the first kind of order nu, and a function
  *        supplied through FBTparams.
- * 
+ *
  * @param r          radius
- * @param FBTparams  pointer to a struct containing nu, Q and function to integrate
+ * @param FBTparams  pointer to a struct containing nu, Q and function to
+ * integrate
  */
 double intdeo_FBT(double r, void *FBTparams) {
     params_struct *FBTparam_struct;
-    FBTparam_struct = (params_struct *) FBTparams;
-    if (r==0) return 0;
+    FBTparam_struct = (params_struct *)FBTparams;
+    if (r == 0)
+        return 0;
 
-    double nu = FBTparam_struct->nu;
-    double Q  = FBTparam_struct->Q;
+    int nu = FBTparam_struct->nu;
+    double Q = FBTparam_struct->Q;
 
     double bessel = jn(nu, Q * r);
-    double fval   = FBTparam_struct->function(r, FBTparam_struct->f_params);
+    double fval = FBTparam_struct->function(r, FBTparam_struct->f_params);
 
     return r * bessel * fval;
 }
 
-/** 
- * @brief Auxiliary function computing the 
+/**
+ * @brief Auxiliary function computing the
  *        double‑exponential (DE) / tanh–sinh transform.
  */
 double DEtransform(double t) {
@@ -65,32 +66,24 @@ double DEtransform(double t) {
     return t * tanh(a);
 }
 
-/** 
- * @brief Auxiliary function that computes the derivative of a 
- *        “double‑exponential (DE) change of variables”, that is 
+/**
+ * @brief Auxiliary function that computes the derivative of a
+ *        “double‑exponential (DE) change of variables”, that is
  *        commonly used in numerical integration (quadrature).
- *        Specifically, this is the tanh–sinh (double exponential) 
+ *        Specifically, this is the tanh–sinh (double exponential)
  *        transformation.
  */
-double deriv_DEtransform(double t){
+double deriv_DEtransform(double t) {
     double sh = sinh(t);
     double ch = cosh(t);
-    double A  = M_PI_2 * sh;
-    double secH = 1.0 / cosh(A);  // sech(A)
+    double A = M_PI_2 * sh;
+    double secH = 1.0 / cosh(A); // sech(A)
 
     return M_PI_2 * t * ch * (secH * secH) + tanh(A);
 }
 
-
-double hankel_transform_DE_Ooura(
-    int nu, 
-    form_factor_f f, 
-    const double x,
-    void *f_ctx,
-    double * output,
-    int n_eval, 
-    double eps_rel
-) {
+double hankel_transform_DE_Ooura(int nu, form_factor_f f, const double x, void *f_ctx,
+                                 double *output, int n_eval, double eps_rel) {
 
     int workspace_len = 4000;
     int rounded_n_eval, status;
@@ -113,62 +106,30 @@ double hankel_transform_DE_Ooura(
     double *workspace = malloc(workspace_len * sizeof *workspace);
 
     // precompute nodes & weights for DE integration on a finite interval [a, b]
-    sasfit_intdeini(
-        workspace_len, 
-        DBL_MIN, 
-        eps_rel, 
-        workspace
-    );
-    // compute integral using DE quadrature with weights created by sasfit_intdeini
-    sasfit_intde(
-        &intdeo_FBT, 
-        0, 
-        scaled_zero, 
-        workspace, 
-        &res0, 
-        &err0, 
-        &FBTparam_struct
-    );
+    sasfit_intdeini(workspace_len, DBL_MIN, eps_rel, workspace);
+    // compute integral using DE quadrature with weights created by
+    // sasfit_intdeini
+    sasfit_intde(&intdeo_FBT, 0, scaled_zero, workspace, &res0, &err0, &FBTparam_struct);
     // precompute nodes/weights for oscillatory integrals
     // e.g. f(x) cos(omega x) , over [a, inf]
-    sasfit_intdeoini(
-        workspace_len, 
-        DBL_MIN, 
-        eps_rel, 
-        workspace
-    );
+    sasfit_intdeoini(workspace_len, DBL_MIN, eps_rel, workspace);
     // evaluate oscillatory integrals using the table built by intdeoini.
-    sasfit_intdeo(
-        &intdeo_FBT, 
-        scaled_zero, 
-        FBTparam_struct.Q, 
-        workspace, 
-        &res, 
-        &err, 
-        &FBTparam_struct
-    );
+    sasfit_intdeo(&intdeo_FBT, scaled_zero, FBTparam_struct.Q, workspace, &res, &err,
+                  &FBTparam_struct);
 
     free(workspace);
     res += res0;
 
-    // estimate of the numerical integration error for the computed integral 
+    // estimate of the numerical integration error for the computed integral
     // FIXME: need to figure out what to do with this
-    err += err0; 
+    err += err0;
 
     *output = res;
-	return 0;
+    return 0;
 }
 
-
-double hankel_transform_DE_Ogata(
-    int nu, 
-    form_factor_f f, 
-    const double x,
-    void *f_ctx,
-    double * output,
-    int n_eval, 
-    double f_max
-) {
+double hankel_transform_DE_Ogata(int nu, form_factor_f f, const double x, void *f_ctx,
+                                 double *output, int n_eval, double f_max) {
 
     double sum;
     int status;
@@ -177,30 +138,30 @@ double hankel_transform_DE_Ogata(
     for (int i = 1; i <= n_eval; i++) {
 
         /* ---- Get Bessel zero α_{ν,i} scaled by π ---- */
-        double zero_i      = bessel_Jnu_zero(nu, i);
+        double zero_i = bessel_Jnu_zero(nu, i);
         double zero_scaled = zero_i / M_PI;
 
         /* ---- Apply DE transform & its derivative ---- */
-        double t           = f_max * zero_scaled;
-        double phi         = DEtransform(t);
-        double phi_prime   = deriv_DEtransform(t);   /* Jacobian */
+        double t = f_max * zero_scaled;
+        double phi = DEtransform(t);
+        double phi_prime = deriv_DEtransform(t); /* Jacobian */
 
         /* ---- Map DE node into actual integration node y_k ---- */
-        double y_k         = phi * (M_PI / f_max);
+        double y_k = phi * (M_PI / f_max);
 
         /* ---- Precompute Bessel factors ---- */
-        double Jnu_yk      = jn(nu, y_k);
-        double Jnu1_zero   = jn(nu + 1, zero_i);
+        double Jnu_yk = jn(nu, y_k);
+        double Jnu1_zero = jn(nu + 1, zero_i);
 
         /* ---- Quadrature weight for α_{ν,i} ---- */
-        double denom       = M_PI * Jnu1_zero;
-        double weight      = 2.0 / ( (denom * denom) * zero_scaled );
+        double denom = M_PI * Jnu1_zero;
+        double weight = 2.0 / ((denom * denom) * zero_scaled);
 
         /* ---- Evaluate integrand at scaled location ---- */
-        double f_val       = (*f)(y_k / x, f_ctx);
+        double f_val = (*f)(y_k / x, f_ctx);
 
         /* ---- Assemble quadrature contribution ---- */
-        double term        = weight * y_k * f_val * Jnu_yk * phi_prime;
+        double term = weight * y_k * f_val * Jnu_yk * phi_prime;
 
         sum += term;
     }
@@ -215,6 +176,5 @@ double hankel_transform_DE_Ogata(
     double res = scaled_sum * parity;
 
     *output = res;
-	return 0;
+    return 0;
 }
-

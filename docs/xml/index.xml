@@ -10,7 +10,7 @@
   <compound refid="structparams__struct" kind="struct"><name>params_struct</name>
     <member refid="structparams__struct_1a637ceb8525729bf27104c68e77bdad8c" kind="variable"><name>f_params</name></member>
     <member refid="structparams__struct_1a2c09081864ba36e037171ba61636b977" kind="variable"><name>function</name></member>
-    <member refid="structparams__struct_1af9900b998a31c2dc79311116ab680afd" kind="variable"><name>nu</name></member>
+    <member refid="structparams__struct_1a42c05432977c6e946ff299d5a67a805f" kind="variable"><name>nu</name></member>
     <member refid="structparams__struct_1ac0d1e7e1890df178b0605032b1a43fc5" kind="variable"><name>Q</name></member>
   </compound>
   <compound refid="structpy__f__ctx" kind="struct"><name>py_f_ctx</name>
@@ -32,11 +32,11 @@
   <compound refid="libhankel_8h" kind="file"><name>libhankel.h</name>
     <member refid="libhankel_8h_1a0e1024037ef107f5a9e37d6932af02c2" kind="typedef"><name>form_factor_f</name></member>
     <member refid="libhankel_8h_1ac61e4e7e81a12c1006283542141730e8" kind="function"><name>hankel_transform</name></member>
-    <member refid="libhankel_8h_1a1afd349b27c3678a014332090788d4fa" kind="function"><name>hankel_transform_DHT</name></member>
-    <member refid="libhankel_8h_1ab59eed68ae4b66aa38bae302d028f26f" kind="function"><name>hankel_transform_DE_Ooura</name></member>
-    <member refid="libhankel_8h_1a796e38bd6e3edd71299fd70895857e90" kind="function"><name>hankel_transform_DE_Ogata</name></member>
-    <member refid="libhankel_8h_1ad45f2421887472f1cc8b5e568f49b6ec" kind="function"><name>hankel_transform_QWE_Key</name></member>
-    <member refid="libhankel_8h_1ae09cf89efd135afa916d0790daae8121" kind="function"><name>hankel_transform_QWE_Chave</name></member>
+    <member refid="libhankel_8h_1a9d8bcb9e960ce198492785053c677cfd" kind="function"><name>hankel_transform_DHT</name></member>
+    <member refid="libhankel_8h_1a4e4c26194be6a33fc07c3696acd5468c" kind="function"><name>hankel_transform_DE_Ooura</name></member>
+    <member refid="libhankel_8h_1a4764e25ba31c328c91dbb676348d57c8" kind="function"><name>hankel_transform_DE_Ogata</name></member>
+    <member refid="libhankel_8h_1a40716169eff5f37e5afc5c6628a1a53a" kind="function"><name>hankel_transform_QWE_Key</name></member>
+    <member refid="libhankel_8h_1a7d0880b1fe5a749d00135053cab80eee" kind="function"><name>hankel_transform_QWE_Chave</name></member>
   </compound>
   <compound refid="form__factors_8c" kind="file"><name>form_factors.c</name>
     <member refid="form__factors_8c_1a00c20f1b44508f03b5d2dcbf4c2111f3" kind="variable"><name>table</name></member>

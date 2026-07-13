@@ -14,7 +14,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/py_interface.c" line="10" column="12" bodyfile="src/py_interface.c" bodystart="10" bodyend="-1"/>
+        <location file="src/py_interface.c" line="9" column="12" bodyfile="src/py_interface.c" bodystart="9" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structpy__f__ctx_1adf3dd817c23cd7a33ce164162c07c18d" prot="public" static="no" mutable="no">
         <type>size_t</type>
@@ -27,7 +27,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/py_interface.c" line="11" column="12" bodyfile="src/py_interface.c" bodystart="11" bodyend="-1"/>
+        <location file="src/py_interface.c" line="10" column="12" bodyfile="src/py_interface.c" bodystart="10" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structpy__f__ctx_1a096ca27541ce97641840c1811ccf34e3" prot="public" static="no" mutable="no">
         <type>PyObject *</type>
@@ -40,14 +40,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="src/py_interface.c" line="12" column="14" bodyfile="src/py_interface.c" bodystart="12" bodyend="-1"/>
+        <location file="src/py_interface.c" line="11" column="14" bodyfile="src/py_interface.c" bodystart="11" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="src/py_interface.c" line="9" column="1" bodyfile="src/py_interface.c" bodystart="9" bodyend="13"/>
+    <location file="src/py_interface.c" line="8" column="1" bodyfile="src/py_interface.c" bodystart="8" bodyend="12"/>
     <listofallmembers>
       <member refid="structpy__f__ctx_1a096ca27541ce97641840c1811ccf34e3" prot="public" virt="non-virtual"><scope>py_f_ctx</scope><name>callable</name></member>
       <member refid="structpy__f__ctx_1adf3dd817c23cd7a33ce164162c07c18d" prot="public" virt="non-virtual"><scope>py_f_ctx</scope><name>n_params</name></member>

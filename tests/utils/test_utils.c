@@ -1,4 +1,4 @@
-#include "test_utils.h"  
+#include "test_utils.h"
 
 // External / third-party libraries (Unity test framework)
 #include "unity.h"
@@ -12,14 +12,7 @@
 #include <string.h>
 #include <unistd.h>
 
-
-
-int arrays_close(
-    double *actual,
-    double *expected,
-    size_t n,
-    double tol)
-{
+int arrays_close(double *actual, double *expected, size_t n, double tol) {
     for (size_t i = 0; i < n; ++i) {
         if (fabs(actual[i] - expected[i]) > tol) {
             return 0;
@@ -31,8 +24,7 @@ int arrays_close(
 static int saved_stderr = -1;
 static int pipefd[2] = {-1, -1};
 
-void start_capture_stderr(void)
-{
+void start_capture_stderr(void) {
     fflush(stderr);
     saved_stderr = dup(STDERR_FILENO);
     TEST_ASSERT_NOT_EQUAL(-1, saved_stderr);
@@ -43,8 +35,7 @@ void start_capture_stderr(void)
     close(pipefd[1]); // not needed by this process anymore
 }
 
-void stop_capture_stderr(char *buffer, size_t bufsize)
-{
+void stop_capture_stderr(char *buffer, size_t bufsize) {
     // Restore stderr
     fflush(stderr);
     dup2(saved_stderr, STDERR_FILENO);
@@ -52,34 +43,35 @@ void stop_capture_stderr(char *buffer, size_t bufsize)
 
     // Read what was captured
     ssize_t n = read(pipefd[0], buffer, bufsize - 1);
-    if (n < 0) n = 0;
+    if (n < 0)
+        n = 0;
     buffer[n] = '\0';
     close(pipefd[0]);
 }
 
-
 /**
- * Reads values from a specific column (by header name) for specific rows (by 'r' column).
+ * Reads values from a specific column (by header name) for specific rows (by
+ * 'r' column).
  *
  * @param filename       Path to the input text file.
  * @param column_name    Header name of the desired column (e.g., "xi10").
- * @param rows           Array of row identifiers to fetch (values from the 'r' column).
+ * @param rows           Array of row identifiers to fetch (values from the 'r'
+ * column).
  * @param nrows          Number of entries in 'rows'.
- * @return               Pointer to a newly allocated array of doubles of length nrows, or NULL on error.
- *                       The i-th element corresponds to rows[i]. If a row isn't found, result[i] = NAN.
+ * @return               Pointer to a newly allocated array of doubles of length
+ * nrows, or NULL on error. The i-th element corresponds to rows[i]. If a row
+ * isn't found, result[i] = NAN.
  *
  * Notes:
  *  - Caller owns the returned pointer and must free() it.
- *  - File is expected to be whitespace-delimited; header line may start with '#'.
- *  - Lines beginning with '#' (after leading whitespace) are treated as comments and skipped,
- *    except the first header line which is parsed even if it starts with '#'.
+ *  - File is expected to be whitespace-delimited; header line may start with
+ * '#'.
+ *  - Lines beginning with '#' (after leading whitespace) are treated as
+ * comments and skipped, except the first header line which is parsed even if it
+ * starts with '#'.
  */
-double* read_values_by_rows(const char *filename,
-                            const char *column_name,
-                            const double *rows,
-                            size_t nrows,
-                            double *out)
-{
+double *read_values_by_rows(const char *filename, const char *column_name, const double *rows,
+                            size_t nrows, double *out) {
     const char *delims = " \t\r\n";
     FILE *fp = fopen(filename, "r");
     if (!fp) {
@@ -89,19 +81,24 @@ double* read_values_by_rows(const char *filename,
 
     char line[8192];
 
-    // --- 1) Read header line (first non-empty line). If it starts with '#', strip it and parse.
-    int col_idx = -1;        // index of target column within the row (r=0, xi1=1, ...)
+    // --- 1) Read header line (first non-empty line). If it starts with '#',
+    // strip it and parse.
+    int col_idx = -1; // index of target column within the row (r=0, xi1=1, ...)
     int parsed_header = 0;
 
     while (fgets(line, sizeof(line), fp)) {
         // Trim leading whitespace
         char *p = line;
-        while (*p == ' ' || *p == '\t') p++;
+        while (*p == ' ' || *p == '\t')
+            p++;
         // Skip empty lines
-        if (*p == '\0' || *p == '\n' || *p == '\r') continue;
+        if (*p == '\0' || *p == '\n' || *p == '\r')
+            continue;
 
-        // If line begins with '#', this can be the header line; strip one leading '#'
-        if (*p == '#') p++;
+        // If line begins with '#', this can be the header line; strip one leading
+        // '#'
+        if (*p == '#')
+            p++;
 
         // Make a copy for tokenization
         char header_copy[8192];
@@ -126,7 +123,7 @@ double* read_values_by_rows(const char *filename,
         }
 
         parsed_header = 1;
-        break;  // header parsed
+        break; // header parsed
     }
 
     if (!parsed_header) {
@@ -150,10 +147,12 @@ double* read_values_by_rows(const char *filename,
     while (fgets(line, sizeof(line), fp)) {
         // Trim leading whitespace
         char *p = line;
-        while (*p == ' ' || *p == '\t') p++;
+        while (*p == ' ' || *p == '\t')
+            p++;
 
         // Skip empty or comment lines
-        if (*p == '\0' || *p == '\n' || *p == '\r' || *p == '#') continue;
+        if (*p == '\0' || *p == '\n' || *p == '\r' || *p == '#')
+            continue;
 
         // Tokenize the line
         char row_copy[8192];
@@ -171,7 +170,8 @@ double* read_values_by_rows(const char *filename,
                 // First column is 'r'
                 char *endp = NULL;
                 row_id = (int)strtol(tok, &endp, 10);
-                if (endp == tok) break; // not a number; malformed row
+                if (endp == tok)
+                    break; // not a number; malformed row
                 have_row = 1;
             }
             if (idx == col_idx) {
@@ -188,9 +188,11 @@ double* read_values_by_rows(const char *filename,
             tok = strtok(NULL, delims);
         }
 
-        if (!have_row || !have_value) continue;
+        if (!have_row || !have_value)
+            continue;
 
-        // Assign value to every matching request index (keeps input order, supports duplicates)
+        // Assign value to every matching request index (keeps input order, supports
+        // duplicates)
         for (size_t i = 0; i < nrows; i++) {
             if (llround(rows[i]) == row_id) {
                 out[i] = value;

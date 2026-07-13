@@ -1,17 +1,25 @@
 /*
- * The code is an adaption of a numerical package from Takuya OOURA (email: ooura@mmm.t.u-tokyo.ac.jp).
- * Under http://www.kurims.kyoto-u.ac.jp/~ooura/ he supplies several numerical packages in Fortran and C.
- * The code below has been taken from his library package for numerical integration (Quadrature) - 
- * DE Formula (Almighty Quadrature).
- * 
+ * The code is an adaption of a numerical package from Takuya OOURA (email:
+ * ooura@mmm.t.u-tokyo.ac.jp). Under http://www.kurims.kyoto-u.ac.jp/~ooura/ he
+ * supplies several numerical packages in Fortran and C. The code below has been
+ * taken from his library package for numerical integration (Quadrature) - DE
+ * Formula (Almighty Quadrature).
+ *
  * see also the References:
- * [1] M.Mori, Developments in the double exponential formula for numerical integration, Proceedings of the International Congress of Mathematicians, Kyoto 1990, 1991, Springer-Verlag, 1585-1594.
- * [2] H.Takahasi and M.Mori, Double exponential formulas for numerical integration, Pub. RIMS Kyoto Univ. 9, 1974, 721-741
- * [3] T.Ooura and M.Mori, The Double exponential formula for oscillatory functions over the half infinite interval, Journal of Computational and Applied Mathematics 38, 1991, 353-360
- * [4] M.Mori and T.Ooura, Double exponential formulas for Fourier type integrals with a divergent integrand, Contributions in Numerical Mathematics, ed. R.P.Agarwal, World Scientific Series in Applicable Analysis, 2, 1993, 301-308
- * [5] H.Toda and H.Ono, Some remarks for efficient usage of the double exponential formulas(in Japanese), Kokyuroku, RIMS, Kyoto Univ. 339, 1978, 74-109. 
+ * [1] M.Mori, Developments in the double exponential formula for numerical
+ * integration, Proceedings of the International Congress of Mathematicians,
+ * Kyoto 1990, 1991, Springer-Verlag, 1585-1594. [2] H.Takahasi and M.Mori,
+ * Double exponential formulas for numerical integration, Pub. RIMS Kyoto Univ.
+ * 9, 1974, 721-741 [3] T.Ooura and M.Mori, The Double exponential formula for
+ * oscillatory functions over the half infinite interval, Journal of
+ * Computational and Applied Mathematics 38, 1991, 353-360 [4] M.Mori and
+ * T.Ooura, Double exponential formulas for Fourier type integrals with a
+ * divergent integrand, Contributions in Numerical Mathematics, ed. R.P.Agarwal,
+ * World Scientific Series in Applicable Analysis, 2, 1993, 301-308 [5] H.Toda
+ * and H.Ono, Some remarks for efficient usage of the double exponential
+ * formulas(in Japanese), Kokyuroku, RIMS, Kyoto Univ. 339, 1978, 74-109.
  */
- 
+
 /*
 DE-Quadrature
 Numerical Automatic Integrator for Improper Integral
@@ -20,9 +28,9 @@ Numerical Automatic Integrator for Improper Integral
     table     : use
 functions
     intde  : integrator of f(x) over (a,b).
-    intdei : integrator of f(x) over (a,infinity), 
+    intdei : integrator of f(x) over (a,infinity),
                  f(x) is non oscillatory function.
-    intdeo : integrator of f(x) over (a,infinity), 
+    intdeo : integrator of f(x) over (a,infinity),
                  f(x) is oscillatory function.
 */
 
@@ -32,7 +40,7 @@ intde
         I = integral of f(x) over (a,b)
     [declaration]
         void intdeini(int lenaw, double tiny, double eps, double *aw);
-        void intde(double (*f)(double), double a, double b, 
+        void intde(double (*f)(double), double a, double b,
             double *aw, double *i, double *err);
     [usage]
         intdeini(lenaw, tiny, eps, aw);  // initialization of aw
@@ -40,10 +48,10 @@ intde
         intde(f, a, b, aw, &i, &err);
     [parameters]
         lenaw     : length of aw (int)
-        tiny      : minimum value that 1/tiny does not 
+        tiny      : minimum value that 1/tiny does not
                     overflow (double)
         eps       : relative error requested (double)
-        aw        : points and weights of the quadrature 
+        aw        : points and weights of the quadrature
                     formula, aw[0...lenaw-1] (double *)
         f         : integrand f(x) (double (*f)(double))
         a         : lower limit of integration (double)
@@ -52,42 +60,42 @@ intde
         err       : estimate of the absolute error (double *)
     [remarks]
         initial parameters
-            lenaw > 1000, 
+            lenaw > 1000,
             IEEE double :
                 lenaw = 8000;
                 tiny = 1.0e-307;
         function
             f(x) needs to be analytic over (a,b).
         relative error
-            eps is relative error requested excluding 
+            eps is relative error requested excluding
             cancellation of significant digits.
-            i.e. eps means : (absolute error) / 
+            i.e. eps means : (absolute error) /
                              (integral_a^b |f(x)| dx).
             eps does not mean : (absolute error) / I.
         error message
             err >= 0 : normal termination.
             err < 0  : abnormal termination.
                        i.e. convergent error is detected :
-                           1. f(x) or (d/dx)^n f(x) has 
-                              discontinuous points or sharp 
+                           1. f(x) or (d/dx)^n f(x) has
+                              discontinuous points or sharp
                               peaks over (a,b).
-                              you must divide the interval 
+                              you must divide the interval
                               (a,b) at this points.
-                           2. relative error of f(x) is 
+                           2. relative error of f(x) is
                               greater than eps.
-                           3. f(x) has oscillatory factor 
-                              and frequency of the oscillation 
+                           3. f(x) has oscillatory factor
+                              and frequency of the oscillation
                               is very high.
 */
 
 /*
 intdei
     [description]
-        I = integral of f(x) over (a,infinity), 
+        I = integral of f(x) over (a,infinity),
             f(x) has not oscillatory factor.
     [declaration]
         void intdeiini(int lenaw, double tiny, double eps, double *aw);
-        void intdei(double (*f)(double), double a, double *aw, 
+        void intdei(double (*f)(double), double a, double *aw,
             double *i, double *err);
     [usage]
         intdeiini(lenaw, tiny, eps, aw);  // initialization of aw
@@ -95,10 +103,10 @@ intdei
         intdei(f, a, aw, &i, &err);
     [parameters]
         lenaw     : length of aw (int)
-        tiny      : minimum value that 1/tiny does not 
+        tiny      : minimum value that 1/tiny does not
                     overflow (double)
         eps       : relative error requested (double)
-        aw        : points and weights of the quadrature 
+        aw        : points and weights of the quadrature
                     formula, aw[0...lenaw-1] (double *)
         f         : integrand f(x) (double (*f)(double))
         a         : lower limit of integration (double)
@@ -106,44 +114,44 @@ intdei
         err       : estimate of the absolute error (double *)
     [remarks]
         initial parameters
-            lenaw > 1000, 
+            lenaw > 1000,
             IEEE double :
                 lenaw = 8000;
                 tiny = 1.0e-307;
         function
             f(x) needs to be analytic over (a,infinity).
         relative error
-            eps is relative error requested excluding 
+            eps is relative error requested excluding
             cancellation of significant digits.
-            i.e. eps means : (absolute error) / 
+            i.e. eps means : (absolute error) /
                              (integral_a^infinity |f(x)| dx).
             eps does not mean : (absolute error) / I.
         error message
             err >= 0 : normal termination.
             err < 0  : abnormal termination.
                        i.e. convergent error is detected :
-                           1. f(x) or (d/dx)^n f(x) has 
-                              discontinuous points or sharp 
+                           1. f(x) or (d/dx)^n f(x) has
+                              discontinuous points or sharp
                               peaks over (a,infinity).
-                              you must divide the interval 
+                              you must divide the interval
                               (a,infinity) at this points.
-                           2. relative error of f(x) is 
+                           2. relative error of f(x) is
                               greater than eps.
-                           3. f(x) has oscillatory factor 
-                              and decay of f(x) is very slow 
+                           3. f(x) has oscillatory factor
+                              and decay of f(x) is very slow
                               as x -> infinity.
 */
 
 /*
 intdeo
     [description]
-        I = integral of f(x) over (a,infinity), 
+        I = integral of f(x) over (a,infinity),
             f(x) has oscillatory factor :
             f(x) = g(x) * sin(omega * x + theta) as x -> infinity.
     [declaration]
-        void intdeoini(int lenaw, double tiny, double eps, 
+        void intdeoini(int lenaw, double tiny, double eps,
             double *aw);
-        void intdeo(double (*f)(double), double a, double omega, 
+        void intdeo(double (*f)(double), double a, double omega,
             double *aw, double *i, double *err);
     [usage]
         intdeoini(lenaw, tiny, eps, aw);  // initialization of aw
@@ -151,10 +159,10 @@ intdeo
         intdeo(f, a, omega, aw, &i, &err);
     [parameters]
         lenaw     : length of aw (int)
-        tiny      : minimum value that 1/tiny does not 
+        tiny      : minimum value that 1/tiny does not
                     overflow (double)
         eps       : relative error requested (double)
-        aw        : points and weights of the quadrature 
+        aw        : points and weights of the quadrature
                     formula, aw[0...lenaw-1] (double *)
         f         : integrand f(x) (double (*f)(double))
         a         : lower limit of integration (double)
@@ -163,28 +171,28 @@ intdeo
         err       : estimate of the absolute error (double *)
     [remarks]
         initial parameters
-            lenaw > 1000, 
+            lenaw > 1000,
             IEEE double :
                 lenaw = 8000;
                 tiny = 1.0e-307;
         function
             f(x) needs to be analytic over (a,infinity).
         relative error
-            eps is relative error requested excluding 
+            eps is relative error requested excluding
             cancellation of significant digits.
-            i.e. eps means : (absolute error) / 
+            i.e. eps means : (absolute error) /
                              (integral_a^R |f(x)| dx).
             eps does not mean : (absolute error) / I.
         error message
             err >= 0 : normal termination.
             err < 0  : abnormal termination.
                        i.e. convergent error is detected :
-                           1. f(x) or (d/dx)^n f(x) has 
-                              discontinuous points or sharp 
+                           1. f(x) or (d/dx)^n f(x) has
+                              discontinuous points or sharp
                               peaks over (a,infinity).
-                              you must divide the interval 
+                              you must divide the interval
                               (a,infinity) at this points.
-                           2. relative error of f(x) is 
+                           2. relative error of f(x) is
                               greater than eps.
 */
 
@@ -203,15 +211,13 @@ intdeo
 #include <malloc.h>
 #endif
 
-
-void sasfit_intdeini(int lenaw, double tiny, double eps, double *aw)
-{
+void sasfit_intdeini(int lenaw, double tiny, double eps, double *aw) {
     /* ---- adjustable parameter ---- */
     double efs = 0.1, hoff = 8.5;
     /* ------------------------------ */
     int noff, nk, k, j;
     double pi2, tinyln, epsln, h0, ehp, ehm, h, t, ep, em, xw, wg;
-    
+
     pi2 = 2 * atan(1.0);
     tinyln = -log(tiny);
     epsln = 1 - log(efs * eps);
@@ -250,7 +256,8 @@ void sasfit_intdeini(int lenaw, double tiny, double eps, double *aw)
         } while (t < 1);
         h *= 0.5;
         if (nk == 0) {
-            if (j > lenaw - 6) j -= 3;
+            if (j > lenaw - 6)
+                j -= 3;
             nk = j - noff;
             k += nk;
             aw[1] = nk;
@@ -259,19 +266,17 @@ void sasfit_intdeini(int lenaw, double tiny, double eps, double *aw)
     aw[0] = k - 3;
 }
 
-
-void sasfit_intde(double (*f)(double, void *), double a, double b, double *aw, 
-    double *i, double *err, void *f_params)
-{
+void sasfit_intde(double (*f)(double, void *), double a, double b, double *aw, double *i,
+                  double *err, void *f_params) {
     int noff, lenawm, nk, k, j, jtmp, jm, m, klim;
     double epsh, ba, ir, xa, fa, fb, errt, errh, errd, h, iback, irback;
-    
+
     noff = 5;
-    lenawm = (int) (aw[0] + 0.5);
-    nk = (int) (aw[1] + 0.5);
+    lenawm = (int)(aw[0] + 0.5);
+    nk = (int)(aw[1] + 0.5);
     epsh = aw[4];
     ba = b - a;
-    *i = (*f)((a + b) * aw[noff],f_params);
+    *i = (*f)((a + b) * aw[noff], f_params);
     ir = *i * aw[noff + 1];
     *i *= aw[noff + 2];
     *err = fabs(*i);
@@ -280,8 +285,8 @@ void sasfit_intde(double (*f)(double, void *), double a, double b, double *aw,
     do {
         j += 3;
         xa = ba * aw[j];
-        fa = (*f)(a + xa,f_params);
-        fb = (*f)(b - xa,f_params);
+        fa = (*f)(a + xa, f_params);
+        fb = (*f)(b - xa, f_params);
         ir += (fa + fb) * aw[j + 1];
         fa *= aw[j + 2];
         fb *= aw[j + 2];
@@ -294,7 +299,7 @@ void sasfit_intde(double (*f)(double, void *), double a, double b, double *aw,
     jtmp = j;
     while (fabs(fa) > errt && j < k) {
         j += 3;
-        fa = (*f)(a + ba * aw[j],f_params);
+        fa = (*f)(a + ba * aw[j], f_params);
         ir += fa * aw[j + 1];
         fa *= aw[j + 2];
         *i += fa;
@@ -303,12 +308,13 @@ void sasfit_intde(double (*f)(double, void *), double a, double b, double *aw,
     j = jtmp;
     while (fabs(fb) > errt && j < k) {
         j += 3;
-        fb = (*f)(b - ba * aw[j],f_params);
+        fb = (*f)(b - ba * aw[j], f_params);
         ir += fb * aw[j + 1];
         fb *= aw[j + 2];
         *i += fb;
     }
-    if (j < jm) jm = j;
+    if (j < jm)
+        jm = j;
     jm -= noff + 3;
     h = 1;
     m = 1;
@@ -320,8 +326,8 @@ void sasfit_intde(double (*f)(double, void *), double a, double b, double *aw,
             jtmp = k + jm;
             for (j = k + 3; j <= jtmp; j += 3) {
                 xa = ba * aw[j];
-                fa = (*f)(a + xa,f_params);
-                fb = (*f)(b - xa,f_params);
+                fa = (*f)(a + xa, f_params);
+                fb = (*f)(b - xa, f_params);
                 ir += (fa + fb) * aw[j + 1];
                 *i += (fa + fb) * aw[j + 2];
             }
@@ -329,7 +335,7 @@ void sasfit_intde(double (*f)(double, void *), double a, double b, double *aw,
             j = jtmp;
             do {
                 j += 3;
-                fa = (*f)(a + ba * aw[j],f_params);
+                fa = (*f)(a + ba * aw[j], f_params);
                 ir += fa * aw[j + 1];
                 fa *= aw[j + 2];
                 *i += fa;
@@ -337,7 +343,7 @@ void sasfit_intde(double (*f)(double, void *), double a, double b, double *aw,
             j = jtmp;
             do {
                 j += 3;
-                fb = (*f)(b - ba * aw[j],f_params);
+                fb = (*f)(b - ba * aw[j], f_params);
                 ir += fb * aw[j + 1];
                 fb *= aw[j + 2];
                 *i += fb;
@@ -356,17 +362,13 @@ void sasfit_intde(double (*f)(double, void *), double a, double b, double *aw,
     }
 }
 
-
-
-void sasfit_intdeiini(int lenaw, double tiny, double eps, double *aw)
-{
+void sasfit_intdeiini(int lenaw, double tiny, double eps, double *aw) {
     /* ---- adjustable parameter ---- */
     double efs = 0.1, hoff = 11.0;
     /* ------------------------------ */
     int noff, nk, k, j;
-    double pi4, tinyln, epsln, h0, ehp, ehm, h, t, ep, em, xp, xm, 
-        wp, wm;
-    
+    double pi4, tinyln, epsln, h0, ehp, ehm, h, t, ep, em, xp, xm, wp, wm;
+
     pi4 = atan(1.0);
     tinyln = -log(tiny);
     epsln = 1 - log(efs * eps);
@@ -410,7 +412,8 @@ void sasfit_intdeiini(int lenaw, double tiny, double eps, double *aw)
         } while (t < 1);
         h *= 0.5;
         if (nk == 0) {
-            if (j > lenaw - 12) j -= 6;
+            if (j > lenaw - 12)
+                j -= 6;
             nk = j - noff;
             k += nk;
             aw[1] = nk;
@@ -419,18 +422,16 @@ void sasfit_intdeiini(int lenaw, double tiny, double eps, double *aw)
     aw[0] = k - 6;
 }
 
-
-void sasfit_intdei(double (*f)(double, void *), double a, double *aw, double *i, 
-    double *err, void * f_params)
-{
+void sasfit_intdei(double (*f)(double, void *), double a, double *aw, double *i, double *err,
+                   void *f_params) {
     int noff, lenawm, nk, k, j, jtmp, jm, m, klim;
     double epsh, ir, fp, fm, errt, errh, errd, h, iback, irback;
-    
+
     noff = 5;
-    lenawm = (int) (aw[0] + 0.5);
-    nk = (int) (aw[1] + 0.5);
+    lenawm = (int)(aw[0] + 0.5);
+    nk = (int)(aw[1] + 0.5);
     epsh = aw[4];
-    *i = (*f)(a + aw[noff],f_params);
+    *i = (*f)(a + aw[noff], f_params);
     ir = *i * aw[noff + 1];
     *i *= aw[noff + 2];
     *err = fabs(*i);
@@ -438,8 +439,8 @@ void sasfit_intdei(double (*f)(double, void *), double a, double *aw, double *i,
     j = noff;
     do {
         j += 6;
-        fm = (*f)(a + aw[j],f_params);
-        fp = (*f)(a + aw[j + 1],f_params);
+        fm = (*f)(a + aw[j], f_params);
+        fp = (*f)(a + aw[j + 1], f_params);
         ir += fm * aw[j + 2] + fp * aw[j + 3];
         fm *= aw[j + 4];
         fp *= aw[j + 5];
@@ -452,7 +453,7 @@ void sasfit_intdei(double (*f)(double, void *), double a, double *aw, double *i,
     jtmp = j;
     while (fabs(fm) > errt && j < k) {
         j += 6;
-        fm = (*f)(a + aw[j],f_params);
+        fm = (*f)(a + aw[j], f_params);
         ir += fm * aw[j + 2];
         fm *= aw[j + 4];
         *i += fm;
@@ -461,12 +462,13 @@ void sasfit_intdei(double (*f)(double, void *), double a, double *aw, double *i,
     j = jtmp;
     while (fabs(fp) > errt && j < k) {
         j += 6;
-        fp = (*f)(a + aw[j + 1],f_params);
+        fp = (*f)(a + aw[j + 1], f_params);
         ir += fp * aw[j + 3];
         fp *= aw[j + 5];
         *i += fp;
     }
-    if (j < jm) jm = j;
+    if (j < jm)
+        jm = j;
     jm -= noff + 6;
     h = 1;
     m = 1;
@@ -477,8 +479,8 @@ void sasfit_intdei(double (*f)(double, void *), double a, double *aw, double *i,
         do {
             jtmp = k + jm;
             for (j = k + 6; j <= jtmp; j += 6) {
-                fm = (*f)(a + aw[j],f_params);
-                fp = (*f)(a + aw[j + 1],f_params);
+                fm = (*f)(a + aw[j], f_params);
+                fp = (*f)(a + aw[j + 1], f_params);
                 ir += fm * aw[j + 2] + fp * aw[j + 3];
                 *i += fm * aw[j + 4] + fp * aw[j + 5];
             }
@@ -486,7 +488,7 @@ void sasfit_intdei(double (*f)(double, void *), double a, double *aw, double *i,
             j = jtmp;
             do {
                 j += 6;
-                fm = (*f)(a + aw[j],f_params);
+                fm = (*f)(a + aw[j], f_params);
                 ir += fm * aw[j + 2];
                 fm *= aw[j + 4];
                 *i += fm;
@@ -494,7 +496,7 @@ void sasfit_intdei(double (*f)(double, void *), double a, double *aw, double *i,
             j = jtmp;
             do {
                 j += 6;
-                fp = (*f)(a + aw[j + 1],f_params);
+                fp = (*f)(a + aw[j + 1], f_params);
                 ir += fp * aw[j + 3];
                 fp *= aw[j + 5];
                 *i += fp;
@@ -513,18 +515,14 @@ void sasfit_intdei(double (*f)(double, void *), double a, double *aw, double *i,
     }
 }
 
-
-
-void sasfit_intdeoini(int lenaw, double tiny, double eps, double *aw)
-{
+void sasfit_intdeoini(int lenaw, double tiny, double eps, double *aw) {
     /* ---- adjustable parameter ---- */
     int lmax = 5;
     double efs = 0.1, enoff = 0.40, pqoff = 2.9, ppoff = -0.72;
     /* ------------------------------ */
     int noff0, nk0, noff, k, nk, j;
-    double pi4, tinyln, epsln, frq4, per2, pp, pq, ehp, ehm, h, t, 
-        ep, em, tk, xw, wg, xa;
-    
+    double pi4, tinyln, epsln, frq4, per2, pp, pq, ehp, ehm, h, t, ep, em, tk, xw, wg, xa;
+
     pi4 = atan(1.0);
     tinyln = -log(tiny);
     epsln = 1 - log(efs * eps);
@@ -538,7 +536,7 @@ void sasfit_intdeoini(int lenaw, double tiny, double eps, double *aw)
     aw[4] = eps;
     aw[5] = sqrt(efs * eps);
     noff0 = 6;
-    nk0 = 1 + (int) (enoff * epsln);
+    nk0 = 1 + (int)(enoff * epsln);
     aw[1] = nk0;
     noff = 2 * nk0 + noff0;
     wg = 0;
@@ -587,7 +585,8 @@ void sasfit_intdeoini(int lenaw, double tiny, double eps, double *aw)
         } while (t < 1);
         h *= 0.5;
         if (nk == 0) {
-            if (j > lenaw - 6) j -= 3;
+            if (j > lenaw - 6)
+                j -= 3;
             nk = j - noff;
             k += nk;
             aw[2] = nk;
@@ -596,41 +595,37 @@ void sasfit_intdeoini(int lenaw, double tiny, double eps, double *aw)
     aw[0] = k - 3;
 }
 
-
-void sasfit_intdeo(double (*f)(double, void *), double a, double omega, double *aw, 
-    double *i, double *err, void *f_params)
-{
+void sasfit_intdeo(double (*f)(double, void *), double a, double omega, double *aw, double *i,
+                   double *err, void *f_params) {
     int lenawm, nk0, noff0, nk, noff, lmax, m, k, j, jm, l;
-    double eps, per, perw, w02, ir, h, iback, irback, t, tk, 
-        xa, fm, fp, errh, s0, s1, s2, errd;
-    
-    
-    lenawm = (int) (aw[0] + 0.5);
-    nk0 = (int) (aw[1] + 0.5);
+    double eps, per, perw, w02, ir, h, iback, irback, t, tk, xa, fm, fp, errh, s0, s1, s2, errd;
+
+    lenawm = (int)(aw[0] + 0.5);
+    nk0 = (int)(aw[1] + 0.5);
     noff0 = 6;
-    nk = (int) (aw[2] + 0.5);
+    nk = (int)(aw[2] + 0.5);
     noff = 2 * nk0 + noff0;
-    lmax = (int) (aw[3] + 0.5);
+    lmax = (int)(aw[3] + 0.5);
     eps = aw[4];
     per = 1 / fabs(omega);
     w02 = 2 * aw[noff + 2];
     perw = per * w02;
-    
-    *i = (*f)(a + aw[noff] * per,f_params);
-    
+
+    *i = (*f)(a + aw[noff] * per, f_params);
+
     ir = *i * aw[noff + 1];
-    
+
     *i *= aw[noff + 2];
-    
+
     *err = fabs(*i);
-    
+
     h = 2;
     m = 1;
     k = noff;
     do {
         iback = *i;
         irback = ir;
-        
+
         t = h * 0.5;
         do {
             if (k == noff) {
@@ -640,8 +635,8 @@ void sasfit_intdeo(double (*f)(double, void *), double a, double omega, double *
                 do {
                     j += 3;
                     xa = per * aw[j];
-                    fm = (*f)(a + xa,f_params);
-                    fp = (*f)(a + xa + perw * tk,f_params);
+                    fm = (*f)(a + xa, f_params);
+                    fp = (*f)(a + xa + perw * tk, f_params);
                     ir += (fm + fp) * aw[j + 1];
                     fm *= aw[j + 2];
                     fp *= w02 - aw[j + 2];
@@ -656,8 +651,8 @@ void sasfit_intdeo(double (*f)(double, void *), double a, double omega, double *
                 tk = t;
                 for (j = k + 3; j <= k + jm; j += 3) {
                     xa = per * aw[j];
-                    fm = (*f)(a + xa,f_params);
-                    fp = (*f)(a + xa + perw * tk,f_params);
+                    fm = (*f)(a + xa, f_params);
+                    fp = (*f)(a + xa + perw * tk, f_params);
                     ir += (fm + fp) * aw[j + 1];
                     fm *= aw[j + 2];
                     fp *= w02 - aw[j + 2];
@@ -669,12 +664,12 @@ void sasfit_intdeo(double (*f)(double, void *), double a, double omega, double *
             }
             while (fabs(fm) > *err && j < k) {
                 j += 3;
-                fm = (*f)(a + per * aw[j],f_params);
+                fm = (*f)(a + per * aw[j], f_params);
                 ir += fm * aw[j + 1];
                 fm *= aw[j + 2];
                 *i += fm;
             }
-            fm = (*f)(a + perw * tk,f_params);
+            fm = (*f)(a + perw * tk, f_params);
             s2 = w02 * fm;
             *i += s2;
             if (fabs(fp) > *err || fabs(s2) > *err) {
@@ -686,16 +681,20 @@ void sasfit_intdeo(double (*f)(double, void *), double a, double omega, double *
                     s2 = fm * aw[noff0 + 1];
                     for (j = noff0 + 2; j <= noff - 2; j += 2) {
                         tk += 1;
-                        fm = (*f)(a + perw * tk,f_params);
+                        fm = (*f)(a + perw * tk, f_params);
                         s0 += fm;
                         s1 += fm * aw[j];
                         s2 += fm * aw[j + 1];
                     }
-                    if (s2 <= *err || l >= lmax) break;
+                    if (s2 <= *err || l >= lmax) {
+                        break;
+                    }
                     *i += w02 * s0;
                 }
                 *i += s1;
-                if (s2 > *err) *err = s2;
+                if (s2 > *err) {
+                    *err = s2;
+                }
             }
             t += h;
         } while (t < 1);
@@ -714,4 +713,3 @@ void sasfit_intdeo(double (*f)(double, void *), double a, double omega, double *
         *err *= per * m * 0.5;
     }
 }
-

@@ -13,7 +13,6 @@
 #include "../src/utils/pow_functions.h"
 #include "../src/utils/sf_functions.h"
 
-
 double form_factor_g_dab(double q, void *f_ctx) {
 
     // Cast the void pointer `f_ctx` to its real type (`form_factor_ctx *`)
@@ -26,14 +25,13 @@ double form_factor_g_dab(double q, void *f_ctx) {
     double ETA = params[2];
     double numer, denom;
 
-    double factor1 = pow3(2*XI);
-    double factor2 = sf_poch(H,1.5);
+    double factor1 = pow3(2 * XI);
+    double factor2 = sf_poch(H, 1.5);
 
     numer = pow2(factor1 * factor2 * ETA) * pow3(M_PI);
     denom = pow(1 + pow2(q * XI), 1.5 + H);
     return numer / denom;
 }
-
 
 double form_factor_sphere(double q, void *f_ctx) {
 
@@ -42,16 +40,15 @@ double form_factor_sphere(double q, void *f_ctx) {
     double ETA = params[1];
     double interm, factor;
 
-	if (q * R < 1e-4) {
-        factor = 1 - pow2(q*R)/10. + pow4(q*R)/280. - pow6(q*R)/15120.;
-		interm = ETA * 4.0/3.0 * M_PI * R * R * R * factor;
-	} else {
-        factor = sin(q*R) - q*R*cos(q*R);
-		interm = ETA * 4.0 * M_PI * factor / pow3(q);
-	}
+    if (q * R < 1e-4) {
+        factor = 1 - pow2(q * R) / 10. + pow4(q * R) / 280. - pow6(q * R) / 15120.;
+        interm = ETA * 4.0 / 3.0 * M_PI * R * R * R * factor;
+    } else {
+        factor = sin(q * R) - q * R * cos(q * R);
+        interm = ETA * 4.0 * M_PI * factor / pow3(q);
+    }
     return pow2(interm);
 }
-
 
 double form_factor_broad_peak(double q, void *f_ctx) {
 
@@ -62,8 +59,8 @@ double form_factor_broad_peak(double q, void *f_ctx) {
     double M = params[3];
     double P = params[4];
 
-    double interm = 1.0 + pow(fabs(q-Q0) * XI, M);
-	return I0 / pow(interm, P);
+    double interm = 1.0 + pow(fabs(q - Q0) * XI, M);
+    return I0 / pow(interm, P);
 }
 
 typedef struct {
@@ -71,17 +68,16 @@ typedef struct {
     form_factor_f func;
 } entry;
 
-static entry table[] = {
-    {"gdab", form_factor_g_dab},
-    {"broad_peak", form_factor_broad_peak},
-    {"sphere", form_factor_sphere},
-    {NULL, NULL}
-};
+static entry table[] = {{"gdab", form_factor_g_dab},
+                        {"broad_peak", form_factor_broad_peak},
+                        {"sphere", form_factor_sphere},
+                        {NULL, NULL}};
 
 form_factor_f get_form_factor_by_name(const char *name) {
     for (int i = 0; table[i].name != NULL; i++) {
-        if (strcmp(name, table[i].name) == 0)
+        if (strcmp(name, table[i].name) == 0) {
             return table[i].func;
+        }
     }
     return NULL;
 }

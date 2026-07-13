@@ -109,11 +109,11 @@ system library cache with:</p>
 <section id="with-built-in-form-factor">
 <span id="c-examples-builtin-f"></span><h2>With built-in form factor<a class="headerlink" href="#with-built-in-form-factor" title="Link to this heading"></a></h2>
 <p>The following is an example with a built-in form factor.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stddef.h&gt;</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stddef.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
 
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;libhankel.h&quot;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;form_factors.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;libhankel.h&quot;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;math.h&gt;</span>
 
 <span class="cp">#define ARRAY_LEN 19</span>
@@ -121,13 +121,13 @@ system library cache with:</p>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;../src/utils/pow_functions.h&quot;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;../src/utils/sf_functions.h&quot;</span>
 
-<span class="cm">/** </span>
-<span class="cm"> * Computes the g_dab form factor. </span>
+<span class="cm">/**</span>
+<span class="cm"> * Computes the g_dab form factor.</span>
 <span class="cm"> *</span>
 <span class="cm"> * Parameters:</span>
 <span class="cm"> *  q          value at which to compute the transform.</span>
 <span class="cm"> *  f_ctx      pointer to struct containing inputs for form factor.</span>
-<span class="cm"> *             f_ctx must contain a pointer to an array with the </span>
+<span class="cm"> *             f_ctx must contain a pointer to an array with the</span>
 <span class="cm"> *             following parameters, in this order:</span>
 <span class="cm"> *              -   xi: correlation length (e.g., 10.0)</span>
 <span class="cm"> *              -   H : Hurst exponent (e.g., 0.5)</span>
@@ -145,18 +145,17 @@ system library cache with:</p>
 <span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">ETA</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
 <span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">numer</span><span class="p">,</span><span class="w"> </span><span class="n">denom</span><span class="p">;</span>
 
-<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">factor1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pow3</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">XI</span><span class="p">);</span>
-<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">factor2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sf_poch</span><span class="p">(</span><span class="n">H</span><span class="p">,</span><span class="mf">1.5</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">factor1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pow3</span><span class="p">(</span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">XI</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">factor2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sf_poch</span><span class="p">(</span><span class="n">H</span><span class="p">,</span><span class="w"> </span><span class="mf">1.5</span><span class="p">);</span>
 
 <span class="w">    </span><span class="n">numer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pow2</span><span class="p">(</span><span class="n">factor1</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">factor2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">ETA</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">pow3</span><span class="p">(</span><span class="n">M_PI</span><span class="p">);</span>
 <span class="w">    </span><span class="n">denom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pow</span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">pow2</span><span class="p">(</span><span class="n">q</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">XI</span><span class="p">),</span><span class="w"> </span><span class="mf">1.5</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">H</span><span class="p">);</span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">numer</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">denom</span><span class="p">;</span>
 <span class="p">}</span>
 
-
 <span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 
-<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">nu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">nu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 
 <span class="w">    </span><span class="c1">// Build the context needed for the form factor</span>
 <span class="w">    </span><span class="n">form_factor_ctx</span><span class="w"> </span><span class="n">ctx_gdab</span><span class="p">;</span>
@@ -164,32 +163,19 @@ system library cache with:</p>
 <span class="w">    </span><span class="n">ctx_gdab</span><span class="p">.</span><span class="n">params</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">params_gdab</span><span class="p">;</span>
 
 <span class="w">    </span><span class="c1">// build the struct required by the chosen strategy</span>
-<span class="w">    </span><span class="n">strategy_params</span><span class="w"> </span><span class="n">strategy_params_gdab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="p">.</span><span class="n">n_eval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">250</span><span class="p">,</span><span class="w"> </span>
-<span class="w">        </span><span class="p">.</span><span class="n">eps_rel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1e-9</span>
-<span class="w">    </span><span class="p">};</span>
+<span class="w">    </span><span class="n">strategy_params</span><span class="w"> </span><span class="n">strategy_params_gdab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{.</span><span class="n">n_eval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">250</span><span class="p">,</span><span class="w"> </span><span class="p">.</span><span class="n">eps_rel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1e-9</span><span class="p">};</span>
 
 <span class="w">    </span><span class="c1">// array where to store the result</span>
 <span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">result</span><span class="p">[</span><span class="n">ARRAY_LEN</span><span class="p">];</span>
 
 <span class="w">    </span><span class="c1">// input of values where to compute the transform</span>
 <span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">r_array_gdab</span><span class="p">[</span><span class="n">ARRAY_LEN</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="mf">15.</span><span class="p">,</span><span class="w">   </span><span class="mf">18.5</span><span class="p">,</span><span class="w">  </span><span class="mf">22.</span><span class="p">,</span><span class="w">   </span><span class="mf">25.6</span><span class="p">,</span><span class="w">  </span><span class="mf">29.1</span><span class="p">,</span>
-<span class="w">        </span><span class="mf">32.7</span><span class="p">,</span><span class="w">  </span><span class="mf">36.2</span><span class="p">,</span><span class="w">  </span><span class="mf">39.7</span><span class="p">,</span><span class="w">  </span><span class="mf">43.3</span><span class="p">,</span><span class="w">  </span><span class="mf">46.9</span><span class="p">,</span>
-<span class="w">        </span><span class="mf">50.4</span><span class="p">,</span><span class="w">  </span><span class="mf">53.9</span><span class="p">,</span><span class="w">  </span><span class="mf">57.5</span><span class="p">,</span><span class="w">  </span><span class="mf">61.1</span><span class="p">,</span><span class="w">  </span><span class="mf">64.5</span><span class="p">,</span>
-<span class="w">        </span><span class="mf">68.1</span><span class="p">,</span><span class="w">  </span><span class="mf">71.6</span><span class="p">,</span><span class="w">  </span><span class="mf">75.2</span><span class="p">,</span><span class="w">  </span><span class="mf">78.75</span><span class="p">,</span><span class="w">             </span>
+<span class="w">        </span><span class="mf">15.</span><span class="p">,</span><span class="w">  </span><span class="mf">18.5</span><span class="p">,</span><span class="w"> </span><span class="mf">22.</span><span class="p">,</span><span class="w">  </span><span class="mf">25.6</span><span class="p">,</span><span class="w"> </span><span class="mf">29.1</span><span class="p">,</span><span class="w"> </span><span class="mf">32.7</span><span class="p">,</span><span class="w"> </span><span class="mf">36.2</span><span class="p">,</span><span class="w"> </span><span class="mf">39.7</span><span class="p">,</span><span class="w"> </span><span class="mf">43.3</span><span class="p">,</span><span class="w">  </span><span class="mf">46.9</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">50.4</span><span class="p">,</span><span class="w"> </span><span class="mf">53.9</span><span class="p">,</span><span class="w"> </span><span class="mf">57.5</span><span class="p">,</span><span class="w"> </span><span class="mf">61.1</span><span class="p">,</span><span class="w"> </span><span class="mf">64.5</span><span class="p">,</span><span class="w"> </span><span class="mf">68.1</span><span class="p">,</span><span class="w"> </span><span class="mf">71.6</span><span class="p">,</span><span class="w"> </span><span class="mf">75.2</span><span class="p">,</span><span class="w"> </span><span class="mf">78.75</span><span class="p">,</span>
 <span class="w">    </span><span class="p">};</span>
 
-<span class="w">    </span><span class="n">hankel_transform</span><span class="p">(</span>
-<span class="w">        </span><span class="n">nu</span><span class="p">,</span><span class="w"> </span>
-<span class="w">        </span><span class="n">g_dab</span><span class="p">,</span><span class="w"> </span>
-<span class="w">        </span><span class="n">r_array_gdab</span><span class="p">,</span><span class="w"> </span>
-<span class="w">        </span><span class="n">ARRAY_LEN</span><span class="p">,</span>
-<span class="w">        </span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">ctx_gdab</span><span class="p">,</span>
-<span class="w">        </span><span class="n">result</span><span class="p">,</span><span class="w"> </span>
-<span class="w">        </span><span class="s">&quot;QWE_Key&quot;</span><span class="p">,</span><span class="w"> </span>
-<span class="w">        </span><span class="n">strategy_params_gdab</span>
-<span class="w">    </span><span class="p">);</span>
+<span class="w">    </span><span class="n">hankel_transform</span><span class="p">(</span><span class="n">nu</span><span class="p">,</span><span class="w"> </span><span class="n">g_dab</span><span class="p">,</span><span class="w"> </span><span class="n">r_array_gdab</span><span class="p">,</span><span class="w"> </span><span class="n">ARRAY_LEN</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">ctx_gdab</span><span class="p">,</span><span class="w"> </span><span class="n">result</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;QWE_Key&quot;</span><span class="p">,</span>
+<span class="w">                     </span><span class="n">strategy_params_gdab</span><span class="p">);</span>
 
 <span class="w">    </span><span class="c1">// print the result</span>
 <span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">ARRAY_LEN</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -198,7 +184,6 @@ system library cache with:</p>
 
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
-
 </pre></div>
 </div>
 <p>Assuming you have installed libhankel as mentioned at the start of this page,
@@ -212,14 +197,13 @@ gcc<span class="w">  </span>examples/c/example_usage_g_dab.c<span class="w"> </s
 <section id="with-custom-form-factor">
 <span id="c-examples-custom-f"></span><h2>With custom form factor<a class="headerlink" href="#with-custom-form-factor" title="Link to this heading"></a></h2>
 <p>The following is an example with a custom form factor.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stddef.h&gt;</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stddef.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
 
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;libhankel.h&quot;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;form_factors.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;libhankel.h&quot;</span>
 
 <span class="cp">#define ARRAY_LEN 19</span>
-
 
 <span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 
@@ -231,32 +215,19 @@ gcc<span class="w">  </span>examples/c/example_usage_g_dab.c<span class="w"> </s
 <span class="w">    </span><span class="n">ctx_gdab</span><span class="p">.</span><span class="n">params</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">params_gdab</span><span class="p">;</span>
 
 <span class="w">    </span><span class="c1">// build the struct required by the chosen strategy</span>
-<span class="w">    </span><span class="n">strategy_params</span><span class="w"> </span><span class="n">strategy_params_gdab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="p">.</span><span class="n">n_eval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">250</span><span class="p">,</span><span class="w"> </span>
-<span class="w">        </span><span class="p">.</span><span class="n">eps_rel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1e-9</span>
-<span class="w">    </span><span class="p">};</span>
+<span class="w">    </span><span class="n">strategy_params</span><span class="w"> </span><span class="n">strategy_params_gdab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{.</span><span class="n">n_eval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">250</span><span class="p">,</span><span class="w"> </span><span class="p">.</span><span class="n">eps_rel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1e-9</span><span class="p">};</span>
 
 <span class="w">    </span><span class="c1">// array where to store the result</span>
 <span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">result</span><span class="p">[</span><span class="n">ARRAY_LEN</span><span class="p">];</span>
 
 <span class="w">    </span><span class="c1">// input of values where to compute the transform</span>
 <span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">r_array_gdab</span><span class="p">[</span><span class="n">ARRAY_LEN</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="mf">15.</span><span class="p">,</span><span class="w">   </span><span class="mf">18.5</span><span class="p">,</span><span class="w">  </span><span class="mf">22.</span><span class="p">,</span><span class="w">   </span><span class="mf">25.6</span><span class="p">,</span><span class="w">  </span><span class="mf">29.1</span><span class="p">,</span>
-<span class="w">        </span><span class="mf">32.7</span><span class="p">,</span><span class="w">  </span><span class="mf">36.2</span><span class="p">,</span><span class="w">  </span><span class="mf">39.7</span><span class="p">,</span><span class="w">  </span><span class="mf">43.3</span><span class="p">,</span><span class="w">  </span><span class="mf">46.9</span><span class="p">,</span>
-<span class="w">        </span><span class="mf">50.4</span><span class="p">,</span><span class="w">  </span><span class="mf">53.9</span><span class="p">,</span><span class="w">  </span><span class="mf">57.5</span><span class="p">,</span><span class="w">  </span><span class="mf">61.1</span><span class="p">,</span><span class="w">  </span><span class="mf">64.5</span><span class="p">,</span>
-<span class="w">        </span><span class="mf">68.1</span><span class="p">,</span><span class="w">  </span><span class="mf">71.6</span><span class="p">,</span><span class="w">  </span><span class="mf">75.2</span><span class="p">,</span><span class="w">  </span><span class="mf">78.75</span><span class="p">,</span><span class="w">             </span>
+<span class="w">        </span><span class="mf">15.</span><span class="p">,</span><span class="w">  </span><span class="mf">18.5</span><span class="p">,</span><span class="w"> </span><span class="mf">22.</span><span class="p">,</span><span class="w">  </span><span class="mf">25.6</span><span class="p">,</span><span class="w"> </span><span class="mf">29.1</span><span class="p">,</span><span class="w"> </span><span class="mf">32.7</span><span class="p">,</span><span class="w"> </span><span class="mf">36.2</span><span class="p">,</span><span class="w"> </span><span class="mf">39.7</span><span class="p">,</span><span class="w"> </span><span class="mf">43.3</span><span class="p">,</span><span class="w">  </span><span class="mf">46.9</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">50.4</span><span class="p">,</span><span class="w"> </span><span class="mf">53.9</span><span class="p">,</span><span class="w"> </span><span class="mf">57.5</span><span class="p">,</span><span class="w"> </span><span class="mf">61.1</span><span class="p">,</span><span class="w"> </span><span class="mf">64.5</span><span class="p">,</span><span class="w"> </span><span class="mf">68.1</span><span class="p">,</span><span class="w"> </span><span class="mf">71.6</span><span class="p">,</span><span class="w"> </span><span class="mf">75.2</span><span class="p">,</span><span class="w"> </span><span class="mf">78.75</span><span class="p">,</span>
 <span class="w">    </span><span class="p">};</span>
 
-<span class="w">    </span><span class="n">hankel_transform</span><span class="p">(</span>
-<span class="w">        </span><span class="n">nu</span><span class="p">,</span><span class="w"> </span>
-<span class="w">        </span><span class="n">form_factor_g_dab</span><span class="p">,</span><span class="w"> </span>
-<span class="w">        </span><span class="n">r_array_gdab</span><span class="p">,</span><span class="w"> </span>
-<span class="w">        </span><span class="n">ARRAY_LEN</span><span class="p">,</span>
-<span class="w">        </span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">ctx_gdab</span><span class="p">,</span>
-<span class="w">        </span><span class="n">result</span><span class="p">,</span><span class="w"> </span>
-<span class="w">        </span><span class="s">&quot;QWE_Key&quot;</span><span class="p">,</span><span class="w"> </span>
-<span class="w">        </span><span class="n">strategy_params_gdab</span>
-<span class="w">    </span><span class="p">);</span>
+<span class="w">    </span><span class="n">hankel_transform</span><span class="p">(</span><span class="n">nu</span><span class="p">,</span><span class="w"> </span><span class="n">form_factor_g_dab</span><span class="p">,</span><span class="w"> </span><span class="n">r_array_gdab</span><span class="p">,</span><span class="w"> </span><span class="n">ARRAY_LEN</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">ctx_gdab</span><span class="p">,</span><span class="w"> </span><span class="n">result</span><span class="p">,</span>
+<span class="w">                     </span><span class="s">&quot;QWE_Key&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">strategy_params_gdab</span><span class="p">);</span>
 
 <span class="w">    </span><span class="c1">// print the result</span>
 <span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">ARRAY_LEN</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -264,9 +235,7 @@ gcc<span class="w">  </span>examples/c/example_usage_g_dab.c<span class="w"> </s
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-
 <span class="p">}</span>
-
 </pre></div>
 </div>
 <p>Assuming you have installed libhankel as mentioned at the start of this page,
