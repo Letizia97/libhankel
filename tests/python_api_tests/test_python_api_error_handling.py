@@ -88,7 +88,7 @@ def test_hankel_transform_returns_error_when_nu_wrong(
     when nu is wrong, i.e. neither 0 nor 1.
     """
     nu = 2
-    params_broad_peak = np.array([10e5, 1000, 0.01, 2, 2])
+    params_gdab = np.array([10.0, 0.5, 1e-4])
     expected_error = "nu needs to be 0 or 1 in order to use the selected strategy"
 
     with pytest.raises(ValueError, match=expected_error):
@@ -96,7 +96,7 @@ def test_hankel_transform_returns_error_when_nu_wrong(
             nu,
             form_factor,
             x_arr,
-            params_broad_peak,
+            params_gdab,
             strategy_name,
             strategy_p_dict,
         )
@@ -123,7 +123,7 @@ def test_hankel_transform_QWE_raises_error_when_eps_rel_missing(
     it is required by the strategy.
     """
     nu = 0
-    params_broad_peak = np.array([10e5, 1000, 0.01, 2, 2])
+    params_gdab = np.array([10.0, 0.5, 1e-4])
     expected_error = "Error: eps_rel must be provided and cannot be zero"
 
     with pytest.raises(ValueError, match=expected_error):
@@ -131,7 +131,7 @@ def test_hankel_transform_QWE_raises_error_when_eps_rel_missing(
             nu,
             form_factor,
             x_arr,
-            params_broad_peak,
+            params_gdab,
             strategy_name,
             strategy_p_dict,
         )
@@ -158,7 +158,7 @@ def test_hankel_transform_QWE_raises_error_when_n_eval_missing(
     it is required by the strategy.
     """
     nu = 0
-    params_broad_peak = np.array([10e5, 1000, 0.01, 2, 2])
+    params_gdab = np.array([10.0, 0.5, 1e-4])
     expected_error = "Error: n_eval must be provided and cannot be zero"
 
     with pytest.raises(ValueError, match=expected_error):
@@ -166,7 +166,7 @@ def test_hankel_transform_QWE_raises_error_when_n_eval_missing(
             nu,
             form_factor,
             x_arr,
-            params_broad_peak,
+            params_gdab,
             strategy_name,
             strategy_p_dict,
         )
@@ -189,7 +189,7 @@ def test_hankel_transform_DE_Ogata_raises_error_when_fmax_missing(
     it is required by the strategy.
     """
     nu = 0
-    params_broad_peak = np.array([10e5, 1000, 0.01, 2, 2])
+    params_gdab = np.array([10.0, 0.5, 1e-4])
     expected_error = "Error: f_max must be provided and cannot be zero"
 
     with pytest.raises(ValueError, match=expected_error):
@@ -197,7 +197,33 @@ def test_hankel_transform_DE_Ogata_raises_error_when_fmax_missing(
             nu,
             form_factor,
             x_arr,
-            params_broad_peak,
+            params_gdab,
             "DE_Ogata",
             {"n_eval": 250},
+        )
+
+
+@pytest.mark.parametrize(
+    "form_factor, x_arr",
+    [
+        (dab, INPUT_X_ARR),
+        ("gdab", INPUT_X_ARR),
+    ],
+)
+def test_hankel_transform_raises_correct_error_when_not_converged(
+    form_factor,
+    x_arr,
+):
+    nu = 0
+    params_gdab = np.array([10.0, 0.5, 1e-4])
+    expected_error = "Failed to converge"
+
+    with pytest.raises(RuntimeError, match=expected_error):
+        libhankel.hankel_transform(
+            nu,
+            form_factor,
+            x_arr,
+            params_gdab,
+            "QWE_Chave",
+            {"n_eval": 4, "eps_rel": 1e-9},
         )
