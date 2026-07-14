@@ -166,7 +166,7 @@ void test_hankel_transform_throws_error_when_eps_rel_not_defined(void) {
                                   ctx.actual_gdab, "QWE_Key", strategy_params_wrong);
 
     stop_capture_stderr(captured, sizeof(captured));
-    TEST_ASSERT_EQUAL_INT_MESSAGE(-8, status, "");
+    TEST_ASSERT_EQUAL_INT_MESSAGE(-9, status, "");
     TEST_ASSERT_EQUAL_STRING(captured, "Error: eps_rel must be provided and cannot be zero\n");
 }
 
@@ -201,7 +201,7 @@ void test_hankel_transform_throws_error_when_f_max_not_defined(void) {
                                   ctx.actual_gdab, "DE_Ogata", strategy_params_wrong);
 
     stop_capture_stderr(captured, sizeof(captured));
-    TEST_ASSERT_EQUAL_INT_MESSAGE(-8, status, "");
+    TEST_ASSERT_EQUAL_INT_MESSAGE(-10, status, "");
     TEST_ASSERT_EQUAL_STRING(captured, "Error: f_max must be provided and cannot be zero\n");
 }
 
