@@ -260,6 +260,12 @@ static PyObject *py_hankel_transform(PyObject *self, PyObject *args) {
         PyErr_SetString(PyExc_ValueError, "Error: f_max must be provided and cannot be zero");
         return NULL;
 
+    case -11:
+        PyErr_SetString(PyExc_ValueError,
+                        "Error: invalid strategy name, must be one of : 'DHT_6', 'DHT_7', 'DHT_8', "
+                        "'DHT_9', 'DHT_10', 'DE_Ooura', 'DE_Ogata', 'QWE_Chave', 'QWE_Key'.");
+        return NULL;
+
     default:
         PyErr_SetString(PyExc_RuntimeError, "unknown error");
         return NULL;

@@ -167,7 +167,8 @@ int hankel_transform(int nu, form_factor_f f, double *x, size_t len_x, void *f_c
             }
         }
     } else {
-        fprintf(stderr, "strategy_name must be one of the strings specified in the docs\n");
+        fprintf(stderr, "Invalid strategy name, must be one of : 'DHT_6', 'DHT_7', 'DHT_8', "
+                        "'DHT_9', 'DHT_10', 'DE_Ooura', 'DE_Ogata', 'QWE_Chave', 'QWE_Key'.\n");
         return -11;
     }
 }

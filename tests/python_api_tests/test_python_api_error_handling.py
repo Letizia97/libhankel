@@ -227,3 +227,29 @@ def test_hankel_transform_raises_correct_error_when_not_converged(
             "QWE_Chave",
             {"n_eval": 4, "eps_rel": 1e-9},
         )
+
+
+@pytest.mark.parametrize(
+    "form_factor, x_arr",
+    [
+        (dab, INPUT_X_ARR),
+        ("gdab", INPUT_X_ARR),
+    ],
+)
+def test_hankel_transform_raises_correct_error_when_invalid_strategy_name(
+    form_factor,
+    x_arr,
+):
+    nu = 0
+    params_gdab = np.array([10.0, 0.5, 1e-4])
+    expected_error = "Error: invalid strategy name, must be one of : 'DHT_6', 'DHT_7', 'DHT_8', 'DHT_9', 'DHT_10', 'DE_Ooura', 'DE_Ogata', 'QWE_Chave', 'QWE_Key'."
+
+    with pytest.raises(ValueError, match=expected_error):
+        libhankel.hankel_transform(
+            nu,
+            form_factor,
+            x_arr,
+            params_gdab,
+            "DHT_1",
+            {"n_eval": 250, "eps_rel": 1e-9},
+        )
