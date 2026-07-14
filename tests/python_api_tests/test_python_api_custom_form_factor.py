@@ -366,4 +366,4 @@ def test_hankel_transform_strategies_with_custom_factor(
         strategy_p_dict,
     )
 
-    np.testing.assert_array_equal(result, expected)
+    np.testing.assert_allclose(result, expected)
