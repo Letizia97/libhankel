@@ -55,8 +55,6 @@
   <compound refid="hankel__DHT_8c" kind="file"><name>hankel_DHT.c</name>
     <member refid="hankel__DHT_8c_1a1afd349b27c3678a014332090788d4fa" kind="function"><name>hankel_transform_DHT</name></member>
   </compound>
-  <compound refid="hankel__FBT__Ogata_8c" kind="file"><name>hankel_FBT_Ogata.c</name>
-  </compound>
   <compound refid="hankel__QWE_8c" kind="file"><name>hankel_QWE.c</name>
     <member refid="hankel__QWE_8c_1ad45f2421887472f1cc8b5e568f49b6ec" kind="function"><name>hankel_transform_QWE_Key</name></member>
     <member refid="hankel__QWE_8c_1ae09cf89efd135afa916d0790daae8121" kind="function"><name>hankel_transform_QWE_Chave</name></member>

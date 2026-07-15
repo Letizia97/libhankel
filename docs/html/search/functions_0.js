@@ -1,6 +1,6 @@
 var searchData = [
     [
-        'deriv_5fdetransform_64',
+        'deriv_5fdetransform_62',
         [
             'deriv_DEtransform',
             [
@@ -10,7 +10,7 @@ var searchData = [
         ]
     ],
     [
-        'detransform_65',
+        'detransform_63',
         [
             'DEtransform',
             [
