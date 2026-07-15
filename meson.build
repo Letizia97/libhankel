@@ -8,22 +8,6 @@ project('libhankel', ['c', 'cpp'],
 
 inc_root = include_directories('include')
 
-# UNITY
-
-unity_inc = include_directories('submodules/unity/src')
-
-unity_lib = static_library(
-  'unity',
-  'submodules/unity/src/unity.c',
-  include_directories : unity_inc,
-  c_args : ['-DUNITY_INCLUDE_DOUBLE']
-)
-
-unity_dep = declare_dependency(
-  link_with : unity_lib,
-  include_directories : unity_inc
-)
-
 subdir('src')
 subdir('include')
 
@@ -32,8 +16,20 @@ hankel_dep = declare_dependency(
   include_directories: inc_root,
 )
 
-subdir('tests')
+if get_option('tests')
+  subdir('tests')
+endif
+
+
+
+# TO BUILD:
 
 # rm -rf build
-# meson setup build 
+
+# Build library only
+# meson setup build
+
+# OR Build library + tests
+# meson setup build -Dtests=true
+
 # meson compile -C build
