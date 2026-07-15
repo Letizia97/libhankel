@@ -95,15 +95,18 @@
   <section id="installation-for-python-users">
 <span id="quickstart-python"></span><h1>Installation for Python users<a class="headerlink" href="#installation-for-python-users" title="Link to this heading"></a></h1>
 <p>The easiest way to install LibHankel is by using the Python package manager, <a class="reference external" href="https://pip.pypa.io/en/stable/">pip</a>.
-Alternatively, it can be installed from source through git clone. In either case, it is recommended to create a virtual
-environment in which to install LibHankel, by typing for example :</p>
+Alternatively, it can be installed from source through git clone.</p>
+<section id="installing-via-pip">
+<h2>Installing via <code class="docutils literal notranslate"><span class="pre">pip</span></code><a class="headerlink" href="#installing-via-pip" title="Link to this heading"></a></h2>
+<p><strong>INSTALLATION THROUGH PIP IS NOT YET AVAILABLE, PLEASE IGNORE THIS SECTION AND INSTALL FROM SOURCE
+(FOLLOW INSTRUCTIONS IN SECTION “Installing from source” BELOW).</strong></p>
+<p>It is recommended to first create a virtual environment in which to install LibHankel, e.g.,
+through the command line:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>-mvenv<span class="w"> </span>venv
 .<span class="w"> </span>venv/bin/activate
 </pre></div>
 </div>
-<section id="installing-via-pip">
-<h2>Installing via <code class="docutils literal notranslate"><span class="pre">pip</span></code><a class="headerlink" href="#installing-via-pip" title="Link to this heading"></a></h2>
-<p>LibHankel can be installed via the command line by entering:</p>
+<p>LibHankel can then be installed by entering:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>libhankel
 </pre></div>
 </div>
@@ -120,14 +123,34 @@ of the code that is still in development.</p>
 </li>
 <li><p>Open up a terminal (command prompt) and go into the
 <code class="docutils literal notranslate"><span class="pre">libhankel</span></code> directory.</p></li>
-<li><p>Once you are in the right directory, type</p>
+<li><p>It is recommended to create a virtual environment by typing for example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
+.<span class="w"> </span>.venv/bin/activate
+</pre></div>
+</div>
+<p>If the above fails, you might need to run the following (adjusted to match your Python version):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt<span class="w"> </span>install<span class="w"> </span>python3.10-venv
+</pre></div>
+</div>
+</li>
+<li><p>Install the <cite>Boost</cite> dependency:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>update
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>libboost-all-dev
+</pre></div>
+</div>
+</li>
+<li><p>At this point, we are ready to install LibHankel.
+Please ensure the virtual environment has been activated through step 3 above,
+and then type:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>.
 </pre></div>
 </div>
 </li>
 </ol>
-<p>Please note that this should install all dependencies required. If it does not,
-the exact dependencies are available in the file “requirements_dev.txt”.</p>
+<p>Please note that this should install all dependencies required (pip dependencies
+are installed automatically). However, in case of issues, the exact dependencies
+are available in the file “requirements_dev.txt”.</p>
+<p>The docs have multiple Python examples that you can try running at this point.</p>
 </section>
 </section>
 
