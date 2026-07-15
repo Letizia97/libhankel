@@ -101,14 +101,22 @@
 <p>Below are two example scripts on using the hankel_transform function using the C API,
 both with a built-in and a custom input function.</p>
 <p>To run the following examples, please install LibHankel following the instructions
-in <a class="reference internal" href="../getting_started/quickstart_c.html#quickstart-c"><span class="std std-ref">Installation for C users</span></a> . After that, you might need to refresh the
+in <a class="reference internal" href="../getting_started/quickstart_c.html#quickstart-c"><span class="std std-ref">Installation for C users</span></a> . After that, to run the examples, you might need to refresh the
 system library cache with:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>ldconfig
 </pre></div>
 </div>
 <section id="with-built-in-form-factor">
 <span id="c-examples-builtin-f"></span><h2>With built-in form factor<a class="headerlink" href="#with-built-in-form-factor" title="Link to this heading"></a></h2>
-<p>The following is an example with a built-in form factor.</p>
+<p>The following is an example with a built-in form factor.
+Assuming you have LibHankel installed, you should be able to compile and run this example with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>libhankel
+sudo<span class="w"> </span>ldconfig
+gcc<span class="w">  </span>examples/c/example_usage_g_dab.c<span class="w"> </span>-llibhankel<span class="w"> </span>-o<span class="w"> </span>example_usage_g_dab
+./example_usage_g_dab
+</pre></div>
+</div>
+<p>Here is the example itself:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stddef.h&gt;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
 
@@ -186,17 +194,18 @@ system library cache with:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Assuming you have installed libhankel as mentioned at the start of this page,
-you should be able to compile and run the above example with:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>libhankel
-gcc<span class="w">  </span>examples/c/example_usage_g_dab.c<span class="w"> </span>-llibhankel<span class="w"> </span>-o<span class="w"> </span>example_usage_g_dab
-./example_usage_g_dab
-</pre></div>
-</div>
 </section>
 <section id="with-custom-form-factor">
 <span id="c-examples-custom-f"></span><h2>With custom form factor<a class="headerlink" href="#with-custom-form-factor" title="Link to this heading"></a></h2>
-<p>The following is an example with a custom form factor.</p>
+<p>The following is an example with a custom form factor.
+Assuming you have LibHankel installed, you should be able to compile and run this example with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>libhankel
+sudo<span class="w"> </span>ldconfig
+gcc<span class="w">  </span>examples/c/example_usage_custom_form_factor.c<span class="w"> </span>-llibhankel<span class="w"> </span>-o<span class="w"> </span>example_usage_custom_form_factor<span class="w"> </span>-lm
+./example_usage_custom_form_factor
+</pre></div>
+</div>
+<p>Here is the example itself:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stddef.h&gt;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
 
@@ -236,13 +245,6 @@ gcc<span class="w">  </span>examples/c/example_usage_g_dab.c<span class="w"> </s
 
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
-</pre></div>
-</div>
-<p>Assuming you have installed libhankel as mentioned at the start of this page,
-you should be able to compile and run the above example with:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>libhankel
-gcc<span class="w">  </span>examples/c/example_usage_custom_form_factor.c<span class="w"> </span>-llibhankel<span class="w"> </span>-o<span class="w"> </span>example_usage_custom_form_factor<span class="w"> </span>-lm
-./example_usage_custom_form_factor
 </pre></div>
 </div>
 </section>
