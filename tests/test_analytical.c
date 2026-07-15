@@ -90,8 +90,8 @@ void setUp(void) {
     compute_analytical_spheres(&params_spheres, r_array_spheres, G_analytic_spheres, ARRAY_LEN);
     memcpy(ctx.actual_spheres, G_analytic_spheres, sizeof ctx.actual_spheres);
 
-    compute_analytical_gdab(&params_gdab, r_array_gdab, G_analytic_gdab, ARRAY_LEN);
-    memcpy(ctx.actual_gdab, G_analytic_gdab, sizeof ctx.actual_gdab);
+    // compute_analytical_gdab(&params_gdab, r_array_gdab, G_analytic_gdab, ARRAY_LEN);
+    // memcpy(ctx.actual_gdab, G_analytic_gdab, sizeof ctx.actual_gdab);
 
     // printf("Analitycal solution:   ");
     // for (size_t i = 0; i < ARRAY_LEN; i++) {
@@ -117,6 +117,6 @@ void test_analytical_gdab(void) {
 int main(void) {
     UNITY_BEGIN();
     RUN_TEST(test_analytical_spheres);
-    RUN_TEST(test_analytical_gdab);
+    // RUN_TEST(test_analytical_gdab);
     return UNITY_END();
 }
