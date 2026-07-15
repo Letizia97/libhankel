@@ -7,8 +7,8 @@
 
 #define ARRAY_LEN 19
 
-#include "../src/utils/pow_functions.h"
-#include "../src/utils/sf_functions.h"
+#include "../../src/utils/pow_functions.h"
+#include "../../src/utils/sf_functions.h"
 
 /**
  * Computes the g_dab form factor.
