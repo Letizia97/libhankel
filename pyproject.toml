@@ -22,4 +22,5 @@ docs = [
     "sphinx",
     "furo",
     "breathe",
+    "sphinx-rtd-theme",
 ]
