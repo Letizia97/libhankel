@@ -96,10 +96,16 @@
 <span id="quickstart-c"></span><h1>Installation for C users<a class="headerlink" href="#installation-for-c-users" title="Link to this heading"></a></h1>
 <p>LibHankel has been tested on Linux, although it should work on other platforms. It requires:</p>
 <ul class="simple">
-<li><p>Meson (preferably version 1.10.1)</p></li>
+<li><p>Meson &gt;= 1.4.0</p></li>
+<li><p>Ninja</p></li>
 <li><p>A C compiler (e.g. gcc)</p></li>
 </ul>
-<p>To build and install:</p>
+<p>It also requires Boost development package as a dependency. This can be installed with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>update
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>libboost-all-dev
+</pre></div>
+</div>
+<p>To build and install LibHankel, use:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/Letizia97/libhankel.git
 <span class="nb">cd</span><span class="w"> </span>libhankel
 meson<span class="w"> </span>setup<span class="w"> </span>build

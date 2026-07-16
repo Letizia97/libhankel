@@ -4,20 +4,16 @@ var searchData = [
         [ 'hankel_DE_quadrature.c', [ '../hankel__DE__quadrature_8c.html', 1, '' ] ]
     ],
     [ 'hankel_5fdht_2ec_18', [ 'hankel_DHT.c', [ '../hankel__DHT_8c.html', 1, '' ] ] ],
+    [ 'hankel_5fqwe_2ec_19', [ 'hankel_QWE.c', [ '../hankel__QWE_8c.html', 1, '' ] ] ],
     [
-        'hankel_5ffbt_5fogata_2ec_19',
-        [ 'hankel_FBT_Ogata.c', [ '../hankel__FBT__Ogata_8c.html', 1, '' ] ]
-    ],
-    [ 'hankel_5fqwe_2ec_20', [ 'hankel_QWE.c', [ '../hankel__QWE_8c.html', 1, '' ] ] ],
-    [
-        'hankel_5ft_5fdoc_21',
+        'hankel_5ft_5fdoc_20',
         [
             'hankel_t_doc',
             [ '../py__interface_8c.html#a23d8ca811f9512036ea26c3475366a1a', 1, 'py_interface.c' ]
         ]
     ],
     [
-        'hankel_5ftransform_22',
+        'hankel_5ftransform_21',
         [
             'hankel_transform',
             [
@@ -31,11 +27,11 @@ var searchData = [
         ]
     ],
     [
-        'hankel_5ftransform_2ec_23',
+        'hankel_5ftransform_2ec_22',
         [ 'hankel_transform.c', [ '../hankel__transform_8c.html', 1, '' ] ]
     ],
     [
-        'hankel_5ftransform_5fde_5fogata_24',
+        'hankel_5ftransform_5fde_5fogata_23',
         [
             'hankel_transform_DE_Ogata',
             [
@@ -49,7 +45,7 @@ var searchData = [
         ]
     ],
     [
-        'hankel_5ftransform_5fde_5fooura_25',
+        'hankel_5ftransform_5fde_5fooura_24',
         [
             'hankel_transform_DE_Ooura',
             [
@@ -63,7 +59,7 @@ var searchData = [
         ]
     ],
     [
-        'hankel_5ftransform_5fdht_26',
+        'hankel_5ftransform_5fdht_25',
         [
             'hankel_transform_DHT',
             [
@@ -77,7 +73,7 @@ var searchData = [
         ]
     ],
     [
-        'hankel_5ftransform_5fqwe_5fchave_27',
+        'hankel_5ftransform_5fqwe_5fchave_26',
         [
             'hankel_transform_QWE_Chave',
             [
@@ -91,7 +87,7 @@ var searchData = [
         ]
     ],
     [
-        'hankel_5ftransform_5fqwe_5fkey_28',
+        'hankel_5ftransform_5fqwe_5fkey_27',
         [
             'hankel_transform_QWE_Key',
             [

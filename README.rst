@@ -9,12 +9,18 @@ Installation for C users
 
 LibHankel has been tested on Linux, although it should work on other platforms. It requires:
 
-- Meson (preferably version 1.10.1)
-
+- Meson >= 1.4.0
+- Ninja
 - A C compiler (e.g. gcc)
 
+It also requires Boost development package as a dependency. This can be installed with:
 
-To build and install:
+.. code-block:: bash
+
+   sudo apt update
+   sudo apt install libboost-all-dev
+
+To build and install LibHankel, use:
 
 .. code-block:: bash
 
@@ -26,6 +32,8 @@ To build and install:
 
 
 .. c-installation-end
+
+You can check the installation by running the C examples available through the docs.
 
 
 

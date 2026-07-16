@@ -5,7 +5,6 @@
     <innerfile refid="form__factors_8c">form_factors.c</innerfile>
     <innerfile refid="hankel__DE__quadrature_8c">hankel_DE_quadrature.c</innerfile>
     <innerfile refid="hankel__DHT_8c">hankel_DHT.c</innerfile>
-    <innerfile refid="hankel__FBT__Ogata_8c">hankel_FBT_Ogata.c</innerfile>
     <innerfile refid="hankel__QWE_8c">hankel_QWE.c</innerfile>
     <innerfile refid="hankel__transform_8c">hankel_transform.c</innerfile>
     <innerfile refid="py__interface_8c">py_interface.c</innerfile>

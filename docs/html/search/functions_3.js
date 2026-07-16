@@ -1,6 +1,6 @@
 var searchData = [
     [
-        'hankel_5ftransform_70',
+        'hankel_5ftransform_68',
         [
             'hankel_transform',
             [
@@ -14,7 +14,7 @@ var searchData = [
         ]
     ],
     [
-        'hankel_5ftransform_5fde_5fogata_71',
+        'hankel_5ftransform_5fde_5fogata_69',
         [
             'hankel_transform_DE_Ogata',
             [
@@ -28,7 +28,7 @@ var searchData = [
         ]
     ],
     [
-        'hankel_5ftransform_5fde_5fooura_72',
+        'hankel_5ftransform_5fde_5fooura_70',
         [
             'hankel_transform_DE_Ooura',
             [
@@ -42,7 +42,7 @@ var searchData = [
         ]
     ],
     [
-        'hankel_5ftransform_5fdht_73',
+        'hankel_5ftransform_5fdht_71',
         [
             'hankel_transform_DHT',
             [
@@ -56,7 +56,7 @@ var searchData = [
         ]
     ],
     [
-        'hankel_5ftransform_5fqwe_5fchave_74',
+        'hankel_5ftransform_5fqwe_5fchave_72',
         [
             'hankel_transform_QWE_Chave',
             [
@@ -70,7 +70,7 @@ var searchData = [
         ]
     ],
     [
-        'hankel_5ftransform_5fqwe_5fkey_75',
+        'hankel_5ftransform_5fqwe_5fkey_73',
         [
             'hankel_transform_QWE_Key',
             [
