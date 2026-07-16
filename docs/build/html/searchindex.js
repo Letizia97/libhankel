@@ -56,36 +56,7 @@ Search.setIndex({
         "getting_started/quickstart_python.rst", "index.rst", "overview/the_hankel_transform.rst",
         "usage/status_codes.rst", "usage/strategy_params.rst", "usage/strategy_selection.rst"
     ],
-    "indexentries" : {
-        "form_factor_broad_peak (c++ function)" :
-            [ [ 0, "_CPPv422form_factor_broad_peakdPv", false ] ],
-        "form_factor_ctx (c++ struct)" : [ [ 0, "_CPPv415form_factor_ctx", false ] ],
-        "form_factor_ctx::params (c++ member)" :
-            [ [ 0, "_CPPv4N15form_factor_ctx6paramsE", false ] ],
-        "form_factor_f (c++ type)" : [ [ 0, "_CPPv413form_factor_f", false ] ],
-        "form_factor_g_dab (c++ function)" : [ [ 0, "_CPPv417form_factor_g_dabdPv", false ] ],
-        "form_factor_sphere (c++ function)" : [ [ 0, "_CPPv418form_factor_spheredPv", false ] ],
-        "hankel_transform (c++ function)" : [ [
-            0, "_CPPv416hankel_transformi13form_factor_fPd6size_tPvPdPKc15strategy_params", false
-        ] ],
-        "hankel_transform() (in module libhankel)" : [ [ 1, "libhankel.hankel_transform", false ] ],
-        "libhankel" : [ [ 1, "module-libhankel", false ] ],
-        "module" : [ [ 1, "module-libhankel", false ] ],
-        "strategy_params (c++ struct)" :
-            [ [ 0, "_CPPv415strategy_params", false ], [ 9, "_CPPv415strategy_params", false ] ],
-        "strategy_params::eps_rel (c++ member)" : [
-            [ 0, "_CPPv4N15strategy_params7eps_relE", false ],
-            [ 9, "_CPPv4N15strategy_params7eps_relE", false ]
-        ],
-        "strategy_params::f_max (c++ member)" : [
-            [ 0, "_CPPv4N15strategy_params5f_maxE", false ],
-            [ 9, "_CPPv4N15strategy_params5f_maxE", false ]
-        ],
-        "strategy_params::n_eval (c++ member)" : [
-            [ 0, "_CPPv4N15strategy_params6n_evalE", false ],
-            [ 9, "_CPPv4N15strategy_params6n_evalE", false ]
-        ]
-    },
+    "indexentries" : {},
     "objects" : {
         "" : [
             [ 0, 0, 1, "_CPPv422form_factor_broad_peakdPv", "form_factor_broad_peak" ],
@@ -208,7 +179,7 @@ Search.setIndex({
         "36" : [ 2, 3 ],
         "375" : 3,
         "39" : [ 2, 3 ],
-        "4" : [ 0, 2, 3, 8 ],
+        "4" : [ 0, 2, 3, 4, 8 ],
         "41666667" : 3,
         "43" : [ 2, 3 ],
         "45833333" : 3,
@@ -231,7 +202,7 @@ Search.setIndex({
         "75" : [ 2, 3 ],
         "78" : [ 2, 3 ],
         "79166667" : 3,
-        "8" : [ 4, 8 ],
+        "8" : 8,
         "82" : 3,
         "83333333" : 3,
         "85" : 3,

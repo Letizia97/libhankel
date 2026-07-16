@@ -9,7 +9,7 @@ Installation for C users
 
 LibHankel has been tested on Linux, although it should work on other platforms. It requires:
 
-- Meson >= 1.8.0
+- Meson >= 1.4.0
 - Ninja
 - A C compiler (e.g. gcc)
 
