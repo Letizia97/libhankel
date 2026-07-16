@@ -36,7 +36,7 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install .[docs]
 
-      - run: doxygen docs/Doxyfile
+      - run: doxygen Doxyfile
       - run: make -C docs html
 
       - uses: actions/upload-pages-artifact@v3
