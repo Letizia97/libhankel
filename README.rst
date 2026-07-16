@@ -2,6 +2,11 @@ This library is based on SASfit (https://github.com/SASfit/SASfit), whose main c
 
 The idea with the library is to re-implement the Hankel transform strategies available in SASfit, and provide APIs so they can be called from codebases in different languages, e.g. Python, as well as C (and therefore by SASfit itself).
 
+Documentation
+===============
+
+Please note, docs are available at https://letizia97.github.io/libhankel/index.html
+
 Installation for C users
 =================================
 
