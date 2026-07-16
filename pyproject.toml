@@ -16,3 +16,11 @@ line-length = 100
 
 [tool.ruff.lint]
 select = ["E", "F", "I"]
+
+[project.optional-dependencies]
+docs = [
+    "sphinx",
+    "furo",
+    "breathe",
+    "sphinx-rtd-theme",
+]
