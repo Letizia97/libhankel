@@ -3,7 +3,9 @@ name: Deploy documentation
 
 on:
   push:
-    branches: [main]
+    branches: 
+      - main
+      - publish-docs
 
 permissions:
   contents: read
