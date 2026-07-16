@@ -19,3 +19,9 @@ dist/
 # Windows
 *.pyd
 *.dll
+
+# Generated documentation
+docs/build/
+docs/html/
+docs/latex/
+docs/xml/
