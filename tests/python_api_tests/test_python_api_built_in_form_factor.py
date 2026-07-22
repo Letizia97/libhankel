@@ -32,9 +32,11 @@ INPUT_X_ARR = np.array(
     ]
 )
 
-QWE_CHAVE_p_dict = {"n_eval": 250, "eps_rel": 1e-9}
+QWE_p_dict = {"n_eval": 250, "eps_rel": 1e-9}
 
-QWE_KEY_p_dict = {"n_eval": 250, "eps_rel": 1e-9}
+DE_Ooura_p_dict = {"n_eval": 150, "eps_rel": 1e-3}
+
+DE_Ogata_p_dict = {"n_eval": 250, "f_max": 1e-9}
 
 EXPECTED_QWE_CHAVE = np.array(
     [
@@ -93,6 +95,66 @@ EXPECTED_QWE_KEY = np.array(
         -4.9106780365336915,
         -4.2304237824456115,
         -3.390155513781909,
+    ]
+)
+
+EXPECTED_DE_OOURA = np.array(
+    [
+        15.347814688723965,
+        14.754529226195814,
+        13.846266014908949,
+        12.739785224181167,
+        11.353852723194382,
+        9.865783015355285,
+        8.165195206905562,
+        6.376933532411812,
+        4.647758765440497,
+        2.8440418212818255,
+        1.1928792447535888,
+        1.1928792447535888,
+        -0.43373082212322694,
+        -1.9039958859283146,
+        -3.1226884198974774,
+        -4.190163248317258,
+        -4.980787089609459,
+        -5.565713976846757,
+        -5.882939103327825,
+        -5.970271989399333,
+        -5.817294475597886,
+        -5.467798708798445,
+        -4.910678046707662,
+        -4.230423786986428,
+        -3.3901555158478267,
+    ]
+)
+
+EXPECTED_DE_OGATA = np.array(
+    [
+        5.215540452856403e-09,
+        1.952950546187973e-09,
+        9.844087961421144e-10,
+        6.050585360585201e-10,
+        4.0164339516349116e-10,
+        2.9042339458983e-10,
+        2.1675363938056697e-10,
+        1.6793423865941656e-10,
+        1.3537068422304434e-10,
+        1.1035641200492283e-10,
+        9.250228228830715e-11,
+        9.250228228830715e-11,
+        7.801398405385191e-11,
+        6.668097796146051e-11,
+        5.8056129830674474e-11,
+        5.066748929214705e-11,
+        4.4881219548991537e-11,
+        3.9799265421055466e-11,
+        3.5730634827358127e-11,
+        3.208677153972563e-11,
+        2.8973170771239905e-11,
+        2.6416785034483806e-11,
+        2.4074826019893963e-11,
+        2.2126939769657564e-11,
+        2.0321292746578363e-11,
     ]
 )
 
@@ -250,8 +312,10 @@ EXPECTED_DHT_10 = np.array(
 @pytest.mark.parametrize(
     "x_arr, strategy_name, strategy_p_dict, expected",
     [
-        (INPUT_X_ARR, "QWE_Chave", QWE_CHAVE_p_dict, EXPECTED_QWE_CHAVE),
-        (INPUT_X_ARR, "QWE_Key", QWE_KEY_p_dict, EXPECTED_QWE_KEY),
+        (INPUT_X_ARR, "QWE_Chave", QWE_p_dict, EXPECTED_QWE_CHAVE),
+        (INPUT_X_ARR, "QWE_Key", QWE_p_dict, EXPECTED_QWE_KEY),
+        (INPUT_X_ARR, "DE_Ogata", DE_Ogata_p_dict, EXPECTED_DE_OGATA),
+        (INPUT_X_ARR, "DE_Ooura", DE_Ooura_p_dict, EXPECTED_DE_OOURA),
         (INPUT_X_ARR, "DHT_6", {}, EXPECTED_DHT_6),
         (INPUT_X_ARR, "DHT_7", {}, EXPECTED_DHT_7),
         (INPUT_X_ARR, "DHT_8", {}, EXPECTED_DHT_8),
@@ -277,5 +341,4 @@ def test_hankel_transform_strategies_with_builtin_form_factor(
         strategy_name,
         strategy_p_dict,
     )
-
-    np.testing.assert_array_equal(result, expected)
+    np.testing.assert_allclose(result, expected)

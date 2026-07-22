@@ -1,10 +1,10 @@
 
 .. _status-codes:
 
-Status codes
+Status codes (for C users)
 ================================
 
-The ``hankel_transform`` function is designed to return a 0 status code when successful, 
+When used in C, the ``hankel_transform`` function is designed to return a 0 status code when successful, 
 and a negative number when not.
 The table below lists all possible error codes the user might encounter plus corresponding explanations.
 
@@ -29,7 +29,11 @@ The table below lists all possible error codes the user might encounter plus cor
     +--------------------+-------------------------------------------------------------------------+
     | -7                 | Internal error: wrong n of iterations in pade sum (must be >= 1)        |
     +--------------------+-------------------------------------------------------------------------+
-    | -8                 | Wrong strategy parameters supplied to hankel transform function         |
+    | -8                 | Wrong / missing strategy parameter (n_eval)                             |
     +--------------------+-------------------------------------------------------------------------+
-    | -9                 | Wrong parameters supplied to form factor                                |
+    | -9                 | Wrong / missing strategy parameter (eps_rel)                            |
+    +--------------------+-------------------------------------------------------------------------+
+    | -10                | Wrong / missing strategy parameter (f_max)                              |
+    +--------------------+-------------------------------------------------------------------------+
+    | -11                | Invalid strategy name                                                   |
     +--------------------+-------------------------------------------------------------------------+
