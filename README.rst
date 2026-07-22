@@ -4,8 +4,8 @@ The idea with the library is to re-implement the Hankel transform strategies ava
 
 This work was funded by the `Ada Lovelace Centre at STFC <https://www.sc.stfc.ac.uk/programmes/ada-lovelace-centre-alc/>`_ .
 
-.. image:: images/ALC_logo.png
-   :alt: Project Logo
+.. image:: docs/images/ALC_logo.png
+   :alt: ALC Logo
    :width: 200px
    :align: center
    :target: https://www.sc.stfc.ac.uk/programmes/ada-lovelace-centre-alc/
