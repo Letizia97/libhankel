@@ -32,11 +32,11 @@ To build and install LibHankel, together with the test suite, please use:
 
 .. code-block:: bash
 
-   git clone https://github.com/Letizia97/libhankel.git
+   git clone --recurse-submodules https://github.com/Letizia97/libhankel.git
    cd libhankel
    meson setup build -Dtests=true
    meson compile -C build
    meson install -C build
 
-Please note that using ``meson setup build`` without the ``-Dtests=true`` flag will not 
+Please note that using ``git clone`` and ``meson setup build`` without the suggested flags will not 
 include the tests in the installation.
