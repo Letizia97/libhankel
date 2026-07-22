@@ -64,3 +64,9 @@ the Hankel transform.
    api/python_api
    api/c_api
 
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contributors
+   
+   contributors/build_docs
