@@ -70,3 +70,4 @@ the Hankel transform.
    :caption: Contributors
    
    contributors/build_docs
+   contributors/installation_for_development
