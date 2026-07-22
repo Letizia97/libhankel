@@ -10,8 +10,8 @@ import sys
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = "libhankel"
-copyright = "2026, Letizia"
-author = "Letizia"
+copyright = "2026, STFC"
+author = "Letizia Protopapa"
 release = "v0.1.0"
 
 # -- General configuration ---------------------------------------------------
