@@ -6,7 +6,7 @@ This work was funded by the `Ada Lovelace Centre at STFC <https://www.sc.stfc.ac
 
 .. image:: docs/images/ALC_logo.png
    :alt: ALC Logo
-   :width: 200px
+   :width: 400px
    :align: center
    :target: https://www.sc.stfc.ac.uk/programmes/ada-lovelace-centre-alc/
 
