@@ -18,7 +18,17 @@ LibHankel has been tested on Linux, although it should work on other platforms. 
 - Ninja
 - A C compiler (e.g. gcc)
 
-It also requires Boost development package as a dependency. This can be installed with:
+If installing Meson with ``pip``, it is recommended to use a Python virtual environment to avoid
+modifying system Python packages.
+
+.. code-block:: bash
+
+   python3 -m venv .venv
+   source .venv/bin/activate
+   python -m pip install meson==1.4.0
+
+
+LibHankel also requires Boost development package as a dependency. This can be installed with:
 
 .. code-block:: bash
 
