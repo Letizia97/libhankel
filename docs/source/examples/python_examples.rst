@@ -9,20 +9,25 @@ Python examples
 
 
 Below are a couple of examples on how to use the hankel_transform function 
-from Python. Please refer to :ref:`python-api` for the documentation.
+using the :ref:`python-api`, both with a built-in and a custom input function. 
 
-To run these examples, please follow the Python installation instructions
-:ref:`quickstart-python`. After this the tests can be through:
+In order to run these examples, please install LibHankel through
+the instructions at :ref:`quickstart-python`. 
+
+
+With built-in form factor
+--------------------------
+
+The following is an example with a built-in form factor.
+Assuming you have LibHankel installed, you should be able to compile and run this example with: 
 
 .. code-block:: bash
    
    cd libhankel
    python examples/python/example_usage_g_dab.py
-   python examples/python/example_usage_custom_form_factor.py
 
 
-With built-in form factor
---------------------------
+Here is the content of the example:
 
 .. literalinclude:: ../../../examples/python/example_usage_g_dab.py
    :language: python
@@ -35,6 +40,18 @@ With built-in form factor
 
 With custom form factor
 ------------------------
+
+The following is an example with a custom form factor.
+Assuming you have LibHankel installed, you should be able to compile and run this example with: 
+
+.. code-block:: bash
+   
+   cd libhankel
+   python examples/python/example_usage_custom_form_factor.py
+
+
+Here is the content of the example:
+
 
 .. literalinclude:: ../../../examples/python/example_usage_custom_form_factor.py
    :language: python
