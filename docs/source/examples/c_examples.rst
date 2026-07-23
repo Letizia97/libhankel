@@ -18,6 +18,9 @@ system library cache with:
     sudo ldconfig 
 
 
+If you also run the :ref:`python-examples`, please note that there may be slight differences
+in precision with respect to the examples below, but that is expected.
+
 
 .. _c-examples-builtin-f:
 

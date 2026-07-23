@@ -18,6 +18,9 @@ code as the built-in "gdab" function.
 In order to run these examples, please install LibHankel through
 the instructions at :ref:`quickstart-python`. 
 
+If you also run the :ref:`c-examples`, please note that there may be slight differences
+in precision with respect to the examples below, but that is expected.
+
 
 With built-in form factor
 --------------------------
