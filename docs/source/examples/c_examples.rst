@@ -3,8 +3,11 @@
 C examples
 ===========
 
-Below are two example scripts on using the hankel_transform function using the C API,
-both with a built-in and a custom input function.
+Below are two example scripts on using the hankel_transform function through the :ref:`c-api`,
+both with a built-in and a custom input function.  Please note that both examples give 
+the same (or very similar) result. The main difference between the two is the fact 
+that one uses a built-in function called "gdab", while the other defines a custom C 
+function essentially containing the same code as the built-in "gdab" function.
 
 To run the following examples, please install LibHankel following the instructions 
 in :ref:`quickstart-c` . After that, to run the examples, you might need to refresh the 
@@ -14,6 +17,9 @@ system library cache with:
 
     sudo ldconfig 
 
+
+If you also run the :ref:`python-examples`, please note that there may be slight differences
+in precision with respect to the examples below, but that is expected.
 
 
 .. _c-examples-builtin-f:

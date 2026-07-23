@@ -30,7 +30,7 @@ typedef struct {
  *
  * @param q        value at which to compute the transform
  * @param f_ctx    pointer to struct containing inputs for form factor
- *                 f_ctx must contain a pointer to an array with the
+ *                 ``f_ctx`` must contain a pointer to an array with the
  *                 following parameters, in this order:
  *                  -   \f$ \xi \f$: correlation length (e.g., 10.0)
  *                  -   H : Hurst exponent (e.g., 0.5)
@@ -43,7 +43,7 @@ double form_factor_g_dab(double q, void *f_ctx);
  *
  * @param q        value at which to compute the transform
  * @param f_ctx    pointer to struct containing inputs for form factor
- *                 f_ctx must contain a pointer to an array with the
+ *                 ``f_ctx`` must contain a pointer to an array with the
  *                 following parameters, in this order:
  *                  -   R : radius (e.g., 10.0)
  *                  -   ETA : scattering contrast (e.g., 1.0)
@@ -55,7 +55,7 @@ double form_factor_sphere(double q, void *f_ctx);
  *
  * @param q        value at which to compute the transform
  * @param f_ctx    pointer to struct containing inputs for form factor.
- *                 f_ctx must contain a pointer to an array of parameters.
+ *                 ``f_ctx`` must contain a pointer to an array of parameters.
  *                 The parameters, which appear in the formula
  *                 \f[ I(Q) = \frac{I_0}{\left(1 + (|q - q_0| \xi)^m \right)^p}
  * \f] need to be in the following order:
