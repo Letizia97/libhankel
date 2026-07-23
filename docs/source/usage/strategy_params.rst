@@ -35,6 +35,6 @@ Here is an explanation of each parameter:
    :members:
 
 
-Please note, for DHT strategies (that is, **DHT_6** to **DHT_11**) feel free to supply an empty struct 
-for ``strategy_params`` . Any field within it will be ignored in these strategies as they do not 
-require such additional parameters.  
+Please note, for DHT strategies (that is, **DHT_6** to **DHT_11**) feel free to supply an empty struct in C 
+(or an empty dict in Python) for ``strategy_params`` . Any field within it will be ignored in these strategies 
+as they do not require such additional parameters.  

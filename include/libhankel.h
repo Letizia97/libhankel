@@ -14,7 +14,7 @@ typedef struct {
     /**
      * @brief Integer parameter indicating the maximum allowed
      *        number of function evaluations.
-     *        Corresponds to N_ogata in SASfit.
+     *        Corresponds to ``N_ogata`` in SASfit.
      */
     int n_eval;
 
@@ -24,13 +24,13 @@ typedef struct {
      * Determines the numerical precision or convergence threshold
      * of the computation. Smaller values lead to higher accuracy
      * at the cost of increased computation time.
-     * Corresponds to eps_nriq in SASfit.
+     * Corresponds to ``eps_nriq`` in SASfit.
      */
     double eps_rel;
 
     /**
-     * @brief Starting guess for the maximum in the function x * form_factor.
-     *        Corresponds to h_ogata in SASfit.
+     * @brief Starting guess for the maximum in the function \f$ x \cdot formFactor \f$.
+     *        Corresponds to ``h_ogata`` in SASfit.
      */
     double f_max;
 } strategy_params;
@@ -99,8 +99,8 @@ double hankel_transform_DHT(int nu, form_factor_f f, double x, void *f_ctx, doub
  * @param x          value at which to compute the transform
  * @param f_ctx      pointer to struct containing inputs for f
  * @param output     pointer to var containing output from transform
- * @param n_eval     integer indicating number of function evaluations (N_ogata in SASfit)
- * @param eps_rel    relative error allowed e.g. 1e-9 (eps_nriq in SASfit)
+ * @param n_eval     integer indicating number of function evaluations (``N_ogata`` in SASfit)
+ * @param eps_rel    relative error allowed e.g. 1e-9 (``eps_nriq`` in SASfit)
  */
 double hankel_transform_DE_Ooura(int nu, form_factor_f f, double x, void *f_ctx, double *output,
                                  int n_eval, double eps_rel);
@@ -114,8 +114,8 @@ double hankel_transform_DE_Ooura(int nu, form_factor_f f, double x, void *f_ctx,
  * @param x          value at which to compute the transform
  * @param f_ctx      pointer to struct containing inputs for f
  * @param output     pointer to var containing output from transform
- * @param n_eval     integer indicating number of function evaluations (N_ogata in SASfit)
- * @param f_max      float indicating starting guess for max in form factor (h_ogata in SASfit)
+ * @param n_eval     integer indicating number of function evaluations (``N_ogata`` in SASfit)
+ * @param f_max      float indicating starting guess for max in form factor (``h_ogata`` in SASfit)
  */
 double hankel_transform_DE_Ogata(int nu, form_factor_f f, double x, void *f_ctx, double *output,
                                  int n_eval, double f_max);
@@ -129,8 +129,8 @@ double hankel_transform_DE_Ogata(int nu, form_factor_f f, double x, void *f_ctx,
  * @param x          value at which to compute the transform
  * @param f_ctx      pointer to struct containing inputs for f
  * @param output     pointer to var containing output from transform
- * @param n_eval     integer indicating number of function evaluations (N_ogata in SASfit)
- * @param eps_rel    relative error allowed e.g. 1e-9 (eps_nriq in SASfit)
+ * @param n_eval     integer indicating number of function evaluations (``N_ogata`` in SASfit)
+ * @param eps_rel    relative error allowed e.g. 1e-9 (``eps_nriq`` in SASfit)
  */
 double hankel_transform_QWE_Key(int nu, form_factor_f f, double x, void *f_ctx, double *output,
                                 int n_eval, double eps_rel);
@@ -144,8 +144,8 @@ double hankel_transform_QWE_Key(int nu, form_factor_f f, double x, void *f_ctx, 
  * @param x          value at which to compute the transform
  * @param f_ctx      pointer to struct containing inputs for f
  * @param output     pointer to var containing output from transform
- * @param n_eval     integer indicating number of function evaluations (N_ogata in SASfit)
- * @param eps_rel    relative error allowed e.g. 1e-9 (eps_nriq in SASfit)
+ * @param n_eval     integer indicating number of function evaluations (``N_ogata`` in SASfit)
+ * @param eps_rel    relative error allowed e.g. 1e-9 (``eps_nriq`` in SASfit)
  */
 double hankel_transform_QWE_Chave(int nu, form_factor_f f, double x, void *f_ctx, double *output,
                                   int n_eval, double eps_rel);
