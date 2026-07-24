@@ -28,6 +28,7 @@ tests = [
   'test_form_factors.c',
   'test_hankel_DE_Ogata.c',
   'test_hankel_DE_Ooura.c',
+  'test_bessel_wrapper.c',
 ]
 test_inc = include_directories('.')   
 
