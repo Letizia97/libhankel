@@ -148,9 +148,32 @@ void test_hankel_DHT_throws_error_when_int_strategy_wrong(void) {
     TEST_ASSERT_EQUAL_STRING(captured, "Strategy number must be integer between 6 and 11\n");
 }
 
+void test_hankel_DHT_throws_error_when_nu_wrong(void) {
+    /*
+    Tests that the public hankel_transform_DHT validates nu (must be 0 or 1)
+    at entry, rather than reading out of bounds of the 3-column filter tables.
+    */
+    z = 10.0;
+    int_strategy = 8; // a strategy that indexes the tables via ind = nu + 1
+    char captured[1024];
+
+    double value;
+    double *output = &value;
+
+    start_capture_stderr();
+    int status =
+        hankel_transform_DHT(5, form_factor_sphere, z, (void *)&ctx_spheres, output, int_strategy);
+
+    stop_capture_stderr(captured, sizeof(captured));
+    TEST_ASSERT_EQUAL_INT_MESSAGE(-1, status, "");
+    TEST_ASSERT_EQUAL_STRING(captured,
+                             "nu needs to be 0 or 1 in order to use the selected strategy\n");
+}
+
 int main(void) {
     UNITY_BEGIN();
     RUN_TEST(test_hankel_DHT_regression);
     RUN_TEST(test_hankel_DHT_throws_error_when_int_strategy_wrong);
+    RUN_TEST(test_hankel_DHT_throws_error_when_nu_wrong);
     return UNITY_END();
 }
