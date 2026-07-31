@@ -26,8 +26,8 @@ static int validate_x(const double x) {
     return 0;
 }
 
-double hankel_transform_QWE_Key(int nu, form_factor_f f, const double x, void *f_ctx,
-                                double *output, int n_eval, double eps_rel) {
+int hankel_transform_QWE_Key(int nu, form_factor_f f, const double x, void *f_ctx, double *output,
+                             int n_eval, double eps_rel) {
 
     int status;
 
@@ -41,8 +41,8 @@ double hankel_transform_QWE_Key(int nu, form_factor_f f, const double x, void *f
     return status;
 }
 
-double hankel_transform_QWE_Chave(int nu, form_factor_f f, const double x, void *f_ctx,
-                                  double *output, int n_eval, double eps_rel) {
+int hankel_transform_QWE_Chave(int nu, form_factor_f f, const double x, void *f_ctx, double *output,
+                               int n_eval, double eps_rel) {
     int status;
 
     status = validate_x(x);

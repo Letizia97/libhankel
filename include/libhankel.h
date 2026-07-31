@@ -111,8 +111,8 @@ int hankel_transform(int nu, form_factor_f f, double *x, size_t len_x, void *f_c
  *         <a href="../usage/status_codes.html">Status Codes</a> page). @p x
  *         must be finite and greater than zero.
  */
-double hankel_transform_DHT(int nu, form_factor_f f, double x, void *f_ctx, double *output,
-                            int n_strategy);
+int hankel_transform_DHT(int nu, form_factor_f f, double x, void *f_ctx, double *output,
+                         int n_strategy);
 
 /**
  * @brief Computes Hankel transform, using de-quadrature.
@@ -168,8 +168,8 @@ int hankel_transform_DE_Ogata(int nu, form_factor_f f, double x, void *f_ctx, do
  *         <a href="../usage/status_codes.html">Status Codes</a> page). @p x
  *         must be finite and greater than zero.
  */
-double hankel_transform_QWE_Key(int nu, form_factor_f f, double x, void *f_ctx, double *output,
-                                int n_eval, double eps_rel);
+int hankel_transform_QWE_Key(int nu, form_factor_f f, double x, void *f_ctx, double *output,
+                             int n_eval, double eps_rel);
 
 /**
  * @brief Computes Hankel transform using the Quadrature With Extrapolation method by Chave.
@@ -187,7 +187,7 @@ double hankel_transform_QWE_Key(int nu, form_factor_f f, double x, void *f_ctx, 
  *         <a href="../usage/status_codes.html">Status Codes</a> page). @p x
  *         must be finite and greater than zero.
  */
-double hankel_transform_QWE_Chave(int nu, form_factor_f f, double x, void *f_ctx, double *output,
-                                  int n_eval, double eps_rel);
+int hankel_transform_QWE_Chave(int nu, form_factor_f f, double x, void *f_ctx, double *output,
+                               int n_eval, double eps_rel);
 
 #endif // LIBHANKEL_H

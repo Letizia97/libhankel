@@ -21,8 +21,8 @@ They have been grouped together under one function, as they are very similar,
 and changing the n_strategy parameter allows to switch between them
 */
 
-double hankel_transform_DHT(int nu, form_factor_f f, const double x, void *f_ctx, double *output,
-                            int n_strategy) {
+int hankel_transform_DHT(int nu, form_factor_f f, const double x, void *f_ctx, double *output,
+                         int n_strategy) {
 
     double res = 0;
     double lambda;
