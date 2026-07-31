@@ -90,6 +90,14 @@ double hankel_transform_DE_Ooura(int nu, form_factor_f f, const double x, void *
     double res0, err0, res, err;
     rounded_n_eval = lround(n_eval);
 
+    /* Both the finite and the oscillatory piece are set up in units of 1/x
+     * (see scaled_zero below), so a non-positive or non-finite x would divide
+     * by zero and hand NaN to the integrators instead of failing. */
+    if (!(x > 0)) {
+        fprintf(stderr, "Error: x must be finite and greater than zero\n");
+        return -12;
+    }
+
     params_struct FBTparam_struct;
     FBTparam_struct.f_params = f_ctx;
     FBTparam_struct.function = f;
@@ -134,6 +142,13 @@ double hankel_transform_DE_Ogata(int nu, form_factor_f f, const double x, void *
     double sum;
     int status;
     sum = 0.0;
+
+    /* The quadrature nodes are y_k / x and the result carries a 1 / x^2, so a
+     * non-positive or non-finite x would silently produce Inf or NaN. */
+    if (!(x > 0)) {
+        fprintf(stderr, "Error: x must be finite and greater than zero\n");
+        return -12;
+    }
 
     for (int i = 1; i <= n_eval; i++) {
 

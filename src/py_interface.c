@@ -267,6 +267,10 @@ static PyObject *py_hankel_transform(PyObject *self, PyObject *args) {
                         ".");
         return NULL;
 
+    case -12:
+        PyErr_SetString(PyExc_ValueError, "Error: x must be finite and greater than zero");
+        return NULL;
+
     default:
         PyErr_SetString(PyExc_RuntimeError, "unknown error");
         return NULL;
