@@ -211,10 +211,11 @@ void test_all_strategy_names_are_accepted(void) {
     Tests that every documented strategy name dispatches successfully, so a
     typo in the dispatcher cannot silently make a name unreachable.
     */
-    static const char *const strategies[] = {
-        "DHT_Guptasarma", "DHT_Guptasarma_Fast", "DHT_Key_51",        "DHT_Key_101",
-        "DHT_Key_201",    "DHT_Anderson_801",    "Fixed_DE_Ogata",    "Adaptive_DE_Ooura",
-        "QWE_Key",        "QWE_Chave"};
+    static const char *const strategies[] = {"DHT_Guptasarma", "DHT_Guptasarma_Fast",
+                                             "DHT_Key_51",     "DHT_Key_101",
+                                             "DHT_Key_201",    "DHT_Anderson_801",
+                                             "Fixed_DE_Ogata", "Adaptive_DE_Ooura",
+                                             "QWE_Key",        "QWE_Chave"};
 
     strategy_params strategy_params = {.eps_rel = 1e-9, .n_eval = 250, .f_max = 1.0};
     double actual[ARRAY_LEN];

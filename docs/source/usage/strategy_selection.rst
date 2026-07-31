@@ -53,8 +53,7 @@ The column named *Index* refers to the numbering used in SASfit, for cross-refer
 
 .. note::
 
-   The digital filters are named after the published filter they implement rather than
-   the SASfit index, because the indices imply an ordering that does not exist.
+   The digital filters are named after the published filter they implement .
    The three authors are **independent designs**, so accuracy is *not* monotonic in the
    tap count: ``DHT_Key_101`` is not a refinement of ``DHT_Key_51``, and can be less
    accurate than the cheaper ``DHT_Guptasarma_Fast`` on the same integrand.
@@ -84,9 +83,9 @@ integrand at points that are known in advance:
 
     G(x) = \sum_i \mathrm{base}_i \, w_i / x^2 \; f(\mathrm{base}_i / x)
 
-They are not
-iterative, rely on pre-computed constants, and do not allow the user to control the
-accuracy of the solution in any way - accuracy is set by the choice of filter.
+They are not iterative, rely on pre-computed constants, and do not
+allow the user to control the accuracy of the solution in any way - 
+accuracy is set by the choice of filter.
 
 **Adaptive** strategies (``Adaptive_DE_Ooura``, ``QWE_Key``, ``QWE_Chave``) choose their
 nodes from the integrand as they go, so there is no tap matrix and the integrand must be

@@ -56,9 +56,8 @@ typedef double (*form_factor_f)(double x, void *ctx);
  *       "DHT_Key_201", "DHT_Anderson_801", "Fixed_DE_Ogata", "Adaptive_DE_Ooura",
  *       "QWE_Chave", "QWE_Key".
  *
- * @note The digital filters are named after the filter they implement rather than
- *       the SASfit strategy index, because the indices imply an ordering that does
- *       not exist - the three authors are independent designs, and accuracy is not
+ * @note The digital filters are named after the filter they implement - 
+         the three authors are independent designs, and accuracy is not
  *       monotonic in the tap count.
  *
  * @param nu               order of bessel function - must be 0 or 1

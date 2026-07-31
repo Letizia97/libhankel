@@ -50,7 +50,7 @@ static const char *const ALL_STRATEGIES =
     "'DHT_Key_201', 'DHT_Anderson_801', 'Fixed_DE_Ogata', 'Adaptive_DE_Ooura', "
     "'QWE_Chave', 'QWE_Key'";
 
-/* Strategy names accepted. */
+/* Strategy names for fixed nodes strategies. */
 static const char *const FIXED_STRATEGIES =
     "'DHT_Guptasarma', 'DHT_Guptasarma_Fast', 'DHT_Key_51', 'DHT_Key_101', "
     "'DHT_Key_201', 'DHT_Anderson_801', 'Fixed_DE_Ogata'";
