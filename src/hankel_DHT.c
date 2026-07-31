@@ -29,6 +29,11 @@ double hankel_transform_DHT(int nu, form_factor_f f, const double x, void *f_ctx
     unsigned int i;
     unsigned int ind;
 
+    if (!(nu == 0 || nu == 1)) {
+        fprintf(stderr, "nu needs to be 0 or 1 in order to use the selected strategy\n");
+        return -1;
+    }
+
     ind = nu + 1;
 
     if (!(n_strategy >= 6 && n_strategy <= 11)) {
