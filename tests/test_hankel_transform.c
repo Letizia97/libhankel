@@ -254,6 +254,42 @@ void test_hankel_transform_rejects_the_old_sasfit_indexed_names(void) {
     }
 }
 
+void test_hankel_transform_DE_rejects_x_not_greater_than_zero(void) {
+    /*
+    Tests that the DE strategies reject an x that is not finite and greater
+    than zero.  Their quadrature nodes are scaled by 1 / x, so such a value
+    would otherwise be handed to the integrators and propagate silently as
+    Inf or NaN rather than failing.
+    */
+    static const char *const de_strategies[] = {"Fixed_DE_Ogata", "Adaptive_DE_Ooura"};
+    const double bad_values[] = {0.0, -15.0, NAN};
+
+    strategy_params strategy_params = {.eps_rel = 1e-9, .n_eval = 250, .f_max = 1.0};
+    double actual[ARRAY_LEN];
+    double x_with_bad_value[ARRAY_LEN];
+    char captured[1024];
+
+    for (size_t i = 0; i < sizeof(de_strategies) / sizeof(de_strategies[0]); i++) {
+        for (size_t j = 0; j < sizeof(bad_values) / sizeof(bad_values[0]); j++) {
+            memcpy(x_with_bad_value, r_array_gdab, sizeof(x_with_bad_value));
+
+            /* Put the bad value last, so the valid points before it are
+             * transformed first: the guard has to fire part-way through the
+             * array, not only on the very first point. */
+            x_with_bad_value[ARRAY_LEN - 1] = bad_values[j];
+
+            start_capture_stderr();
+            int status =
+                hankel_transform(nu, form_factor_g_dab, x_with_bad_value, ARRAY_LEN,
+                                 (void *)&ctx_gdab, actual, de_strategies[i], strategy_params);
+            stop_capture_stderr(captured, sizeof(captured));
+
+            TEST_ASSERT_EQUAL_INT_MESSAGE(-12, status, de_strategies[i]);
+            TEST_ASSERT_EQUAL_STRING("Error: x must be finite and greater than zero\n", captured);
+        }
+    }
+}
+
 int main(void) {
     UNITY_BEGIN();
     RUN_TEST(test_hankel_transform_spheres);
@@ -265,5 +301,6 @@ int main(void) {
     RUN_TEST(test_hankel_transform_throws_error_when_f_max_not_defined);
     RUN_TEST(test_all_strategy_names_are_accepted);
     RUN_TEST(test_hankel_transform_rejects_the_old_sasfit_indexed_names);
+    RUN_TEST(test_hankel_transform_DE_rejects_x_not_greater_than_zero);
     return UNITY_END();
 }
