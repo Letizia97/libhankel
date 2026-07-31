@@ -48,11 +48,6 @@ int validate_f_max(strategy_params strategy_params) {
  * LIBHANKEL_ALL_STRATEGIES, so the error message below and the Python one in
  * py_interface.c are built from a single literal and cannot drift apart. */
 
-/* Strategy names for fixed nodes strategies. */
-static const char *const FIXED_STRATEGIES =
-    "'DHT_Guptasarma', 'DHT_Guptasarma_Fast', 'DHT_Key_51', 'DHT_Key_101', "
-    "'DHT_Key_201', 'DHT_Anderson_801', 'Fixed_DE_Ogata'";
-
 /* Map a DHT strategy name to the internal filter index used by
  * hankel_transform_DHT().  These indices are the ones SASfit
  * uses.  Returns 0 if the name is not a DHT strategy. */
