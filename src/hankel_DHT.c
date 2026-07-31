@@ -68,7 +68,7 @@ double hankel_transform_DHT(int nu, form_factor_f f, const double x, void *f_ctx
         } else {
             for (i = 0; i < 47; i++) {
                 lambda = pow(10.0E0, (aJ1Fast + i * sJ1Fast)) / x;
-                res = res + (*f)(lambda, f_ctx) * lambda * WJ0Fast[i] / x;
+                res = res + (*f)(lambda, f_ctx) * lambda * WJ1Fast[i] / x;
             }
         }
         break;
