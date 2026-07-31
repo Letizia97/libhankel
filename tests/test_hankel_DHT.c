@@ -77,10 +77,10 @@ void setUp(void) {
     */
 
     // sphere params
-    double params_spheres[] = {10.0, 1.0};
+    static double params_spheres[] = {10.0, 1.0};
     ctx_spheres.params = params_spheres;
 
-    double params_gdab[] = {10.0, 0.5, 1e-4};
+    static double params_gdab[] = {10.0, 0.5, 1e-4};
     ctx_gdab.params = params_gdab;
 
     // setup the x (or r) array

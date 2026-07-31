@@ -30,18 +30,20 @@ int validate_f_max(strategy_params strategy_params) {
 /* ------------------------------------------------------------------------- *
  * Strategy names
  *
- * Names are FAMILY[_Author][_ntaps]:
+ * A name is FAMILY[_Author][_ntaps], optionally prefixed with Fixed_ or
+ * Adaptive_ where the family alone does not settle how the nodes are chosen:
  *
- *   DHT_*   digital linear filters - always fixed-tap, named after the published
+ *   DHT_*   digital linear filters - always fixed-node, named after the published
  *           filter they implement ("DHT_Key_101" is Key's 101-point filter, not a
  *           refinement of "DHT_Key_51"; the three authors are independent designs
  *           and accuracy is NOT monotonic in the tap count).  The Guptasarma pair
  *           carries no tap count because theirs depends on the order: 120 taps for
  *           J0 but 140 for J1 (61 / 47 for the fast variant).
  *   QWE_*   quadrature with extrapolation - always adaptive.
- *   DE_*    double-exponential.  This family contains BOTH a fixed-node method
- *           (Ogata) and an adaptive one (Ooura), and that distinction governs
- *           how the strategy can be used.
+ *   *_DE_*  double-exponential.  This family contains BOTH a fixed-node method
+ *           (Fixed_DE_Ogata) and an adaptive one (Adaptive_DE_Ooura), and that
+ *           distinction governs how the strategy can be used, so here - and only
+ *           here - the qualifier leads the name.
  * ------------------------------------------------------------------------- */
 
 /* The names accepted by hankel_transform() live in libhankel.h as
