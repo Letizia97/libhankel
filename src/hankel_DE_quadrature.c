@@ -85,8 +85,8 @@ static double deriv_DEtransform(double t) {
     return M_PI_2 * t * ch * (secH * secH) + tanh(A);
 }
 
-double hankel_transform_DE_Ooura(int nu, form_factor_f f, const double x, void *f_ctx,
-                                 double *output, int n_eval, double eps_rel) {
+int hankel_transform_DE_Ooura(int nu, form_factor_f f, const double x, void *f_ctx, double *output,
+                              int n_eval, double eps_rel) {
 
     double res0, err0, res, err;
 
@@ -147,8 +147,8 @@ double hankel_transform_DE_Ooura(int nu, form_factor_f f, const double x, void *
  * q * formFactor(q).  It enters the quadrature below in the position of
  * Ogata's step size h, so the scale of the integrand's peak is what sets the
  * node spacing. */
-double hankel_transform_DE_Ogata(int nu, form_factor_f f, const double x, void *f_ctx,
-                                 double *output, int n_eval, double f_max) {
+int hankel_transform_DE_Ogata(int nu, form_factor_f f, const double x, void *f_ctx, double *output,
+                              int n_eval, double f_max) {
 
     double sum;
     sum = 0.0;

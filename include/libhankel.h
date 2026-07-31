@@ -126,8 +126,8 @@ double hankel_transform_DHT(int nu, form_factor_f f, double x, void *f_ctx, doub
  *         <a href="../usage/status_codes.html">Status Codes</a> page). @p x
  *         must be finite and greater than zero.
  */
-double hankel_transform_DE_Ooura(int nu, form_factor_f f, double x, void *f_ctx, double *output,
-                                 int n_eval, double eps_rel);
+int hankel_transform_DE_Ooura(int nu, form_factor_f f, double x, void *f_ctx, double *output,
+                              int n_eval, double eps_rel);
 
 /**
  * @brief Computes Hankel transform, using de-quadrature.
@@ -145,8 +145,8 @@ double hankel_transform_DE_Ooura(int nu, form_factor_f f, double x, void *f_ctx,
  *         <a href="../usage/status_codes.html">Status Codes</a> page). @p x
  *         must be finite and greater than zero.
  */
-double hankel_transform_DE_Ogata(int nu, form_factor_f f, double x, void *f_ctx, double *output,
-                                 int n_eval, double f_max);
+int hankel_transform_DE_Ogata(int nu, form_factor_f f, double x, void *f_ctx, double *output,
+                              int n_eval, double f_max);
 
 /**
  * @brief Computes Hankel transform using the Quadrature With Extrapolation method by Key.
