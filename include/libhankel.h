@@ -106,6 +106,10 @@ int hankel_transform(int nu, form_factor_f f, double *x, size_t len_x, void *f_c
  * @param n_strategy an integer number between 6 and 11
  *                   (determines which weightings to use for the transform
  *                   and corresponds to SASfit strategies 6-11)
+ *
+ * @return 0 on success, or a negative status code (see the
+ *         <a href="../usage/status_codes.html">Status Codes</a> page). @p x
+ *         must be finite and greater than zero.
  */
 double hankel_transform_DHT(int nu, form_factor_f f, double x, void *f_ctx, double *output,
                             int n_strategy);
@@ -159,6 +163,10 @@ int hankel_transform_DE_Ogata(int nu, form_factor_f f, double x, void *f_ctx, do
  * @param output     pointer to var containing output from transform
  * @param n_eval     integer indicating number of function evaluations (``N_ogata`` in SASfit)
  * @param eps_rel    relative error allowed e.g. 1e-9 (``eps_nriq`` in SASfit)
+ *
+ * @return 0 on success, or a negative status code (see the
+ *         <a href="../usage/status_codes.html">Status Codes</a> page). @p x
+ *         must be finite and greater than zero.
  */
 double hankel_transform_QWE_Key(int nu, form_factor_f f, double x, void *f_ctx, double *output,
                                 int n_eval, double eps_rel);
@@ -174,6 +182,10 @@ double hankel_transform_QWE_Key(int nu, form_factor_f f, double x, void *f_ctx, 
  * @param output     pointer to var containing output from transform
  * @param n_eval     integer indicating number of function evaluations (``N_ogata`` in SASfit)
  * @param eps_rel    relative error allowed e.g. 1e-9 (``eps_nriq`` in SASfit)
+ *
+ * @return 0 on success, or a negative status code (see the
+ *         <a href="../usage/status_codes.html">Status Codes</a> page). @p x
+ *         must be finite and greater than zero.
  */
 double hankel_transform_QWE_Chave(int nu, form_factor_f f, double x, void *f_ctx, double *output,
                                   int n_eval, double eps_rel);

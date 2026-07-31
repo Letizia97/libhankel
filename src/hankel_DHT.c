@@ -41,6 +41,14 @@ double hankel_transform_DHT(int nu, form_factor_f f, const double x, void *f_ctx
         return -2;
     }
 
+    /* Every filter below samples the form factor at lambda = node / x and
+     * weights it by 1 / x, so a non-positive or non-finite x would return
+     * NaN - or, for x < 0, a plausible-looking finite number - as a success. */
+    if (!(x > 0)) {
+        fprintf(stderr, "Error: x must be finite and greater than zero\n");
+        return -12;
+    }
+
     switch (n_strategy) {
 
     case 6: {
