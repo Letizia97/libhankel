@@ -222,8 +222,9 @@ static PyObject *py_hankel_transform(PyObject *self, PyObject *args) {
         return NULL;
 
     case -2:
-        PyErr_SetString(PyExc_ValueError,
-                        "Wrong number for DHT strategy, must be int between 6 and 11");
+        /* Unreachable from Python: strategies are selected by name here, and
+         * hankel_transform() only ever passes a valid index to the filters. */
+        PyErr_SetString(PyExc_RuntimeError, "Internal error: invalid DHT filter index");
         return NULL;
 
     case -3:
@@ -261,8 +262,9 @@ static PyObject *py_hankel_transform(PyObject *self, PyObject *args) {
         return NULL;
 
     case -11:
-        PyErr_SetString(PyExc_ValueError, "Error: invalid strategy name, must be one of : "
-                                          LIBHANKEL_ALL_STRATEGIES ".");
+        PyErr_SetString(PyExc_ValueError,
+                        "Error: invalid strategy name, must be one of : " LIBHANKEL_ALL_STRATEGIES
+                        ".");
         return NULL;
 
     default:
