@@ -78,13 +78,13 @@ void setUp(void) {
     nu = 0;
 
     // set params
-    double params_spheres[] = {10.0, 1.0};
+    static double params_spheres[] = {10.0, 1.0};
     ctx_spheres.params = params_spheres;
 
-    double params_gdab[] = {10.0, 0.5, 1e-4};
+    static double params_gdab[] = {10.0, 0.5, 1e-4};
     ctx_gdab.params = params_gdab;
 
-    double params_broad_peak[] = {10e5, 1000, 0.01, 2, 2};
+    static double params_broad_peak[] = {10e5, 1000, 0.01, 2, 2};
     ctx_broad_peak.params = params_broad_peak;
 
     // setup the x (or r) array

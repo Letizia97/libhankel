@@ -77,10 +77,10 @@ void setUp(void) {
     */
 
     // sphere params
-    double params_spheres[] = {10.0, 1.0};
+    static double params_spheres[] = {10.0, 1.0};
     ctx_spheres.params = params_spheres;
 
-    double params_gdab[] = {10.0, 0.5, 1e-4};
+    static double params_gdab[] = {10.0, 0.5, 1e-4};
     ctx_gdab.params = params_gdab;
 
     // setup the x (or r) array
@@ -170,10 +170,44 @@ void test_hankel_DHT_throws_error_when_nu_wrong(void) {
                              "nu needs to be 0 or 1 in order to use the selected strategy\n");
 }
 
+void test_hankel_DHT_filters_agree_for_nu_1(void) {
+    /*
+    Cross-check of every filter at nu = 1 against Anderson_801, the finest of
+    them. The filters are independent designs, so they only agree to their own
+    accuracy (worst case here is ~2%), but a filter that reads the wrong weight
+    table is off by ~90% and is caught easily.
+
+    The regression test above only exercises nu = 0, which shares no weight
+    table with nu = 1 for the Guptasarma filters.
+    */
+    double params[] = {10.0, 1.0};
+    form_factor_ctx ctx_local;
+    ctx_local.params = params;
+
+    const double rel_tol = 0.1;
+    double r[] = {1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 8.0, 10.0, 12.0, 15.0, 18.0, 20.0, 25.0};
+    size_t n_r = sizeof(r) / sizeof(r[0]);
+
+    for (int strategy = 6; strategy <= 11; strategy++) {
+        for (size_t i = 0; i < n_r; ++i) {
+            double actual, reference;
+
+            hankel_transform_DHT(1, form_factor_sphere, r[i], (void *)&ctx_local, &actual,
+                                 strategy);
+            hankel_transform_DHT(1, form_factor_sphere, r[i], (void *)&ctx_local, &reference, 11);
+
+            char msg[128];
+            snprintf(msg, sizeof(msg), "strategy %d disagrees at r = %.1f", strategy, r[i]);
+            TEST_ASSERT_DOUBLE_WITHIN_MESSAGE(fabs(reference) * rel_tol, reference, actual, msg);
+        }
+    }
+}
+
 int main(void) {
     UNITY_BEGIN();
     RUN_TEST(test_hankel_DHT_regression);
     RUN_TEST(test_hankel_DHT_throws_error_when_int_strategy_wrong);
     RUN_TEST(test_hankel_DHT_throws_error_when_nu_wrong);
+    RUN_TEST(test_hankel_DHT_filters_agree_for_nu_1);
     return UNITY_END();
 }

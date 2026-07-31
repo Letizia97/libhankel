@@ -6,6 +6,7 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 #include "form_factors.h"
@@ -22,9 +23,21 @@ form_factor_ctx ctx_spheres;
 form_factor_ctx ctx_gdab;
 form_factor_ctx ctx_broad_peak;
 
-double r_array_spheres[ARRAY_LEN];
-double r_array_gdab[ARRAY_LEN];
-double r_array_broad_peak[ARRAY_LEN];
+/* Initialised here rather than in setUp() so the tests below, which read these
+ * at file scope, see the real abscissae.  */
+double r_array_spheres[ARRAY_LEN] = {1.0,  2.0,  3.0,  4.0,  5.0,  6.0,  7.0,  8.0,  9.0, 10.0,
+                                     11.0, 12.0, 13.0, 14.0, 15.0, 16.0, 17.0, 18.0, 19.0};
+
+double r_array_gdab[ARRAY_LEN] = {
+    15.,         18.54166667, 22.08333333, 25.625,      29.16666667, 32.70833333, 36.25,
+    39.79166667, 43.33333333, 46.875,      50.41666667, 53.95833333, 57.5,        61.04166667,
+    64.58333333, 68.125,      71.66666667, 75.20833333, 78.75,
+};
+
+double r_array_broad_peak[ARRAY_LEN] = {
+    30.,  49.,  69.,  88.,  108., 127., 147., 167., 186., 206.,
+    225., 225., 245., 265., 284., 304., 323., 343., 362.,
+};
 
 hankel_inputs inputs;
 double Gr[ARRAY_LEN];
@@ -67,33 +80,18 @@ void setUp(void) {
     nu = 0;
 
     // set params
-    double params_spheres[] = {10.0, 1.0};
+    static double params_spheres[] = {10.0, 1.0};
     ctx_spheres.params = params_spheres;
 
-    double params_gdab[] = {10.0, 0.5, 1e-4};
+    static double params_gdab[] = {10.0, 0.5, 1e-4};
     ctx_gdab.params = params_gdab;
 
-    double params_broad_peak[] = {10e5, 1000, 0.01, 2, 2};
+    static double params_broad_peak[] = {10e5, 1000, 0.01, 2, 2};
     ctx_broad_peak.params = params_broad_peak;
 
     strategy_params strategy_params_general = {.n_eval = 250, .eps_rel = 1e-9};
 
     strategy_params strategy_params_b_peak = {.n_eval = 150, .eps_rel = 1e-9};
-
-    // setup the x (or r) array
-    double r_array_spheres[ARRAY_LEN] = {1.0,  2.0,  3.0,  4.0,  5.0,  6.0,  7.0,  8.0,  9.0, 10.0,
-                                         11.0, 12.0, 13.0, 14.0, 15.0, 16.0, 17.0, 18.0, 19.0};
-
-    double r_array_gdab[ARRAY_LEN] = {
-        15.,         18.54166667, 22.08333333, 25.625,      29.16666667, 32.70833333, 36.25,
-        39.79166667, 43.33333333, 46.875,      50.41666667, 53.95833333, 57.5,        61.04166667,
-        64.58333333, 68.125,      71.66666667, 75.20833333, 78.75,
-    };
-
-    double r_array_broad_peak[ARRAY_LEN] = {
-        30.,  49.,  69.,  88.,  108., 127., 147., 167., 186., 206.,
-        225., 225., 245., 265., 284., 304., 323., 343., 362.,
-    };
 
     // COMPUTATIONS
     hankel_transform(nu, form_factor_sphere, r_array_spheres, ARRAY_LEN, (void *)&ctx_spheres,
@@ -191,18 +189,69 @@ void test_hankel_transform_throws_error_when_nu_wrong(void) {
 void test_hankel_transform_throws_error_when_f_max_not_defined(void) {
     /*
     Tests that hankel_transform throws expected
-    error when f_max not provided (when using DE_Ogata).
+    error when f_max not provided (when using Fixed_DE_Ogata).
     */
     char captured[1024];
     strategy_params strategy_params_wrong = {.n_eval = 250};
 
     start_capture_stderr();
     int status = hankel_transform(nu, form_factor_g_dab, r_array_gdab, ARRAY_LEN, (void *)&ctx_gdab,
-                                  ctx.actual_gdab, "DE_Ogata", strategy_params_wrong);
+                                  ctx.actual_gdab, "Fixed_DE_Ogata", strategy_params_wrong);
 
     stop_capture_stderr(captured, sizeof(captured));
     TEST_ASSERT_EQUAL_INT_MESSAGE(-10, status, "");
     TEST_ASSERT_EQUAL_STRING(captured, "Error: f_max must be provided and cannot be zero\n");
+}
+
+void test_all_strategy_names_are_accepted(void) {
+    /*
+    Tests that every documented strategy name dispatches successfully, so a
+    typo in the dispatcher cannot silently make a name unreachable.
+    */
+    static const char *const strategies[] = {"DHT_Guptasarma", "DHT_Guptasarma_Fast",
+                                             "DHT_Key_51",     "DHT_Key_101",
+                                             "DHT_Key_201",    "DHT_Anderson_801",
+                                             "Fixed_DE_Ogata", "Adaptive_DE_Ooura",
+                                             "QWE_Key",        "QWE_Chave"};
+
+    strategy_params strategy_params = {.eps_rel = 1e-9, .n_eval = 250, .f_max = 1.0};
+    double actual[ARRAY_LEN];
+
+    for (size_t i = 0; i < sizeof(strategies) / sizeof(strategies[0]); i++) {
+        int status =
+            hankel_transform(nu, form_factor_g_dab, r_array_gdab, ARRAY_LEN, (void *)&ctx_gdab,
+                             actual, strategies[i], strategy_params);
+        TEST_ASSERT_EQUAL_INT_MESSAGE(0, status, strategies[i]);
+    }
+}
+
+void test_hankel_transform_rejects_the_old_sasfit_indexed_names(void) {
+    /*
+    Tests that the removed SASfit-indexed names are no longer accepted, rather
+    than silently resolving to some other filter.
+    */
+    static const char *const removed[] = {"DHT_6",  "DHT_7",  "DHT_8",    "DHT_9",
+                                          "DHT_10", "DHT_11", "DE_Ogata", "DE_Ooura"};
+
+    strategy_params strategy_params = {.eps_rel = 1e-9, .n_eval = 250, .f_max = 1.0};
+    double actual[ARRAY_LEN];
+    char captured[1024];
+
+    for (size_t i = 0; i < sizeof(removed) / sizeof(removed[0]); i++) {
+        start_capture_stderr();
+        int status = hankel_transform(nu, form_factor_g_dab, r_array_gdab, ARRAY_LEN,
+                                      (void *)&ctx_gdab, actual, removed[i], strategy_params);
+        stop_capture_stderr(captured, sizeof(captured));
+
+        TEST_ASSERT_EQUAL_INT_MESSAGE(-11, status, removed[i]);
+
+        /* The message must name the offending string, so a user who is porting
+         * from the old spellings can see which one was rejected. */
+        char expected[1024];
+        snprintf(expected, sizeof(expected), "Invalid strategy name '%s', must be one of : %s.\n",
+                 removed[i], LIBHANKEL_ALL_STRATEGIES);
+        TEST_ASSERT_EQUAL_STRING(expected, captured);
+    }
 }
 
 int main(void) {
@@ -214,5 +263,7 @@ int main(void) {
     RUN_TEST(test_hankel_transform_throws_error_when_eps_rel_not_defined);
     RUN_TEST(test_hankel_transform_throws_error_when_nu_wrong);
     RUN_TEST(test_hankel_transform_throws_error_when_f_max_not_defined);
+    RUN_TEST(test_all_strategy_names_are_accepted);
+    RUN_TEST(test_hankel_transform_rejects_the_old_sasfit_indexed_names);
     return UNITY_END();
 }

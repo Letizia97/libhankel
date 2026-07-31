@@ -161,7 +161,7 @@ EXPECTED_DE_OGATA = np.array(
 )
 
 
-EXPECTED_DHT_6 = np.array(
+EXPECTED_DHT_GUPTASARMA = np.array(
     [
         0.013140997709684353,
         0.009940958680493717,
@@ -191,7 +191,7 @@ EXPECTED_DHT_6 = np.array(
     ]
 )
 
-EXPECTED_DHT_7 = np.array(
+EXPECTED_DHT_GUPTASARMA_FAST = np.array(
     [
         0.013140997711958714,
         0.009940958683491735,
@@ -221,7 +221,7 @@ EXPECTED_DHT_7 = np.array(
     ]
 )
 
-EXPECTED_DHT_8 = np.array(
+EXPECTED_DHT_KEY_51 = np.array(
     [
         0.01314099625645249,
         0.009940958070942722,
@@ -251,7 +251,7 @@ EXPECTED_DHT_8 = np.array(
     ]
 )
 
-EXPECTED_DHT_9 = np.array(
+EXPECTED_DHT_KEY_101 = np.array(
     [
         0.013140997708891164,
         0.009940958680601571,
@@ -281,7 +281,7 @@ EXPECTED_DHT_9 = np.array(
     ]
 )
 
-EXPECTED_DHT_10 = np.array(
+EXPECTED_DHT_KEY_201 = np.array(
     [
         0.013140997709747344,
         0.009940958680443038,
@@ -333,18 +333,50 @@ def dab(q, params):
     return numer / denom
 
 
+EXPECTED_DHT_ANDERSON_801 = np.array(
+    [
+        0.013140997709445936,
+        0.00994095864167573,
+        0.0074453616079238425,
+        0.005533956355880709,
+        0.004088640599846053,
+        0.0030061670042406154,
+        0.0022014297804729887,
+        0.001606690524318824,
+        0.0011692607703919953,
+        0.0008488160782977048,
+        0.0006148611535150202,
+        0.0004445440821939805,
+        0.0003208637593504192,
+        0.00023124542022718135,
+        0.00016643274906104618,
+        0.00011963945947862546,
+        8.590709787749118e-05,
+        6.162331398385586e-05,
+        4.4163095161274243e-05,
+        3.162313704936107e-05,
+        2.2626122195979758e-05,
+        1.6177095191014445e-05,
+        1.1558432219678368e-05,
+        8.253262602810318e-06,
+        5.889779725320435e-06,
+    ]
+)
+
+
 @pytest.mark.parametrize(
     "x_arr, strategy_name, strategy_p_dict, expected",
     [
         (INPUT_X_ARR, "QWE_Chave", QWE_p_dict, EXPECTED_QWE_CHAVE),
         (INPUT_X_ARR, "QWE_Key", QWE_p_dict, EXPECTED_QWE_KEY),
-        (INPUT_X_ARR, "DE_Ogata", DE_Ogata_p_dict, EXPECTED_DE_OGATA),
-        (INPUT_X_ARR, "DE_Ooura", DE_Ooura_p_dict, EXPECTED_DE_OOURA),
-        (INPUT_X_ARR, "DHT_6", {}, EXPECTED_DHT_6),
-        (INPUT_X_ARR, "DHT_7", {}, EXPECTED_DHT_7),
-        (INPUT_X_ARR, "DHT_8", {}, EXPECTED_DHT_8),
-        (INPUT_X_ARR, "DHT_9", {}, EXPECTED_DHT_9),
-        (INPUT_X_ARR, "DHT_10", {}, EXPECTED_DHT_10),
+        (INPUT_X_ARR, "Fixed_DE_Ogata", DE_Ogata_p_dict, EXPECTED_DE_OGATA),
+        (INPUT_X_ARR, "Adaptive_DE_Ooura", DE_Ooura_p_dict, EXPECTED_DE_OOURA),
+        (INPUT_X_ARR, "DHT_Guptasarma", {}, EXPECTED_DHT_GUPTASARMA),
+        (INPUT_X_ARR, "DHT_Guptasarma_Fast", {}, EXPECTED_DHT_GUPTASARMA_FAST),
+        (INPUT_X_ARR, "DHT_Key_51", {}, EXPECTED_DHT_KEY_51),
+        (INPUT_X_ARR, "DHT_Key_101", {}, EXPECTED_DHT_KEY_101),
+        (INPUT_X_ARR, "DHT_Key_201", {}, EXPECTED_DHT_KEY_201),
+        (INPUT_X_ARR, "DHT_Anderson_801", {}, EXPECTED_DHT_ANDERSON_801),
     ],
 )
 def test_hankel_transform_strategies_with_custom_factor(
