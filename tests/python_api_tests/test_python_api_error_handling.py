@@ -214,25 +214,33 @@ def test_hankel_transform_DE_Ogata_raises_error_when_fmax_missing(
     ids=["zero", "negative", "nan"],
 )
 @pytest.mark.parametrize(
-    "form_factor, strategy_name, strategy_p_dict",
+    "strategy_name, strategy_p_dict",
     [
-        (dab, "Adaptive_DE_Ooura", DE_Ooura_p_dict),
-        (dab, "Fixed_DE_Ogata", DE_Ogata_p_dict),
-        ("gdab", "Adaptive_DE_Ooura", DE_Ooura_p_dict),
-        ("gdab", "Fixed_DE_Ogata", DE_Ogata_p_dict),
+        ("DHT_Guptasarma", {}),
+        ("DHT_Guptasarma_Fast", {}),
+        ("DHT_Key_51", {}),
+        ("DHT_Key_101", {}),
+        ("DHT_Key_201", {}),
+        ("DHT_Anderson_801", {}),
+        ("Adaptive_DE_Ooura", DE_Ooura_p_dict),
+        ("Fixed_DE_Ogata", DE_Ogata_p_dict),
+        ("QWE_Key", QWE_p_dict),
+        ("QWE_Chave", QWE_p_dict),
     ],
 )
-def test_hankel_transform_DE_raises_error_when_x_not_greater_than_zero(
+@pytest.mark.parametrize("form_factor", [dab, "gdab"], ids=["callable", "builtin"])
+def test_hankel_transform_raises_error_when_x_not_greater_than_zero(
     form_factor,
     strategy_name,
     strategy_p_dict,
     bad_x_arr,
 ):
     """
-    Test that the DE strategies raise a ValueError when the x array holds a
-    value that is not finite and greater than zero. Their quadrature nodes
-    are scaled by 1 / x, so such a value would otherwise propagate silently
-    as Inf or NaN instead of failing.
+    Test that every strategy raises a ValueError when the x array holds a
+    value that is not finite and greater than zero. They all place their
+    quadrature nodes at some constant divided by x, so such a value would
+    otherwise propagate silently as Inf, NaN or a wrong finite number
+    instead of failing.
     """
     nu = 0
     params_gdab = np.array([10.0, 0.5, 1e-4])

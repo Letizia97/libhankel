@@ -253,14 +253,18 @@ void test_hankel_transform_rejects_the_old_sasfit_indexed_names(void) {
     }
 }
 
-void test_hankel_transform_DE_rejects_x_not_greater_than_zero(void) {
+void test_hankel_transform_rejects_x_not_greater_than_zero(void) {
     /*
-    Tests that the DE strategies reject an x that is not finite and greater
-    than zero.  Their quadrature nodes are scaled by 1 / x, so such a value
-    would otherwise be handed to the integrators and propagate silently as
-    Inf or NaN rather than failing.
+    Tests that every strategy rejects an x that is not finite and greater than
+    zero.  All of them place their quadrature nodes at some constant divided by
+    x, so such a value would otherwise be reported as a success carrying Inf,
+    NaN, DBL_MAX or - for x < 0 - a plausible-looking but wrong number.
     */
-    static const char *const de_strategies[] = {"Fixed_DE_Ogata", "Adaptive_DE_Ooura"};
+    static const char *const strategies[] = {"DHT_Guptasarma", "DHT_Guptasarma_Fast",
+                                             "DHT_Key_51",     "DHT_Key_101",
+                                             "DHT_Key_201",    "DHT_Anderson_801",
+                                             "Fixed_DE_Ogata", "Adaptive_DE_Ooura",
+                                             "QWE_Key",        "QWE_Chave"};
     const double bad_values[] = {0.0, -15.0, NAN};
 
     strategy_params strategy_params = {.eps_rel = 1e-9, .n_eval = 250, .f_max = 1.0};
@@ -268,7 +272,7 @@ void test_hankel_transform_DE_rejects_x_not_greater_than_zero(void) {
     double x_with_bad_value[ARRAY_LEN];
     char captured[1024];
 
-    for (size_t i = 0; i < sizeof(de_strategies) / sizeof(de_strategies[0]); i++) {
+    for (size_t i = 0; i < sizeof(strategies) / sizeof(strategies[0]); i++) {
         for (size_t j = 0; j < sizeof(bad_values) / sizeof(bad_values[0]); j++) {
             memcpy(x_with_bad_value, r_array_gdab, sizeof(x_with_bad_value));
 
@@ -280,10 +284,10 @@ void test_hankel_transform_DE_rejects_x_not_greater_than_zero(void) {
             start_capture_stderr();
             int status =
                 hankel_transform(nu, form_factor_g_dab, x_with_bad_value, ARRAY_LEN,
-                                 (void *)&ctx_gdab, actual, de_strategies[i], strategy_params);
+                                 (void *)&ctx_gdab, actual, strategies[i], strategy_params);
             stop_capture_stderr(captured, sizeof(captured));
 
-            TEST_ASSERT_EQUAL_INT_MESSAGE(-12, status, de_strategies[i]);
+            TEST_ASSERT_EQUAL_INT_MESSAGE(-12, status, strategies[i]);
             TEST_ASSERT_EQUAL_STRING("Error: x must be finite and greater than zero\n", captured);
         }
     }
@@ -300,6 +304,6 @@ int main(void) {
     RUN_TEST(test_hankel_transform_throws_error_when_f_max_not_defined);
     RUN_TEST(test_all_strategy_names_are_accepted);
     RUN_TEST(test_hankel_transform_rejects_the_old_sasfit_indexed_names);
-    RUN_TEST(test_hankel_transform_DE_rejects_x_not_greater_than_zero);
+    RUN_TEST(test_hankel_transform_rejects_x_not_greater_than_zero);
     return UNITY_END();
 }
