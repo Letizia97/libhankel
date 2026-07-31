@@ -196,20 +196,28 @@ intdeo
                               greater than eps.
 */
 
+/*
+ * Adaptation notes (libhankel)
+ * ----------------------------
+ * The documentation blocks above are Ooura's, and describe the original
+ * signatures.  The functions below differ from them in two ways:
+ *   - every name carries a `sasfit_` prefix, e.g. intde -> sasfit_intde;
+ *   - the integrand is `double (*f)(double, void *)` rather than
+ *     `double (*f)(double)`, and each integrator takes an extra trailing
+ *     `void *f_params` that it forwards to every call of f.  This is what
+ *     lets a caller pass context (Bessel order, Fourier variable, form
+ *     factor parameters) without globals.
+ * The numerics are otherwise unmodified from upstream, so this file is kept
+ * diffable against it - please do not restructure it.
+ *
+ * Note: sasfit_intdeiini / sasfit_intdei (the non-oscillatory half-infinite
+ * integrator) are part of the upstream package but are not currently used by
+ * libhankel, and are deliberately not declared in intde.h.
+ */
+
 #include "external_libs/DE-quadrature/intde.h"
 
 #include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-// #include "include/libhankel.h"
-
-#ifdef MACOSX
-#include <sys/malloc.h>
-#else
-#include <malloc.h>
-#endif
 
 void sasfit_intdeini(int lenaw, double tiny, double eps, double *aw) {
     /* ---- adjustable parameter ---- */
