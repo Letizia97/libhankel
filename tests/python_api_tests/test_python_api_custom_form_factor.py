@@ -161,7 +161,7 @@ EXPECTED_DE_OGATA = np.array(
 )
 
 
-EXPECTED_DHT_6 = np.array(
+EXPECTED_DHT_GUPTASARMA = np.array(
     [
         0.013140997709684353,
         0.009940958680493717,
@@ -191,7 +191,7 @@ EXPECTED_DHT_6 = np.array(
     ]
 )
 
-EXPECTED_DHT_7 = np.array(
+EXPECTED_DHT_GUPTASARMA_FAST = np.array(
     [
         0.013140997711958714,
         0.009940958683491735,
@@ -221,7 +221,7 @@ EXPECTED_DHT_7 = np.array(
     ]
 )
 
-EXPECTED_DHT_8 = np.array(
+EXPECTED_DHT_KEY_51 = np.array(
     [
         0.01314099625645249,
         0.009940958070942722,
@@ -251,7 +251,7 @@ EXPECTED_DHT_8 = np.array(
     ]
 )
 
-EXPECTED_DHT_9 = np.array(
+EXPECTED_DHT_KEY_101 = np.array(
     [
         0.013140997708891164,
         0.009940958680601571,
@@ -281,7 +281,7 @@ EXPECTED_DHT_9 = np.array(
     ]
 )
 
-EXPECTED_DHT_10 = np.array(
+EXPECTED_DHT_KEY_201 = np.array(
     [
         0.013140997709747344,
         0.009940958680443038,
@@ -338,13 +338,13 @@ def dab(q, params):
     [
         (INPUT_X_ARR, "QWE_Chave", QWE_p_dict, EXPECTED_QWE_CHAVE),
         (INPUT_X_ARR, "QWE_Key", QWE_p_dict, EXPECTED_QWE_KEY),
-        (INPUT_X_ARR, "DE_Ogata", DE_Ogata_p_dict, EXPECTED_DE_OGATA),
-        (INPUT_X_ARR, "DE_Ooura", DE_Ooura_p_dict, EXPECTED_DE_OOURA),
-        (INPUT_X_ARR, "DHT_6", {}, EXPECTED_DHT_6),
-        (INPUT_X_ARR, "DHT_7", {}, EXPECTED_DHT_7),
-        (INPUT_X_ARR, "DHT_8", {}, EXPECTED_DHT_8),
-        (INPUT_X_ARR, "DHT_9", {}, EXPECTED_DHT_9),
-        (INPUT_X_ARR, "DHT_10", {}, EXPECTED_DHT_10),
+        (INPUT_X_ARR, "Fixed_DE_Ogata", DE_Ogata_p_dict, EXPECTED_DE_OGATA),
+        (INPUT_X_ARR, "Adaptive_DE_Ooura", DE_Ooura_p_dict, EXPECTED_DE_OOURA),
+        (INPUT_X_ARR, "DHT_Guptasarma", {}, EXPECTED_DHT_GUPTASARMA),
+        (INPUT_X_ARR, "DHT_Guptasarma_Fast", {}, EXPECTED_DHT_GUPTASARMA_FAST),
+        (INPUT_X_ARR, "DHT_Key_51", {}, EXPECTED_DHT_KEY_51),
+        (INPUT_X_ARR, "DHT_Key_101", {}, EXPECTED_DHT_KEY_101),
+        (INPUT_X_ARR, "DHT_Key_201", {}, EXPECTED_DHT_KEY_201),
     ],
 )
 def test_hankel_transform_strategies_with_custom_factor(

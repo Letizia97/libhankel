@@ -50,8 +50,16 @@ typedef double (*form_factor_f)(double x, void *ctx);
 
 /**
  * @brief Computes Hankel transform using the method specified by the user.
- * @note The parameter strategy_name can be any of "QWE_Chave", "QWE_Key",
- *       "DHT_6", "DHT_7", "DHT_8", "DHT_9", "DHT_10", "DHT_11".
+ *
+ * @note strategy_name can be any of
+ *       "DHT_Guptasarma", "DHT_Guptasarma_Fast", "DHT_Key_51", "DHT_Key_101",
+ *       "DHT_Key_201", "DHT_Anderson_801", "Fixed_DE_Ogata", "Adaptive_DE_Ooura",
+ *       "QWE_Chave", "QWE_Key".
+ *
+ * @note The digital filters are named after the filter they implement rather than
+ *       the SASfit strategy index, because the indices imply an ordering that does
+ *       not exist - the three authors are independent designs, and accuracy is not
+ *       monotonic in the tap count.
  *
  * @param nu               order of bessel function - must be 0 or 1
  * @param f                pointer to function to transform (see @ref form_factor_f).

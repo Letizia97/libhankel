@@ -1,4 +1,5 @@
 import math
+import re
 
 import libhankel
 import numpy as np
@@ -72,9 +73,9 @@ def dab(q, params):
     "form_factor, x_arr, strategy_name, strategy_p_dict",
     [
         (dab, INPUT_X_ARR, "QWE_Chave", QWE_p_dict),
-        (dab, INPUT_X_ARR, "DHT_10", {}),
+        (dab, INPUT_X_ARR, "DHT_Key_201", {}),
         ("gdab", INPUT_X_ARR, "QWE_Chave", QWE_p_dict),
-        ("gdab", INPUT_X_ARR, "DHT_10", {}),
+        ("gdab", INPUT_X_ARR, "DHT_Key_201", {}),
     ],
 )
 def test_hankel_transform_returns_error_when_nu_wrong(
@@ -198,7 +199,7 @@ def test_hankel_transform_DE_Ogata_raises_error_when_fmax_missing(
             form_factor,
             x_arr,
             params_gdab,
-            "DE_Ogata",
+            "Fixed_DE_Ogata",
             {"n_eval": 250},
         )
 
@@ -242,9 +243,14 @@ def test_hankel_transform_raises_correct_error_when_invalid_strategy_name(
 ):
     nu = 0
     params_gdab = np.array([10.0, 0.5, 1e-4])
-    expected_error = "Error: invalid strategy name, must be one of : 'DHT_6', 'DHT_7', 'DHT_8', 'DHT_9', 'DHT_10', 'DE_Ooura', 'DE_Ogata', 'QWE_Chave', 'QWE_Key'."
+    expected_error = (
+        "Error: invalid strategy name, must be one of : 'DHT_Guptasarma', "
+        "'DHT_Guptasarma_Fast', 'DHT_Key_51', 'DHT_Key_101', 'DHT_Key_201', "
+        "'DHT_Anderson_801', 'Fixed_DE_Ogata', 'Adaptive_DE_Ooura', 'QWE_Chave', "
+        "'QWE_Key'."
+    )
 
-    with pytest.raises(ValueError, match=expected_error):
+    with pytest.raises(ValueError, match=re.escape(expected_error)):
         libhankel.hankel_transform(
             nu,
             form_factor,

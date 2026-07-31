@@ -6,6 +6,7 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 #include "form_factors.h"
@@ -191,18 +192,68 @@ void test_hankel_transform_throws_error_when_nu_wrong(void) {
 void test_hankel_transform_throws_error_when_f_max_not_defined(void) {
     /*
     Tests that hankel_transform throws expected
-    error when f_max not provided (when using DE_Ogata).
+    error when f_max not provided (when using Fixed_DE_Ogata).
     */
     char captured[1024];
     strategy_params strategy_params_wrong = {.n_eval = 250};
 
     start_capture_stderr();
     int status = hankel_transform(nu, form_factor_g_dab, r_array_gdab, ARRAY_LEN, (void *)&ctx_gdab,
-                                  ctx.actual_gdab, "DE_Ogata", strategy_params_wrong);
+                                  ctx.actual_gdab, "Fixed_DE_Ogata", strategy_params_wrong);
 
     stop_capture_stderr(captured, sizeof(captured));
     TEST_ASSERT_EQUAL_INT_MESSAGE(-10, status, "");
     TEST_ASSERT_EQUAL_STRING(captured, "Error: f_max must be provided and cannot be zero\n");
+}
+
+void test_all_strategy_names_are_accepted(void) {
+    /*
+    Tests that every documented strategy name dispatches successfully, so a
+    typo in the dispatcher cannot silently make a name unreachable.
+    */
+    static const char *const strategies[] = {
+        "DHT_Guptasarma", "DHT_Guptasarma_Fast", "DHT_Key_51",        "DHT_Key_101",
+        "DHT_Key_201",    "DHT_Anderson_801",    "Fixed_DE_Ogata",    "Adaptive_DE_Ooura",
+        "QWE_Key",        "QWE_Chave"};
+
+    strategy_params strategy_params = {.eps_rel = 1e-9, .n_eval = 250, .f_max = 1.0};
+    double actual[ARRAY_LEN];
+
+    /* The file-scope r_array_gdab is shadowed by a local of the same name in
+     * setUp(), so it is still all zeros here; use our own abscissae. */
+    double r_array[ARRAY_LEN] = {
+        15.,         18.54166667, 22.08333333, 25.625,      29.16666667, 32.70833333, 36.25,
+        39.79166667, 43.33333333, 46.875,      50.41666667, 53.95833333, 57.5,        61.04166667,
+        64.58333333, 68.125,      71.66666667, 75.20833333, 78.75,
+    };
+
+    for (size_t i = 0; i < sizeof(strategies) / sizeof(strategies[0]); i++) {
+        int status = hankel_transform(nu, form_factor_g_dab, r_array, ARRAY_LEN, (void *)&ctx_gdab,
+                                      actual, strategies[i], strategy_params);
+        TEST_ASSERT_EQUAL_INT_MESSAGE(0, status, strategies[i]);
+    }
+}
+
+void test_hankel_transform_rejects_the_old_sasfit_indexed_names(void) {
+    /*
+    Tests that the removed SASfit-indexed names are no longer accepted, rather
+    than silently resolving to some other filter.
+    */
+    static const char *const removed[] = {"DHT_6",  "DHT_7",  "DHT_8",    "DHT_9",
+                                          "DHT_10", "DHT_11", "DE_Ogata", "DE_Ooura"};
+
+    strategy_params strategy_params = {.eps_rel = 1e-9, .n_eval = 250, .f_max = 1.0};
+    double actual[ARRAY_LEN];
+    char captured[1024];
+
+    for (size_t i = 0; i < sizeof(removed) / sizeof(removed[0]); i++) {
+        start_capture_stderr();
+        int status = hankel_transform(nu, form_factor_g_dab, r_array_gdab, ARRAY_LEN,
+                                      (void *)&ctx_gdab, actual, removed[i], strategy_params);
+        stop_capture_stderr(captured, sizeof(captured));
+
+        TEST_ASSERT_EQUAL_INT_MESSAGE(-11, status, removed[i]);
+    }
 }
 
 int main(void) {
@@ -214,5 +265,7 @@ int main(void) {
     RUN_TEST(test_hankel_transform_throws_error_when_eps_rel_not_defined);
     RUN_TEST(test_hankel_transform_throws_error_when_nu_wrong);
     RUN_TEST(test_hankel_transform_throws_error_when_f_max_not_defined);
+    RUN_TEST(test_all_strategy_names_are_accepted);
+    RUN_TEST(test_hankel_transform_rejects_the_old_sasfit_indexed_names);
     return UNITY_END();
 }
