@@ -261,11 +261,8 @@ static PyObject *py_hankel_transform(PyObject *self, PyObject *args) {
         return NULL;
 
     case -11:
-        PyErr_SetString(PyExc_ValueError,
-                        "Error: invalid strategy name, must be one of : 'DHT_Guptasarma', "
-                        "'DHT_Guptasarma_Fast', 'DHT_Key_51', 'DHT_Key_101', 'DHT_Key_201', "
-                        "'DHT_Anderson_801', 'Fixed_DE_Ogata', 'Adaptive_DE_Ooura', "
-                        "'QWE_Chave', 'QWE_Key'.");
+        PyErr_SetString(PyExc_ValueError, "Error: invalid strategy name, must be one of : "
+                                          LIBHANKEL_ALL_STRATEGIES ".");
         return NULL;
 
     default:

@@ -49,14 +49,27 @@ typedef struct {
 typedef double (*form_factor_f)(double x, void *ctx);
 
 /**
+ * @def LIBHANKEL_ALL_STRATEGIES
+ * @brief Every strategy name accepted by @ref hankel_transform, as a quoted,
+ *        comma-separated list.
+ *
+ * Defined here so the C and the Python error messages are built from the same
+ * literal and cannot drift apart when a strategy is added or renamed.
+ */
+#define LIBHANKEL_ALL_STRATEGIES                                                                   \
+    "'DHT_Guptasarma', 'DHT_Guptasarma_Fast', 'DHT_Key_51', 'DHT_Key_101', "                       \
+    "'DHT_Key_201', 'DHT_Anderson_801', 'Fixed_DE_Ogata', 'Adaptive_DE_Ooura', "                   \
+    "'QWE_Chave', 'QWE_Key'"
+
+/**
  * @brief Computes Hankel transform using the method specified by the user.
  *
  * @note strategy_name can be any of
  *       "DHT_Guptasarma", "DHT_Guptasarma_Fast", "DHT_Key_51", "DHT_Key_101",
  *       "DHT_Key_201", "DHT_Anderson_801", "Fixed_DE_Ogata", "Adaptive_DE_Ooura",
- *       "QWE_Chave", "QWE_Key".
+ *       "QWE_Chave", "QWE_Key" (see @ref LIBHANKEL_ALL_STRATEGIES).
  *
- * @note The digital filters are named after the filter they implement - 
+ * @note The digital filters are named after the filter they implement -
          the three authors are independent designs, and accuracy is not
  *       monotonic in the tap count.
  *

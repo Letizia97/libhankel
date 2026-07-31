@@ -44,11 +44,9 @@ int validate_f_max(strategy_params strategy_params) {
  *           how the strategy can be used.
  * ------------------------------------------------------------------------- */
 
-/* Names accepted by hankel_transform(), for error messages. */
-static const char *const ALL_STRATEGIES =
-    "'DHT_Guptasarma', 'DHT_Guptasarma_Fast', 'DHT_Key_51', 'DHT_Key_101', "
-    "'DHT_Key_201', 'DHT_Anderson_801', 'Fixed_DE_Ogata', 'Adaptive_DE_Ooura', "
-    "'QWE_Chave', 'QWE_Key'";
+/* The names accepted by hankel_transform() live in libhankel.h as
+ * LIBHANKEL_ALL_STRATEGIES, so the error message below and the Python one in
+ * py_interface.c are built from a single literal and cannot drift apart. */
 
 /* Strategy names for fixed nodes strategies. */
 static const char *const FIXED_STRATEGIES =
@@ -182,7 +180,7 @@ int hankel_transform(int nu, form_factor_f f, double *x, size_t len_x, void *f_c
 
     } else {
         fprintf(stderr, "Invalid strategy name '%s', must be one of : %s.\n", strategy_name,
-                ALL_STRATEGIES);
+                LIBHANKEL_ALL_STRATEGIES);
         return -11;
     }
 
