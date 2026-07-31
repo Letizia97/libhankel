@@ -218,9 +218,8 @@ void test_all_strategy_names_are_accepted(void) {
     double actual[ARRAY_LEN];
 
     for (size_t i = 0; i < sizeof(strategies) / sizeof(strategies[0]); i++) {
-        int status =
-            hankel_transform(nu, form_factor_g_dab, r_array_gdab, ARRAY_LEN, (void *)&ctx_gdab,
-                             actual, strategies[i], strategy_params);
+        int status = hankel_transform(nu, form_factor_g_dab, r_array_gdab, ARRAY_LEN,
+                                      (void *)&ctx_gdab, actual, strategies[i], strategy_params);
         TEST_ASSERT_EQUAL_INT_MESSAGE(0, status, strategies[i]);
     }
 }
