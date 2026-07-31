@@ -18,40 +18,43 @@ corresponding to:
     - OGATA_2005 , i.e. strategy 1 in SASfit
 */
 
-#define SIGN(x) (((x) > 0) - ((x) < 0))
+/** Length of the node/weight table handed to the Ooura integrators.
+ *  Ooura requires lenaw > 1000; 8000 is his suggested value for IEEE double. */
+#define DE_WORKSPACE_LEN 4000
 
 /**
- * @brief Struct of parameters to be used in DE hankel functions.
+ * @brief Everything the integrand needs, threaded through the Ooura
+ *        integrators as an opaque `void *`.
  */
 typedef struct {
-    void *f_params;         /**< parameters for the supplied function */
-    form_factor_f function; /**< function to integrate */
-    int nu;                 /**< order of the Bessel function */
-    double Q;               /**< radial Fourier variable, i.e. conj wavenumber to radius */
-} params_struct;
+    form_factor_f f; /**< function to integrate */
+    void *f_ctx;     /**< parameters for the supplied function */
+    int nu;          /**< order of the Bessel function */
+    double Q;        /**< radial Fourier variable, i.e. conj wavenumber to radius.
+                          This is the `x` argument of the public entry points. */
+} hankel_integrand_ctx;
 
 /**
  * @brief Auxiliary function that computes the value of the
  *        Hankel‑transform integrand at the current radius r.
  *        Computes a product between the radius r, the Bessel
  *        function of the first kind of order nu, and a function
- *        supplied through FBTparams.
+ *        supplied through ctx.
  *
- * @param r          radius
- * @param FBTparams  pointer to a struct containing nu, Q and function to
- * integrate
+ * @param r    radius
+ * @param ctx  pointer to a @ref hankel_integrand_ctx containing nu, Q and the
+ *             function to integrate
  */
-double intdeo_FBT(double r, void *FBTparams) {
-    params_struct *FBTparam_struct;
-    FBTparam_struct = (params_struct *)FBTparams;
+static double hankel_integrand(double r, void *ctx) {
+    hankel_integrand_ctx *integrand_ctx = (hankel_integrand_ctx *)ctx;
     if (r == 0)
         return 0;
 
-    int nu = FBTparam_struct->nu;
-    double Q = FBTparam_struct->Q;
+    int nu = integrand_ctx->nu;
+    double Q = integrand_ctx->Q;
 
     double bessel = jn(nu, Q * r);
-    double fval = FBTparam_struct->function(r, FBTparam_struct->f_params);
+    double fval = integrand_ctx->f(r, integrand_ctx->f_ctx);
 
     return r * bessel * fval;
 }
@@ -60,7 +63,7 @@ double intdeo_FBT(double r, void *FBTparams) {
  * @brief Auxiliary function computing the
  *        double‑exponential (DE) / tanh–sinh transform.
  */
-double DEtransform(double t) {
+static double DEtransform(double t) {
     double s = sinh(t);
     double a = M_PI_2 * s;
     return t * tanh(a);
@@ -73,7 +76,7 @@ double DEtransform(double t) {
  *        Specifically, this is the tanh–sinh (double exponential)
  *        transformation.
  */
-double deriv_DEtransform(double t) {
+static double deriv_DEtransform(double t) {
     double sh = sinh(t);
     double ch = cosh(t);
     double A = M_PI_2 * sh;
@@ -82,40 +85,50 @@ double deriv_DEtransform(double t) {
     return M_PI_2 * t * ch * (secH * secH) + tanh(A);
 }
 
-double hankel_transform_DE_Ooura(int nu, form_factor_f f, const double x, void *f_ctx,
-                                 double *output, int n_eval, double eps_rel) {
+int hankel_transform_DE_Ooura(int nu, form_factor_f f, const double x, void *f_ctx, double *output,
+                              int n_eval, double eps_rel) {
 
-    int workspace_len = 4000;
-    int rounded_n_eval, status;
     double res0, err0, res, err;
-    rounded_n_eval = lround(n_eval);
 
-    params_struct FBTparam_struct;
-    FBTparam_struct.f_params = f_ctx;
-    FBTparam_struct.function = f;
-    FBTparam_struct.nu = nu;
-    FBTparam_struct.Q = x;
+    /* Both the finite and the oscillatory piece are set up in units of 1/x
+     * (see scaled_zero below), so a non-positive or non-finite x would divide
+     * by zero and hand NaN to the integrators instead of failing. */
+    if (!(x > 0)) {
+        fprintf(stderr, "Error: x must be finite and greater than zero\n");
+        return -12;
+    }
+
+    hankel_integrand_ctx integrand_ctx;
+    integrand_ctx.f_ctx = f_ctx;
+    integrand_ctx.f = f;
+    integrand_ctx.nu = nu;
+    integrand_ctx.Q = x;
 
     // chooses which zero index to request, caps it at 10
-    double zero_index = rounded_n_eval < 10 ? rounded_n_eval : 10;
+    int zero_index = n_eval < 10 ? n_eval : 10;
 
     // compute zero through bessel function and scale it
     double scaled_zero = bessel_Jnu_zero(nu, zero_index) / x;
 
     // allocates an array of doubles and returns a pointer to it
-    double *workspace = malloc(workspace_len * sizeof *workspace);
+    double *workspace = malloc(DE_WORKSPACE_LEN * sizeof *workspace);
+    if (workspace == NULL) {
+        fprintf(stderr, "Failed to allocate internal variables "
+                        "in function hankel_transform_DE_Ooura.\n");
+        return -3;
+    }
 
     // precompute nodes & weights for DE integration on a finite interval [a, b]
-    sasfit_intdeini(workspace_len, DBL_MIN, eps_rel, workspace);
+    sasfit_intdeini(DE_WORKSPACE_LEN, DBL_MIN, eps_rel, workspace);
     // compute integral using DE quadrature with weights created by
     // sasfit_intdeini
-    sasfit_intde(&intdeo_FBT, 0, scaled_zero, workspace, &res0, &err0, &FBTparam_struct);
+    sasfit_intde(&hankel_integrand, 0, scaled_zero, workspace, &res0, &err0, &integrand_ctx);
     // precompute nodes/weights for oscillatory integrals
     // e.g. f(x) cos(omega x) , over [a, inf]
-    sasfit_intdeoini(workspace_len, DBL_MIN, eps_rel, workspace);
+    sasfit_intdeoini(DE_WORKSPACE_LEN, DBL_MIN, eps_rel, workspace);
     // evaluate oscillatory integrals using the table built by intdeoini.
-    sasfit_intdeo(&intdeo_FBT, scaled_zero, FBTparam_struct.Q, workspace, &res, &err,
-                  &FBTparam_struct);
+    sasfit_intdeo(&hankel_integrand, scaled_zero, integrand_ctx.Q, workspace, &res, &err,
+                  &integrand_ctx);
 
     free(workspace);
     res += res0;
@@ -128,12 +141,24 @@ double hankel_transform_DE_Ooura(int nu, form_factor_f f, const double x, void *
     return 0;
 }
 
-double hankel_transform_DE_Ogata(int nu, form_factor_f f, const double x, void *f_ctx,
-                                 double *output, int n_eval, double f_max) {
+/* Note on the argument names, which follow libhankel.h and SASfit rather than
+ * Ogata's paper: `x` is the radial Fourier variable (Q below), and `f_max`
+ * (`h_ogata` in SASfit) is a starting guess for the maximum of
+ * q * formFactor(q).  It enters the quadrature below in the position of
+ * Ogata's step size h, so the scale of the integrand's peak is what sets the
+ * node spacing. */
+int hankel_transform_DE_Ogata(int nu, form_factor_f f, const double x, void *f_ctx, double *output,
+                              int n_eval, double f_max) {
 
     double sum;
-    int status;
     sum = 0.0;
+
+    /* The quadrature nodes are y_k / x and the result carries a 1 / x^2, so a
+     * non-positive or non-finite x would silently produce Inf or NaN. */
+    if (!(x > 0)) {
+        fprintf(stderr, "Error: x must be finite and greater than zero\n");
+        return -12;
+    }
 
     for (int i = 1; i <= n_eval; i++) {
 
@@ -169,8 +194,10 @@ double hankel_transform_DE_Ogata(int nu, form_factor_f f, const double x, void *
     // Apply normalization from the change of variables t = x * r
     double scaled_sum = (M_PI / (x * x)) * sum;
 
-    // Parity correction for integer Bessel order (H_-ν = (-1)^ν H_ν)
-    double parity = (nu == 0) ? 1.0 : pow((double)SIGN(nu), nu);
+    // Parity correction for integer Bessel order (H_-ν = (-1)^ν H_ν).
+    // Only bites for negative odd nu; hankel_transform() restricts nu to
+    // {0, 1}, so this is a no-op unless this function is called directly.
+    double parity = (nu < 0 && nu % 2 != 0) ? -1.0 : 1.0;
 
     // Final result
     double res = scaled_sum * parity;

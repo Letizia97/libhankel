@@ -205,6 +205,51 @@ def test_hankel_transform_DE_Ogata_raises_error_when_fmax_missing(
 
 
 @pytest.mark.parametrize(
+    "bad_x_arr",
+    [
+        np.array([0.0, 15.0, 22.08333333]),
+        np.array([15.0, -22.08333333, 29.16666667]),
+        np.array([15.0, 22.08333333, np.nan]),
+    ],
+    ids=["zero", "negative", "nan"],
+)
+@pytest.mark.parametrize(
+    "form_factor, strategy_name, strategy_p_dict",
+    [
+        (dab, "Adaptive_DE_Ooura", DE_Ooura_p_dict),
+        (dab, "Fixed_DE_Ogata", DE_Ogata_p_dict),
+        ("gdab", "Adaptive_DE_Ooura", DE_Ooura_p_dict),
+        ("gdab", "Fixed_DE_Ogata", DE_Ogata_p_dict),
+    ],
+)
+def test_hankel_transform_DE_raises_error_when_x_not_greater_than_zero(
+    form_factor,
+    strategy_name,
+    strategy_p_dict,
+    bad_x_arr,
+):
+    """
+    Test that the DE strategies raise a ValueError when the x array holds a
+    value that is not finite and greater than zero. Their quadrature nodes
+    are scaled by 1 / x, so such a value would otherwise propagate silently
+    as Inf or NaN instead of failing.
+    """
+    nu = 0
+    params_gdab = np.array([10.0, 0.5, 1e-4])
+    expected_error = "Error: x must be finite and greater than zero"
+
+    with pytest.raises(ValueError, match=expected_error):
+        libhankel.hankel_transform(
+            nu,
+            form_factor,
+            bad_x_arr,
+            params_gdab,
+            strategy_name,
+            strategy_p_dict,
+        )
+
+
+@pytest.mark.parametrize(
     "form_factor, x_arr",
     [
         (dab, INPUT_X_ARR),
