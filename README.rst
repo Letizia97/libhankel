@@ -61,8 +61,8 @@ header-only Boost.Math special functions are used, so the headers alone are enou
    brew install boost               # macOS
 
 The build finds Boost automatically in the usual locations, including the Homebrew
-prefix on macOS. If it is installed somewhere unusual, point the build at it with
-``BOOST_ROOT`` (Meson) or ``CPPFLAGS=-I/path/to/boost`` (the Python package).
+prefixes on macOS. If it is installed somewhere unusual, point the build at it with
+``CPPFLAGS=-I/path/to/boost``.
 
 To build and install LibHankel, use:
 
