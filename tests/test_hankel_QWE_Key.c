@@ -93,25 +93,14 @@ void setUp(void) {
     };
 
     // COMPUTATIONS
-    for (size_t i = 0; i < ARRAY_LEN; ++i) {
-        z = r_array_spheres[i];
-        hankel_transform_QWE_Key(nu, form_factor_sphere, z, (void *)&ctx_spheres, &Gr[i], 250,
-                                 1e-9);
-        ctx.actual_spheres[i] = Gr[i];
-    }
+    hankel_transform_QWE_Key(nu, form_factor_sphere, r_array_spheres, ARRAY_LEN,
+                             (void *)&ctx_spheres, ctx.actual_spheres, 250, 1e-9);
 
-    for (size_t i = 0; i < ARRAY_LEN; ++i) {
-        z = r_array_gdab[i];
-        hankel_transform_QWE_Key(nu, form_factor_g_dab, z, (void *)&ctx_gdab, &Gr[i], 250, 1e-9);
-        ctx.actual_gdab[i] = Gr[i];
-    }
+    hankel_transform_QWE_Key(nu, form_factor_g_dab, r_array_gdab, ARRAY_LEN, (void *)&ctx_gdab,
+                             ctx.actual_gdab, 250, 1e-9);
 
-    for (size_t i = 0; i < ARRAY_LEN; ++i) {
-        z = r_array_broad_peak[i];
-        hankel_transform_QWE_Key(nu, form_factor_broad_peak, z, (void *)&ctx_broad_peak, &Gr[i],
-                                 150, 1e-9);
-        ctx.actual_broad_peak[i] = Gr[i];
-    }
+    hankel_transform_QWE_Key(nu, form_factor_broad_peak, r_array_broad_peak, ARRAY_LEN,
+                             (void *)&ctx_broad_peak, ctx.actual_broad_peak, 150, 1e-9);
 }
 
 void tearDown(void) {}
@@ -154,7 +143,7 @@ void test_hankel_QWE_Key_throws_error_when_not_converged(void) {
 
     start_capture_stderr();
     int status =
-        hankel_transform_QWE_Key(nu, form_factor_g_dab, z, (void *)&ctx_gdab, &Gr[0], 4, 1e-9);
+        hankel_transform_QWE_Key(nu, form_factor_g_dab, &z, 1, (void *)&ctx_gdab, &Gr[0], 4, 1e-9);
     stop_capture_stderr(captured, sizeof(captured));
     TEST_ASSERT_EQUAL_INT_MESSAGE(-4, status, "");
     TEST_ASSERT_EQUAL_STRING(captured, "QWE_Key algorithm did not converge after "

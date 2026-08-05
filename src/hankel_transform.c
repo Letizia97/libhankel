@@ -164,13 +164,13 @@ int hankel_transform(int nu, form_factor_f f, double *x, size_t len_x, void *f_c
             return status;
         }
 
-        for (size_t j = 0; j < len_x; j++) {
-            status = hankel_transform_QWE_Key(nu, f, x[j], f_ctx, &output[j],
-                                              strategy_params.n_eval, strategy_params.eps_rel);
-
-            if (status != 0) {
-                return status;
-            }
+        /* Whole array in one call: the Bessel zeros that delimit the
+         * integration intervals do not depend on x, so they are found once
+         * instead of once per point. */
+        status = hankel_transform_QWE_Key(nu, f, x, len_x, f_ctx, output, strategy_params.n_eval,
+                                          strategy_params.eps_rel);
+        if (status != 0) {
+            return status;
         }
 
     } else {

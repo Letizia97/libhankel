@@ -169,20 +169,27 @@ int hankel_transform_DE_Ogata(int nu, form_factor_f f, const double *x, size_t l
  * @brief Computes Hankel transform using the Quadrature With Extrapolation method by Key.
  * @note Corresponds to strategy 12 in SASfit.
  *
+ * Takes the whole array at once: the integration intervals run between
+ * consecutive zeros of the Bessel function divided by x, and finding those
+ * zeros dominates the cost, so one call finds each of them once instead of
+ * once per point.
+ *
  * @param nu         order of bessel function - must be 0 or 1
  * @param f          pointer to function to transform
- * @param x          value at which to compute the transform
+ * @param x          pointer to array of values at which to compute the transform
+ * @param len_x      number of entries in @p x and in @p output
  * @param f_ctx      pointer to struct containing inputs for f
- * @param output     pointer to var containing output from transform
+ * @param output     pointer to array containing output from transform
  * @param n_eval     integer indicating number of function evaluations (``N_ogata`` in SASfit)
  * @param eps_rel    relative error allowed e.g. 1e-9 (``eps_nriq`` in SASfit)
  *
  * @return 0 on success, or a negative status code (see the
- *         <a href="../usage/status_codes.html">Status Codes</a> page). @p x
- *         must be finite and greater than zero.
+ *         <a href="../usage/status_codes.html">Status Codes</a> page). Every
+ *         entry of @p x must be finite and greater than zero; the whole array
+ *         is checked before any work is done.
  */
-int hankel_transform_QWE_Key(int nu, form_factor_f f, double x, void *f_ctx, double *output,
-                             int n_eval, double eps_rel);
+int hankel_transform_QWE_Key(int nu, form_factor_f f, const double *x, size_t len_x, void *f_ctx,
+                             double *output, int n_eval, double eps_rel);
 
 /**
  * @brief Computes Hankel transform using the Quadrature With Extrapolation method by Chave.
