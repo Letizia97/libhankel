@@ -2,31 +2,16 @@ inc_root = include_directories('..', '../include')
 
 # ---- Dependencies ----
 
-# Only the header-only Boost.Math special functions are used, so an include path
-# is all that is needed. dependency('boost') is no good here: it fails unless it
-# also finds a compiled boost library, which headers-only installs (libboost-dev)
-# do not ship. The headers are on the default search path on Linux; on macOS
-# Homebrew puts them under /opt/homebrew (Apple Silicon) or /usr/local (Intel).
-cxx = meson.get_compiler('cpp')
-boost_header = 'boost/math/special_functions/bessel.hpp'
-
-boost_args = []
-boost_found = cxx.has_header(boost_header)
-foreach prefix : ['/opt/homebrew/include', '/usr/local/include']
-  if not boost_found and cxx.has_header(boost_header, args : ['-I' + prefix])
-    boost_args = ['-I' + prefix]
-    boost_found = true
-  endif
-endforeach
-
-if not boost_found
-  error(
-    'Boost.Math headers not found. Install them with "sudo apt install ' +
-    'libboost-dev" or "brew install boost", or point the build at an existing ' +
-    'copy with CPPFLAGS=-I/path/to/boost.',
-  )
-endif
-
+# Boost.Math is used header-only, so an include path is all the build needs;
+# dependency('boost') is no good here because it fails unless it also finds a
+# compiled boost library, which libboost-dev does not ship. The headers are on
+# the default search path on Linux, but not on macOS, where Homebrew installs
+# under /opt/homebrew (Apple Silicon) or /usr/local (Intel). For anywhere else,
+# pass CPPFLAGS=-I/path/to/boost.
+boost_args = host_machine.system() == 'darwin' ? [
+  '-I/opt/homebrew/include',
+  '-I/usr/local/include',
+] : []
 boost_dep = declare_dependency(compile_args : boost_args)
 
 # Separate library on Linux, part of libSystem on macOS, hence the lookup
