@@ -14,6 +14,7 @@ sources = files(
   '../external_libs/utils/tanhsinh.c',
   'utils/analytical_form_factors.c',
   'utils/sf_functions.c',
+  'utils/validate_x.c',
   'utils/boost_bessel.cpp'
 )
 
