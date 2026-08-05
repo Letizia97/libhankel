@@ -22,11 +22,13 @@ Installation for C users
 
 .. c-installation-start
 
+LibHankel is built and tested on Linux and macOS. Windows is not supported yet.
+
 LibHankel requires:
 
 - Meson >= 1.4.0
 - Ninja build tool (package name is often `ninja-build` on Debian/Ubuntu distributions)
-- A C compiler (e.g. gcc)
+- A C compiler (e.g. gcc on Linux, Apple clang on macOS)
 
 Due to the required Meson version being no less than 1.4.0, it will be necessary 
 to install Meson through ``pip`` (installing through ``apt update`` most likely won't work). 
@@ -44,15 +46,23 @@ Ninja is generally installed together with Meson. If it isn't, it can be install
 
 .. code-block:: bash
 
-   sudo apt install ninja-build
+   sudo apt install ninja-build     # Debian / Ubuntu
+   brew install ninja               # macOS
 
 
-LibHankel also requires Boost development package as a dependency. This can be installed with:
+LibHankel also requires the Boost development headers as a dependency. Only the
+header-only Boost.Math special functions are used, so the headers alone are enough:
 
 .. code-block:: bash
 
-   sudo apt update
-   sudo apt install libboost-all-dev
+   sudo apt update                  # Debian / Ubuntu
+   sudo apt install libboost-dev
+
+   brew install boost               # macOS
+
+The build finds Boost automatically in the usual locations, including the Homebrew
+prefix on macOS. If it is installed somewhere unusual, point the build at it with
+``BOOST_ROOT`` (Meson) or ``BOOST_INCLUDEDIR`` (the Python package).
 
 To build and install LibHankel, use:
 
