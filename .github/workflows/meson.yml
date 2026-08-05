@@ -16,11 +16,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - os: ubuntu-latest
-            compiler: gcc
-          - os: macos-latest
-            compiler: clang
+        os:
+          - ubuntu-latest
+          - macos-latest
 
     runs-on: ${{ matrix.os }}
 
@@ -46,7 +44,6 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y \
-            python3-pip \
             ninja-build \
             libboost-dev
 
@@ -61,21 +58,6 @@ jobs:
           python -m pip install meson pytest
 
       # --------------------------
-      # Compiler selection (Linux/macOS)
-      # --------------------------
-      - name: Select compiler (GCC/Clang)
-        if: runner.os != 'Windows'
-        shell: bash
-        run: |
-          if [ "${{ matrix.compiler }}" = "gcc" ]; then
-            echo "CC=gcc"   >> $GITHUB_ENV
-            echo "CXX=g++"  >> $GITHUB_ENV
-          else
-            echo "CC=clang" >> $GITHUB_ENV
-            echo "CXX=clang++" >> $GITHUB_ENV
-          fi
-
-      # --------------------------
       # Configure, build, test
       # --------------------------
       - name: Configure (meson setup)
@@ -83,10 +65,6 @@ jobs:
 
       - name: Build (meson compile)
         run: meson compile -C "$BUILD_DIR"
-
-      - name: Install Python test dependencies
-        run: |
-          python -m pip install pytest
 
       - name: Install libhankel
         run: |

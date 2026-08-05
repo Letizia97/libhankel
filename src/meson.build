@@ -12,7 +12,6 @@ boost_args = host_machine.system() == 'darwin' ? [
   '-I/opt/homebrew/include',
   '-I/usr/local/include',
 ] : []
-boost_dep = declare_dependency(compile_args : boost_args)
 
 # Separate library on Linux, part of libSystem on macOS, hence the lookup
 # rather than a hard-coded '-lm'.
@@ -40,7 +39,8 @@ libhankel = shared_library(
   'libhankel',
   sources: sources,
   include_directories: [inc_root],
-  dependencies: [boost_dep, m_dep],
+  cpp_args: boost_args,
+  dependencies: [m_dep],
   install: true,
 )
 
