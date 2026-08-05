@@ -15,6 +15,7 @@ module = Extension(
         "external_libs/utils/tanhsinh.c",
         "src/utils/sasfit_integrate.c",
         "src/utils/sf_functions.c",
+        "src/utils/validate_x.c",
         "src/utils/boost_bessel.cpp",
     ],
     include_dirs=[

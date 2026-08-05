@@ -11,6 +11,7 @@
 
 // Project / local headers
 #include "../src/utils/boost_bessel_wrapper.h"
+#include "../src/utils/validate_x.h"
 
 /*
 This file contains only 2 Hankel strategies, both DE quadrature algorithms,
@@ -84,22 +85,6 @@ static double deriv_DEtransform(double t) {
     double secH = 1.0 / cosh(A); // sech(A)
 
     return M_PI_2 * t * ch * (secH * secH) + tanh(A);
-}
-
-/**
- * @brief Rejects an x array holding a value that is not finite and greater
- *        than zero.
- *
- * Checked up front rather than per point, so an invalid input costs nothing.
- */
-static int validate_x_array(const double *x, size_t len_x) {
-    for (size_t j = 0; j < len_x; j++) {
-        if (!(x[j] > 0) || isinf(x[j])) {
-            fprintf(stderr, "Error: x must be finite and greater than zero\n");
-            return -12;
-        }
-    }
-    return 0;
 }
 
 int hankel_transform_DE_Ooura(int nu, form_factor_f f, const double *x, size_t len_x, void *f_ctx,

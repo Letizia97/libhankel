@@ -12,6 +12,7 @@
 #include "../src/utils/strateg7_const.h"
 #include "../src/utils/strateg8_const.h"
 #include "../src/utils/strateg9_const.h"
+#include "../src/utils/validate_x.h"
 
 /*
 This file contains functions corresponding to strategies 6-11 in SASfit
@@ -44,9 +45,9 @@ int hankel_transform_DHT(int nu, form_factor_f f, const double x, void *f_ctx, d
     /* Every filter below samples the form factor at lambda = node / x and
      * weights it by 1 / x, so a non-positive or non-finite x would return
      * NaN - or, for x < 0, a plausible-looking finite number - as a success. */
-    if (!(x > 0) || isinf(x)) {
-        fprintf(stderr, "Error: x must be finite and greater than zero\n");
-        return -12;
+    int status = validate_x(x);
+    if (status != 0) {
+        return status;
     }
 
     switch (n_strategy) {
