@@ -10,6 +10,16 @@ project(
 
 inc_root = include_directories('include')
 
+cc = meson.get_compiler('c')
+
+# Apple clang rejects a call to an undeclared function outright while GCC only
+# warns, so make it an error on both: otherwise a missing declaration builds
+# cleanly on Linux and only breaks once it reaches macOS.
+add_project_arguments(
+  cc.get_supported_arguments('-Werror=implicit-function-declaration'),
+  language : 'c',
+)
+
 subdir('src')
 subdir('include')
 

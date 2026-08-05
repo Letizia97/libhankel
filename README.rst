@@ -62,7 +62,7 @@ header-only Boost.Math special functions are used, so the headers alone are enou
 
 The build finds Boost automatically in the usual locations, including the Homebrew
 prefix on macOS. If it is installed somewhere unusual, point the build at it with
-``BOOST_ROOT`` (Meson) or ``BOOST_INCLUDEDIR`` (the Python package).
+``BOOST_ROOT`` (Meson) or ``CPPFLAGS=-I/path/to/boost`` (the Python package).
 
 To build and install LibHankel, use:
 
@@ -142,12 +142,15 @@ of the code that is still in development.
 
       apt install python3.10-venv
 
-4. Install the `Boost` dependency:
+4. Install the `Boost` dependency. Only the header-only Boost.Math special
+   functions are used, so the headers alone are enough:
 
    .. code-block:: bash
 
-      sudo apt update
-      sudo apt install libboost-all-dev
+      sudo apt update                  # Debian / Ubuntu
+      sudo apt install libboost-dev
+
+      brew install boost               # macOS
 
 5. At this point, we are ready to install LibHankel. 
    Please ensure the virtual environment has been activated through step 3 above, 

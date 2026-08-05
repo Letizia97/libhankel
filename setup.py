@@ -1,38 +1,21 @@
-import os
-import shutil
-import subprocess
+import sys
 
 from setuptools import Extension, setup
 
+include_dirs = [
+    "include",
+    "external_libs",
+    ".",
+    "src/utils",
+    "external_libs/utils",
+]
 
-def boost_include_dirs():
-    """Locate the header-only Boost.Math headers used by src/utils/boost_bessel.cpp.
-
-    Returns the extra include directories needed to compile against Boost, or
-    an empty list when the compiler can already find it.  Debian and Ubuntu
-    install Boost into /usr/include, which is searched by default; Homebrew
-    keeps it under its own prefix, which is not, so ask brew where it is.
-    BOOST_INCLUDEDIR overrides both, for unusual installs.
-    """
-    from_env = os.environ.get("BOOST_INCLUDEDIR")
-    if from_env:
-        return [from_env]
-
-    if os.path.isdir("/usr/include/boost"):
-        return []
-
-    brew = shutil.which("brew")
-    if brew:
-        result = subprocess.run(
-            [brew, "--prefix", "boost"], capture_output=True, text=True, check=False
-        )
-        if result.returncode == 0:
-            include_dir = os.path.join(result.stdout.strip(), "include")
-            if os.path.isdir(include_dir):
-                return [include_dir]
-
-    return []
-
+# Boost.Math is used header-only. Its headers are on the compiler's default
+# search path on Linux, but not on macOS, where Homebrew installs under
+# /opt/homebrew (Apple Silicon) or /usr/local (Intel). For anywhere else, pass
+# CPPFLAGS=-I/path/to/boost.
+if sys.platform == "darwin":
+    include_dirs += ["/opt/homebrew/include", "/usr/local/include"]
 
 module = Extension(
     "libhankel",
@@ -52,14 +35,7 @@ module = Extension(
         "src/utils/validate_x.c",
         "src/utils/boost_bessel.cpp",
     ],
-    include_dirs=[
-        "include",
-        "external_libs",
-        ".",
-        "src/utils",
-        "external_libs/utils",
-    ]
-    + boost_include_dirs(),
+    include_dirs=include_dirs,
 )
 
 setup(
