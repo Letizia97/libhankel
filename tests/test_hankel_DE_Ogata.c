@@ -16,7 +16,6 @@
 #define ARRAY_LEN 25
 
 int nu;
-double z;
 
 form_factor_ctx ctx_spheres;
 form_factor_ctx ctx_gdab;
@@ -27,7 +26,6 @@ double r_array_gdab[ARRAY_LEN];
 double r_array_broad_peak[ARRAY_LEN];
 
 hankel_inputs inputs;
-double Gr[ARRAY_LEN];
 
 // For running the tests
 typedef struct {
@@ -105,28 +103,14 @@ void setUp(void) {
     };
 
     // COMPUTATIONS
-    for (size_t i = 0; i < ARRAY_LEN; ++i) {
-        z = r_array_spheres[i];
-        hankel_transform_DE_Ogata(nu, form_factor_sphere, z, (void *)&ctx_spheres, &Gr[i], 150,
-                                  1e-3);
+    hankel_transform_DE_Ogata(nu, form_factor_sphere, r_array_spheres, ARRAY_LEN,
+                              (void *)&ctx_spheres, ctx.actual_spheres, 150, 1e-3);
 
-        ctx.actual_spheres[i] = Gr[i];
-    }
+    hankel_transform_DE_Ogata(nu, form_factor_g_dab, r_array_gdab, ARRAY_LEN, (void *)&ctx_gdab,
+                              ctx.actual_gdab, 150, 1e-3);
 
-    // printf("de ogata, Gr-G0  \n");
-    for (size_t i = 0; i < ARRAY_LEN; ++i) {
-        z = r_array_gdab[i];
-        hankel_transform_DE_Ogata(nu, form_factor_g_dab, z, (void *)&ctx_gdab, &Gr[i], 150, 1e-3);
-        // printf("%.15g, ", (Gr[i]));
-        ctx.actual_gdab[i] = Gr[i];
-    }
-
-    for (size_t i = 0; i < ARRAY_LEN; ++i) {
-        z = r_array_broad_peak[i];
-        hankel_transform_DE_Ogata(nu, form_factor_broad_peak, z, (void *)&ctx_broad_peak, &Gr[i],
-                                  150, 0.2e-3);
-        ctx.actual_broad_peak[i] = Gr[i];
-    }
+    hankel_transform_DE_Ogata(nu, form_factor_broad_peak, r_array_broad_peak, ARRAY_LEN,
+                              (void *)&ctx_broad_peak, ctx.actual_broad_peak, 150, 0.2e-3);
 }
 
 void tearDown(void) {}

@@ -118,39 +118,52 @@ int hankel_transform_DHT(int nu, form_factor_f f, double x, void *f_ctx, double 
  * @brief Computes Hankel transform, using de-quadrature.
  * @note Corresponds to strategy 0 in SASfit, or HANKEL_OOURA_DEO.
  *
+ * Takes the whole array at once: the node/weight tables built by Ooura's
+ * initialisers dominate the cost and depend only on @p eps_rel, so one call
+ * builds them once instead of once per point.
+ *
  * @param nu         order of bessel function - must be 0 or 1
  * @param f          pointer to function to transform
- * @param x          value at which to compute the transform
+ * @param x          pointer to array of values at which to compute the transform
+ * @param len_x      number of entries in @p x and in @p output
  * @param f_ctx      pointer to struct containing inputs for f
- * @param output     pointer to var containing output from transform
+ * @param output     pointer to array containing output from transform
  * @param n_eval     integer indicating number of function evaluations (``N_ogata`` in SASfit)
  * @param eps_rel    relative error allowed e.g. 1e-9 (``eps_nriq`` in SASfit)
  *
  * @return 0 on success, or a negative status code (see the
- *         <a href="../usage/status_codes.html">Status Codes</a> page). @p x
- *         must be finite and greater than zero.
+ *         <a href="../usage/status_codes.html">Status Codes</a> page). Every
+ *         entry of @p x must be finite and greater than zero; the whole array
+ *         is checked before any work is done.
  */
-int hankel_transform_DE_Ooura(int nu, form_factor_f f, double x, void *f_ctx, double *output,
-                              int n_eval, double eps_rel);
+int hankel_transform_DE_Ooura(int nu, form_factor_f f, const double *x, size_t len_x, void *f_ctx,
+                              double *output, int n_eval, double eps_rel);
 
 /**
  * @brief Computes Hankel transform, using de-quadrature.
  * @note Corresponds to strategy 1 in SASfit or HANKEL_OGATA_2005.
  *
+ * Takes the whole array at once: everything but the form factor evaluation
+ * depends only on @p nu, the node index and @p f_max - including the Bessel
+ * zeros, whose root search dominates the runtime - so one call builds the node
+ * table once instead of once per point.
+ *
  * @param nu         order of bessel function - must be 0 or 1
  * @param f          pointer to function to transform
- * @param x          value at which to compute the transform
+ * @param x          pointer to array of values at which to compute the transform
+ * @param len_x      number of entries in @p x and in @p output
  * @param f_ctx      pointer to struct containing inputs for f
- * @param output     pointer to var containing output from transform
+ * @param output     pointer to array containing output from transform
  * @param n_eval     integer indicating number of function evaluations (``N_ogata`` in SASfit)
  * @param f_max      float indicating starting guess for max in form factor (``h_ogata`` in SASfit)
  *
  * @return 0 on success, or a negative status code (see the
- *         <a href="../usage/status_codes.html">Status Codes</a> page). @p x
- *         must be finite and greater than zero.
+ *         <a href="../usage/status_codes.html">Status Codes</a> page). Every
+ *         entry of @p x must be finite and greater than zero; the whole array
+ *         is checked before any work is done.
  */
-int hankel_transform_DE_Ogata(int nu, form_factor_f f, double x, void *f_ctx, double *output,
-                              int n_eval, double f_max);
+int hankel_transform_DE_Ogata(int nu, form_factor_f f, const double *x, size_t len_x, void *f_ctx,
+                              double *output, int n_eval, double f_max);
 
 /**
  * @brief Computes Hankel transform using the Quadrature With Extrapolation method by Key.

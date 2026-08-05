@@ -5,6 +5,7 @@
 // Standard library headers
 #include <float.h>
 #include <math.h>
+#include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -85,85 +86,114 @@ static double deriv_DEtransform(double t) {
     return M_PI_2 * t * ch * (secH * secH) + tanh(A);
 }
 
-int hankel_transform_DE_Ooura(int nu, form_factor_f f, const double x, void *f_ctx, double *output,
-                              int n_eval, double eps_rel) {
+/**
+ * @brief Rejects an x array holding a value that is not finite and greater
+ *        than zero.
+ *
+ * Checked up front rather than per point, so an invalid input costs nothing.
+ */
+static int validate_x_array(const double *x, size_t len_x) {
+    for (size_t j = 0; j < len_x; j++) {
+        if (!(x[j] > 0) || isinf(x[j])) {
+            fprintf(stderr, "Error: x must be finite and greater than zero\n");
+            return -12;
+        }
+    }
+    return 0;
+}
 
-    double res0, err0, res, err;
+int hankel_transform_DE_Ooura(int nu, form_factor_f f, const double *x, size_t len_x, void *f_ctx,
+                              double *output, int n_eval, double eps_rel) {
 
-    /* Both the finite and the oscillatory piece are set up in units of 1/x
-     * (see scaled_zero below), so a non-positive or non-finite x would divide
-     * by zero and hand NaN to the integrators instead of failing. */
-    if (!(x > 0)) {
-        fprintf(stderr, "Error: x must be finite and greater than zero\n");
-        return -12;
+    /* A non-positive or non-finite x would hand NaN to the integrators. */
+    int status = validate_x_array(x, len_x);
+    if (status != 0) {
+        return status;
     }
 
-    hankel_integrand_ctx integrand_ctx;
-    integrand_ctx.f_ctx = f_ctx;
-    integrand_ctx.f = f;
-    integrand_ctx.nu = nu;
-    integrand_ctx.Q = x;
-
-    // chooses which zero index to request, caps it at 10
-    int zero_index = n_eval < 10 ? n_eval : 10;
-
-    // compute zero through bessel function and scale it
-    double scaled_zero = bessel_Jnu_zero(nu, zero_index) / x;
-
-    // allocates an array of doubles and returns a pointer to it
-    double *workspace = malloc(DE_WORKSPACE_LEN * sizeof *workspace);
-    if (workspace == NULL) {
+    /* Two tables: the finite and oscillatory ones are built from the same
+     * inputs but are not interchangeable. Each depends only on eps_rel and is
+     * read-only to the integrators, so both are built once for all points. */
+    double *aw_finite = malloc(DE_WORKSPACE_LEN * sizeof *aw_finite);
+    double *aw_oscillatory = malloc(DE_WORKSPACE_LEN * sizeof *aw_oscillatory);
+    if (aw_finite == NULL || aw_oscillatory == NULL) {
+        free(aw_finite);
+        free(aw_oscillatory);
         fprintf(stderr, "Failed to allocate internal variables "
                         "in function hankel_transform_DE_Ooura.\n");
         return -3;
     }
 
     // precompute nodes & weights for DE integration on a finite interval [a, b]
-    sasfit_intdeini(DE_WORKSPACE_LEN, DBL_MIN, eps_rel, workspace);
-    // compute integral using DE quadrature with weights created by
-    // sasfit_intdeini
-    sasfit_intde(&hankel_integrand, 0, scaled_zero, workspace, &res0, &err0, &integrand_ctx);
+    sasfit_intdeini(DE_WORKSPACE_LEN, DBL_MIN, eps_rel, aw_finite);
     // precompute nodes/weights for oscillatory integrals
     // e.g. f(x) cos(omega x) , over [a, inf]
-    sasfit_intdeoini(DE_WORKSPACE_LEN, DBL_MIN, eps_rel, workspace);
-    // evaluate oscillatory integrals using the table built by intdeoini.
-    sasfit_intdeo(&hankel_integrand, scaled_zero, integrand_ctx.Q, workspace, &res, &err,
-                  &integrand_ctx);
+    sasfit_intdeoini(DE_WORKSPACE_LEN, DBL_MIN, eps_rel, aw_oscillatory);
 
-    free(workspace);
-    res += res0;
+    // chooses which zero index to request, caps it at 10
+    const int zero_index = n_eval < 10 ? n_eval : 10;
+    // the zero itself does not depend on x; only its scaling below does
+    const double zero = bessel_Jnu_zero(nu, zero_index);
 
-    // estimate of the numerical integration error for the computed integral
-    // FIXME: need to figure out what to do with this
-    err += err0;
+    for (size_t j = 0; j < len_x; j++) {
+        hankel_integrand_ctx integrand_ctx;
+        integrand_ctx.f_ctx = f_ctx;
+        integrand_ctx.f = f;
+        integrand_ctx.nu = nu;
+        integrand_ctx.Q = x[j];
 
-    *output = res;
+        const double scaled_zero = zero / x[j];
+
+        double res0, err0, res, err;
+
+        // compute integral using DE quadrature with weights created by
+        // sasfit_intdeini
+        sasfit_intde(&hankel_integrand, 0, scaled_zero, aw_finite, &res0, &err0, &integrand_ctx);
+        // evaluate oscillatory integrals using the table built by intdeoini.
+        sasfit_intdeo(&hankel_integrand, scaled_zero, integrand_ctx.Q, aw_oscillatory, &res, &err,
+                      &integrand_ctx);
+
+        res += res0;
+
+        // estimate of the numerical integration error for the computed integral
+        // FIXME: need to figure out what to do with this
+        err += err0;
+
+        output[j] = res;
+    }
+
+    free(aw_finite);
+    free(aw_oscillatory);
     return 0;
 }
 
-/* Note on the argument names, which follow libhankel.h and SASfit rather than
- * Ogata's paper: `x` is the radial Fourier variable (Q below), and `f_max`
- * (`h_ogata` in SASfit) is a starting guess for the maximum of
- * q * formFactor(q).  It enters the quadrature below in the position of
- * Ogata's step size h, so the scale of the integrand's peak is what sets the
- * node spacing. */
-int hankel_transform_DE_Ogata(int nu, form_factor_f f, const double x, void *f_ctx, double *output,
-                              int n_eval, double f_max) {
+/* Argument names follow libhankel.h and SASfit rather than Ogata's paper: `x`
+ * is the radial Fourier variable (Q below), and `f_max` (`h_ogata` in SASfit)
+ * is a starting guess for the maximum of q * formFactor(q). It enters the
+ * quadrature in the position of Ogata's step size h, so the scale of the
+ * integrand's peak sets the node spacing. */
+/**
+ * @brief One quadrature node, holding everything that does not depend on the
+ *        transform variable x.
+ */
+typedef struct {
+    double y_k;        /**< node; the form factor is sampled at y_k / x */
+    double weight_y_k; /**< quadrature weight, premultiplied by y_k */
+    double Jnu_yk;     /**< J_nu(y_k) */
+    double phi_prime;  /**< Jacobian of the DE transform at this node */
+} ogata_node;
 
-    double sum;
-    sum = 0.0;
-
-    /* The quadrature nodes are y_k / x and the result carries a 1 / x^2, so a
-     * non-positive or non-finite x would silently produce Inf or NaN. */
-    if (!(x > 0)) {
-        fprintf(stderr, "Error: x must be finite and greater than zero\n");
-        return -12;
-    }
-
-    for (int i = 1; i <= n_eval; i++) {
+/**
+ * @brief Builds the @p n_nodes x-independent quadrature nodes.
+ *
+ * The Bessel zeros are found by a root search and dominate the runtime, which
+ * is why this is hoisted out of the loop over x.
+ */
+static void build_ogata_nodes(ogata_node *nodes, size_t n_nodes, int nu, double f_max) {
+    for (size_t k = 0; k < n_nodes; k++) {
 
         /* ---- Get Bessel zero α_{ν,i} scaled by π ---- */
-        double zero_i = bessel_Jnu_zero(nu, i);
+        double zero_i = bessel_Jnu_zero(nu, (int)k + 1);
         double zero_scaled = zero_i / M_PI;
 
         /* ---- Apply DE transform & its derivative ---- */
@@ -182,26 +212,62 @@ int hankel_transform_DE_Ogata(int nu, form_factor_f f, const double x, void *f_c
         double denom = M_PI * Jnu1_zero;
         double weight = 2.0 / ((denom * denom) * zero_scaled);
 
-        /* ---- Evaluate integrand at scaled location ---- */
-        double f_val = (*f)(y_k / x, f_ctx);
+        nodes[k].y_k = y_k;
+        nodes[k].weight_y_k = weight * y_k;
+        nodes[k].Jnu_yk = Jnu_yk;
+        nodes[k].phi_prime = phi_prime;
+    }
+}
 
-        /* ---- Assemble quadrature contribution ---- */
-        double term = weight * y_k * f_val * Jnu_yk * phi_prime;
+int hankel_transform_DE_Ogata(int nu, form_factor_f f, const double *x, size_t len_x, void *f_ctx,
+                              double *output, int n_eval, double f_max) {
 
-        sum += term;
+    /* The nodes are y_k / x and the result carries a 1 / x^2, so a
+     * non-positive or non-finite x would silently produce Inf or NaN. */
+    int status = validate_x_array(x, len_x);
+    if (status != 0) {
+        return status;
     }
 
-    // Apply normalization from the change of variables t = x * r
-    double scaled_sum = (M_PI / (x * x)) * sum;
+    /* A non-positive n_eval means no nodes and a sum of zero, as the original
+     * loop bound gave; this also keeps a negative count out of the malloc. */
+    const size_t n_nodes = n_eval > 0 ? (size_t)n_eval : 0;
+
+    ogata_node *nodes = NULL;
+    if (n_nodes > 0) {
+        nodes = malloc(n_nodes * sizeof *nodes);
+        if (nodes == NULL) {
+            fprintf(stderr, "Failed to allocate internal variables "
+                            "in function hankel_transform_DE_Ogata.\n");
+            return -3;
+        }
+        build_ogata_nodes(nodes, n_nodes, nu, f_max);
+    }
 
     // Parity correction for integer Bessel order (H_-ν = (-1)^ν H_ν).
     // Only bites for negative odd nu; hankel_transform() restricts nu to
     // {0, 1}, so this is a no-op unless this function is called directly.
-    double parity = (nu < 0 && nu % 2 != 0) ? -1.0 : 1.0;
+    const double parity = (nu < 0 && nu % 2 != 0) ? -1.0 : 1.0;
 
-    // Final result
-    double res = scaled_sum * parity;
+    for (size_t j = 0; j < len_x; j++) {
+        double sum = 0.0;
 
-    *output = res;
+        for (size_t k = 0; k < n_nodes; k++) {
+            /* ---- Evaluate integrand at scaled location ---- */
+            double f_val = (*f)(nodes[k].y_k / x[j], f_ctx);
+
+            /* ---- Assemble quadrature contribution ---- */
+            double term = nodes[k].weight_y_k * f_val * nodes[k].Jnu_yk * nodes[k].phi_prime;
+
+            sum += term;
+        }
+
+        // Apply normalization from the change of variables t = x * r
+        double scaled_sum = (M_PI / (x[j] * x[j])) * sum;
+
+        output[j] = scaled_sum * parity;
+    }
+
+    free(nodes);
     return 0;
 }

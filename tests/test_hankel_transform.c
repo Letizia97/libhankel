@@ -265,7 +265,7 @@ void test_hankel_transform_rejects_x_not_greater_than_zero(void) {
                                              "DHT_Key_201",    "DHT_Anderson_801",
                                              "Fixed_DE_Ogata", "Adaptive_DE_Ooura",
                                              "QWE_Key",        "QWE_Chave"};
-    const double bad_values[] = {0.0, -15.0, NAN};
+    const double bad_values[] = {0.0, -15.0, NAN, INFINITY, -INFINITY};
 
     strategy_params strategy_params = {.eps_rel = 1e-9, .n_eval = 250, .f_max = 1.0};
     double actual[ARRAY_LEN];

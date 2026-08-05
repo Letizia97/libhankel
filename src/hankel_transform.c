@@ -106,13 +106,12 @@ int hankel_transform(int nu, form_factor_f f, double *x, size_t len_x, void *f_c
             return status;
         }
 
-        for (size_t j = 0; j < len_x; j++) {
-            status = hankel_transform_DE_Ooura(nu, f, x[j], f_ctx, &output[j],
-                                               strategy_params.n_eval, strategy_params.eps_rel);
-
-            if (status != 0) {
-                return status;
-            }
+        /* Whole array in one call: the node tables depend only on eps_rel, so
+         * they are built once instead of once per point. */
+        status = hankel_transform_DE_Ooura(nu, f, x, len_x, f_ctx, output, strategy_params.n_eval,
+                                           strategy_params.eps_rel);
+        if (status != 0) {
+            return status;
         }
 
     } else if (strcmp(strategy_name, "Fixed_DE_Ogata") == 0) {
@@ -126,13 +125,12 @@ int hankel_transform(int nu, form_factor_f f, double *x, size_t len_x, void *f_c
             return status;
         }
 
-        for (size_t j = 0; j < len_x; j++) {
-            status = hankel_transform_DE_Ogata(nu, f, x[j], f_ctx, &output[j],
-                                               strategy_params.n_eval, strategy_params.f_max);
-
-            if (status != 0) {
-                return status;
-            }
+        /* Whole array in one call: the node table depends only on nu and
+         * f_max, so it is built once instead of once per point. */
+        status = hankel_transform_DE_Ogata(nu, f, x, len_x, f_ctx, output, strategy_params.n_eval,
+                                           strategy_params.f_max);
+        if (status != 0) {
+            return status;
         }
 
     } else if (strcmp(strategy_name, "QWE_Chave") == 0) {

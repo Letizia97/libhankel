@@ -19,7 +19,7 @@ With Extrapolation. Specifically:
  * divided by x, so a non-positive or non-finite x would return DBL_MAX, Inf or
  * - for x < 0 - a plausible-looking finite number, all reported as a success. */
 static int validate_x(const double x) {
-    if (!(x > 0)) {
+    if (!(x > 0) || isinf(x)) {
         fprintf(stderr, "Error: x must be finite and greater than zero\n");
         return -12;
     }
