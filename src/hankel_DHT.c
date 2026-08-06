@@ -2,7 +2,6 @@
 #include "libhankel.h"
 
 // Standard library headers
-#include <math.h>
 #include <stdio.h>
 
 // Project / local headers
@@ -25,36 +24,16 @@ and changing the n_strategy parameter allows to switch between them
 /*
 Strategies 6 and 7 place their nodes at 10^(a + i*s), which depends only on the
 filter, not on x or on the form factor. Evaluating those powers on every call
-costs more than the rest of the loop put together, so each filter fills its
-table on first use and indexes it from then on.
+cost more than the rest of the loop put together, so the node positions are
+tabulated alongside the weights in strateg6_const.h and strateg7_const.h and
+read straight out of there.
 */
-#define GS_MAX_NODES 140
-
-typedef struct {
-    double node[GS_MAX_NODES];
-    int filled;
-} gs_nodes;
-
-static const double *gs_node_table(gs_nodes *table, double a, double s, unsigned int n) {
-    unsigned int i;
-
-    if (!table->filled) {
-        for (i = 0; i < n; i++) {
-            table->node[i] = pow(10.0E0, (a + i * s));
-        }
-        table->filled = 1;
-    }
-    return table->node;
-}
 
 int hankel_transform_DHT(int nu, form_factor_f f, const double x, void *f_ctx, double *output,
                          int n_strategy) {
 
-    static gs_nodes gs_J0, gs_J1, gs_J0_fast, gs_J1_fast;
-
     double res = 0;
     double lambda;
-    const double *node;
     unsigned int i;
     unsigned int ind;
 
@@ -83,15 +62,13 @@ int hankel_transform_DHT(int nu, form_factor_f f, const double x, void *f_ctx, d
     case 6: {
         // HANKEL_GUPTASARMA_97
         if (nu == 0) {
-            node = gs_node_table(&gs_J0, aJ0, sJ0, 120);
             for (i = 0; i < 120; i++) {
-                lambda = node[i] / x;
+                lambda = NJ0[i] / x;
                 res = res + (*f)(lambda, f_ctx) * lambda * WJ0[i] / x;
             }
         } else {
-            node = gs_node_table(&gs_J1, aJ1, sJ1, 140);
             for (i = 0; i < 140; i++) {
-                lambda = node[i] / x;
+                lambda = NJ1[i] / x;
                 res = res + (*f)(lambda, f_ctx) * lambda * WJ1[i] / x;
             }
         }
@@ -100,15 +77,13 @@ int hankel_transform_DHT(int nu, form_factor_f f, const double x, void *f_ctx, d
     case 7: {
         // HANKEL_GUPTASARMA_97_FAST
         if (nu == 0) {
-            node = gs_node_table(&gs_J0_fast, aJ0Fast, sJ0Fast, 61);
             for (i = 0; i < 61; i++) {
-                lambda = node[i] / x;
+                lambda = NJ0Fast[i] / x;
                 res = res + (*f)(lambda, f_ctx) * lambda * WJ0Fast[i] / x;
             }
         } else {
-            node = gs_node_table(&gs_J1_fast, aJ1Fast, sJ1Fast, 47);
             for (i = 0; i < 47; i++) {
-                lambda = node[i] / x;
+                lambda = NJ1Fast[i] / x;
                 res = res + (*f)(lambda, f_ctx) * lambda * WJ1Fast[i] / x;
             }
         }
