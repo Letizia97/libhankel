@@ -109,8 +109,14 @@ void setUp(void) {
     hankel_transform_DE_Ogata(nu, form_factor_g_dab, r_array_gdab, ARRAY_LEN, (void *)&ctx_gdab,
                               ctx.actual_gdab, 150, 1e-3);
 
+    /* The broad peak form factor has a peak at q = Q0 = 0.01 whose width is
+     * 1/XI = 1e-3, so it needs a much finer node spacing than the other two
+     * form factors. f_max sets that spacing (the nodes sit at roughly
+     * f_max * alpha_k^2 / (2 pi x)), so it has to shrink and n_eval has to grow
+     * with it to keep the same node range: at 150 / 0.2e-3 the peak is spanned
+     * by ~1.5 nodes and the small-x results are off by over 1%. */
     hankel_transform_DE_Ogata(nu, form_factor_broad_peak, r_array_broad_peak, ARRAY_LEN,
-                              (void *)&ctx_broad_peak, ctx.actual_broad_peak, 150, 0.2e-3);
+                              (void *)&ctx_broad_peak, ctx.actual_broad_peak, 600, 1.25e-5);
 }
 
 void tearDown(void) {}
@@ -135,7 +141,7 @@ void test_hankel_DE_Ogata_regression_gdab(void) {
 
 void test_hankel_DE_Ogata_regression_broad_peak(void) {
     /*
-    Regression test for QWE on broad peak.
+    Regression test for Ogata on broad peak.
     */
     for (size_t i = 0; i < ARRAY_LEN; ++i) {
         TEST_ASSERT_DOUBLE_WITHIN(1e-4, ctx.expected_broad_peak[i], ctx.actual_broad_peak[i]);
@@ -146,7 +152,6 @@ int main(void) {
     UNITY_BEGIN();
     RUN_TEST(test_hankel_DE_Ogata_regression_spheres);
     RUN_TEST(test_hankel_DE_Ogata_regression_gdab);
-    // probably need to replace this with an actual regression
-    // RUN_TEST(test_hankel_DE_Ogata_regression_broad_peak);
+    RUN_TEST(test_hankel_DE_Ogata_regression_broad_peak);
     return UNITY_END();
 }
