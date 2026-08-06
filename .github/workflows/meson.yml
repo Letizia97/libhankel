@@ -60,6 +60,9 @@ jobs:
       # --------------------------
       # Configure, build, test
       # --------------------------
+      # -Dtests=true is required: the option defaults to false, so without it
+      # meson.build never descends into tests/ and the "meson test" step below
+      # passes without running anything.
       - name: Configure (meson setup)
         run: meson setup "$BUILD_DIR" --backend ninja -Dtests=true
 

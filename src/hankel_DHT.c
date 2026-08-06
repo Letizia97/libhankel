@@ -2,7 +2,6 @@
 #include "libhankel.h"
 
 // Standard library headers
-#include <math.h>
 #include <stdio.h>
 
 // Project / local headers
@@ -20,6 +19,14 @@ This file contains functions corresponding to strategies 6-11 in SASfit
 
 They have been grouped together under one function, as they are very similar,
 and changing the n_strategy parameter allows to switch between them
+*/
+
+/*
+Strategies 6 and 7 place their nodes at 10^(a + i*s), which depends only on the
+filter, not on x or on the form factor. Evaluating those powers on every call
+cost more than the rest of the loop put together, so the node positions are
+tabulated alongside the weights in strateg6_const.h and strateg7_const.h and
+read straight out of there.
 */
 
 int hankel_transform_DHT(int nu, form_factor_f f, const double x, void *f_ctx, double *output,
@@ -56,12 +63,12 @@ int hankel_transform_DHT(int nu, form_factor_f f, const double x, void *f_ctx, d
         // HANKEL_GUPTASARMA_97
         if (nu == 0) {
             for (i = 0; i < 120; i++) {
-                lambda = pow(10.0E0, (aJ0 + i * sJ0)) / x;
+                lambda = NJ0[i] / x;
                 res = res + (*f)(lambda, f_ctx) * lambda * WJ0[i] / x;
             }
         } else {
             for (i = 0; i < 140; i++) {
-                lambda = pow(10.0E0, (aJ1 + i * sJ1)) / x;
+                lambda = NJ1[i] / x;
                 res = res + (*f)(lambda, f_ctx) * lambda * WJ1[i] / x;
             }
         }
@@ -71,12 +78,12 @@ int hankel_transform_DHT(int nu, form_factor_f f, const double x, void *f_ctx, d
         // HANKEL_GUPTASARMA_97_FAST
         if (nu == 0) {
             for (i = 0; i < 61; i++) {
-                lambda = pow(10.0E0, (aJ0Fast + i * sJ0Fast)) / x;
+                lambda = NJ0Fast[i] / x;
                 res = res + (*f)(lambda, f_ctx) * lambda * WJ0Fast[i] / x;
             }
         } else {
             for (i = 0; i < 47; i++) {
-                lambda = pow(10.0E0, (aJ1Fast + i * sJ1Fast)) / x;
+                lambda = NJ1Fast[i] / x;
                 res = res + (*f)(lambda, f_ctx) * lambda * WJ1Fast[i] / x;
             }
         }
