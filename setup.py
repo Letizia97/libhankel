@@ -1,4 +1,21 @@
+import sys
+
 from setuptools import Extension, setup
+
+include_dirs = [
+    "include",
+    "external_libs",
+    ".",
+    "src/utils",
+    "external_libs/utils",
+]
+
+# Boost.Math is used header-only. Its headers are on the compiler's default
+# search path on Linux, but not on macOS, where Homebrew installs under
+# /opt/homebrew (Apple Silicon) or /usr/local (Intel). For anywhere else, pass
+# CPPFLAGS=-I/path/to/boost.
+if sys.platform == "darwin":
+    include_dirs += ["/opt/homebrew/include", "/usr/local/include"]
 
 module = Extension(
     "libhankel",
@@ -18,13 +35,7 @@ module = Extension(
         "src/utils/validate_x.c",
         "src/utils/boost_bessel.cpp",
     ],
-    include_dirs=[
-        "include",
-        "external_libs",
-        ".",
-        "src/utils",
-        "external_libs/utils",
-    ],
+    include_dirs=include_dirs,
 )
 
 setup(

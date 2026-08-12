@@ -1,5 +1,22 @@
 inc_root = include_directories('..', '../include')
 
+# ---- Dependencies ----
+
+# Boost.Math is used header-only, so an include path is all the build needs;
+# dependency('boost') is no good here because it fails unless it also finds a
+# compiled boost library, which libboost-dev does not ship. The headers are on
+# the default search path on Linux, but not on macOS, where Homebrew installs
+# under /opt/homebrew (Apple Silicon) or /usr/local (Intel). For anywhere else,
+# pass CPPFLAGS=-I/path/to/boost.
+boost_args = host_machine.system() == 'darwin' ? [
+  '-I/opt/homebrew/include',
+  '-I/usr/local/include',
+] : []
+
+# Separate library on Linux, part of libSystem on macOS, hence the lookup
+# rather than a hard-coded '-lm'.
+m_dep = cc.find_library('m')
+
 # ---- Main C library ----
 sources = files(
   'hankel_DHT.c', 
@@ -19,10 +36,11 @@ sources = files(
 )
 
 libhankel = shared_library(
-  'libhankel',                           
+  'libhankel',
   sources: sources,
   include_directories: [inc_root],
-  dependencies: [],          
+  cpp_args: boost_args,
+  dependencies: [m_dep],
   install: true,
 )
 

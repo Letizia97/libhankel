@@ -1,6 +1,6 @@
 
-#ifndef UTILS_H
-#define UTILS_H
+#ifndef SASFIT_INTEGRATE_H
+#define SASFIT_INTEGRATE_H
 #include "libhankel.h"
 
 typedef struct {
@@ -17,4 +17,4 @@ double sasfit_integrate_ctm(double int_start, double int_end,
 // input to sasfit_integrate_ctm
 double FrJnu(double r, hankel_inputs *inputs);
 
-#endif // UTILS_H
+#endif // SASFIT_INTEGRATE_H
