@@ -359,3 +359,105 @@ form factor is where LibHankel's advantage lives, and a Python callback gives
 most of it back — a batched interface, handing the strategy's abscissae out and
 taking a vector of I(q) values in, would recover it, and the fixed-node filters
 are the strategies that could offer one.
+
+Replacing the transform
+=======================
+
+That last observation is worth following, because sasmodels already works that
+way. Its transform never calls the model: it publishes ``q_calc``, someone else
+evaluates, and ``apply`` consumes the vector. So a strategy that can say in
+advance where it needs I(q) does not need a callback at all — it can *be* a
+sasmodels resolution object, and the border between C and Python is crossed
+once at setup instead of once per point.
+
+Only the fixed-abscissa filters can do this. Their abscissae are a table
+divided by :math:`\xi` (``src/hankel_DHT.c:110-113``), known before ``f`` is
+evaluated; the adaptive strategies choose theirs from values they have already
+seen, so they cannot answer the question ``q_calc`` asks. This is the same
+property the batched interface would have relied on, used from the other side.
+
+``dht_nodes`` publishes the tables:
+
+.. code-block:: python
+
+   abscissae, weights = libhankel.dht_nodes("DHT_Key_201", 0)
+
+``dht_sesans.py`` builds a transform on them, and
+``benchmark_dht_transform.py`` puts it through ``DirectModel`` on the same
+three files. The swap is one call, and nothing downstream changes:
+
+.. code-block:: python
+
+   use_dht_transform("DHT_Key_201")
+   calculator = DirectModel(data, model)   # now uses the filter
+   calculator(radius=1000.0, **pars)       # returns P(xi) as before
+
+.. code-block:: text
+
+   sphere_isis.ses   57 spin-echo lengths, 260 to 19303 A;  radius 1000 A
+     transform                build  per eval      best  q points  speedup   max error
+     sasmodels dense       54.91 ms   6.39 ms   3.00 ms     43936     1.0x     1.0e-05
+     DHT_Key_51             0.23 ms   0.12 ms   0.10 ms      2907    53.8x     1.5e-03
+     DHT_Key_101            0.27 ms   0.15 ms   0.14 ms      5757    41.6x     7.4e-04
+     DHT_Key_201            0.46 ms   0.25 ms   0.23 ms     11457    25.2x     2.8e-04
+     DHT_Anderson_801       2.03 ms   1.42 ms   1.37 ms     45657     4.5x     2.4e-04
+
+The other two datasets behave the same way: ``DHT_Key_201`` runs 30 to 59 times
+faster per evaluation at 3.5e-04 against the dense route's 3.8e-04, and builds
+in about 0.55 ms against 22 to 57 ms. The speedup figures move by a third
+between runs, because the baseline is memory-bound and scatters — its median is
+roughly twice its best — so read them as "tens of times", not to two figures.
+The error figures are stable, and they agree with the ones
+``benchmark_real_data.py`` gets by calling ``hankel_transform`` directly, which
+is a useful check that the reimplementation in numpy is faithful.
+
+Two things had to be settled to make this a real replacement rather than a
+demonstration.
+
+**G(0).** ``apply`` returns :math:`G(\xi) - G(0)`, and G(0) is the transform at
+:math:`\xi = 0`. A filter evaluates at ``node/xi``, so it cannot go there;
+``SesansTransform`` gets G(0) free from its dense grid, and
+``benchmark_real_data.py`` sidesteps the problem by using the closed form for a
+sphere, which does not exist for a general model. But G(0) is a plain integral,
+not a Hankel transform, and the union of the abscissae over all the spin-echo
+lengths already covers q densely — 11457 points across 13 decades — because
+each :math:`\xi` shifts the same table by a different :math:`1/\xi`. A
+trapezoid rule in log q over that union costs no extra model evaluations, and
+it is more accurate than the rectangle rule it replaces:
+
+.. code-block:: text
+
+   route                 q points  relative error
+   reference               400000   400k point log grid
+   sasmodels dense          43936        -1.6e-04
+   DHT_Key_51                2907        -1.1e-05
+   DHT_Key_101               5757        -4.4e-07
+   DHT_Key_201              11457         1.1e-07
+   DHT_Anderson_801         45657        -4.7e-07
+
+The one case it does not cover is a single spin-echo length, where the union is
+just the table and the sampling drops to about 19 points per decade.
+
+**The acceptance mask.** ``benchmark_real_data.py`` never applies it, so on the
+ISIS file it and sasmodels are integrating slightly different things.
+``DHTSesansTransform`` applies the same masking as
+``SesansTransform._set_hankel``, elementwise on its own abscissae, which is
+cheaper than masking a matrix because the abscissae vary with :math:`\xi`
+anyway.
+
+One incidental finding, worth knowing before copying ``apply`` from sasmodels:
+writing the G(0) reduction as ``np.dot`` costs 2.9 ms on 11457 points against
+0.015 ms for an explicit multiply and sum. ``np.dot`` goes to threaded BLAS,
+and at this size the thread setup dwarfs the arithmetic — ``np.dot`` of two
+vectors of ones is just as slow, so it is overhead, not the values. It is right
+for the ``(n_q, n_xi)`` matrix product sasmodels uses it for and wrong for a
+vector reduction, and the first version of this transform was 20 times slower
+than it needed to be for exactly that reason.
+
+What this does not buy is accuracy. On the ISIS grid the dense route is still
+the better one, 1.0e-05 against 2.8e-04, and the shorter filters are erratic:
+``DHT_Key_101`` is worse than ``DHT_Key_51`` on both 2 :math:`\mu`\ m datasets
+(2.7e-02 against 1.3e-02), so filter length is not a dial that can be turned
+for accuracy. ``DHT_Key_201`` is the one to use — it is the shortest filter
+that is accurate on all three datasets, and it is the point where the remaining
+cost has moved from the transform into the model evaluation itself.

@@ -4,12 +4,42 @@
 #include "libhankel.h"
 #include <Python.h>
 #include <stdlib.h>
+#include <string.h>
 
 typedef struct {
     double *params;
     size_t n_params;
     PyObject *callable; // NULL for built-ins
 } py_f_ctx;
+
+/* Node tables for the fixed-abscissa digital filters, defined in hankel_DHT.c.
+ * Column 0 is the abscissa, columns 1 and 2 the J0 and J1 weights. */
+extern const double KK51Hankel[51][3];
+extern const double KK101Hankel[101][3];
+extern const double KK201Hankel[201][3];
+extern const double WA801Hankel[801][3];
+
+/* Look up the node table a fixed-abscissa filter uses, or NULL if the named
+ * strategy chooses its abscissae adaptively and so has no table. */
+static const double *dht_node_table(const char *strategy_name, size_t *n_nodes) {
+    if (strcmp(strategy_name, "DHT_Key_51") == 0) {
+        *n_nodes = 51;
+        return &KK51Hankel[0][0];
+    }
+    if (strcmp(strategy_name, "DHT_Key_101") == 0) {
+        *n_nodes = 101;
+        return &KK101Hankel[0][0];
+    }
+    if (strcmp(strategy_name, "DHT_Key_201") == 0) {
+        *n_nodes = 201;
+        return &KK201Hankel[0][0];
+    }
+    if (strcmp(strategy_name, "DHT_Anderson_801") == 0) {
+        *n_nodes = 801;
+        return &WA801Hankel[0][0];
+    }
+    return NULL;
+}
 
 double python_form_factor(double x, void *f_ctx) {
     py_f_ctx *c = (py_f_ctx *)f_ctx;
@@ -292,6 +322,48 @@ static PyObject *py_hankel_transform(PyObject *self, PyObject *args) {
     return out_list;
 }
 
+static PyObject *py_dht_nodes(PyObject *self, PyObject *args) {
+    const char *strategy_name;
+    int nu;
+
+    if (!PyArg_ParseTuple(args, "si", &strategy_name, &nu)) {
+        return NULL;
+    }
+
+    if (nu != 0 && nu != 1) {
+        PyErr_SetString(PyExc_ValueError, "nu must be 0 or 1");
+        return NULL;
+    }
+
+    size_t n_nodes = 0;
+    const double *table = dht_node_table(strategy_name, &n_nodes);
+    if (!table) {
+        PyErr_SetString(PyExc_ValueError,
+                        "Error: nodes are only tabulated for the fixed-abscissa filters, one of: "
+                        "'DHT_Key_51', 'DHT_Key_101', 'DHT_Key_201', 'DHT_Anderson_801'.");
+        return NULL;
+    }
+
+    PyObject *abscissae = PyList_New(n_nodes);
+    PyObject *weights = PyList_New(n_nodes);
+    if (!abscissae || !weights) {
+        Py_XDECREF(abscissae);
+        Py_XDECREF(weights);
+        return NULL;
+    }
+
+    for (size_t i = 0; i < n_nodes; i++) {
+        PyList_SetItem(abscissae, (Py_ssize_t)i, PyFloat_FromDouble(table[i * 3]));
+        PyList_SetItem(weights, (Py_ssize_t)i, PyFloat_FromDouble(table[i * 3 + nu + 1]));
+    }
+
+    /* PyTuple_Pack takes its own references, so drop ours. */
+    PyObject *result = PyTuple_Pack(2, abscissae, weights);
+    Py_DECREF(abscissae);
+    Py_DECREF(weights);
+    return result;
+}
+
 // docstring for hankel_tranform python api
 static char hankel_t_doc[] =
     "Compute the Hankel transform.\n"
@@ -323,8 +395,33 @@ static char hankel_t_doc[] =
     "builtin form factor or a custom input function."
     "\n";
 
+// docstring for dht_nodes python api
+static char dht_nodes_doc[] =
+    "Return the abscissae and weights of a fixed-abscissa digital filter.\n"
+    "\n"
+    "The filters evaluate the transform at ``x`` as "
+    "``sum(f(a[i]/x) * (a[i]/x) * w[i] / x)``, so the points at which ``f`` is "
+    "needed are known before ``f`` is evaluated. Callers that already have a "
+    "vectorised way to compute ``f`` can use this to gather every abscissa "
+    "first, evaluate once, and combine, instead of going through "
+    ":func:`hankel_transform` and its per-point callback.\n"
+    "\n"
+    ":param strategy_name:   The name of the filter. Only the fixed-abscissa "
+    "filters are tabulated: 'DHT_Key_51', 'DHT_Key_101', 'DHT_Key_201', "
+    "'DHT_Anderson_801'. The adaptive strategies choose their abscissae from "
+    "values they have already seen, so they have no table.\n"
+    ":type strategy_name:    str\n"
+    ":param nu:              The order of the Bessel function, must be 0 or 1. "
+    "Selects which column of weights is returned.\n"
+    ":type nu:               int\n"
+    ":returns:               ``(abscissae, weights)``, both of length equal to "
+    "the filter length.\n"
+    ":rtype:                 tuple[list[float], list[float]]\n";
+
 static PyMethodDef Methods[] = {
-    {"hankel_transform", py_hankel_transform, METH_VARARGS, hankel_t_doc}, {NULL, NULL, 0, NULL}};
+    {"hankel_transform", py_hankel_transform, METH_VARARGS, hankel_t_doc},
+    {"dht_nodes", py_dht_nodes, METH_VARARGS, dht_nodes_doc},
+    {NULL, NULL, 0, NULL}};
 
 static struct PyModuleDef module = {PyModuleDef_HEAD_INIT, "libhankel", " ", -1, Methods};
 
