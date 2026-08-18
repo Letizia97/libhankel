@@ -22,6 +22,7 @@
 /* Include guard: stops this file being pasted twice into one translation
  * unit. Not to be confused with the __cplusplus guards below, which do
  * something completely different. */
+
 #ifndef INTERP_CUBIC_H
 #define INTERP_CUBIC_H
 
@@ -50,19 +51,17 @@ extern "C" {
 typedef struct cubic_interp cubic_interp_t;
 
 /* Builds the spline once. x must be strictly increasing and n >= 4.
- * Returns NULL on invalid input or allocation failure -- check it, the way
- * you would check fopen() or malloc(). */
+ * Returns NULL on invalid input or allocation failure. */
 cubic_interp_t *cubic_interp_create(const double *x, const double *y, size_t n);
 
 /* Evaluates at xi. const because evaluation does not modify the spline;
  * this mirrors Boost, whose operator() is a const member function.
  *
  * Returns NaN if h is NULL or xi is outside [x[0], x[n-1]] -- Boost refuses
- * to extrapolate. Detect with isnan(). */
+ * to extrapolate. */
 double cubic_interp_eval(const cubic_interp_t *h, double xi);
 
-/* Frees the spline. Not const: this destroys the object rather than reading
- * it. Passing NULL is a safe no-op. */
+/* Frees the spline. Passing NULL is a safe no-op. */
 void cubic_interp_destroy(cubic_interp_t *h);
 
 #ifdef __cplusplus
