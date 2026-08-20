@@ -34,6 +34,11 @@ struct cubic_interp {
 extern "C" {
 
 cubic_interp_t *cubic_interp_create(const double *x, const double *y, size_t n) {
+    // Outside the try on purpose: reading through a null pointer is a segfault,
+    // not an exception, so the catch below could not turn it into a NULL.
+    if (x == NULL || y == NULL)
+        return NULL;
+
     try {
         // Shorthand for boost::math::interpolators::pchip.
         using boost::math::interpolators::pchip;

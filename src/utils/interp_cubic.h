@@ -50,7 +50,8 @@ extern "C" {
  * size. Same pattern as FILE* from <stdio.h>. */
 typedef struct cubic_interp cubic_interp_t;
 
-/* Builds the spline once. x must be strictly increasing and n >= 4.
+/* Builds the spline once. x and y must be non-NULL and hold at least n
+ * elements each, x must be strictly increasing, and n >= 4.
  * Returns NULL on invalid input or allocation failure. */
 cubic_interp_t *cubic_interp_create(const double *x, const double *y, size_t n);
 
