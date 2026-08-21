@@ -12,7 +12,7 @@ Includes the header. cubic_interp_t is an opaque type that cannot be
 usefully redeclared here, and including the header also exercises its
 __cplusplus linkage guard from a C translation unit.
 */
-#include "../src/utils/interp_cubic.h"
+#include "interp_cubic.h"
 
 void setUp(void) {}
 void tearDown(void) {}
