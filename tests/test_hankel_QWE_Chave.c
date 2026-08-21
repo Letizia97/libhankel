@@ -1,5 +1,5 @@
 // clang-format off
-#include "utils/unity_config.h"
+#include "utils_for_tests/unity_config.h"
 #include "unity.h"
 // clang-format on
 #include <math.h>
@@ -11,7 +11,7 @@
 #include "form_factors.h"
 #include "libhankel.h"
 #include "src/utils/sasfit_integrate.h"
-#include "utils/test_utils.h"
+#include "utils_for_tests/test_utils.h"
 #include <stdlib.h>
 
 #define ARRAY_LEN 25

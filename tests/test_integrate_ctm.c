@@ -1,5 +1,5 @@
 // clang-format off
-#include "utils/unity_config.h"
+#include "utils_for_tests/unity_config.h"
 #include "unity.h"
 // clang-format on
 #include <libhankel.h>
@@ -14,7 +14,7 @@
 // Project / local headers
 #include "form_factors.h"
 #include "src/utils/sasfit_integrate.h"
-#include "utils/test_utils.h"
+#include "utils_for_tests/test_utils.h"
 
 #define MAX_COLS 25
 #define MAX_ROWS 6

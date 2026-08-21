@@ -16,7 +16,7 @@ unity_dep = declare_dependency(
 )
 
 
-subdir('utils')
+subdir('utils_for_tests')
 
 tests = [
   'test_analytical.c',
