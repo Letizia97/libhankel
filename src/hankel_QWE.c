@@ -21,17 +21,19 @@ With Extrapolation. Specifically:
  * divided by x, so a non-positive or non-finite x would return DBL_MAX, Inf or
  * - for x < 0 - a plausible-looking finite number, all reported as a success. */
 
-int hankel_transform_QWE_Key(int nu, form_factor_f f, const double x, void *f_ctx, double *output,
-                             int n_eval, double eps_rel) {
+int hankel_transform_QWE_Key(int nu, form_factor_f f, const double *x, size_t len_x, void *f_ctx,
+                             double *output, int n_eval, double eps_rel) {
 
     int status;
 
-    status = validate_x(x);
+    status = validate_x_array(x, len_x);
     if (status != 0) {
         return status;
     }
 
-    status = qwe_Key(nu, f, x, f_ctx, output, lround(n_eval), eps_rel * 10, DBL_MIN);
+    /* Whole array in one call: the Bessel zeros delimiting the intervals do not
+     * depend on x, so they are found once for all points. */
+    status = qwe_Key(nu, f, x, len_x, f_ctx, output, lround(n_eval), eps_rel * 10, DBL_MIN);
 
     return status;
 }
