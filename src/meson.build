@@ -15,7 +15,8 @@ sources = files(
   'utils/analytical_form_factors.c',
   'utils/sf_functions.c',
   'utils/validate_x.c',
-  'utils/boost_bessel.cpp'
+  'utils/boost_bessel.cpp',
+  'utils/interp_cubic.cpp'
 )
 
 libhankel = shared_library(

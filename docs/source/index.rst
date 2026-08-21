@@ -54,6 +54,7 @@ the Hankel transform.
    usage/strategy_selection
    usage/strategy_params
    usage/status_codes
+   usage/tabulated_form_factors
 
 
 
