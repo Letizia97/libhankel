@@ -16,7 +16,8 @@ sources = files(
   'utils/sf_functions.c',
   'utils/validate_x.c',
   'utils/boost_bessel.cpp',
-  'utils/interp_cubic.cpp'
+  'utils/interp_cubic.cpp',
+  'utils/tabulated_ff.c'
 )
 
 libhankel = shared_library(
