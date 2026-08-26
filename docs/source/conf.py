@@ -3,6 +3,7 @@
 # For the full list of built-in configuration values, see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 
+import os
 import subprocess
 import sys
 
@@ -44,10 +45,15 @@ autodoc_docstring_signature = True
 breathe_show_include = False
 
 
-# Hook doxygen
+# Hook doxygen. Run from the repository root, where the Doxyfile lives and
+# whose INPUT paths are relative to it - otherwise doxygen fails and the build
+# silently carries on against whatever XML was generated last.
+_REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+
+
 def run_doxygen(app):
     try:
-        subprocess.check_call(["doxygen"])
+        subprocess.check_call(["doxygen"], cwd=_REPO_ROOT)
     except Exception as e:
         print("Doxygen execution failed:", e)
 

@@ -4,9 +4,11 @@
 Status codes (for C users)
 ================================
 
-When used in C, the ``hankel_transform`` function is designed to return a 0 status code when successful, 
+When used in C, the ``hankel_transform`` function is designed to return a 0 status code when successful,
 and a negative number when not.
 The table below lists all possible error codes the user might encounter plus corresponding explanations.
+The codes are shared across the C API, so the last two are returned by
+``tabulated_ff_create`` rather than by ``hankel_transform``.
 
 .. table:: Status codes.
 
@@ -38,4 +40,8 @@ The table below lists all possible error codes the user might encounter plus cor
     | -11                | Invalid strategy name                                                   |
     +--------------------+-------------------------------------------------------------------------+
     | -12                | Invalid x (must be finite and greater than zero)                        |
+    +--------------------+-------------------------------------------------------------------------+
+    | -13                | Invalid tabulated data (see :c:func:`tabulated_ff_create`)              |
+    +--------------------+-------------------------------------------------------------------------+
+    | -14                | Tabulated high-q tail does not converge (exponent must exceed 3/2)      |
     +--------------------+-------------------------------------------------------------------------+
