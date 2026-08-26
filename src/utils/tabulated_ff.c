@@ -1,5 +1,3 @@
-// tabulated_ff.c
-//
 // A form_factor_f backed by a table of points rather than a formula.
 //
 // interp_cubic interpolates; this adds the tails. The strategies sample q over
