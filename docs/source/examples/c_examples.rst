@@ -74,14 +74,13 @@ With a tabulated form factor
 -----------------------------------
 
 The following example transforms a form factor that is known only at a set of
-points, by building a PCHIP spline through it with the
-:ref:`interpolation functions <interpolation_c_api>`.
+points, by handing the table to :c:func:`tabulated_ff_create`.
 
 The interpolation itself is only half the job. Because the strategies evaluate
-the form factor far outside the tabulated range, the callback also has to
-define the two tails -- and getting that wrong fails silently rather than
-loudly. :ref:`tabulated-form-factors` explains the reasoning; this example
-implements it.
+the form factor far outside the tabulated range, the high-:math:`q` tail has to
+be defined too -- and getting that wrong fails silently rather than loudly.
+This example uses a fitted power law; :ref:`tabulated-form-factors` explains
+the choice.
 
 The program is self-checking: it builds its table by sampling the built-in
 ``g_dab`` form factor, so it can print the transform of the tabulated data
