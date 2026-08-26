@@ -2,12 +2,10 @@
 //
 // A form_factor_f backed by a table of points rather than a formula.
 //
-// The interpolation itself is done by interp_cubic; everything here exists
-// because a spline alone is not enough. cubic_interp_eval returns NaN outside
-// the tabulated range, and the strategies evaluate the form factor over tens
-// of decades in q, so a bare spline is asked for values it cannot supply on
-// every single call. This wraps it with the two tail rules that make it
-// defined everywhere, and refuses to build one whose tail would not converge.
+// interp_cubic interpolates; this adds the tails. The strategies sample q over
+// tens of decades, so every call falls outside the table, where
+// cubic_interp_eval returns NaN. A tail that would not converge is refused at
+// build time.
 
 #include "tabulated_ff.h"
 
@@ -17,10 +15,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-/* The handle the header keeps opaque. Both endpoint values are cached rather
- * than read back off the spline: they are needed on the majority of calls,
- * and asking the spline for its own boundary would be both slower and, at
- * exactly x[0] and x[n-1], the one place its range check could bite. */
+/* The handle the header keeps opaque. The endpoint values are cached because
+ * most calls need them, and reading them back off the spline would be slower. */
 struct tabulated_ff {
     cubic_interp_t *spline;
     double q_lo; /* first tabulated q                                  */
@@ -31,14 +27,10 @@ struct tabulated_ff {
     double exponent; /* the p of the power-law tail; unused for _ZERO  */
 };
 
-/* Number of points from the high-q end of the table - that is, the last
- * entries of q and f - used to fit the high-q slope.
- *
- * A quarter of the table, so a short one still has something to work with,
- * bounded at both ends: fewer than four points is not a fit, and more than
- * forty starts reaching down into the part of the curve that has not yet
- * reached its asymptote, which biases the slope towards zero - the dangerous
- * direction, since that is the one that fails to converge. */
+/* Points from the high-q end used to fit the slope: a quarter of the table,
+ * clamped. Below four is not a fit; above forty reaches back into the
+ * pre-asymptotic curve and biases p towards zero, the direction that
+ * diverges. */
 #define FIT_MIN_POINTS 4
 #define FIT_MAX_POINTS 40
 
@@ -47,14 +39,11 @@ struct tabulated_ff {
 #define MIN_CONVERGENT_EXPONENT 1.5
 
 /**
- * Rejects a table that cannot be used, before anything has been allocated.
+ * Rejects an unusable table before anything is allocated. Returns -13.
  *
- * Returns -13 on any problem, matching tabulated_ff_create's contract.
- *
- * Note that the strictly-increasing test doubles as a NaN check on q: a
- * comparison against NaN is false, so `!(q[j] > q[j - 1])` catches it. The
- * same trick does not work on f, which is only ever read and never compared,
- * so that one needs an explicit isfinite.
+ * The strictly-increasing test doubles as a NaN check on q, since any
+ * comparison with NaN is false. It does not catch infinity, so q and f both
+ * get an explicit isfinite as well.
  */
 static int validate_table(const double *q, const double *f, size_t n) {
     if (q == NULL || f == NULL) {
@@ -77,9 +66,13 @@ static int validate_table(const double *q, const double *f, size_t n) {
                     j, q[j], j - 1, q[j - 1]);
             return -13;
         }
-        /* A NaN here would build a spline quite happily and then poison every
-         * evaluation that touched it, which is exactly the silent failure
-         * this whole type exists to prevent. */
+        /* An infinite q_hi makes `q >= q_hi` false for every real q, so the
+         * tail is unreachable and every eval returns NaN under status 0. */
+        if (!isfinite(q[j])) {
+            fprintf(stderr, "Error: tabulated q must be finite, but q[%zu] = %g\n", j, q[j]);
+            return -13;
+        }
+        /* A non-finite f builds a spline happily, then poisons every eval. */
         if (!isfinite(f[j])) {
             fprintf(stderr, "Error: tabulated f must be finite, but f[%zu] = %g\n", j, f[j]);
             return -13;
@@ -91,20 +84,15 @@ static int validate_table(const double *q, const double *f, size_t n) {
 /**
  * Fits the high-q slope from the last points in the table.
  *
- * Only the high-q end can be used. A power law is an asymptotic statement, so
- * it holds where q is largest; the other end of the table is the low-q
- * plateau, whose slope is close to zero and therefore divergent.
+ * A power law is asymptotic, so only the high-q end can be used; the other end
+ * is the low-q plateau, whose near-zero slope diverges. f = A q^-p is a line of
+ * gradient -p in log-log, so this is least squares of log f against log q.
  *
- * A power law f = A q^-p is a straight line of gradient -p once both axes are
- * logged, so this is an ordinary least-squares fit of log f against log q.
+ * Points with f <= 0 are skipped rather than rejected: background-subtracted
+ * data goes negative exactly where this fit looks, and log of that is NaN.
  *
- * Points with f <= 0 are skipped rather than treated as an error. Real data
- * that has had a background subtracted goes negative at high q, precisely
- * where this fit looks, and log of that is NaN - which would not fail loudly,
- * it would quietly poison every sum below and produce a NaN gradient.
- *
- * Writes the fitted p to *out_p and returns 0, or returns -14 if too few
- * usable points survived or the fit did not produce a finite gradient.
+ * Writes p to *out_p and returns 0, or -14 if too few points survived or the
+ * gradient is not finite.
  */
 static int fit_exponent(const double *q, const double *f, size_t n, double *out_p) {
     size_t count = n / 4;
@@ -134,9 +122,8 @@ static int fit_exponent(const double *q, const double *f, size_t n, double *out_
         used++;
     }
 
-    /* Two points would define a gradient, but with no redundancy at all a
-     * single noisy value sets the tail for the entire transform. Three is the
-     * smallest fit that can be wrong in a visible way. */
+    /* Two points define a gradient with no redundancy at all, so a single noisy
+     * value would set the tail for the whole transform. */
     if (used < 3) {
         fprintf(stderr,
                 "Error: cannot fit a high-q exponent, only %zu of the last %zu tabulated points "
@@ -149,9 +136,8 @@ static int fit_exponent(const double *q, const double *f, size_t n, double *out_
     double denominator = m * sum_xx - sum_x * sum_x;
     double gradient = (m * sum_xy - sum_x * sum_y) / denominator;
 
-    /* The abscissae are distinct, so the denominator is only at risk from
-     * rounding on a very short, very narrow q range. Checking the result
-     * rather than the denominator catches that and any overflow at once. */
+    /* Checking the result rather than the denominator catches a denominator
+     * rounded flat by a very narrow q range, and any overflow, at once. */
     if (!isfinite(gradient)) {
         fprintf(stderr, "Error: high-q exponent fit did not produce a finite gradient\n");
         return -14;
@@ -168,8 +154,8 @@ int tabulated_ff_create(const double *q, const double *f, size_t n, tabulated_ta
         fprintf(stderr, "Error: tabulated_ff_create needs a non-NULL out pointer\n");
         return -13;
     }
-    /* Cleared up front so that every failure below can simply return, and the
-     * caller is never left holding a stale pointer it might try to destroy. */
+    /* Cleared up front so every failure below can simply return, and the caller
+     * is never left holding a stale pointer it might destroy. */
     *out = NULL;
 
     int status = validate_table(q, f, n);
@@ -182,15 +168,13 @@ int tabulated_ff_create(const double *q, const double *f, size_t n, tabulated_ta
         return -13;
     }
 
-    /* Settled before anything is allocated: a table whose tail diverges is
-     * not going to become usable later, and building a spline for it would be
-     * tens of microseconds spent on a call that cannot succeed. */
+    /* Settled before allocating: a divergent tail will not become usable later,
+     * and the spline costs tens of microseconds. */
     double p = 0.0;
     if (tail == TABULATED_TAIL_POWER_LAW) {
         if (exponent == 0.0) {
-            /* Zero is free to mean "fit it" because it is never a legitimate
-             * value: p = 0 is the flat tail, which is the one option that
-             * provably does not converge. */
+            /* Zero is free to mean "fit it": p = 0 is the flat tail, the one
+             * option that provably does not converge. */
             status = fit_exponent(q, f, n, &p);
             if (status != 0) {
                 return status;
@@ -214,12 +198,10 @@ int tabulated_ff_create(const double *q, const double *f, size_t n, tabulated_ta
         return -3;
     }
 
-    /* Copies q and f, which is what frees the caller from keeping them
-     * alive - see the header. */
+    /* Copies q and f, which is what frees the caller from keeping them alive. */
     t->spline = cubic_interp_create(q, f, n);
     if (t->spline == NULL) {
-        /* The table has already been validated, so this is not a data
-         * problem: the allocation inside the spline failed. */
+        /* The table is already validated, so this is an allocation failure. */
         fprintf(stderr, "Error: failed to build the interpolating spline\n");
         free(t);
         return -3;
@@ -243,25 +225,27 @@ double tabulated_ff_eval(double q, void *ctx) {
         return NAN;
     }
 
-    /* Both comparisons are inclusive, so the two endpoints are answered from
-     * the cached values and never reach the spline. That is deliberate: it
-     * returns the tabulated value exactly, and it keeps the boundary of the
-     * spline's own range check out of the hot path entirely.
+    /* Both comparisons are inclusive, so the endpoints are answered from the
+     * cached values and return the tabulated data exactly.
      *
-     * A NaN q fails both tests and falls through to the spline, whose range
-     * check rejects it and returns NaN - which is the right answer, and the
-     * only input for which this function is not total. */
+     * A NaN q fails both and falls through to the spline, which returns NaN -
+     * the right answer, and the only input for which this is not total. */
     if (q <= t->q_lo) {
         return t->f_lo;
     }
 
     if (q >= t->q_hi) {
+        /* The last point is data, not tail. Without this the two tails disagree
+         * exactly here: the power law returns f_hi anyway, since its ratio is
+         * 1, but a truncated tail would discard a measured value. */
+        if (q == t->q_hi) {
+            return t->f_hi;
+        }
         if (t->tail == TABULATED_TAIL_ZERO) {
             return 0.0;
         }
-        /* Written as a ratio rather than as A * pow(q, -p) so the tail meets
-         * the spline exactly at q_hi, where the ratio is 1. No step at the
-         * join, whatever p turned out to be. */
+        /* A ratio rather than A * pow(q, -p), so the tail meets the spline
+         * exactly at q_hi, where the ratio is 1, whatever p turned out to be. */
         return t->f_hi * pow(q / t->q_hi, -t->exponent);
     }
 
@@ -272,9 +256,8 @@ void tabulated_ff_destroy(tabulated_ff_t *t) {
     if (t == NULL) {
         return;
     }
-    /* cubic_interp_destroy is itself NULL-safe, but t->spline cannot be NULL
-     * here anyway: create frees t and returns rather than handing back a
-     * handle with no spline in it. */
+    /* t->spline is never NULL here: create frees t rather than handing back a
+     * handle without one. */
     cubic_interp_destroy(t->spline);
     free(t);
 }
