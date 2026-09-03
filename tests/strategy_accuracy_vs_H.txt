@@ -1,0 +1,156 @@
+Hankel strategy accuracy as a function of the GDAB Hurst exponent H
+===================================================================
+
+Measured 3 September 2026 against compute_analytical_gdab, the closed form, so
+these are true errors and not run-to-run differences.
+
+Setup
+-----
+  A = 10, eta = 1e-4, nu = 0, H swept from 2.0 down to -0.49 (its lower bound).
+  z = 5 .. 100 in 12 points, chosen so that eta^2 G(z) stays well above
+  underflow and a relative error on it still means something.
+  strategy_params: n_eval = 250, eps_rel = 1e-12, f_max = 1e-4.
+  gcc 11.4, system Boost, one machine.
+
+Why H matters: the integrand is q*I(q) ~ q^-(2+2H). At H = 2 it dies as q^-6;
+at H = -0.49 as q^-1.02, which is only barely convergent. Almost all of the
+integral then sits in a very long tail, and G(z) in the far field falls seven
+or more orders of magnitude below G(0), so a strategy has to resolve a small
+number against a large total.
+
+Two metrics are reported because they answer different questions and they do
+NOT agree in direction:
+
+  (T)   relative error of the transform itself, |T(z)/2pi - eta^2 G(z)|
+        / |eta^2 G(z)|. This is the number to care about if you want the
+        correlation function G(z), including its tail.
+
+  (O)   relative error of the observable, eta^2 [G(z) - G(0)]. This is what a
+        SESANS measurement is sensitive to.
+
+Metric (O) improves for every strategy as H falls, but that is not the
+quadrature getting better: G(0) = V^2 / [2 pi A^2 (1 + 2H)] diverges as
+H -> -1/2, so the quantity in the denominator grows faster than the error
+does. Metric (T) is the one that reflects the numerical difficulty.
+
+
+1. BEST STRATEGIES AT LOW H  (metric T at H = -0.49, best first)
+----------------------------------------------------------------
+   1.  DHT_Key_201          4.0e-11   |  effectively tied - see the note on
+   2.  QWE_Chave            4.2e-11   |  the common floor below
+   3.  QWE_Key              4.2e-11   |
+   4.  Adaptive_DE_Ooura    4.5e-11   |
+   5.  DHT_Guptasarma       1.1e-08
+   6.  DHT_Key_101          1.7e-08
+   7.  DHT_Anderson_801     1.0e-06
+   8.  DHT_Guptasarma_Fast  4.6e-06
+   9.  DHT_Key_51           1.4e-04
+  10.  Fixed_DE_Ogata       2.2e+02   <- unusable, see below
+
+  Recommendation: DHT_Key_201 or Adaptive_DE_Ooura. Both are also the most
+  accurate at high H, so there is no trade to make - nothing overtakes them as
+  H falls. Prefer DHT_Key_201 if cost matters, since a 201-tap filter is one
+  pass with no convergence loop.
+
+
+2. STRATEGIES THAT HOLD UP  (metric T, essentially flat in H)
+--------------------------------------------------------------
+  These are insensitive to H across the whole range. They are not the most
+  accurate, but their error does not move:
+
+   1.  DHT_Guptasarma       3.2e-08 -> 1.1e-08   (improves slightly)
+   2.  DHT_Key_101          8.0e-08 -> 1.7e-08   (improves slightly)
+   3.  DHT_Anderson_801     1.5e-06 -> 1.0e-06   (improves slightly)
+   4.  DHT_Guptasarma_Fast  3.1e-06 -> 4.6e-06   (flat within a factor 1.5)
+
+  All four are digital filters with enough taps to span the slow tail, which
+  is presumably why the tail decay rate does not reach them. DHT_Anderson_801
+  is the clearest case: 801 taps, and the error actually falls as H does.
+
+
+3. STRATEGIES THAT DEGRADE MOST  (metric T, ratio H = 2.0 -> H = -0.49)
+-----------------------------------------------------------------------
+   1.  Fixed_DE_Ogata       2.8e-02 -> 2.2e+02      7800x
+   2.  Adaptive_DE_Ooura    6.0e-14 -> 4.5e-11       750x
+   3.  DHT_Key_201          6.3e-14 -> 4.0e-11       630x
+   4.  QWE_Chave            1.2e-12 -> 4.2e-11        35x
+   5.  DHT_Key_51           7.1e-06 -> 1.4e-04        19x
+   6.  QWE_Key              4.1e-12 -> 4.2e-11        10x
+
+  Read this alongside list 1. Apart from Ogata, the strategies that degrade
+  most are the ones that were near machine precision to begin with, and they
+  are STILL the most accurate at H = -0.49. Losing three orders of magnitude
+  from 6e-14 leaves you at 4.5e-11; holding steady at 1.5e-06 does not. A
+  large degradation ratio is not by itself a reason to avoid a strategy.
+
+  DHT_Key_51 is the one case where the ratio and the absolute number agree:
+  worst but one at every H, and getting worse.
+
+
+4. Fixed_DE_Ogata
+------------------
+  Separate because it is not merely inaccurate. On metric T it is wrong by
+  280% at H = 2 and by a factor of 220 at H = -0.49, and it returns success
+  every time. It was run here with f_max = 1e-4; at the default f_max = 1.0 it
+  is worse still. It only looks tolerable on metric O (max 1.3e-03) because
+  its error is roughly a constant offset, which is small next to G(0) but
+  enormous next to G(z) in the tail.
+
+  Do not use it for GDAB at any H without first tuning f_max to the integrand,
+  and do not trust its return status as evidence that the answer is good.
+  (This is the same defect recorded in examples/sesans/.)
+
+
+5. CAVEAT: the 4e-11 floor
+---------------------------
+  Four independent methods - a 201-tap filter, Ooura's double exponential, and
+  both QWE variants - all land within 10% of 4.2e-11 at H = -0.49. Four
+  unrelated algorithms do not usually agree to that precision on their own
+  error. The floor is far more likely to come from something they share: the
+  evaluation of form_factor_g_dab, or of the reference itself, where
+  sf_poch(H, 1.5) = tgamma(H + 1.5) / tgamma(H) is being formed close to the
+  pole of tgamma at H = 0 and 1 + 2H = 0.02 amplifies whatever is left.
+
+  So treat 4e-11 at H = -0.49 as the resolution of this experiment, not as a
+  measured property of those four strategies. Any comparison between them
+  below that level is not supported by this data.
+
+
+Raw data
+--------
+(T) relative error of T(z)/2pi vs exact eta^2 G(z)
+
+strategy                  H=2.0    H=1.0    H=0.5    H=0.3    H=0.1   H=-0.1   H=-0.2   H=-0.4  H=-0.49
+DHT_Guptasarma          3.2e-08  9.1e-09  1.3e-08  1.5e-08  1.6e-08  1.5e-08  1.4e-08  1.2e-08  1.1e-08
+DHT_Guptasarma_Fast     3.1e-06  7.5e-06  4.5e-06  2.5e-06  2.4e-06  2.0e-06  2.6e-06  4.1e-06  4.6e-06
+DHT_Key_51              7.1e-06  1.9e-05  3.5e-05  4.6e-05  6.0e-05  8.0e-05  9.2e-05  1.2e-04  1.4e-04
+DHT_Key_101             8.0e-08  3.3e-08  2.7e-08  4.2e-08  5.0e-08  4.9e-08  4.5e-08  2.8e-08  1.7e-08
+DHT_Key_201             6.3e-14  1.5e-13  8.1e-13  9.3e-13  2.4e-12  1.2e-11  1.7e-11  5.0e-11  4.0e-11
+DHT_Anderson_801        1.5e-06  2.3e-06  2.2e-06  1.9e-06  1.6e-06  1.5e-06  1.4e-06  1.1e-06  1.0e-06
+Fixed_DE_Ogata          2.8e-02  7.3e-01  4.2e+00  8.8e+00  1.9e+01  4.2e+01  6.3e+01  1.5e+02  2.2e+02
+Adaptive_DE_Ooura       6.0e-14  6.0e-14  7.5e-13  8.1e-13  2.0e-12  1.3e-11  1.5e-11  4.6e-11  4.5e-11
+QWE_Key                 4.1e-12  1.6e-12  1.5e-12  1.1e-11  3.6e-12  1.4e-11  1.5e-11  4.8e-11  4.2e-11
+QWE_Chave               1.2e-12  1.6e-12  1.9e-12  1.9e-12  1.9e-12  1.4e-11  1.5e-11  4.9e-11  4.2e-11
+
+(O) relative error of the observable eta^2 [G(z) - G(0)]
+
+strategy                  H=2.0    H=1.0    H=0.5    H=0.3    H=0.1   H=-0.1   H=-0.2   H=-0.4  H=-0.49
+DHT_Guptasarma          4.0e-10  1.7e-11  4.6e-12  2.2e-12  1.0e-12  5.6e-13  4.4e-13  1.5e-13  1.5e-14
+DHT_Guptasarma_Fast     2.0e-08  4.4e-09  1.2e-09  7.7e-10  4.1e-10  1.7e-10  9.5e-11  2.1e-11  1.8e-12
+DHT_Key_51              4.1e-05  9.7e-06  2.8e-06  1.4e-06  6.3e-07  2.3e-07  1.2e-07  1.9e-08  1.4e-09
+DHT_Key_101             2.6e-08  9.2e-09  1.4e-09  4.7e-10  1.2e-10  1.2e-11  4.1e-12  2.4e-12  2.4e-13
+DHT_Key_201             7.7e-14  2.9e-14  1.4e-14  5.8e-15  2.5e-15  2.7e-15  6.1e-16  3.4e-16  1.1e-16
+DHT_Anderson_801        2.0e-08  6.0e-09  2.8e-09  1.8e-09  1.3e-09  6.9e-10  4.4e-10  1.3e-10  1.1e-11
+Fixed_DE_Ogata          5.7e-05  3.6e-04  7.8e-04  1.0e-03  1.2e-03  1.3e-03  1.2e-03  6.5e-04  8.6e-05
+Adaptive_DE_Ooura       8.5e-15  1.9e-15  3.8e-16  1.4e-15  7.1e-16  1.5e-15  6.8e-16  4.1e-16  1.1e-16
+QWE_Key                 2.9e-11  4.0e-12  5.7e-12  2.0e-12  6.3e-13  8.2e-13  8.7e-13  1.3e-13  1.5e-14
+QWE_Chave               2.9e-11  3.9e-12  5.7e-12  1.8e-12  6.3e-13  8.2e-13  8.7e-13  2.0e-13  2.1e-14
+
+
+Scope
+-----
+One form factor (GDAB), one A, one nu, one z range, one machine. GDAB is
+smooth and monotonically decaying, the friendliest case for a digital filter -
+which is why the filters do so well here. An oscillatory form factor would
+very likely reorder these lists. The tolerances in
+tests/test_strategies_vs_analytical.c were set from the (O) column.
