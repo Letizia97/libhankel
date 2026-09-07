@@ -2,24 +2,16 @@
 Accuracy of every Hankel strategy measured against the analytical GDAB
 correlation function.
 
-The other test files pin each strategy to numbers a previous run produced, so
-they catch a change but cannot say whether the numbers were right to begin
-with. Here the reference is @ref compute_analytical_gdab, a closed form, so a
-failure means the strategy really is inaccurate.
+The other test files pin each strategy to numbers a previous run produced. Here
+the reference is @ref compute_analytical_gdab, a closed form, so a failure
+means the strategy really is inaccurate.
 
-Two conventions have to be reconciled before the two sides are comparable:
+Two conventions have to be reconciled first. hankel_transform returns
+T(z) = int f(q) J0(qz) q dq, leaving the 1/2pi of G(z) = T(z)/2pi to the
+caller. And compute_analytical_gdab returns eta^2 [G(z) - G(0)], so the test
+subtracts G(0), a z-independent constant no quadrature can know about.
 
-  * hankel_transform returns T(z) = int f(q) J0(qz) q dq. The correlation
-    function carries a 1/2pi that the library deliberately leaves to the
-    caller, so G(z) = T(z) / 2pi.
-  * compute_analytical_gdab returns eta^2 [G(z) - G(0)], the quantity a SESANS
-    measurement is sensitive to. G(0) is a z-independent constant that no
-    quadrature can know about, so the test subtracts it from the numerical
-    side.
-
-Both parameter sets are checked over a z range wide enough to reach the tail,
-and one of them uses a Hurst exponent for which nu = H + 1/2 is not an
-integer - the case that has to go through a Bessel function of real order.
+strategy_accuracy_vs_H.txt is the wider survey these three cases come from.
 */
 
 // clang-format off
@@ -39,18 +31,14 @@ integer - the case that has to go through a Bessel function of real order.
 
 /* One strategy and the accuracy it is expected to reach on this integrand.
  *
- * The tolerances are relative, and were set by measuring the largest error
- * each strategy produced across all three cases below and rounding up to the
- * next power of ten. That leaves uneven headroom - about 5x for
- * Fixed_DE_Ogata and 8x for DHT_Key_51, but 300x for QWE_Chave, whose measured
- * error is already near machine precision. The tight ones are tight on
- * purpose: rounding them up another decade would stop them detecting anything.
+ * Tolerances are relative: the largest error each strategy produced across the
+ * three cases below, rounded up to the next power of ten. Headroom is uneven -
+ * 5x for Fixed_DE_Ogata, 300x for QWE_Chave, already near machine precision -
+ * and the tight ones are tight on purpose.
  *
- * Two things this does not do. It does not assert that a strategy is as
- * accurate as it ought to be, only that it is no worse than it was when the
- * numbers were taken (gcc 11.4, Boost from the system), so a different libm
- * could in principle shift the tightest entries. And it is not a ranking of
- * the strategies in general: the GDAB form factor is smooth and monotonically
+ * This asserts only that a strategy is no worse than when the numbers were
+ * taken (gcc 11.4, system Boost); a different libm could shift the tightest
+ * entries. It is not a ranking either: GDAB is smooth and monotonically
  * decaying, the easiest case for a digital filter. */
 typedef struct {
     const char *name;
@@ -103,23 +91,26 @@ static const gdab_case CASE_REAL_ORDER = {
     .z = {10., 25., 50., 80., 120., 160., 200., 260., 320., 380., 440., 500.},
 };
 
-/* H just above its lower bound of -1/2, where the integrand q*I(q) decays as
- * q^-(2+2H) = q^-1.02 and is therefore only barely convergent. This is the
- * hardest tail any strategy has to cover, and the relative error of the
- * transform itself degrades steadily towards it: Adaptive_DE_Ooura loses about
- * three orders of magnitude between H = 2 and here.
+/* H just above -1/2, where q*I(q) ~ q^-(2+2H) = q^-1.02, the slowest decay for
+ * which the integral converges absolutely.
  *
- * The tolerances below are still met with room to spare, because they are
- * relative to G(z) - G(0) and G(0) = V^2 / [2 pi A^2 (1 + 2H)] diverges as
- * H -> -1/2, growing the quantity being measured faster than the error grows.
- * That is the honest reading: the quadrature is working harder here, but the
- * observable is larger, so the error quoted on it is smaller.
+ * -1/2 bounds the observable, not the transform, so this is not the hardest
+ * case a strategy can be given - only the hardest one checkable from here.
+ * Below it G(0) diverges, eta^2 [G(z) - G(0)] is -infinity and
+ * compute_analytical_gdab rejects the parameters, but T(z > 0) keeps
+ * converging and the strategies keep tracking it to H = -1.49 at least.
+ * strategy_accuracy_vs_H.txt section 6 measures that against a 50-digit mpmath
+ * reference, and also shows the tolerances here are bounded by
+ * compute_analytical_gdab (~4e-11 at this H), not by the tightest strategies.
  *
- * nu = H + 1/2 = 0.01 also makes the correlation function extremely cuspy - it
- * has already fallen to 5% of its full range by z = 1 - so there is no wide
- * transition region to sample whatever grid is chosen. */
+ * They are still met with room to spare because they are relative to
+ * G(z) - G(0), and G(0) = V^2 / [2 pi A^2 (1 + 2H)] diverges as H -> -1/2: the
+ * quadrature works harder, but the observable is larger.
+ *
+ * nu = 0.01 also makes G(z) very cuspy - down to 5% of its range by z = 1 - so
+ * no grid gets a wide transition region to sample. */
 static const gdab_case CASE_SHALLOW_DECAY = {
-    .label = "H=-0.49 (slowest convergent tail)",
+    .label = "H=-0.49 (slowest absolutely convergent tail)",
     .A = 10.0,
     .H = -0.49,
     .eta = 1e-4,

@@ -4,6 +4,10 @@ Hankel strategy accuracy as a function of the GDAB Hurst exponent H
 Measured 3 September 2026 against compute_analytical_gdab, the closed form, so
 these are true errors and not run-to-run differences.
 
+Sections 1 to 5 and the raw data at the bottom are that sweep. Section 6 was
+added on 7 September 2026 and continues it below H = -1/2, against a different
+reference; read its setup separately.
+
 Setup
 -----
   A = 10, eta = 1e-4, nu = 0, H swept from 2.0 down to -0.49 (its lower bound).
@@ -51,6 +55,9 @@ does. Metric (T) is the one that reflects the numerical difficulty.
   accurate at high H, so there is no trade to make - nothing overtakes them as
   H falls. Prefer DHT_Key_201 if cost matters, since a 201-tap filter is one
   pass with no convergence loop.
+
+  That holds only as far as this sweep goes. Below H = -1 the QWE pair does
+  overtake both, and DHT_Anderson_801 fails outright - see section 6.
 
 
 2. STRATEGIES THAT HOLD UP  (metric T, essentially flat in H)
@@ -114,6 +121,174 @@ does. Metric (T) is the one that reflects the numerical difficulty.
   So treat 4e-11 at H = -0.49 as the resolution of this experiment, not as a
   measured property of those four strategies. Any comparison between them
   below that level is not supported by this data.
+
+  RESOLVED, 7 September 2026: it was the reference. Re-running this exact grid
+  at H = -0.49 against the 50-digit mpmath closed form of section 6, changing
+  nothing else, gives
+
+      DHT_Key_201        5.8e-13     (4.0e-11 above)
+      Adaptive_DE_Ooura  4.4e-12     (4.5e-11)
+      QWE_Key            9.6e-12     (4.2e-11)
+      QWE_Chave          9.7e-12     (4.2e-11)
+      DHT_Guptasarma     1.1e-08     (1.1e-08, unchanged)
+
+  The four were never tied, and they spread over a factor 17 once the
+  reference is taken out. compute_analytical_gdab is itself only good to about
+  4e-11 at H = -0.49, for the sf_poch / (1 + 2H) reason guessed at above; it
+  is fine for everything coarser, which is every other row of the raw data.
+  The (T) figures in section 1 for those four strategies are therefore upper
+  bounds, not measurements. Section 6 does not have this problem.
+
+
+6. BELOW THE BOUND: H < -1/2
+-----------------------------
+  Measured 7 September 2026. Everything above stops at H = -0.49 because
+  compute_analytical_gdab rejects H <= -1/2 and there is then nothing to
+  compare against. But that bound belongs to the observable, not to the
+  transform, and the two part company exactly here.
+
+  Write s for the exponent of the integrand, q*I(q) ~ q^-s, s = 2 + 2H:
+
+    s > 1      (H > -1/2)   int q I(q) dq converges absolutely. This is G(0).
+
+    s > -1/2   (H > -5/4)   G(0) is infinite, but T(z) at z > 0 still
+                            converges, conditionally: J0 supplies q^-1/2 of
+                            decay and, more to the point, sign changes.
+
+    s <= -1/2  (H <= -5/4)  q*I(q) grows and the integral diverges in the
+                            classical sense. Its Abel sum is still the
+                            analytic continuation, and every method that
+                            accelerates an alternating series finds it -
+                            mpmath's quadosc, summing over the zeros of J0,
+                            agrees with the closed form to 40 digits at
+                            H = -1.3, z = 20.
+
+  So crossing s = 1 costs G(0), not T(z). Metric (O) above, eta^2[G(z)-G(0)],
+  is -infinity everywhere for H <= -1/2: the model is dead for SESANS there,
+  the transform is not. Only metric (T) is reported below.
+
+  Setup
+  -----
+  Reference is the closed form of the transform itself, at 50 digits in
+  mpmath 1.4.1:
+
+      T(z) = (C / A^2) (z / 2A)^nu K_nu(z/A) / Gamma(p)
+      p = H + 3/2,  nu = p - 1,  C = [(2A)^3 (H)_{3/2} eta]^2 pi^3
+
+  This is the analytic continuation, so it stays finite for z > 0 past every
+  threshold above. Form (H)_{3/2} as gamma(H + 3/2) * rgamma(H), not as a
+  ratio of gammas, or it raises at H = -1 and -2.
+
+  Driven through the Python extension, libhankel.hankel_transform(0, "gdab",
+  z, [A, H, eta], name, params), A = 10, eta = 1e-4, same strategy_params as
+  above (n_eval 250, eps_rel 1e-12, f_max 1e-4). z = 5, 10, 20, 50, 100 and
+  the worst relative error over the five is reported. Note this is a coarser
+  z grid than sections 1 to 5, so columns are comparable in magnitude but not
+  point for point.
+
+  (T) relative error of T(z) against the exact transform
+
+  conditionally convergent, -1/2 >= H > -5/4:
+
+  strategy               H=-0.3  H=-0.49  H=-0.55   H=-0.6   H=-0.7  H=-0.75   H=-0.9   H=-1.1   H=-1.2
+  DHT_Guptasarma        1.3e-08  1.1e-08  9.7e-09  8.8e-09  6.4e-09  4.5e-09  1.2e-08  2.5e-07  1.1e-06
+  DHT_Guptasarma_Fast   3.4e-06  4.6e-06  4.9e-06  5.0e-06  4.9e-06  4.4e-06  2.9e-06  1.2e-04  4.7e-04
+  DHT_Key_51            1.1e-04  1.4e-04  1.5e-04  1.6e-04  1.8e-04  1.8e-04  1.3e-04  1.0e-03  4.7e-03
+  DHT_Key_101           3.8e-08  1.7e-08  9.0e-09  1.7e-09  1.3e-08  1.8e-08  3.0e-08  2.9e-06  1.8e-05
+  DHT_Key_201           3.1e-14  5.0e-13  5.1e-13  4.4e-14  8.8e-13  1.3e-12  1.5e-12  2.5e-10  4.3e-09
+  DHT_Anderson_801      6.5e-08  9.5e-07  1.3e-06  1.7e-06  2.4e-06  2.8e-06  4.1e-06  2.5e-02  5.5e+02
+  Fixed_DE_Ogata        9.6e+01  2.2e+02  2.9e+02  3.7e+02  5.9e+02  7.6e+02  1.7e+03  5.4e+03  1.1e+04
+  Adaptive_DE_Ooura     2.1e-12  4.4e-12  6.5e-12  2.8e-12  1.8e-12  8.4e-13  2.7e-12  2.5e-11  1.3e-10
+  QWE_Key               2.1e-12  1.5e-12  1.7e-12  1.9e-12  1.5e-12  1.7e-12  7.0e-12  1.6e-12  3.7e-11
+  QWE_Chave             1.8e-12  1.5e-12  1.8e-12  1.4e-12  1.7e-12  1.9e-12  7.0e-12  1.8e-12  3.5e-11
+
+  classically divergent, H <= -5/4 (the Abel sum is what is being measured):
+
+  strategy              H=-1.24  H=-1.26   H=-1.3   H=-1.4  H=-1.49
+  DHT_Guptasarma        2.1e-06  2.9e-06  5.7e-06  3.8e-05  1.1e-03
+  DHT_Guptasarma_Fast   8.3e-04  1.1e-03  2.0e-03  1.1e-02  2.7e-01
+  DHT_Key_51            8.5e-03  1.1e-02  2.1e-02  1.2e-01  3.1e+00
+  DHT_Key_101           3.9e-05  5.8e-05  1.3e-04  1.2e-03  4.6e-02
+  DHT_Key_201           1.4e-08  2.5e-08  8.1e-08  2.0e-06  1.9e-04
+  DHT_Anderson_801      3.1e+04  2.3e+05  1.4e+07  4.6e+11  2.9e+16
+  Fixed_DE_Ogata        1.5e+04  1.7e+04  2.4e+04  7.4e+04  1.1e+06
+  Adaptive_DE_Ooura     2.0e-10  2.1e-10  3.3e-10  1.2e-09  2.3e-08
+  QWE_Key               2.9e-11  3.0e-11  5.4e-11  5.1e-10  3.8e-09
+  QWE_Chave             4.1e-11  2.0e-11  5.8e-12  8.6e-11  1.8e-09
+
+  What to read off it
+  -------------------
+  Nothing happens at H = -1/2. Several strategies are slightly better at
+  H = -0.6 than at -0.49; the loss of absolute convergence is invisible to
+  all ten. Behaviour splits three ways as s goes negative:
+
+  * QWE_Key and QWE_Chave stay flat at ~1e-11 to the end, and overtake
+    DHT_Key_201 at H ~ -0.95. Expected: they integrate between successive
+    zeros of J0 and Shanks-extrapolate the alternating series, which is a
+    summation method for exactly this. Adaptive_DE_Ooura, whose nodes
+    converge onto the same zeros, loses three decades but stays usable
+    (2.3e-08 at H = -1.49). See the crossover sweep below.
+
+  * The digital filters degrade, and the widest one detonates.
+    DHT_Anderson_801 is wrong by a factor 550 at H = -1.2 and by 3e+16 at
+    -1.49, returning success every time. 801 taps span the most decades in q,
+    so once q*I(q) grows it is the far end of the filter that dominates the
+    sum, and truncation that never mattered becomes the entire answer. The
+    short filters fail gracefully by comparison; DHT_Key_201 is still at
+    2e-06 at H = -1.4.
+
+  * Fixed_DE_Ogata was already unusable at H = -0.49 and stays that way.
+
+  Where QWE overtakes DHT, in detail
+  ----------------------------------
+  Same setup, stepped finely through the crossover. DHT_Guptasarma is carried
+  along to show that no filter other than DHT_Key_201 is in this race at all.
+
+        H      Key_201  Guptasarma       Ooura     QWE_Key   QWE_Chave  best
+     -0.8      4.3e-13     1.6e-09     8.0e-13     5.5e-12     6.4e-12  Key_201
+    -0.85      6.7e-13     3.2e-09     1.4e-12     3.3e-12     3.3e-12  Key_201
+     -0.9      1.5e-12     1.2e-08     2.7e-12     7.0e-12     7.0e-12  Key_201
+    -0.92      4.4e-13     1.7e-08     7.0e-12     6.2e-12     4.2e-12  Key_201
+    -0.95      1.7e-12     2.8e-08     7.6e-12     7.3e-12     1.1e-12  QWE_Chave
+    -0.97      5.8e-12     3.8e-08     9.3e-12     9.6e-12     2.6e-12  QWE_Chave
+    -0.99      8.3e-12     5.2e-08     8.6e-12     1.2e-11     3.2e-12  QWE_Chave
+    -1.01      1.7e-11     6.9e-08     1.0e-11     1.0e-11     2.5e-12  QWE_Chave
+    -1.03      3.4e-11     9.2e-08     1.2e-11     6.9e-12     6.3e-12  QWE_Chave
+    -1.05      6.5e-11     1.2e-07     1.7e-11     2.2e-12     2.7e-12  QWE_Key
+     -1.1      2.5e-10     2.5e-07     2.5e-11     1.6e-12     1.8e-12  QWE_Key
+    -1.15      1.0e-09     5.3e-07     8.8e-11     2.7e-11     1.5e-11  QWE_Chave
+     -1.2      4.3e-09     1.1e-06     1.3e-10     3.7e-11     3.5e-11  QWE_Chave
+
+  The crossover is at H ~ -0.95, but read it as soft. QWE is not improving:
+  it sits in a flat 1e-12 to 1e-11 band all the way from H = +2 to -1.49.
+  DHT_Key_201 is the one that moves, four decades in 0.4 of H. The crossover
+  is only where the rising curve meets the flat band, and at -0.95 the gap
+  (1.7e-12 vs 1.1e-12) is smaller than QWE's own scatter between adjacent H.
+  Between -0.9 and -1.0 the two are tied and this data cannot separate them.
+  The separation is decisive from -1.05 down: 30x there, 150x at -1.1.
+
+  Adaptive_DE_Ooura crosses DHT_Key_201 at about the same place but stays
+  5 to 10x behind QWE below -1.05.
+
+  Recommendation below H = -1: QWE_Key or QWE_Chave. Do not use
+  DHT_Anderson_801 or Fixed_DE_Ogata at any H < -1 - both are silently wrong
+  by orders of magnitude.
+
+  Two holes at exact integers
+  ---------------------------
+  sf_poch(H, 1.5) = tgamma(H + 1.5) / tgamma(H) sits on the poles of tgamma:
+
+    H = -1.0, H = -2.0   T(z) is nan, silently, for every strategy; QWE also
+                         reports "did not converge". The limit is finite (the
+                         pole is in the denominator), so this is the ratio
+                         being formed rather than the mathematics.
+    H = 0.0              T(z) is exactly 0.0, since 1/gamma(0) = 0. That is
+                         what (0)_{3/2} is, so it may be right for this
+                         normalisation - but H = 0 is an ordinary Hurst value
+                         and an identically zero form factor there is worth a
+                         second look at the prefactor.
+
+  Neither is caused by low H; they would be there at any H hitting a pole.
 
 
 Raw data
