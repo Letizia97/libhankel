@@ -20,28 +20,22 @@ struct linear_interp {
 };
 
 /**
- * Blends f0 and f1 with weight t in [0, 1], the numerically careful way.
+ * Blends f0 and f1 with weight t, which eval supplies in (0, 1) up to one
+ * rounding of the quotient.
  *
- * The two algebraically identical forms fail in opposite places:
- * f0 + t*(f1 - f0) can overflow and cancel when the ordinates straddle zero,
- * and is not exact at t = 1; (1 - t)*f0 + t*f1 is exact at both ends but is
- * not monotone in t. So use each where it is sound, then clamp.
+ * Uses f0 + t*(f1 - f0) rather than the weighted average t*f1 + (1 - t)*f0.
+ * Both are exact at t = 0, but only the correction form is monotone in t: the
+ * weighted form's two products round independently, so a densely sampled curve
+ * can wobble.
+ *
+ * Assumes f1 - f0 does not overflow, which needs ordinates near 1e308.
  */
 static double blend(double f0, double f1, double t) {
-    /* Straddling zero: the weighted form cannot overflow or leave [f0, f1]. */
-    if ((f0 <= 0.0 && f1 >= 0.0) || (f0 >= 0.0 && f1 <= 0.0)) {
-        return t * f1 + (1.0 - t) * f0;
-    }
-
-    /* Same sign: the correction form is accurate, but t = 1 must be pinned. */
-    if (t == 1.0) {
-        return f1;
-    }
-
     double y = f0 + t * (f1 - f0);
 
-    /* Defensive; the bound is unproven and this costs one fmin. Only the f1
-     * end can overshoot. */
+    /* The correction carries the sign of f1 - f0, so y can only ever drift
+     * past the f1 end, including when t rounds up to 1 just inside a narrow
+     * interval. This is the only thing holding the result inside [f0, f1]. */
     return (f1 > f0) ? fmin(y, f1) : fmax(y, f1);
 }
 
@@ -112,7 +106,11 @@ double linear_interp_eval(const linear_interp_t *h, double xi) {
 
     size_t i = find_interval(h->x, h->n, xi);
 
-    /* The nodes are data; the division below would only round them. */
+    /* The nodes are data, and these two tests are where the header's bit-exact
+     * promise is kept -- the division below would only reproduce them to
+     * within a rounding. Both ends are needed: find_interval binds xi to the
+     * left of its interval, except at the top node, which lands on x[i + 1].
+     */
     if (xi == h->x[i]) {
         return h->y[i];
     }
@@ -120,14 +118,9 @@ double linear_interp_eval(const linear_interp_t *h, double xi) {
         return h->y[i + 1];
     }
 
+    /* xi is strictly inside now, so t is in (0, 1) bar one rounding of the
+     * quotient; a t that rounds up to 1 is absorbed by the clamp in blend. */
     double t = (xi - h->x[i]) / (h->x[i + 1] - h->x[i]);
-
-    /* Rounding can give t = 1 + eps, which would extrapolate past the node. */
-    if (t < 0.0) {
-        t = 0.0;
-    } else if (t > 1.0) {
-        t = 1.0;
-    }
 
     return blend(h->y[i], h->y[i + 1], t);
 }
