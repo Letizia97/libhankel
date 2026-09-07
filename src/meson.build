@@ -17,6 +17,7 @@ sources = files(
   'utils/validate_x.c',
   'utils/boost_bessel.cpp',
   'utils/interp_cubic.cpp',
+  'utils/interp_linear.c',
   'utils/tabulated_ff.c'
 )
 
