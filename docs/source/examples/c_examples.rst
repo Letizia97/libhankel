@@ -25,7 +25,7 @@ in precision with respect to the examples below, but that is expected.
 
 .. _c-examples-builtin-f:
 
-With built-in form factor
+Examples with built-in form factor
 -----------------------------------
 
 The following is an example with a built-in form factor.
@@ -48,7 +48,7 @@ Here is the example itself:
 
 .. _c-examples-custom-f:
 
-With custom form factor
+Examples with custom form factor
 -----------------------------------
 
 The following is an example with a custom form factor.
@@ -70,7 +70,7 @@ Here is the example itself:
 
 .. _c-examples-tabulated-f:
 
-With a tabulated form factor
+Examples with a tabulated form factor
 -----------------------------------
 
 The following example transforms a form factor that is known only at a set of

@@ -5,24 +5,23 @@ Python examples
 ================
 
 
-.. _python-examples-builtin-f:
-
-
-Below are a couple of examples on how to use the hankel_transform function 
-through the :ref:`python-api`, both with a built-in and a custom input function. 
+Below are a couple of examples on how to use the hankel_transform function
+through the :ref:`python-api`, both with a built-in and a custom input function.
 Please note that both examples give the same (or very similar) result. The
 main difference between the two is the fact that one uses a built-in function called
 "gdab", while the other defines a custom Python function essentially containing the same
 code as the built-in "gdab" function.
 
 In order to run these examples, please install LibHankel through
-the instructions at :ref:`quickstart-python`. 
+the instructions at :ref:`quickstart-python`.
 
 If you also run the :ref:`c-examples`, please note that there may be slight differences
 in precision with respect to the examples below, but that is expected.
 
 
-With built-in form factor
+.. _python-examples-builtin-f:
+
+Examples with built-in form factor
 --------------------------
 
 The following is an example with a built-in form factor.
@@ -45,7 +44,7 @@ Here is the content of the example:
 
 .. _python-examples-custom-f:
 
-With custom form factor
+Examples with custom form factor
 ------------------------
 
 The following is an example with a custom form factor.

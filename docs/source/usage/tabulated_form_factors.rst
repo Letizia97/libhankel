@@ -5,75 +5,60 @@ Tabulated form factors (for C users)
 
 When the form factor is a set of points rather than a formula -- measured data,
 or the output of another code -- :c:func:`tabulated_ff_create` turns it into
-something ``hankel_transform`` can call. Hand it the table and a rule for the
-high-:math:`q` tail and it returns a handle you pass straight through as
-``f_ctx``; see :ref:`tabulated_ff <tabulated_ff_c_api>` for the API and
-:ref:`c-examples-tabulated-f` for a complete program.
+something ``hankel_transform`` can call. You give it two things: the table,
+and a rule for the high-:math:`q` tail. It returns a handle you pass straight
+through as ``f_ctx``; see :ref:`tabulated_ff <tabulated_ff_c_api>` for the API
+and :ref:`c-examples-tabulated-f` for a complete program.
 
-Interpolating is the easy part. The part that needs care is what the form
-factor does *outside* the tabulated range, and this page is mostly about that.
+Building a tabulated form factor requires two decisions: which **interpolation
+method** to use within the table, and which **tail rule** to use outside it.
+Interpolation is straightforward; the tail is subtle and the rest of this page
+is mostly about that.
 
 
-Why the tail matters
-----------------------
+Choosing an interpolation method
+---------------------------------
 
-``hankel_transform`` does not evaluate the form factor at the points you pass
-in ``x``. It evaluates it at quadrature nodes chosen by the strategy, and those
-go a very long way outside any real dataset:
+Within the tabulated range, the library offers three interpolators to choose from
+when building the form factor with :c:func:`tabulated_ff_create`. Each makes
+different trade-offs:
 
-.. table:: Arguments requested by each strategy, over 19 output points with ``n_eval = 250``.
+.. table:: Interpolation options.
 
-    +----------------------+----------------------------+
-    | Strategy             | Range of q requested       |
-    +======================+============================+
-    | DHT_Anderson_801     | 1.1e-15  to  3.3e+20       |
-    +----------------------+----------------------------+
-    | DHT_Key_101          | 7.0e-06  to  1.2e+02       |
-    +----------------------+----------------------------+
-    | DHT_Guptasarma       | 5.2e-11  to  1.6e+01       |
-    +----------------------+----------------------------+
-    | Fixed_DE_Ogata       | 3.7e-04  to  5.2e+01       |
-    +----------------------+----------------------------+
-    | Adaptive_DE_Ooura    | 1.4e-08  to  7.1e+00       |
-    +----------------------+----------------------------+
-    | QWE_Key              | 9.1e-11  to  2.3e+00       |
-    +----------------------+----------------------------+
-    | QWE_Chave            | 3.7e-10  to  2.3e+00       |
-    +----------------------+----------------------------+
+    +---------------------------------+-------------------+-----------+---------------------+
+    | Method                          | Implementation    | Error     | Best for            |
+    +=================================+===================+===========+=====================+
+    | Linear                          | :c:func:`linear_\ | O(h²)     | Speed-critical code |
+    |                                 | interp_create`    |           | or small tables     |
+    +---------------------------------+-------------------+-----------+---------------------+
+    | Cubic (PCHIP)                   | :c:func:`cubic_\  | O(h⁴)     | Smooth curves or    |
+    |                                 | interp_create`    |           | when kinks matter   |
+    +---------------------------------+-------------------+-----------+---------------------+
+    | Log-linear                      | :c:func:`loglinear| Constant | Form factors across  |
+    |                                 | _interp_create`   | relative | wide ranges (SAX     |
+    |                                 |                   |           | S/SANS)             |
+    +---------------------------------+-------------------+-----------+---------------------+
 
-No experimental dataset covers 35 decades, so the callback is asked for values
-outside the table on every single call. :c:func:`cubic_interp_eval` returns NaN
-there, because Boost refuses to extrapolate.
+**Linear** is simple and fast. The interpolated values are guaranteed to stay
+within the bracket of the tabulated endpoints, and monotonicity is preserved:
+non-negative data in, non-negative data out. The price is a discontinuous slope
+at every tabulated point.
 
-.. warning::
+**Cubic (PCHIP)** produces smooth curves through the data with no overshoot or
+undershoot, at a small cost in evaluation time. Use this when the shape of the
+interpolated curve between tabulations matters, or when feeding the form factor
+to visualization or plotting code.
 
-    Feeding a bare spline to ``hankel_transform`` fails **silently**. The
-    status code is 0 in every row below.
+**Log-linear** interpolates in :math:`\log(y)` space, returning :math:`\exp(\text{result})`.
+This gives exponential (power-law) interpolation, which is ideal for form factors
+spanning orders of magnitude: it provides constant *relative* error across
+decades rather than constant absolute error. For a form factor dropping from
+1 to :math:`10^{-10}`, linear gives 1e-10 absolute error everywhere (tiny at
+low q, wasted at high q); log-linear gives the same relative error at every
+scale. **This is the recommended choice for SAXS and SANS form factors.**
+Log-linear requires all tabulated values to be strictly positive.
 
-Transforming a table of the ``g_dab`` form factor sampled over
-:math:`q \in [10^{-3}, 10]`, with ``n_eval = 250``, ``eps_rel = 1e-9`` and
-``f_max = 0.1``:
-
-.. table:: Bare spline vs. the same table through ``tabulated_ff``.
-
-    +----------------------+-------------------------+---------------------------+
-    | Strategy             | Bare spline             | Through ``tabulated_ff``  |
-    +======================+=========================+===========================+
-    | DHT_Key_101          | all 19 points NaN       | max rel. error 3.4e-04    |
-    +----------------------+-------------------------+---------------------------+
-    | Fixed_DE_Ogata       | 18 of 19 points NaN     | max rel. error 4.0e-04    |
-    +----------------------+-------------------------+---------------------------+
-    | Adaptive_DE_Ooura    | all 19 points NaN       | max rel. error 1.4e-04    |
-    +----------------------+-------------------------+---------------------------+
-    | QWE_Key              | no NaN, **9.8 % wrong** | max rel. error 1.9e-05    |
-    +----------------------+-------------------------+---------------------------+
-    | QWE_Chave            | no NaN, **9.8 % wrong** | max rel. error 1.9e-05    |
-    +----------------------+-------------------------+---------------------------+
-
-The NaN rows are obvious enough once you look at the output. The last two are
-the dangerous ones: the extrapolation-driven NaNs get absorbed by the
-convergence machinery, so the call returns finite, plausible-looking numbers
-that are wrong by about ten percent.
+See the :ref:`Interpolation section of the C API <interpolation_c_api>` for detailed documentation on each interpolator.
 
 
 Choosing the tail
@@ -131,25 +116,64 @@ Below the table the value is held flat at the first tabulated point, the
 integrand's factor of :math:`q` suppresses that region regardless.
 
 
-Cost
-------
+Why the tail matters
+---------------------
 
-Each evaluation does a binary search plus a cubic evaluation instead of a
-handful of flops:
+The tail choice matters because ``hankel_transform`` does not evaluate the form
+factor at the points you pass in ``x``. It evaluates it at quadrature nodes
+chosen by the strategy, and those go a very long way outside any real dataset:
 
-.. table:: Cost per form factor evaluation.
+.. table:: Arguments requested by each strategy, over 19 output points with ``n_eval = 250``.
 
-    +------------------------------------------+-------------------+
-    | Form factor                              | Per evaluation    |
-    +==========================================+===================+
-    | Analytic built-in (sphere)               | ~10 ns            |
-    +------------------------------------------+-------------------+
-    | PCHIP spline, 1000-point table           | ~260 ns           |
-    +------------------------------------------+-------------------+
+    +----------------------+----------------------------+
+    | Strategy             | Range of q requested       |
+    +======================+============================+
+    | DHT_Anderson_801     | 1.1e-15  to  3.3e+20       |
+    +----------------------+----------------------------+
+    | DHT_Key_101          | 7.0e-06  to  1.2e+02       |
+    +----------------------+----------------------------+
+    | DHT_Guptasarma       | 5.2e-11  to  1.6e+01       |
+    +----------------------+----------------------------+
+    | Fixed_DE_Ogata       | 3.7e-04  to  5.2e+01       |
+    +----------------------+----------------------------+
+    | Adaptive_DE_Ooura    | 1.4e-08  to  7.1e+00       |
+    +----------------------+----------------------------+
+    | QWE_Key              | 9.1e-11  to  2.3e+00       |
+    +----------------------+----------------------------+
+    | QWE_Chave            | 3.7e-10  to  2.3e+00       |
+    +----------------------+----------------------------+
 
-The cost grows slowly with table size (roughly 55 ns per decade of points,
-which is the binary search), so a coarser table helps only marginally. Building
-the handle is a one-off ~38 microseconds for a 1000-point table: build it once
-outside the loop and reuse it, never inside the callback. For a strategy making
-tens of thousands of evaluations this puts the transform in the
-several-millisecond range rather than the sub-millisecond range.
+No experimental dataset covers 35 decades, so the callback is asked for values
+outside the table on every single call. All interpolators return NaN
+there because they cannot extrapolate.
+
+.. warning::
+
+    Using a bare interpolator (without ``tabulated_ff``) fails **silently**. The
+    status code is 0 in every row below.
+
+Transforming a table of the ``g_dab`` form factor sampled over
+:math:`q \in [10^{-3}, 10]`, with ``n_eval = 250``, ``eps_rel = 1e-9`` and
+``f_max = 0.1``:
+
+.. table:: Bare spline vs. the same table through ``tabulated_ff``.
+
+    +----------------------+-------------------------+---------------------------+
+    | Strategy             | Bare spline             | Through ``tabulated_ff``  |
+    +======================+=========================+===========================+
+    | DHT_Key_101          | all 19 points NaN       | max rel. error 3.4e-04    |
+    +----------------------+-------------------------+---------------------------+
+    | Fixed_DE_Ogata       | 18 of 19 points NaN     | max rel. error 4.0e-04    |
+    +----------------------+-------------------------+---------------------------+
+    | Adaptive_DE_Ooura    | all 19 points NaN       | max rel. error 1.4e-04    |
+    +----------------------+-------------------------+---------------------------+
+    | QWE_Key              | no NaN, **9.8 % wrong** | max rel. error 1.9e-05    |
+    +----------------------+-------------------------+---------------------------+
+    | QWE_Chave            | no NaN, **9.8 % wrong** | max rel. error 1.9e-05    |
+    +----------------------+-------------------------+---------------------------+
+
+The NaN rows are obvious enough once you look at the output. The last two are
+the dangerous ones: the extrapolation-driven NaNs get absorbed by the
+convergence machinery, so the call returns finite, plausible-looking numbers
+that are wrong by about ten percent.
+
