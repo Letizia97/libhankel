@@ -1,13 +1,15 @@
 // A form_factor_f backed by a table of points rather than a formula.
 //
-// interp_cubic interpolates; this adds the tails. The strategies sample q over
+// Interpolates using the chosen method; this adds the tails. The strategies sample q over
 // tens of decades, so every call falls outside the table, where
-// cubic_interp_eval returns NaN. A tail that would not converge is refused at
+// the interpolators return NaN. A tail that would not converge is refused at
 // build time.
 
 #include "tabulated_ff.h"
 
+#include "interp_linear.h"
 #include "interp_cubic.h"
+#include "interp_loglinear.h"
 
 #include <math.h>
 #include <stdio.h>
@@ -15,7 +17,8 @@
 
 /* Endpoints are cached because most calls need them. */
 struct tabulated_ff {
-    cubic_interp_t *spline;
+    void *interp; /* opaque handle to one of the three interpolators   */
+    tabulated_interp_type_t interp_type; /* which interpolator it is           */
     double q_lo; /* first tabulated q                                  */
     double q_hi; /* last tabulated q                                   */
     double f_lo; /* form factor at q_lo, held flat below it            */
@@ -140,7 +143,8 @@ static int fit_exponent(const double *q, const double *f, size_t n, double *out_
     return 0;
 }
 
-int tabulated_ff_create(const double *q, const double *f, size_t n, tabulated_tail_t tail,
+int tabulated_ff_create(const double *q, const double *f, size_t n,
+                        tabulated_interp_type_t interp_type, tabulated_tail_t tail,
                         double exponent, tabulated_ff_t **out) {
     if (out == NULL) {
         fprintf(stderr, "Error: tabulated_ff_create needs a non-NULL out pointer\n");
@@ -152,6 +156,26 @@ int tabulated_ff_create(const double *q, const double *f, size_t n, tabulated_ta
     int status = validate_table(q, f, n);
     if (status != 0) {
         return status;
+    }
+
+    /* Validate interpolation type. */
+    if (interp_type != TABULATED_INTERP_LINEAR && interp_type != TABULATED_INTERP_CUBIC &&
+        interp_type != TABULATED_INTERP_LOGLINEAR) {
+        fprintf(stderr, "Error: unknown interpolation type %d\n", (int)interp_type);
+        return -13;
+    }
+
+    /* Log-linear requires all values strictly positive. */
+    if (interp_type == TABULATED_INTERP_LOGLINEAR) {
+        for (size_t j = 0; j < n; j++) {
+            if (!(f[j] > 0)) {
+                fprintf(stderr,
+                        "Error: log-linear interpolation requires all form factor values to be "
+                        "strictly positive, but f[%zu] = %g\n",
+                        j, f[j]);
+                return -14;
+            }
+        }
     }
 
     if (tail != TABULATED_TAIL_POWER_LAW && tail != TABULATED_TAIL_ZERO) {
@@ -188,15 +212,27 @@ int tabulated_ff_create(const double *q, const double *f, size_t n, tabulated_ta
         return -3;
     }
 
-    /* Copies q and f, which is what frees the caller from keeping them alive. */
-    t->spline = cubic_interp_create(q, f, n);
-    if (t->spline == NULL) {
+    /* Create the appropriate interpolator. */
+    switch (interp_type) {
+    case TABULATED_INTERP_LINEAR:
+        t->interp = linear_interp_create(q, f, n);
+        break;
+    case TABULATED_INTERP_CUBIC:
+        t->interp = cubic_interp_create(q, f, n);
+        break;
+    case TABULATED_INTERP_LOGLINEAR:
+        t->interp = loglinear_interp_create(q, f, n);
+        break;
+    }
+
+    if (t->interp == NULL) {
         /* The table is already validated, so this is an allocation failure. */
         fprintf(stderr, "Error: failed to build the interpolating spline\n");
         free(t);
         return -3;
     }
 
+    t->interp_type = interp_type;
     t->q_lo = q[0];
     t->q_hi = q[n - 1];
     t->f_lo = f[0];
@@ -236,7 +272,16 @@ double tabulated_ff_eval(double q, void *ctx) {
         return t->f_hi * pow(q / t->q_hi, -t->exponent);
     }
 
-    return cubic_interp_eval(t->spline, q);
+    /* Dispatch to the chosen interpolator. */
+    switch (t->interp_type) {
+    case TABULATED_INTERP_LINEAR:
+        return linear_interp_eval((const linear_interp_t *)t->interp, q);
+    case TABULATED_INTERP_CUBIC:
+        return cubic_interp_eval((const cubic_interp_t *)t->interp, q);
+    case TABULATED_INTERP_LOGLINEAR:
+        return loglinear_interp_eval((const loglinear_interp_t *)t->interp, q);
+    }
+    return NAN;
 }
 
 void tabulated_ff_destroy(tabulated_ff_t *t) {
@@ -244,6 +289,16 @@ void tabulated_ff_destroy(tabulated_ff_t *t) {
         return;
     }
     /* Never NULL: create frees t rather than hand back a handle without one. */
-    cubic_interp_destroy(t->spline);
+    switch (t->interp_type) {
+    case TABULATED_INTERP_LINEAR:
+        linear_interp_destroy((linear_interp_t *)t->interp);
+        break;
+    case TABULATED_INTERP_CUBIC:
+        cubic_interp_destroy((cubic_interp_t *)t->interp);
+        break;
+    case TABULATED_INTERP_LOGLINEAR:
+        loglinear_interp_destroy((loglinear_interp_t *)t->interp);
+        break;
+    }
     free(t);
 }

@@ -43,7 +43,7 @@ void tearDown(void) {}
  * Every evaluation test below starts this way. */
 static tabulated_ff_t *make(tabulated_tail_t tail, double exponent) {
     tabulated_ff_t *t = NULL;
-    TEST_ASSERT_EQUAL_INT(0, tabulated_ff_create(table_q, table_f, N_TABLE, tail, exponent, &t));
+    TEST_ASSERT_EQUAL_INT(0, tabulated_ff_create(table_q, table_f, N_TABLE, TABULATED_INTERP_CUBIC, tail, exponent, &t));
     return t;
 }
 
@@ -51,7 +51,7 @@ static tabulated_ff_t *make(tabulated_tail_t tail, double exponent) {
  * failure path, so there is nothing to destroy. Rejection tests only. */
 static int reject(const double *q, const double *f) {
     tabulated_ff_t *t = NULL;
-    return tabulated_ff_create(q, f, 5, TABULATED_TAIL_ZERO, 0.0, &t);
+    return tabulated_ff_create(q, f, 5, TABULATED_INTERP_CUBIC, TABULATED_TAIL_ZERO, 0.0, &t);
 }
 
 /* The fitted exponent is not exposed, so it is read back off the tail: at twice
@@ -75,13 +75,13 @@ void test_create_rejects_null_arguments(void) {
     tabulated_ff_t *t = NULL;
 
     TEST_ASSERT_EQUAL_INT_MESSAGE(
-        -13, tabulated_ff_create(NULL, table_f, N_TABLE, TABULATED_TAIL_ZERO, 0.0, &t),
+        -13, tabulated_ff_create(NULL, table_f, N_TABLE, TABULATED_INTERP_CUBIC, TABULATED_TAIL_ZERO, 0.0, &t),
         "NULL q must be rejected");
     TEST_ASSERT_EQUAL_INT_MESSAGE(
-        -13, tabulated_ff_create(table_q, NULL, N_TABLE, TABULATED_TAIL_ZERO, 0.0, &t),
+        -13, tabulated_ff_create(table_q, NULL, N_TABLE, TABULATED_INTERP_CUBIC, TABULATED_TAIL_ZERO, 0.0, &t),
         "NULL f must be rejected");
     TEST_ASSERT_EQUAL_INT_MESSAGE(
-        -13, tabulated_ff_create(table_q, table_f, N_TABLE, TABULATED_TAIL_ZERO, 0.0, NULL),
+        -13, tabulated_ff_create(table_q, table_f, N_TABLE, TABULATED_INTERP_CUBIC, TABULATED_TAIL_ZERO, 0.0, NULL),
         "NULL out must be rejected");
 }
 
@@ -92,7 +92,7 @@ void test_create_leaves_out_null_on_failure(void) {
     tabulated_ff_t *t = (tabulated_ff_t *)0xDEADBEEF;
 
     TEST_ASSERT_EQUAL_INT(-13,
-                          tabulated_ff_create(table_q, table_f, 2, TABULATED_TAIL_ZERO, 0.0, &t));
+                          tabulated_ff_create(table_q, table_f, 2, TABULATED_INTERP_CUBIC, TABULATED_TAIL_ZERO, 0.0, &t));
     TEST_ASSERT_NULL_MESSAGE(t, "out must be cleared even when create fails");
 }
 
@@ -103,7 +103,7 @@ void test_create_rejects_too_few_points(void) {
     tabulated_ff_t *t = NULL;
 
     TEST_ASSERT_EQUAL_INT(-13,
-                          tabulated_ff_create(table_q, table_f, 3, TABULATED_TAIL_ZERO, 0.0, &t));
+                          tabulated_ff_create(table_q, table_f, 3, TABULATED_INTERP_CUBIC, TABULATED_TAIL_ZERO, 0.0, &t));
 }
 
 void test_create_rejects_non_increasing_q(void) {
@@ -166,7 +166,7 @@ void test_create_rejects_unknown_tail(void) {
     tabulated_ff_t *t = NULL;
 
     TEST_ASSERT_EQUAL_INT(
-        -13, tabulated_ff_create(table_q, table_f, N_TABLE, (tabulated_tail_t)99, 4.0, &t));
+        -13, tabulated_ff_create(table_q, table_f, N_TABLE, TABULATED_INTERP_CUBIC, (tabulated_tail_t)99, 4.0, &t));
 }
 
 /* --------------------------------------------------------------------------
@@ -185,13 +185,13 @@ void test_convergence_threshold_is_exclusive(void) {
     tabulated_ff_t *t = NULL;
 
     TEST_ASSERT_EQUAL_INT_MESSAGE(
-        -14, tabulated_ff_create(table_q, table_f, N_TABLE, TABULATED_TAIL_POWER_LAW, 1.5, &t),
+        -14, tabulated_ff_create(table_q, table_f, N_TABLE, TABULATED_INTERP_CUBIC, TABULATED_TAIL_POWER_LAW, 1.5, &t),
         "p = 3/2 itself must be rejected");
     TEST_ASSERT_EQUAL_INT_MESSAGE(
-        -14, tabulated_ff_create(table_q, table_f, N_TABLE, TABULATED_TAIL_POWER_LAW, NAN, &t),
+        -14, tabulated_ff_create(table_q, table_f, N_TABLE, TABULATED_INTERP_CUBIC, TABULATED_TAIL_POWER_LAW, NAN, &t),
         "NaN p must not slip through the comparison");
     TEST_ASSERT_EQUAL_INT_MESSAGE(
-        0, tabulated_ff_create(table_q, table_f, N_TABLE, TABULATED_TAIL_POWER_LAW, 1.51, &t),
+        0, tabulated_ff_create(table_q, table_f, N_TABLE, TABULATED_INTERP_CUBIC, TABULATED_TAIL_POWER_LAW, 1.51, &t),
         "just above 3/2 must be accepted");
     tabulated_ff_destroy(t);
 }
@@ -226,7 +226,7 @@ void test_create_rejects_exponent_fitted_from_a_truncated_table(void) {
     }
 
     TEST_ASSERT_EQUAL_INT_MESSAGE(
-        -14, tabulated_ff_create(q, f, N_TABLE, TABULATED_TAIL_POWER_LAW, 0.0, &t),
+        -14, tabulated_ff_create(q, f, N_TABLE, TABULATED_INTERP_CUBIC, TABULATED_TAIL_POWER_LAW, 0.0, &t),
         "a table truncated before the asymptote must not fit a usable exponent");
 }
 
