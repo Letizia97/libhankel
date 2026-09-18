@@ -31,6 +31,7 @@ tests = [
   'test_bessel_wrapper.c',
   'test_interp_cubic.c',
   'test_interp_linear.c',
+  'test_interp_loglinear.c',
   'test_tabulated_ff.c',
 ]
 test_inc = include_directories('.')   
