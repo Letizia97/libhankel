@@ -43,24 +43,50 @@ Interpolation
 ----------------------
 
 For transforming a form factor that is known only at a set of points rather
-than as a formula. These functions build a PCHIP cubic spline through the
-data; the spline is monotonicity-preserving, so it will not overshoot into
-negative intensities the way a classical C2 spline can.
+than as a formula. The library offers three interpolators, each with different
+trade-offs. See :ref:`tabulated-form-factors` for how to choose among them.
 
 .. warning::
 
-    :c:func:`cubic_interp_eval` returns NaN outside the tabulated range, and
-    the strategies evaluate the form factor far outside it. Passing the bare
-    interpolator to :ref:`hankel_transform <hankel_transform_c_api>` fails
-    silently -- with a status code of 0. Use
-    :ref:`tabulated_ff <tabulated_ff_c_api>` below, which handles the range
-    outside the table for you, unless you have a reason to interpolate
-    directly.
+    All interpolators return NaN outside the tabulated range, and the strategies
+    evaluate the form factor far outside it. Passing a bare interpolator to
+    :ref:`hankel_transform <hankel_transform_c_api>` fails silently -- with a
+    status code of 0. Use :ref:`tabulated_ff <tabulated_ff_c_api>` below, which
+    handles the range outside the table for you, unless you have a reason to
+    interpolate directly.
+
+Linear
+^^^^^^^^
+
+Fast, simple interpolation with O(h²) error. Monotonicity is preserved.
+
+.. doxygentypedef:: linear_interp_t
+.. doxygenfunction:: linear_interp_create
+.. doxygenfunction:: linear_interp_eval
+.. doxygenfunction:: linear_interp_destroy
+
+Cubic (PCHIP)
+^^^^^^^^^^^^^^^
+
+PCHIP cubic spline with O(h⁴) error and no overshoot. Monotonicity-preserving,
+so it will not overshoot into negative intensities the way a classical C2 spline can.
 
 .. doxygentypedef:: cubic_interp_t
 .. doxygenfunction:: cubic_interp_create
 .. doxygenfunction:: cubic_interp_eval
 .. doxygenfunction:: cubic_interp_destroy
+
+Log-linear
+^^^^^^^^^^^^
+
+Exponential (power-law) interpolation in log-log space. Constant relative error
+across decades, ideal for form factors spanning orders of magnitude. All
+tabulated values must be strictly positive.
+
+.. doxygentypedef:: loglinear_interp_t
+.. doxygenfunction:: loglinear_interp_create
+.. doxygenfunction:: loglinear_interp_eval
+.. doxygenfunction:: loglinear_interp_destroy
 
 
 .. _tabulated_ff_c_api:

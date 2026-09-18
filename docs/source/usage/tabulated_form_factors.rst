@@ -42,8 +42,8 @@ go a very long way outside any real dataset:
     +----------------------+----------------------------+
 
 No experimental dataset covers 35 decades, so the callback is asked for values
-outside the table on every single call. :c:func:`cubic_interp_eval` returns NaN
-there, because Boost refuses to extrapolate.
+outside the table on every single call. All interpolators return NaN
+there because they cannot extrapolate.
 
 .. warning::
 
@@ -74,6 +74,51 @@ The NaN rows are obvious enough once you look at the output. The last two are
 the dangerous ones: the extrapolation-driven NaNs get absorbed by the
 convergence machinery, so the call returns finite, plausible-looking numbers
 that are wrong by about ten percent.
+
+
+Choosing an interpolation method
+---------------------------------
+
+Within the tabulated range, the library offers three interpolators to choose from
+when building the form factor with :c:func:`tabulated_ff_create`. Each makes
+different trade-offs:
+
+.. table:: Interpolation options.
+
+    +---------------------------------+-------------------+-----------+---------------------+
+    | Method                          | Implementation    | Error     | Best for            |
+    +=================================+===================+===========+=====================+
+    | Linear                          | :c:func:`linear_\ | O(h²)     | Speed-critical code |
+    |                                 | interp_create`    |           | or small tables     |
+    +---------------------------------+-------------------+-----------+---------------------+
+    | Cubic (PCHIP)                   | :c:func:`cubic_\  | O(h⁴)     | Smooth curves or    |
+    |                                 | interp_create`    |           | when kinks matter   |
+    +---------------------------------+-------------------+-----------+---------------------+
+    | Log-linear                      | :c:func:`loglinear| Constant | Form factors across  |
+    |                                 | _interp_create`   | relative | wide ranges (SAX     |
+    |                                 |                   |           | S/SANS)             |
+    +---------------------------------+-------------------+-----------+---------------------+
+
+**Linear** is simple and fast. The interpolated values are guaranteed to stay
+within the bracket of the tabulated endpoints, and monotonicity is preserved:
+non-negative data in, non-negative data out. The price is a discontinuous slope
+at every tabulated point.
+
+**Cubic (PCHIP)** produces smooth curves through the data with no overshoot or
+undershoot, at a small cost in evaluation time. Use this when the shape of the
+interpolated curve between tabulations matters, or when feeding the form factor
+to visualization or plotting code.
+
+**Log-linear** interpolates in :math:`\log(y)` space, returning :math:`\exp(\text{result})`.
+This gives exponential (power-law) interpolation, which is ideal for form factors
+spanning orders of magnitude: it provides constant *relative* error across
+decades rather than constant absolute error. For a form factor dropping from
+1 to :math:`10^{-10}`, linear gives 1e-10 absolute error everywhere (tiny at
+low q, wasted at high q); log-linear gives the same relative error at every
+scale. **This is the recommended choice for SAXS and SANS form factors.**
+Log-linear requires all tabulated values to be strictly positive.
+
+See the :ref:`Interpolation section of the C API <interpolation_c_api>` for detailed documentation on each interpolator.
 
 
 Choosing the tail
