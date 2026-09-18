@@ -80,26 +80,31 @@ The easiest way to install LibHankel is by using the Python package manager, `pi
 Alternatively, it can be installed from source through git clone.
 
 
-Installing via ``pip``
-----------------------
-
-**INSTALLATION THROUGH PIP IS NOT YET AVAILABLE, PLEASE IGNORE THIS SECTION AND INSTALL FROM SOURCE 
-(FOLLOW INSTRUCTIONS IN SECTION "Installing from source" BELOW).**
-
-It is recommended to first create a virtual environment in which to install LibHankel, e.g., 
-through the command line:
-
-.. code-block:: bash
-   
-   python3 -mvenv venv
-   . venv/bin/activate
-
-
-LibHankel can then be installed by entering:
-
-.. code-block:: bash
-
-   python -m pip install libhankel
+.. Installing via ``pip``
+.. ----------------------
+..
+.. .. note::
+..
+..     Installation through pip is not yet available. Please skip this section and
+..     install from source using the instructions in :ref:`Installing from source`
+..     below.
+..
+.. .. TODO: Enable when pip package is available
+.. ..
+.. .. It is recommended to first create a virtual environment in which to install LibHankel, e.g.,
+.. .. through the command line:
+.. ..
+.. .. .. code-block:: bash
+.. ..
+.. ..    python3 -m venv venv
+.. ..    . venv/bin/activate
+.. ..
+.. ..
+.. .. LibHankel can then be installed by entering:
+.. ..
+.. .. .. code-block:: bash
+.. ..
+.. ..    python -m pip install libhankel
 
 
 Installing from source
