@@ -18,6 +18,7 @@ sources = files(
   'utils/boost_bessel.cpp',
   'utils/interp_cubic.cpp',
   'utils/interp_linear.c',
+  'utils/interp_loglinear.c',
   'utils/tabulated_ff.c'
 )
 
