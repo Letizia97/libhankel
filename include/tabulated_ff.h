@@ -14,6 +14,38 @@ extern "C" {
 #endif
 
 /**
+ * @enum tabulated_interp_type_t
+ * @brief Which interpolation method to use within the tabulated range.
+ *
+ * All three methods return NaN outside the tabulated range and must be wrapped
+ * with @ref tabulated_ff_create to handle the region beyond the data.
+ */
+typedef enum {
+    /**
+     * @brief Piecewise linear interpolation, O(h²) error.
+     *
+     * Fast and simple. Exact at the nodes, monotonicity-preserving. Drawback:
+     * discontinuous slope at every tabulated point.
+     */
+    TABULATED_INTERP_LINEAR = 0,
+
+    /**
+     * @brief PCHIP cubic spline, O(h⁴) error.
+     *
+     * Smooth curves with no overshoot. Default choice for most applications.
+     */
+    TABULATED_INTERP_CUBIC = 1,
+
+    /**
+     * @brief Log-linear (power-law) interpolation, constant relative error.
+     *
+     * Interpolates in log-log space, ideal for form factors spanning orders of
+     * magnitude. All tabulated values must be strictly positive.
+     */
+    TABULATED_INTERP_LOGLINEAR = 2
+} tabulated_interp_type_t;
+
+/**
  * @enum tabulated_tail_t
  * @brief How the form factor behaves above the last tabulated point.
  *
@@ -66,6 +98,7 @@ typedef struct tabulated_ff tabulated_ff_t;
  * @param f         form factor value at each entry of @p q
  * @param n         number of points; at least 4, as a cubic through fewer is
  *                  underdetermined
+ * @param interp_type choice of interpolation method, see @ref tabulated_interp_type_t
  * @param tail      high-@f$ q @f$ behaviour, see @ref tabulated_tail_t
  * @param exponent  the @f$ p @f$ of @ref TABULATED_TAIL_POWER_LAW. Pass 0 to
  *                  fit it from the last points of the table by least squares
@@ -76,12 +109,13 @@ typedef struct tabulated_ff tabulated_ff_t;
  *         -3  if allocation failed,
  *         -13 if @p q, @p f or @p out is NULL, @p n is below 4, @p q is not
  *             strictly increasing and positive, @p q or @p f contains a value
- *             that is not finite, or @p tail is not one of
- *             @ref tabulated_tail_t, or
+ *             that is not finite, @p interp_type is invalid, or @p tail is not
+ *             one of @ref tabulated_tail_t, or
  *         -14 if the power-law tail is unusable: the exponent is at or below
  *             3/2, supplied or fitted, so the transform would not converge, or
  *             too few of the points it would have been fitted from are
- *             positive.
+ *             positive, or if @ref TABULATED_INTERP_LOGLINEAR is chosen but
+ *             not all tabulated values are strictly positive.
  *
  * @warning A -14 from a fitted exponent usually means the table stops before
  *          the asymptotic regime, not that the physics diverges. The fit can
@@ -90,7 +124,8 @@ typedef struct tabulated_ff tabulated_ff_t;
  *          true asymptote is 4. Extend the table, or pass the exponent you
  *          know applies.
  */
-int tabulated_ff_create(const double *q, const double *f, size_t n, tabulated_tail_t tail,
+int tabulated_ff_create(const double *q, const double *f, size_t n,
+                        tabulated_interp_type_t interp_type, tabulated_tail_t tail,
                         double exponent, tabulated_ff_t **out);
 
 /**

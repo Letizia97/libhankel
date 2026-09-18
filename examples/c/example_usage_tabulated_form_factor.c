@@ -54,7 +54,7 @@ int main(void) {
      * asymptote is rejected here instead of producing a plausible wrong answer
      * later. */
     int status =
-        tabulated_ff_create(q_table, f_table, N_TABLE, TABULATED_TAIL_POWER_LAW, 0.0, &ff);
+        tabulated_ff_create(q_table, f_table, N_TABLE, TABULATED_INTERP_CUBIC, TABULATED_TAIL_POWER_LAW, 0.0, &ff);
     if (status != 0) {
         fprintf(stderr, "failed to build the tabulated form factor, status %d\n", status);
         return exit_code;
