@@ -53,47 +53,50 @@ static PyObject *py_hankel_transform(PyObject *self, PyObject *args) {
     PyObject *f_obj, *x_obj, *params_obj, *strategy_param_obj;
     const char *strategy_name;
 
-    // Parse: nu, form_factor, x_points, form_factor_params, 
+    // Parse: nu, form_factor, x_points, form_factor_params,
     // strategy_name, strategy_params_dict
     if (!PyArg_ParseTuple(args, "iOOOsO", &nu, &f_obj, &x_obj, &params_obj, &strategy_name,
                           &strategy_param_obj)) {
         return NULL;
     }
 
+    // Initialize all pointers to NULL for cleanup tracking.
+    double *x = NULL;
+    double *f_params = NULL;
+    double *output = NULL;
+    py_f_ctx *f_ctx = NULL;
+    form_factor_f f_ptr = NULL;
+
     // ---------------------------
     // Convert x → C array
     // ---------------------------
     if (!PySequence_Check(x_obj)) {
         PyErr_SetString(PyExc_TypeError, "x must be a sequence");
-        {
-            return NULL;
-        }
+        goto cleanup;
     }
 
     Py_ssize_t len_x = PySequence_Size(x_obj);
     if (len_x < 0) {
-        return NULL;
+        goto cleanup;
     }
 
-    double *x = malloc(len_x * sizeof(double));
+    x = malloc(len_x * sizeof(double));
     if (!x) {
         PyErr_SetString(PyExc_MemoryError, "Failed to allocate x");
-        return NULL;
+        goto cleanup;
     }
 
     for (Py_ssize_t i = 0; i < len_x; i++) {
         PyObject *item = PySequence_GetItem(x_obj, i);
         if (!item) {
-            free(x);
-            return NULL;
+            goto cleanup;
         }
 
         x[i] = PyFloat_AsDouble(item);
         Py_DECREF(item);
 
         if (PyErr_Occurred()) {
-            free(x);
-            return NULL;
+            goto cleanup;
         }
     }
 
@@ -101,27 +104,24 @@ static PyObject *py_hankel_transform(PyObject *self, PyObject *args) {
     // Convert params → C array
     // ---------------------------
     if (!PySequence_Check(params_obj)) {
-        free(x);
         PyErr_SetString(PyExc_TypeError, "params must be a sequence");
-        return NULL;
+        goto cleanup;
     }
 
     Py_ssize_t n_params = PySequence_Size(params_obj);
-    double *f_params = malloc(n_params * sizeof(double));
+    f_params = malloc(n_params * sizeof(double));
 
     for (Py_ssize_t i = 0; i < n_params; i++) {
         PyObject *item = PySequence_GetItem(params_obj, i);
         if (!item) {
-            free(x);
-            return NULL;
+            goto cleanup;
         }
 
         f_params[i] = PyFloat_AsDouble(item);
         Py_DECREF(item);
 
         if (PyErr_Occurred()) {
-            free(x);
-            return NULL;
+            goto cleanup;
         }
     }
 
@@ -129,9 +129,8 @@ static PyObject *py_hankel_transform(PyObject *self, PyObject *args) {
     // strategy_params struct
     // ---------------------------
     if (!PyDict_Check(strategy_param_obj)) {
-        free(x);
         PyErr_SetString(PyExc_TypeError, "strategy_params must be dict");
-        return NULL;
+        goto cleanup;
     }
 
     strategy_params sp;
@@ -158,18 +157,16 @@ static PyObject *py_hankel_transform(PyObject *self, PyObject *args) {
     }
 
     if (PyErr_Occurred()) {
-        free(x);
-        return NULL;
+        goto cleanup;
     }
 
     // ---------------------------
     // Output allocation
     // ---------------------------
-    double *output = malloc(len_x * sizeof(double));
+    output = malloc(len_x * sizeof(double));
     if (!output) {
-        free(x);
         PyErr_SetString(PyExc_MemoryError, "alloc output failed");
-        return NULL;
+        goto cleanup;
     }
 
     // ---------------------------
@@ -179,14 +176,10 @@ static PyObject *py_hankel_transform(PyObject *self, PyObject *args) {
     //   1. A Python callable (user function) → python_form_factor wrapper
     //   2. A string naming a built-in (e.g. 'gdab') → lookup by name
     //   3. A TabulatedFormFactor instance → [TO BE ADDED]
-    form_factor_f f_ptr = NULL;
-    py_f_ctx *f_ctx = malloc(sizeof(py_f_ctx));
+    f_ctx = malloc(sizeof(py_f_ctx));
     if (!f_ctx) {
-        free(x);
-        free(f_params);
-        free(output);
         PyErr_SetString(PyExc_MemoryError, "f_ctx alloc failed");
-        return NULL;
+        goto cleanup;
     }
 
     f_ctx->params = f_params;
@@ -205,21 +198,15 @@ static PyObject *py_hankel_transform(PyObject *self, PyObject *args) {
         f_ptr = get_form_factor_by_name(name);
 
         if (!f_ptr) {
-            free(x);
-            free(f_params);
-            free(output);
             PyErr_SetString(PyExc_ValueError, "Unknown function name");
-            return NULL;
+            goto cleanup;
         }
 
     // Case 3: [Will add TabulatedFormFactor instance detection here]
 
     } else {
-        free(x);
-        free(f_params);
-        free(output);
         PyErr_SetString(PyExc_TypeError, "f must be callable, string, or TabulatedFormFactor");
-        return NULL;
+        goto cleanup;
     }
 
     int status_code = hankel_transform(nu, f_ptr, x, len_x, f_ctx, output, strategy_name, sp);
@@ -232,77 +219,94 @@ static PyObject *py_hankel_transform(PyObject *self, PyObject *args) {
     case -1:
         PyErr_SetString(PyExc_ValueError,
                         "nu needs to be 0 or 1 in order to use the selected strategy");
-        return NULL;
+        goto cleanup;
 
     case -2:
         /* Unreachable from Python: strategies are selected by name here, and
          * hankel_transform() only ever passes a valid index to the filters. */
         PyErr_SetString(PyExc_RuntimeError, "Internal error: invalid DHT filter index");
-        return NULL;
+        goto cleanup;
 
     case -3:
         PyErr_SetString(PyExc_MemoryError, "Failed to allocate internal variables");
-        return NULL;
+        goto cleanup;
 
     case -4:
         PyErr_SetString(PyExc_RuntimeError, "Failed to converge");
-        return NULL;
+        goto cleanup;
 
     case -5:
         PyErr_SetString(PyExc_ZeroDivisionError, "Internal error: division by zero");
-        return NULL;
+        goto cleanup;
 
     case -6:
         PyErr_SetString(PyExc_ValueError,
                         "Internal error: wrong nzeros in function bessel_j_zero (must be >= 1)");
-        return NULL;
+        goto cleanup;
 
     case -7:
         PyErr_SetString(PyExc_ValueError,
                         "Internal error: wrong n of iterations in pade sum (must be >= 1)");
-        return NULL;
+        goto cleanup;
 
     case -8:
         PyErr_SetString(PyExc_ValueError, "Error: n_eval must be provided and cannot be zero");
-        return NULL;
+        goto cleanup;
 
     case -9:
         PyErr_SetString(PyExc_ValueError, "Error: eps_rel must be provided and cannot be zero");
-        return NULL;
+        goto cleanup;
 
     case -10:
         PyErr_SetString(PyExc_ValueError, "Error: f_max must be provided and cannot be zero");
-        return NULL;
+        goto cleanup;
 
     case -11:
         PyErr_SetString(PyExc_ValueError,
                         "Error: invalid strategy name, must be one of : " LIBHANKEL_ALL_STRATEGIES
                         ".");
-        return NULL;
+        goto cleanup;
 
     case -12:
         PyErr_SetString(PyExc_ValueError, "Error: x must be finite and greater than zero");
-        return NULL;
+        goto cleanup;
 
     default:
         PyErr_SetString(PyExc_RuntimeError, "unknown error");
-        return NULL;
+        goto cleanup;
     }
 
+    // Build output list on success
     PyObject *out_list = PyList_New(len_x);
     for (Py_ssize_t i = 0; i < len_x; i++) {
         PyList_SetItem(out_list, i, PyFloat_FromDouble(output[i]));
     }
 
+    // Clean up and return success
     free(x);
     free(output);
-
     free(f_ctx->params);
     if (f_ctx->callable) {
         Py_DECREF(f_ctx->callable);
     }
     free(f_ctx);
     return out_list;
+
+cleanup:
+    // On error, free all allocated resources
+    free(x);
+    free(output);
+    if (f_ctx) {
+        free(f_ctx->params);
+        if (f_ctx->callable) {
+            Py_DECREF(f_ctx->callable);
+        }
+        free(f_ctx);
+    } else {
+        // f_ctx was never allocated, so f_params wasn't transferred to it
+        free(f_params);
+    }
+    return NULL;
 }
 
 // docstring for hankel_tranform python api
