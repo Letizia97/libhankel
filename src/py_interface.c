@@ -48,6 +48,8 @@ static PyObject *py_hankel_transform(PyObject *self, PyObject *args) {
     PyObject *f_obj, *x_obj, *params_obj, *strategy_param_obj;
     const char *strategy_name;
 
+    // Parse: nu, form_factor, x_points, form_factor_params, 
+    // strategy_name, strategy_params_dict
     if (!PyArg_ParseTuple(args, "iOOOsO", &nu, &f_obj, &x_obj, &params_obj, &strategy_name,
                           &strategy_param_obj)) {
         return NULL;
@@ -166,8 +168,12 @@ static PyObject *py_hankel_transform(PyObject *self, PyObject *args) {
     }
 
     // ---------------------------
-    // Form factor function
+    // Form factor dispatch
     // ---------------------------
+    // f_obj can be:
+    //   1. A Python callable (user function) → python_form_factor wrapper
+    //   2. A string naming a built-in (e.g. 'gdab') → lookup by name
+    //   3. A TabulatedFormFactor instance → [TO BE ADDED]
     form_factor_f f_ptr = NULL;
     py_f_ctx *f_ctx = malloc(sizeof(py_f_ctx));
     if (!f_ctx) {
@@ -182,13 +188,13 @@ static PyObject *py_hankel_transform(PyObject *self, PyObject *args) {
     f_ctx->n_params = n_params;
     f_ctx->callable = NULL;
 
-    /* check for Python callable */
+    // Case 1: Python callable (user-defined function)
     if (PyCallable_Check(f_obj)) {
         f_ptr = python_form_factor;
         f_ctx->callable = f_obj;
         Py_INCREF(f_obj);
 
-        /* or whether the user wants to use built-in form factor */
+    // Case 2: Built-in form factor by string name
     } else if (PyUnicode_Check(f_obj)) {
         const char *name = PyUnicode_AsUTF8(f_obj);
         f_ptr = get_form_factor_by_name(name);
@@ -201,11 +207,13 @@ static PyObject *py_hankel_transform(PyObject *self, PyObject *args) {
             return NULL;
         }
 
+    // Case 3: [Will add TabulatedFormFactor instance detection here]
+
     } else {
         free(x);
         free(f_params);
         free(output);
-        PyErr_SetString(PyExc_TypeError, "f must be callable or string");
+        PyErr_SetString(PyExc_TypeError, "f must be callable, string, or TabulatedFormFactor");
         return NULL;
     }
 
