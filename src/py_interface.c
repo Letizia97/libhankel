@@ -12,26 +12,31 @@ typedef struct {
 } py_f_ctx;
 
 double python_form_factor(double x, void *f_ctx) {
+    // Callback wrapper: invoke a user-defined Python function from C code.
+    // Called by hankel_transform() for each evaluation point.
+    // f_ctx holds the Python callable and its parameter list.
     py_f_ctx *c = (py_f_ctx *)f_ctx;
 
+    // Acquire GIL: Python object manipulation requires the lock.
     PyGILState_STATE gstate = PyGILState_Ensure();
 
+    // Build args tuple: (x, [param1, param2, ...])
     PyObject *args = PyTuple_New(2);
     PyTuple_SetItem(args, 0, PyFloat_FromDouble(x));
 
+    // Pack parameters into a list.
     PyObject *list = PyList_New(c->n_params);
-
     for (size_t i = 0; i < c->n_params; i++) {
         PyList_SetItem(list, i, PyFloat_FromDouble(c->params[i]));
     }
-
     PyTuple_SetItem(args, 1, list);
 
+    // Call the Python function with (x, params).
     PyObject *result = PyObject_CallObject(c->callable, args);
     Py_DECREF(args);
 
+    // Extract the float result, or 0 on error.
     double val = 0.0;
-
     if (result) {
         val = PyFloat_AsDouble(result);
         Py_DECREF(result);
