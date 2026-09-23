@@ -12,7 +12,7 @@ x_arr = np.array([
 strategy_p_dict = {"n_eval": 250, "eps_rel": 1e-9}
 
 result = libhankel.hankel_transform(
-    nu, "sphere", x_arr, params_spheres, "QWE_Chave", strategy_p_dict
+    nu, "sphere", x_arr, params_spheres, "DHT_Key_51", strategy_p_dict
 )
 
 print("Result of calling the hankel_transform with sphere form factor", result)
