@@ -329,3 +329,30 @@ smooth and monotonically decaying, the friendliest case for a digital filter -
 which is why the filters do so well here. An oscillatory form factor would
 very likely reorder these lists. The tolerances in
 tests/test_strategies_vs_analytical.c were set from the (O) column.
+
+
+QUICK REFERENCE: Choosing a strategy
+-------------------------------------
+The key parameter is the integrand exponent s = 2 + 2H. This determines whether
+the integrand q*I(q) decays monotonically or oscillates.
+
+  s = 2 + 2H     (from the GDAB integrand q*I(q) ~ q^-s)
+
+  s > 1  (H > -1/2)    Integrand decays monotonically
+                       → Use DHT_Key_201 or Adaptive_DE_Ooura
+                       Error: ~1e-11, insensitive to H
+
+  s ≤ 1  (H ≤ -1/2)    Integrand oscillates or grows
+                       → Use QWE_Key or QWE_Chave
+                       Error: ~1e-11 to 1e-12, stays flat as H falls
+
+Examples:
+  H = 2.0:   s = 6    (q^-6 decay, very fast)         → DHT
+  H = 0:     s = 2    (q^-2 decay)                     → DHT
+  H = -0.4:  s = 1.2  (q^-1.2 decay, but weak)         → DHT
+  H = -0.5:  s = 1    (boundary: q^-1, barely convergent) → either (transitional)
+  H = -1.0:  s = 0    (q^0 = constant, oscillates)     → QWE
+  H = -1.5:  s = -1   (q^1, grows)                     → QWE
+
+Never use Fixed_DE_Ogata (silently wrong by 100x–10000x) or
+DHT_Anderson_801 below H = -1 (explodes: 10^16 error at H = -1.49).
