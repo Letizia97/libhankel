@@ -106,6 +106,7 @@ static PyObject *py_hankel_transform(PyObject *self, PyObject *args) {
     double *output = NULL;
     py_f_ctx *f_ctx = NULL;
     form_factor_f f_ptr = NULL;
+    tabulated_ff_t *tff_handle = NULL;
 
     // ---------------------------
     // Convert x → C array
@@ -224,13 +225,13 @@ static PyObject *py_hankel_transform(PyObject *self, PyObject *args) {
 
         // Convert to C arrays
         Py_ssize_t len_q;
-        double *q_array = python_sequence_to_c_array(q_obj, &len_q);
+        q_array = python_sequence_to_c_array(q_obj, &len_q);
         if (!q_array) {
             goto cleanup;
         }
 
         Py_ssize_t len_f;
-        double *f_array = python_sequence_to_c_array(f_obj_data, &len_f);
+        f_array = python_sequence_to_c_array(f_obj_data, &len_f);
         if (!f_array) {
             free(q_array);
             goto cleanup;
