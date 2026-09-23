@@ -48,6 +48,45 @@ double python_form_factor(double x, void *f_ctx) {
     return val;
 }
 
+// Convert a Python sequence of floats to a C array. Caller must free the result.
+// On error, sets a Python exception and returns NULL.
+static double* python_sequence_to_c_array(PyObject *seq_obj, Py_ssize_t *out_len) {
+    if (!PySequence_Check(seq_obj)) {
+        PyErr_SetString(PyExc_TypeError, "expected a sequence");
+        return NULL;
+    }
+
+    Py_ssize_t len = PySequence_Size(seq_obj);
+    if (len < 0) {
+        return NULL;
+    }
+
+    double *arr = malloc(len * sizeof(double));
+    if (!arr) {
+        PyErr_SetString(PyExc_MemoryError, "Failed to allocate array");
+        return NULL;
+    }
+
+    for (Py_ssize_t i = 0; i < len; i++) {
+        PyObject *item = PySequence_GetItem(seq_obj, i);
+        if (!item) {
+            free(arr);
+            return NULL;
+        }
+
+        arr[i] = PyFloat_AsDouble(item);
+        Py_DECREF(item);
+
+        if (PyErr_Occurred()) {
+            free(arr);
+            return NULL;
+        }
+    }
+
+    *out_len = len;
+    return arr;
+}
+
 static PyObject *py_hankel_transform(PyObject *self, PyObject *args) {
     int nu;
     PyObject *f_obj, *x_obj, *params_obj, *strategy_param_obj;
@@ -70,59 +109,19 @@ static PyObject *py_hankel_transform(PyObject *self, PyObject *args) {
     // ---------------------------
     // Convert x → C array
     // ---------------------------
-    if (!PySequence_Check(x_obj)) {
-        PyErr_SetString(PyExc_TypeError, "x must be a sequence");
-        goto cleanup;
-    }
-
-    Py_ssize_t len_x = PySequence_Size(x_obj);
-    if (len_x < 0) {
-        goto cleanup;
-    }
-
-    x = malloc(len_x * sizeof(double));
+    Py_ssize_t len_x;
+    x = python_sequence_to_c_array(x_obj, &len_x);
     if (!x) {
-        PyErr_SetString(PyExc_MemoryError, "Failed to allocate x");
         goto cleanup;
-    }
-
-    for (Py_ssize_t i = 0; i < len_x; i++) {
-        PyObject *item = PySequence_GetItem(x_obj, i);
-        if (!item) {
-            goto cleanup;
-        }
-
-        x[i] = PyFloat_AsDouble(item);
-        Py_DECREF(item);
-
-        if (PyErr_Occurred()) {
-            goto cleanup;
-        }
     }
 
     // ---------------------------
     // Convert params → C array
     // ---------------------------
-    if (!PySequence_Check(params_obj)) {
-        PyErr_SetString(PyExc_TypeError, "params must be a sequence");
+    Py_ssize_t n_params;
+    f_params = python_sequence_to_c_array(params_obj, &n_params);
+    if (!f_params) {
         goto cleanup;
-    }
-
-    Py_ssize_t n_params = PySequence_Size(params_obj);
-    f_params = malloc(n_params * sizeof(double));
-
-    for (Py_ssize_t i = 0; i < n_params; i++) {
-        PyObject *item = PySequence_GetItem(params_obj, i);
-        if (!item) {
-            goto cleanup;
-        }
-
-        f_params[i] = PyFloat_AsDouble(item);
-        Py_DECREF(item);
-
-        if (PyErr_Occurred()) {
-            goto cleanup;
-        }
     }
 
     // ---------------------------
