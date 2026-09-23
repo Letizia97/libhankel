@@ -17,6 +17,10 @@ module = Extension(
         "src/utils/sf_functions.c",
         "src/utils/validate_x.c",
         "src/utils/boost_bessel.cpp",
+        "src/utils/tabulated_ff.c",
+        "src/utils/interp_linear.c",
+        "src/utils/interp_cubic.cpp",
+        "src/utils/interp_loglinear.c",
     ],
     include_dirs=[
         "include",
