@@ -4,6 +4,7 @@
 #include "libhankel.h"
 #include <Python.h>
 #include <stdlib.h>
+#include "tabulated_ff.h"
 
 typedef struct {
     double *params;
@@ -202,6 +203,83 @@ static PyObject *py_hankel_transform(PyObject *self, PyObject *args) {
         }
 
     // Case 3: [Will add TabulatedFormFactor instance detection here]
+    // Need to check whether data as been passed in
+    // then call interp on the data and then get 
+
+    } else if (PyDict_Check(f_obj)) {
+        // Extract Python objects from dict
+        PyObject *q_obj = PyDict_GetItemString(f_obj, "q");
+        PyObject *f_obj_data = PyDict_GetItemString(f_obj, "f");
+        PyObject *interp_type_obj = PyDict_GetItemString(f_obj, "interp_type");
+        PyObject *tail_obj = PyDict_GetItemString(f_obj, "tail");
+
+        PyObject *exponent_obj = PyDict_GetItemString(f_obj, "exponent");
+        double exponent = 0.0;
+        if (exponent_obj) {
+            exponent = PyFloat_AsDouble(exponent_obj);
+        }
+
+        double *q_array = NULL;
+        double *f_array = NULL;
+
+        // Convert to C arrays
+        Py_ssize_t len_q;
+        double *q_array = python_sequence_to_c_array(q_obj, &len_q);
+        if (!q_array) {
+            goto cleanup;
+        }
+
+        Py_ssize_t len_f;
+        double *f_array = python_sequence_to_c_array(f_obj_data, &len_f);
+        if (!f_array) {
+            free(q_array);
+            goto cleanup;
+        }
+
+        // Map the string interp_type to enum values
+        const char *interp_type_str = PyUnicode_AsUTF8(interp_type_obj);
+        tabulated_interp_type_t interp_type;
+        if (strcmp(interp_type_str, "linear") == 0) {
+            interp_type = TABULATED_INTERP_LINEAR;
+        } else if (strcmp(interp_type_str, "cubic") == 0) {
+            interp_type = TABULATED_INTERP_CUBIC;
+        } else if (strcmp(interp_type_str, "loglinear") == 0) {
+            interp_type = TABULATED_INTERP_LOGLINEAR;
+        } else {
+            PyErr_SetString(PyExc_ValueError, "unknown interp_type");
+            goto cleanup;
+        } 
+
+        // Map the string tail to enum values
+        const char *tail_str = PyUnicode_AsUTF8(tail_obj);
+        tabulated_tail_t tail;
+        if (strcmp(tail_str, "power_law") == 0) {
+            tail = TABULATED_TAIL_POWER_LAW;
+        } else if (strcmp(tail_str, "zero") == 0) {
+            tail = TABULATED_TAIL_ZERO;
+        } else {
+            PyErr_SetString(PyExc_ValueError, "unknown tail");
+            goto cleanup;
+        } 
+
+        tabulated_ff_t *tff_handle = NULL;
+        int status = tabulated_ff_create(q_array, f_array, len_q,
+                                        interp_type, tail, exponent,
+                                        &tff_handle);
+        if (status != 0) {
+            PyErr_SetString(
+                PyExc_ValueError, "Failed to create tabulated form factor"
+            );
+            free(q_array);
+            free(f_array);
+            goto cleanup;
+        }
+        
+        // points to the interpolation evaluator
+        f_ptr = tabulated_ff_eval;
+
+        // opaque struct with spline data
+        f_ctx = (void *)tff_handle;
 
     } else {
         PyErr_SetString(PyExc_TypeError, "f must be callable, string, or TabulatedFormFactor");
@@ -284,6 +362,9 @@ static PyObject *py_hankel_transform(PyObject *self, PyObject *args) {
     // Clean up and return success
     free(x);
     free(output);
+    if (tff_handle) {
+        tabulated_ff_destroy(tff_handle);
+    }
     free(f_ctx->params);
     if (f_ctx->callable) {
         Py_DECREF(f_ctx->callable);
@@ -295,6 +376,9 @@ cleanup:
     // On error, free all allocated resources
     free(x);
     free(output);
+    if (tff_handle) {
+        tabulated_ff_destroy(tff_handle);
+    }
     if (f_ctx) {
         free(f_ctx->params);
         if (f_ctx->callable) {
