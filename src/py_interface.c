@@ -107,6 +107,8 @@ static PyObject *py_hankel_transform(PyObject *self, PyObject *args) {
     py_f_ctx *f_ctx = NULL;
     form_factor_f f_ptr = NULL;
     tabulated_ff_t *tff_handle = NULL;
+    // is_tabulated distinguishes cleanup paths: tabulated uses tff_handle, others use f_ctx
+    int is_tabulated = 0;
 
     // ---------------------------
     // Convert x → C array
@@ -176,7 +178,8 @@ static PyObject *py_hankel_transform(PyObject *self, PyObject *args) {
     // f_obj can be:
     //   1. A Python callable (user function) → python_form_factor wrapper
     //   2. A string naming a built-in (e.g. 'gdab') → lookup by name
-    //   3. A TabulatedFormFactor instance → [TO BE ADDED]
+    //   3. A dict for tabulated form factor
+
     f_ctx = malloc(sizeof(py_f_ctx));
     if (!f_ctx) {
         PyErr_SetString(PyExc_MemoryError, "f_ctx alloc failed");
@@ -208,11 +211,20 @@ static PyObject *py_hankel_transform(PyObject *self, PyObject *args) {
     // then call interp on the data and then get 
 
     } else if (PyDict_Check(f_obj)) {
-        // Extract Python objects from dict
+        // Case 3: Tabulated form factor passed as dict with keys:
+        // 'q' (float array), 'f' (float array), 'interp_type' (string),
+        // 'tail' (string), and optional 'exponent' (float).
         PyObject *q_obj = PyDict_GetItemString(f_obj, "q");
         PyObject *f_obj_data = PyDict_GetItemString(f_obj, "f");
         PyObject *interp_type_obj = PyDict_GetItemString(f_obj, "interp_type");
         PyObject *tail_obj = PyDict_GetItemString(f_obj, "tail");
+
+        // All four keys are mandatory; missing any is an error
+        if (!q_obj || !f_obj_data || !interp_type_obj || !tail_obj) {
+            PyErr_SetString(PyExc_ValueError,
+                "tabulated dict must contain 'q', 'f', 'interp_type', and 'tail'");
+            goto cleanup;
+        }
 
         PyObject *exponent_obj = PyDict_GetItemString(f_obj, "exponent");
         double exponent = 0.0;
@@ -237,7 +249,7 @@ static PyObject *py_hankel_transform(PyObject *self, PyObject *args) {
             goto cleanup;
         }
 
-        // Map the string interp_type to enum values
+        // Convert Python strings to C enum values for the interpolation type
         const char *interp_type_str = PyUnicode_AsUTF8(interp_type_obj);
         tabulated_interp_type_t interp_type;
         if (strcmp(interp_type_str, "linear") == 0) {
@@ -247,11 +259,12 @@ static PyObject *py_hankel_transform(PyObject *self, PyObject *args) {
         } else if (strcmp(interp_type_str, "loglinear") == 0) {
             interp_type = TABULATED_INTERP_LOGLINEAR;
         } else {
-            PyErr_SetString(PyExc_ValueError, "unknown interp_type");
+            PyErr_SetString(PyExc_ValueError,
+                "interp_type must be 'linear', 'cubic', or 'loglinear'");
             goto cleanup;
-        } 
+        }
 
-        // Map the string tail to enum values
+        // Convert Python strings to C enum values for the tail behavior
         const char *tail_str = PyUnicode_AsUTF8(tail_obj);
         tabulated_tail_t tail;
         if (strcmp(tail_str, "power_law") == 0) {
@@ -259,28 +272,32 @@ static PyObject *py_hankel_transform(PyObject *self, PyObject *args) {
         } else if (strcmp(tail_str, "zero") == 0) {
             tail = TABULATED_TAIL_ZERO;
         } else {
-            PyErr_SetString(PyExc_ValueError, "unknown tail");
+            PyErr_SetString(PyExc_ValueError,
+                "tail must be 'power_law' or 'zero'");
             goto cleanup;
         } 
 
-        tabulated_ff_t *tff_handle = NULL;
+        // Create the tabulated form factor handle from the data
         int status = tabulated_ff_create(q_array, f_array, len_q,
                                         interp_type, tail, exponent,
                                         &tff_handle);
         if (status != 0) {
-            PyErr_SetString(
-                PyExc_ValueError, "Failed to create tabulated form factor"
-            );
+            // tabulated_ff_create copies the data, so we can free our arrays
             free(q_array);
             free(f_array);
+            PyErr_SetString(PyExc_ValueError,
+                "Failed to create tabulated form factor (check q/f ranges and types)");
             goto cleanup;
         }
-        
-        // points to the interpolation evaluator
-        f_ptr = tabulated_ff_eval;
 
-        // opaque struct with spline data
+        // Data is now owned by tff_handle; we can free our copies
+        free(q_array);
+        free(f_array);
+
+        // Set up the function pointer and context for hankel_transform
+        f_ptr = tabulated_ff_eval;
         f_ctx = (void *)tff_handle;
+        is_tabulated = 1;  // marks cleanup to use tabulated_ff_destroy
 
     } else {
         PyErr_SetString(PyExc_TypeError, "f must be callable, string, or TabulatedFormFactor");
@@ -366,26 +383,35 @@ static PyObject *py_hankel_transform(PyObject *self, PyObject *args) {
     if (tff_handle) {
         tabulated_ff_destroy(tff_handle);
     }
-    free(f_ctx->params);
-    if (f_ctx->callable) {
-        Py_DECREF(f_ctx->callable);
-    }
-    free(f_ctx);
-    return out_list;
-
-cleanup:
-    // On error, free all allocated resources
-    free(x);
-    free(output);
-    if (tff_handle) {
-        tabulated_ff_destroy(tff_handle);
-    }
-    if (f_ctx) {
+    if (!is_tabulated && f_ctx) {
         free(f_ctx->params);
         if (f_ctx->callable) {
             Py_DECREF(f_ctx->callable);
         }
         free(f_ctx);
+    }
+    return out_list;
+
+cleanup:
+    // Free all allocated resources. Cleanup paths differ based on form factor type.
+    free(x);
+    free(output);
+
+    if (tff_handle) {
+        tabulated_ff_destroy(tff_handle);
+    }
+
+    // For callable/built-in form factors, f_ctx is a py_f_ctx struct that owns f_params
+    // For tabulated, f_ctx was never set to a py_f_ctx (it's NULL or the tff_handle cast),
+    // so we free f_params directly
+    if (!is_tabulated && f_ctx) {
+        free(f_ctx->params);
+        if (f_ctx->callable) {
+            Py_DECREF(f_ctx->callable);
+        }
+        free(f_ctx);
+    } else if (is_tabulated) {
+        free(f_params);
     } else {
         // f_ctx was never allocated, so f_params wasn't transferred to it
         free(f_params);
