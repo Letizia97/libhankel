@@ -1,5 +1,5 @@
-#ifndef UTILS_H
-#define UTILS_H
+#ifndef TEST_UTILS_H
+#define TEST_UTILS_H
 
 #include <stddef.h>
 
@@ -11,4 +11,4 @@ void stop_capture_stderr(char *buffer, size_t bufsize);
 double *read_values_by_rows(const char *filename, const char *column_name, const double *rows,
                             size_t nrows, double *out);
 
-#endif // UTILS_H
+#endif // TEST_UTILS_H
