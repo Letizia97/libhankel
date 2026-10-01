@@ -4,6 +4,7 @@
 #include <stdio.h>
 
 #include "../external_libs/utils/tanhsinh.h"
+#include "boost_bessel_wrapper.h"
 #include "libhankel.h"
 
 typedef double sasfit_func_one_t(double, hankel_inputs *);
@@ -51,5 +52,5 @@ double FrJnu(double r, hankel_inputs *inputs) {
     double Q, nu;
     nu = inputs->other_inputs[0];
     Q = inputs->other_inputs[1];
-    return r * jn(nu, Q * r) * inputs->function(r, inputs->f_params);
+    return r * bessel_Jnu(nu, Q * r) * inputs->function(r, inputs->f_params);
 }

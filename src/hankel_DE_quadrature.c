@@ -56,7 +56,7 @@ static double hankel_integrand(double r, void *ctx) {
     int nu = integrand_ctx->nu;
     double Q = integrand_ctx->Q;
 
-    double bessel = jn(nu, Q * r);
+    double bessel = bessel_Jnu(nu, Q * r);
     double fval = integrand_ctx->f(r, integrand_ctx->f_ctx);
 
     return r * bessel * fval;
@@ -191,8 +191,8 @@ static void build_ogata_nodes(ogata_node *nodes, size_t n_nodes, int nu, double 
         double y_k = phi * (M_PI / f_max);
 
         /* ---- Precompute Bessel factors ---- */
-        double Jnu_yk = jn(nu, y_k);
-        double Jnu1_zero = jn(nu + 1, zero_i);
+        double Jnu_yk = bessel_Jnu(nu, y_k);
+        double Jnu1_zero = bessel_Jnu(nu + 1, zero_i);
 
         /* ---- Quadrature weight for α_{ν,i} ---- */
         double denom = M_PI * Jnu1_zero;
