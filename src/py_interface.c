@@ -4,6 +4,7 @@
 #include "libhankel.h"
 #include <Python.h>
 #include <stdlib.h>
+#include "tabulated_ff.h"
 
 typedef struct {
     double *params;
@@ -12,26 +13,31 @@ typedef struct {
 } py_f_ctx;
 
 double python_form_factor(double x, void *f_ctx) {
+    // Callback wrapper: invoke a user-defined Python function from C code.
+    // Called by hankel_transform() for each evaluation point.
+    // f_ctx holds the Python callable and its parameter list.
     py_f_ctx *c = (py_f_ctx *)f_ctx;
 
+    // Acquire GIL: Python object manipulation requires the lock.
     PyGILState_STATE gstate = PyGILState_Ensure();
 
+    // Build args tuple: (x, [param1, param2, ...])
     PyObject *args = PyTuple_New(2);
     PyTuple_SetItem(args, 0, PyFloat_FromDouble(x));
 
+    // Pack parameters into a list.
     PyObject *list = PyList_New(c->n_params);
-
     for (size_t i = 0; i < c->n_params; i++) {
         PyList_SetItem(list, i, PyFloat_FromDouble(c->params[i]));
     }
-
     PyTuple_SetItem(args, 1, list);
 
+    // Call the Python function with (x, params).
     PyObject *result = PyObject_CallObject(c->callable, args);
     Py_DECREF(args);
 
+    // Extract the float result, or 0 on error.
     double val = 0.0;
-
     if (result) {
         val = PyFloat_AsDouble(result);
         Py_DECREF(result);
@@ -43,88 +49,91 @@ double python_form_factor(double x, void *f_ctx) {
     return val;
 }
 
+// Convert a Python sequence of floats to a C array. Caller must free the result.
+// On error, sets a Python exception and returns NULL.
+static double* python_sequence_to_c_array(PyObject *seq_obj, Py_ssize_t *out_len) {
+    if (!PySequence_Check(seq_obj)) {
+        PyErr_SetString(PyExc_TypeError, "expected a sequence");
+        return NULL;
+    }
+
+    Py_ssize_t len = PySequence_Size(seq_obj);
+    if (len < 0) {
+        return NULL;
+    }
+
+    double *arr = malloc(len * sizeof(double));
+    if (!arr) {
+        PyErr_SetString(PyExc_MemoryError, "Failed to allocate array");
+        return NULL;
+    }
+
+    for (Py_ssize_t i = 0; i < len; i++) {
+        PyObject *item = PySequence_GetItem(seq_obj, i);
+        if (!item) {
+            free(arr);
+            return NULL;
+        }
+
+        arr[i] = PyFloat_AsDouble(item);
+        Py_DECREF(item);
+
+        if (PyErr_Occurred()) {
+            free(arr);
+            return NULL;
+        }
+    }
+
+    *out_len = len;
+    return arr;
+}
+
 static PyObject *py_hankel_transform(PyObject *self, PyObject *args) {
     int nu;
     PyObject *f_obj, *x_obj, *params_obj, *strategy_param_obj;
     const char *strategy_name;
 
+    // Parse: nu, form_factor, x_points, form_factor_params,
+    // strategy_name, strategy_params_dict
     if (!PyArg_ParseTuple(args, "iOOOsO", &nu, &f_obj, &x_obj, &params_obj, &strategy_name,
                           &strategy_param_obj)) {
         return NULL;
     }
 
+    // Initialize all pointers to NULL for cleanup tracking.
+    double *x = NULL;
+    double *f_params = NULL;
+    double *output = NULL;
+    py_f_ctx *f_ctx = NULL;
+    form_factor_f f_ptr = NULL;
+    tabulated_ff_t *tff_handle = NULL;
+    // is_tabulated distinguishes cleanup paths: tabulated uses tff_handle, others use f_ctx
+    int is_tabulated = 0;
+
     // ---------------------------
     // Convert x → C array
     // ---------------------------
-    if (!PySequence_Check(x_obj)) {
-        PyErr_SetString(PyExc_TypeError, "x must be a sequence");
-        {
-            return NULL;
-        }
-    }
-
-    Py_ssize_t len_x = PySequence_Size(x_obj);
-    if (len_x < 0) {
-        return NULL;
-    }
-
-    double *x = malloc(len_x * sizeof(double));
+    Py_ssize_t len_x;
+    x = python_sequence_to_c_array(x_obj, &len_x);
     if (!x) {
-        PyErr_SetString(PyExc_MemoryError, "Failed to allocate x");
-        return NULL;
-    }
-
-    for (Py_ssize_t i = 0; i < len_x; i++) {
-        PyObject *item = PySequence_GetItem(x_obj, i);
-        if (!item) {
-            free(x);
-            return NULL;
-        }
-
-        x[i] = PyFloat_AsDouble(item);
-        Py_DECREF(item);
-
-        if (PyErr_Occurred()) {
-            free(x);
-            return NULL;
-        }
+        goto cleanup;
     }
 
     // ---------------------------
     // Convert params → C array
     // ---------------------------
-    if (!PySequence_Check(params_obj)) {
-        free(x);
-        PyErr_SetString(PyExc_TypeError, "params must be a sequence");
-        return NULL;
-    }
-
-    Py_ssize_t n_params = PySequence_Size(params_obj);
-    double *f_params = malloc(n_params * sizeof(double));
-
-    for (Py_ssize_t i = 0; i < n_params; i++) {
-        PyObject *item = PySequence_GetItem(params_obj, i);
-        if (!item) {
-            free(x);
-            return NULL;
-        }
-
-        f_params[i] = PyFloat_AsDouble(item);
-        Py_DECREF(item);
-
-        if (PyErr_Occurred()) {
-            free(x);
-            return NULL;
-        }
+    Py_ssize_t n_params;
+    f_params = python_sequence_to_c_array(params_obj, &n_params);
+    if (!f_params) {
+        goto cleanup;
     }
 
     // ---------------------------
     // strategy_params struct
     // ---------------------------
     if (!PyDict_Check(strategy_param_obj)) {
-        free(x);
         PyErr_SetString(PyExc_TypeError, "strategy_params must be dict");
-        return NULL;
+        goto cleanup;
     }
 
     strategy_params sp;
@@ -151,62 +160,148 @@ static PyObject *py_hankel_transform(PyObject *self, PyObject *args) {
     }
 
     if (PyErr_Occurred()) {
-        free(x);
-        return NULL;
+        goto cleanup;
     }
 
     // ---------------------------
     // Output allocation
     // ---------------------------
-    double *output = malloc(len_x * sizeof(double));
+    output = malloc(len_x * sizeof(double));
     if (!output) {
-        free(x);
         PyErr_SetString(PyExc_MemoryError, "alloc output failed");
-        return NULL;
+        goto cleanup;
     }
 
     // ---------------------------
-    // Form factor function
+    // Form factor dispatch
     // ---------------------------
-    form_factor_f f_ptr = NULL;
-    py_f_ctx *f_ctx = malloc(sizeof(py_f_ctx));
+    // f_obj can be:
+    //   1. A Python callable (user function) → python_form_factor wrapper
+    //   2. A string naming a built-in (e.g. 'gdab') → lookup by name
+    //   3. A dict for tabulated form factor
+
+    f_ctx = malloc(sizeof(py_f_ctx));
     if (!f_ctx) {
-        free(x);
-        free(f_params);
-        free(output);
         PyErr_SetString(PyExc_MemoryError, "f_ctx alloc failed");
-        return NULL;
+        goto cleanup;
     }
 
     f_ctx->params = f_params;
     f_ctx->n_params = n_params;
     f_ctx->callable = NULL;
 
-    /* check for Python callable */
+    // Case 1: Python callable (user-defined function)
     if (PyCallable_Check(f_obj)) {
         f_ptr = python_form_factor;
         f_ctx->callable = f_obj;
         Py_INCREF(f_obj);
 
-        /* or whether the user wants to use built-in form factor */
+    // Case 2: Built-in form factor by string name
     } else if (PyUnicode_Check(f_obj)) {
         const char *name = PyUnicode_AsUTF8(f_obj);
         f_ptr = get_form_factor_by_name(name);
 
         if (!f_ptr) {
-            free(x);
-            free(f_params);
-            free(output);
             PyErr_SetString(PyExc_ValueError, "Unknown function name");
-            return NULL;
+            goto cleanup;
         }
 
+    // Case 3: [Will add TabulatedFormFactor instance detection here]
+    // Need to check whether data as been passed in
+    // then call interp on the data and then get 
+
+    } else if (PyDict_Check(f_obj)) {
+        // Case 3: Tabulated form factor passed as dict with keys:
+        // 'q' (float array), 'f' (float array), 'interp_type' (string),
+        // 'tail' (string), and optional 'exponent' (float).
+        PyObject *q_obj = PyDict_GetItemString(f_obj, "q");
+        PyObject *f_obj_data = PyDict_GetItemString(f_obj, "f");
+        PyObject *interp_type_obj = PyDict_GetItemString(f_obj, "interp_type");
+        PyObject *tail_obj = PyDict_GetItemString(f_obj, "tail");
+
+        // All four keys are mandatory; missing any is an error
+        if (!q_obj || !f_obj_data || !interp_type_obj || !tail_obj) {
+            PyErr_SetString(PyExc_ValueError,
+                "tabulated dict must contain 'q', 'f', 'interp_type', and 'tail'");
+            goto cleanup;
+        }
+
+        PyObject *exponent_obj = PyDict_GetItemString(f_obj, "exponent");
+        double exponent = 0.0;
+        if (exponent_obj) {
+            exponent = PyFloat_AsDouble(exponent_obj);
+        }
+
+        double *q_array = NULL;
+        double *f_array = NULL;
+
+        // Convert to C arrays
+        Py_ssize_t len_q;
+        q_array = python_sequence_to_c_array(q_obj, &len_q);
+        if (!q_array) {
+            goto cleanup;
+        }
+
+        Py_ssize_t len_f;
+        f_array = python_sequence_to_c_array(f_obj_data, &len_f);
+        if (!f_array) {
+            free(q_array);
+            goto cleanup;
+        }
+
+        // Convert Python strings to C enum values for the interpolation type
+        const char *interp_type_str = PyUnicode_AsUTF8(interp_type_obj);
+        tabulated_interp_type_t interp_type;
+        if (strcmp(interp_type_str, "linear") == 0) {
+            interp_type = TABULATED_INTERP_LINEAR;
+        } else if (strcmp(interp_type_str, "cubic") == 0) {
+            interp_type = TABULATED_INTERP_CUBIC;
+        } else if (strcmp(interp_type_str, "loglinear") == 0) {
+            interp_type = TABULATED_INTERP_LOGLINEAR;
+        } else {
+            PyErr_SetString(PyExc_ValueError,
+                "interp_type must be 'linear', 'cubic', or 'loglinear'");
+            goto cleanup;
+        }
+
+        // Convert Python strings to C enum values for the tail behavior
+        const char *tail_str = PyUnicode_AsUTF8(tail_obj);
+        tabulated_tail_t tail;
+        if (strcmp(tail_str, "power_law") == 0) {
+            tail = TABULATED_TAIL_POWER_LAW;
+        } else if (strcmp(tail_str, "zero") == 0) {
+            tail = TABULATED_TAIL_ZERO;
+        } else {
+            PyErr_SetString(PyExc_ValueError,
+                "tail must be 'power_law' or 'zero'");
+            goto cleanup;
+        } 
+
+        // Create the tabulated form factor handle from the data
+        int status = tabulated_ff_create(q_array, f_array, len_q,
+                                        interp_type, tail, exponent,
+                                        &tff_handle);
+        if (status != 0) {
+            // tabulated_ff_create copies the data, so we can free our arrays
+            free(q_array);
+            free(f_array);
+            PyErr_SetString(PyExc_ValueError,
+                "Failed to create tabulated form factor (check q/f ranges and types)");
+            goto cleanup;
+        }
+
+        // Data is now owned by tff_handle; we can free our copies
+        free(q_array);
+        free(f_array);
+
+        // Set up the function pointer and context for hankel_transform
+        f_ptr = tabulated_ff_eval;
+        f_ctx = (void *)tff_handle;
+        is_tabulated = 1;  // marks cleanup to use tabulated_ff_destroy
+
     } else {
-        free(x);
-        free(f_params);
-        free(output);
-        PyErr_SetString(PyExc_TypeError, "f must be callable or string");
-        return NULL;
+        PyErr_SetString(PyExc_TypeError, "f must be callable, string, or TabulatedFormFactor");
+        goto cleanup;
     }
 
     int status_code = hankel_transform(nu, f_ptr, x, len_x, f_ctx, output, strategy_name, sp);
@@ -219,77 +314,109 @@ static PyObject *py_hankel_transform(PyObject *self, PyObject *args) {
     case -1:
         PyErr_SetString(PyExc_ValueError,
                         "nu needs to be 0 or 1 in order to use the selected strategy");
-        return NULL;
+        goto cleanup;
 
     case -2:
         /* Unreachable from Python: strategies are selected by name here, and
          * hankel_transform() only ever passes a valid index to the filters. */
         PyErr_SetString(PyExc_RuntimeError, "Internal error: invalid DHT filter index");
-        return NULL;
+        goto cleanup;
 
     case -3:
         PyErr_SetString(PyExc_MemoryError, "Failed to allocate internal variables");
-        return NULL;
+        goto cleanup;
 
     case -4:
         PyErr_SetString(PyExc_RuntimeError, "Failed to converge");
-        return NULL;
+        goto cleanup;
 
     case -5:
         PyErr_SetString(PyExc_ZeroDivisionError, "Internal error: division by zero");
-        return NULL;
+        goto cleanup;
 
     case -6:
         PyErr_SetString(PyExc_ValueError,
                         "Internal error: wrong nzeros in function bessel_j_zero (must be >= 1)");
-        return NULL;
+        goto cleanup;
 
     case -7:
         PyErr_SetString(PyExc_ValueError,
                         "Internal error: wrong n of iterations in pade sum (must be >= 1)");
-        return NULL;
+        goto cleanup;
 
     case -8:
         PyErr_SetString(PyExc_ValueError, "Error: n_eval must be provided and cannot be zero");
-        return NULL;
+        goto cleanup;
 
     case -9:
         PyErr_SetString(PyExc_ValueError, "Error: eps_rel must be provided and cannot be zero");
-        return NULL;
+        goto cleanup;
 
     case -10:
         PyErr_SetString(PyExc_ValueError, "Error: f_max must be provided and cannot be zero");
-        return NULL;
+        goto cleanup;
 
     case -11:
         PyErr_SetString(PyExc_ValueError,
                         "Error: invalid strategy name, must be one of : " LIBHANKEL_ALL_STRATEGIES
                         ".");
-        return NULL;
+        goto cleanup;
 
     case -12:
         PyErr_SetString(PyExc_ValueError, "Error: x must be finite and greater than zero");
-        return NULL;
+        goto cleanup;
 
     default:
         PyErr_SetString(PyExc_RuntimeError, "unknown error");
-        return NULL;
+        goto cleanup;
     }
 
+    // Build output list on success
     PyObject *out_list = PyList_New(len_x);
     for (Py_ssize_t i = 0; i < len_x; i++) {
         PyList_SetItem(out_list, i, PyFloat_FromDouble(output[i]));
     }
 
+    // Clean up and return success
+    free(x);
+    free(output);
+    if (tff_handle) {
+        tabulated_ff_destroy(tff_handle);
+    }
+    if (!is_tabulated && f_ctx) {
+        free(f_ctx->params);
+        if (f_ctx->callable) {
+            Py_DECREF(f_ctx->callable);
+        }
+        free(f_ctx);
+    }
+    return out_list;
+
+cleanup:
+    // Free all allocated resources. Cleanup paths differ based on form factor type.
     free(x);
     free(output);
 
-    free(f_ctx->params);
-    if (f_ctx->callable) {
-        Py_DECREF(f_ctx->callable);
+    if (tff_handle) {
+        tabulated_ff_destroy(tff_handle);
     }
-    free(f_ctx);
-    return out_list;
+
+    // For callable/built-in form factors, f_ctx is a py_f_ctx struct that owns f_params
+    // For tabulated, f_ctx was never set to a py_f_ctx (it's NULL or the tff_handle cast),
+    // so we free f_params directly
+    if (!is_tabulated && f_ctx) {
+        free(f_ctx->params);
+        if (f_ctx->callable) {
+            Py_DECREF(f_ctx->callable);
+        }
+        free(f_ctx);
+    } else if (is_tabulated) {
+        free(f_params);
+    } else {
+        // f_ctx was never allocated, so f_params wasn't transferred to it
+        free(f_params);
+    }
+    return NULL;
 }
 
 // docstring for hankel_tranform python api
@@ -298,16 +425,16 @@ static char hankel_t_doc[] =
     "\n"
     ":param nu:              The order of bessel function, must be 0 or 1.\n"
     ":type nu:               int \n"
-    ":param f:               Either a function to hankel-transform or a string "
-    "naming a built-in function, "
-    "i.e. either of 'gdab', 'broad_peak', 'sphere'.\n"
-    ":type f:                callable or str\n"
+    ":param f:               Either a callable, a string naming a built-in "
+    "form factor ('gdab', 'broad_peak', 'sphere'), or a dict for tabulated "
+    "form factor with keys 'q', 'f', 'interp_type', 'tail', and optional 'exponent'.\n"
+    ":type f:                callable, str, or dict\n"
     ":param x_arr:           The points at which to evaluate the Hankel "
     "transform of the function f.\n"
     ":type x_arr:            numpy.ndarray of float64\n"
-    ":param f_params:        Input parameters needed by the function f "
-    "(ordered).\n"
-    ":type f_params:         numpy.ndarray of float64\n"
+    ":param f_params:        Input parameters needed by built-in or callable form factors "
+    "(ordered). Not needed for tabulated form factors, pass an empty list.\n"
+    ":type f_params:         numpy.ndarray of float64 or list\n"
     ":param strategy_name:   The name of Hankel strategy to use. "
     "Refer to the table in :ref:`strategy-parameters` for a list of possible "
     "strategies.\n"
@@ -319,8 +446,7 @@ static char hankel_t_doc[] =
     ":returns:               The hankel transform.\n"
     ":rtype:                 numpy.ndarray of float64\n"
     "Please refer to :ref:`python-examples` for examples on how to use this "
-    "function with either a "
-    "builtin form factor or a custom input function."
+    "function with callable, built-in, or tabulated form factors."
     "\n";
 
 static PyMethodDef Methods[] = {
