@@ -10,17 +10,22 @@ on:
 
 jobs:
   build-test:
-    # Linux with GCC and macOS with Apple clang. Windows is not supported yet:
-    # M_PI, jn() and the stderr capture in tests/utils are POSIX-only, and a
-    # DLL needs explicit symbol export.
+    # Linux (GCC), macOS (Apple Clang), Windows (MSVC).
     strategy:
       fail-fast: false
       matrix:
         os:
           - ubuntu-latest
           - macos-latest
+          - windows-latest
 
     runs-on: ${{ matrix.os }}
+
+    defaults:
+      run:
+        # Use bash on all platforms so $BUILD_DIR expands correctly on Windows
+        # (Git Bash is available on the windows-latest runner via Git for Windows).
+        shell: bash
 
     env:
       BUILD_DIR: builddir
@@ -51,6 +56,10 @@ jobs:
         if: runner.os == 'macOS'
         run: |
           brew install ninja boost
+
+      - name: Install dependencies (Windows)
+        if: runner.os == 'Windows'
+        run: vcpkg install boost-math:x64-windows
 
       - name: Install build tools
         run: |

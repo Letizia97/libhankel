@@ -16,6 +16,8 @@ include_dirs = [
 # CPPFLAGS=-I/path/to/boost.
 if sys.platform == "darwin":
     include_dirs += ["/opt/homebrew/include", "/usr/local/include"]
+elif sys.platform == "win32":
+    include_dirs += ["C:/vcpkg/installed/x64-windows/include"]
 
 module = Extension(
     "libhankel",

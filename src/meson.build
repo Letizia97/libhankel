@@ -5,17 +5,18 @@ inc_root = include_directories('..', '../include')
 # Boost.Math is used header-only, so an include path is all the build needs;
 # dependency('boost') is no good here because it fails unless it also finds a
 # compiled boost library, which libboost-dev does not ship. The headers are on
-# the default search path on Linux, but not on macOS, where Homebrew installs
-# under /opt/homebrew (Apple Silicon) or /usr/local (Intel). For anywhere else,
-# pass CPPFLAGS=-I/path/to/boost.
-boost_args = host_machine.system() == 'darwin' ? [
-  '-I/opt/homebrew/include',
-  '-I/usr/local/include',
-] : []
+# the default search path on Linux, but not on macOS (Homebrew) or Windows
+# (vcpkg). For anywhere else, pass CPPFLAGS=-I/path/to/boost.
+inc_dirs = [inc_root]
+if host_machine.system() == 'darwin'
+  inc_dirs += [include_directories('/opt/homebrew/include', '/usr/local/include')]
+elif host_machine.system() == 'windows'
+  inc_dirs += [include_directories('C:/vcpkg/installed/x64-windows/include')]
+endif
 
-# Separate library on Linux, part of libSystem on macOS, hence the lookup
-# rather than a hard-coded '-lm'.
-m_dep = cc.find_library('m')
+# Separate library on Linux; part of libSystem on macOS and the C runtime on
+# Windows, so required: false avoids a build failure on those platforms.
+m_dep = cc.find_library('m', required: false)
 
 # ---- Main C library ----
 sources = files(
@@ -42,9 +43,9 @@ sources = files(
 libhankel = shared_library(
   'libhankel',
   sources: sources,
-  include_directories: [inc_root],
+  include_directories: inc_dirs,
   c_args:   ['-DLIBHANKEL_BUILDING_DLL'],
-  cpp_args: boost_args + ['-DLIBHANKEL_BUILDING_DLL'],
+  cpp_args: ['-DLIBHANKEL_BUILDING_DLL'],
   dependencies: [m_dep],
   install: true,
 )

@@ -4,6 +4,7 @@
 // Standard library headers
 #include <float.h>
 #include <math.h>
+#include "compat.h"
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
