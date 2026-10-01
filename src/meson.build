@@ -7,9 +7,15 @@ inc_root = include_directories('..', '../include')
 # compiled boost library, which libboost-dev does not ship. The headers are on
 # the default search path on Linux, but not on macOS (Homebrew) or Windows
 # (vcpkg). For anywhere else, pass CPPFLAGS=-I/path/to/boost.
+fs = import('fs')
+
 inc_dirs = [inc_root]
 if host_machine.system() == 'darwin'
-  inc_dirs += [include_directories('/opt/homebrew/include', '/usr/local/include')]
+  foreach d : ['/opt/homebrew/include', '/usr/local/include']
+    if fs.is_dir(d)
+      inc_dirs += [include_directories(d)]
+    endif
+  endforeach
 elif host_machine.system() == 'windows'
   inc_dirs += [include_directories('C:/vcpkg/installed/x64-windows/include')]
 endif
