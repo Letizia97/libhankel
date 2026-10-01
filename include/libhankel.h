@@ -2,6 +2,7 @@
 #ifndef LIBHANKEL_H
 #define LIBHANKEL_H
 #include <stddef.h>
+#include "libhankel_export.h"
 
 /**
  * @struct strategy_params
@@ -85,8 +86,9 @@ typedef double (*form_factor_f)(double x, void *ctx);
  *                         <a href="../usage/strategy_params.html">Strategy Parameters</a>
  *                         to check the params required by each strategy.
  */
-int hankel_transform(int nu, form_factor_f f, double *x, size_t len_x, void *f_ctx, double *output,
-                     const char *strategy_name, strategy_params strategy_params);
+LIBHANKEL_API int hankel_transform(int nu, form_factor_f f, double *x, size_t len_x, void *f_ctx,
+                                   double *output, const char *strategy_name,
+                                   strategy_params strategy_params);
 
 /**
  * @brief Computes Hankel transform, using digital filters.
@@ -111,8 +113,8 @@ int hankel_transform(int nu, form_factor_f f, double *x, size_t len_x, void *f_c
  *         <a href="../usage/status_codes.html">Status Codes</a> page). @p x
  *         must be finite and greater than zero.
  */
-int hankel_transform_DHT(int nu, form_factor_f f, double x, void *f_ctx, double *output,
-                         int n_strategy);
+LIBHANKEL_API int hankel_transform_DHT(int nu, form_factor_f f, double x, void *f_ctx,
+                                       double *output, int n_strategy);
 
 /**
  * @brief Computes Hankel transform, using de-quadrature.
@@ -136,8 +138,8 @@ int hankel_transform_DHT(int nu, form_factor_f f, double x, void *f_ctx, double 
  *         entry of @p x must be finite and greater than zero; the whole array
  *         is checked before any work is done.
  */
-int hankel_transform_DE_Ooura(int nu, form_factor_f f, const double *x, size_t len_x, void *f_ctx,
-                              double *output, int n_eval, double eps_rel);
+LIBHANKEL_API int hankel_transform_DE_Ooura(int nu, form_factor_f f, const double *x, size_t len_x,
+                                            void *f_ctx, double *output, int n_eval, double eps_rel);
 
 /**
  * @brief Computes Hankel transform, using de-quadrature.
@@ -162,8 +164,8 @@ int hankel_transform_DE_Ooura(int nu, form_factor_f f, const double *x, size_t l
  *         entry of @p x must be finite and greater than zero; the whole array
  *         is checked before any work is done.
  */
-int hankel_transform_DE_Ogata(int nu, form_factor_f f, const double *x, size_t len_x, void *f_ctx,
-                              double *output, int n_eval, double f_max);
+LIBHANKEL_API int hankel_transform_DE_Ogata(int nu, form_factor_f f, const double *x, size_t len_x,
+                                            void *f_ctx, double *output, int n_eval, double f_max);
 
 /**
  * @brief Computes Hankel transform using the Quadrature With Extrapolation method by Key.
@@ -181,8 +183,8 @@ int hankel_transform_DE_Ogata(int nu, form_factor_f f, const double *x, size_t l
  *         <a href="../usage/status_codes.html">Status Codes</a> page). @p x
  *         must be finite and greater than zero.
  */
-int hankel_transform_QWE_Key(int nu, form_factor_f f, double x, void *f_ctx, double *output,
-                             int n_eval, double eps_rel);
+LIBHANKEL_API int hankel_transform_QWE_Key(int nu, form_factor_f f, double x, void *f_ctx,
+                                           double *output, int n_eval, double eps_rel);
 
 /**
  * @brief Computes Hankel transform using the Quadrature With Extrapolation method by Chave.
@@ -200,7 +202,7 @@ int hankel_transform_QWE_Key(int nu, form_factor_f f, double x, void *f_ctx, dou
  *         <a href="../usage/status_codes.html">Status Codes</a> page). @p x
  *         must be finite and greater than zero.
  */
-int hankel_transform_QWE_Chave(int nu, form_factor_f f, double x, void *f_ctx, double *output,
-                               int n_eval, double eps_rel);
+LIBHANKEL_API int hankel_transform_QWE_Chave(int nu, form_factor_f f, double x, void *f_ctx,
+                                             double *output, int n_eval, double eps_rel);
 
 #endif // LIBHANKEL_H

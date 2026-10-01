@@ -43,7 +43,8 @@ libhankel = shared_library(
   'libhankel',
   sources: sources,
   include_directories: [inc_root],
-  cpp_args: boost_args,
+  c_args:   ['-DLIBHANKEL_BUILDING_DLL'],
+  cpp_args: boost_args + ['-DLIBHANKEL_BUILDING_DLL'],
   dependencies: [m_dep],
   install: true,
 )

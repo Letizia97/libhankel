@@ -36,6 +36,7 @@
 #define INTERP_CUBIC_H
 
 #include <stddef.h>
+#include "libhankel_export.h"
 
 /* Linkage guard. The implementation is C++ (interp_cubic.cpp), but this
  * header is included from C too. __cplusplus is only defined by a C++
@@ -83,7 +84,7 @@ typedef struct cubic_interp cubic_interp_t;
  *         increasing, or allocation failed. Every non-NULL return must
  *         eventually be passed to @ref cubic_interp_destroy.
  */
-cubic_interp_t *cubic_interp_create(const double *x, const double *y, size_t n);
+LIBHANKEL_API cubic_interp_t *cubic_interp_create(const double *x, const double *y, size_t n);
 
 /**
  * @brief Evaluates the spline at @p xi.
@@ -102,14 +103,14 @@ cubic_interp_t *cubic_interp_create(const double *x, const double *y, size_t n);
  *          <a href="../usage/tabulated_form_factors.html">Tabulated Form
  *          Factors</a> page.
  */
-double cubic_interp_eval(const cubic_interp_t *h, double xi);
+LIBHANKEL_API double cubic_interp_eval(const cubic_interp_t *h, double xi);
 
 /**
  * @brief Frees a spline built by @ref cubic_interp_create.
  *
  * @param h  handle to free; passing NULL is a safe no-op.
  */
-void cubic_interp_destroy(cubic_interp_t *h);
+LIBHANKEL_API void cubic_interp_destroy(cubic_interp_t *h);
 
 #ifdef __cplusplus
 }

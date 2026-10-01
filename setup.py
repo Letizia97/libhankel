@@ -19,6 +19,7 @@ if sys.platform == "darwin":
 
 module = Extension(
     "libhankel",
+    define_macros=[("LIBHANKEL_BUILDING_DLL", None)],
     sources=[
         "src/py_interface.c",
         "src/form_factors.c",
