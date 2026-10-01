@@ -63,3 +63,25 @@ Here is the content of the example:
    :language: python
    :lines: 1-1000
 
+
+.. _python-examples-tabulated-ff:
+
+Examples with tabulated form factor
+------------------------------------
+
+The following is an example with a tabulated form factor, where the form factor
+values are provided as arrays of q and f values rather than as an analytic function.
+
+Assuming you have LibHankel installed, you should be able to run this example with:
+
+.. code-block:: bash
+
+   cd libhankel
+   python examples/python/example_usage_tabulated_ff.py
+
+
+Here is the content of the example:
+
+.. literalinclude:: ../../../examples/python/example_usage_tabulated_ff.py
+   :language: python
+   :lines: 1-1000
