@@ -13,7 +13,10 @@
 #ifdef _WIN32
 #include <fcntl.h>
 #include <io.h>
+#ifndef _SSIZE_T_DEFINED
 typedef int ssize_t;
+#define _SSIZE_T_DEFINED
+#endif
 #define STDERR_FILENO 2
 #define dup  _dup
 #define dup2 _dup2
@@ -214,4 +217,5 @@ double *read_values_by_rows(const char *filename, const char *column_name, const
     }
 
     fclose(fp);
+    return out;
 }
