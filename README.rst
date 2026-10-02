@@ -28,7 +28,13 @@ LibHankel requires:
 
 - Meson >= 1.4.0
 - Ninja build tool (package name is often `ninja-build` on Debian/Ubuntu distributions)
-- A C compiler (e.g. gcc on Linux, Apple clang on macOS, MSVC on Windows)
+- A C compiler and a C++ compiler (e.g. gcc/g++ on Linux, Apple clang on macOS, MinGW-w64 GCC on Windows)
+
+.. note::
+
+   On Windows, `MinGW-w64 <https://www.mingw-w64.org/>`_ (GCC) is the tested and supported compiler.
+   The easiest way to install it is via `MSYS2 <https://www.msys2.org/>`_.  Make sure the MinGW ``bin``
+   directory is on your ``PATH`` before running Meson, or Meson will not find the compiler.
 
 Due to the required Meson version being no less than 1.4.0, it will be necessary
 to install Meson through ``pip`` (installing through ``apt update`` most likely won't work).
@@ -77,6 +83,15 @@ To build and install LibHankel, use:
    meson compile -C build
    meson install -C build
 
+.. note::
+
+   On Windows, ``meson install`` places ``liblibhankel.dll`` in the ``bin`` subdirectory of the
+   install prefix (``C:\Program Files\libhankel\bin`` by default).  For executables to find the
+   DLL at runtime, that directory must be on your ``PATH``.  Alternatively, pass a prefix inside
+   your project when setting up the build::
+
+      meson setup build --prefix C:\path\to\myproject
+      meson install -C build
 
 .. c-installation-end
 
@@ -159,6 +174,8 @@ of the code that is still in development.
       sudo apt install libboost-dev
 
       brew install boost               # macOS
+
+      vcpkg install boost-math         # Windows (vcpkg)
 
 5. At this point, we are ready to install LibHankel. 
    Please ensure the virtual environment has been activated through step 3 above, 
