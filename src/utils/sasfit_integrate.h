@@ -10,11 +10,11 @@ typedef struct {
 } hankel_inputs;
 
 // Needed for sasfit strategy 12 and 13
-double sasfit_integrate_ctm(double int_start, double int_end,
+LIBHANKEL_API double sasfit_integrate_ctm(double int_start, double int_end,
                             double(intKern_fct)(double, hankel_inputs *), hankel_inputs *param,
                             int limit, double epsabs, double epsrel);
 
 // input to sasfit_integrate_ctm
-double FrJnu(double r, hankel_inputs *inputs);
+LIBHANKEL_API double FrJnu(double r, hankel_inputs *inputs);
 
 #endif // SASFIT_INTEGRATE_H

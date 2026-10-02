@@ -24,6 +24,7 @@
 #define INTERP_LOGLINEAR_H
 
 #include <stddef.h>
+// Provides LIBHANKEL_API: dllexport when building the DLL, dllimport when consuming it (no-op on non-Windows).
 #include "libhankel_export.h"
 
 #ifdef __cplusplus

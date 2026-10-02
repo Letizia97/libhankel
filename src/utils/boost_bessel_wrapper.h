@@ -2,6 +2,7 @@
 #ifndef BESSEL_WRAPPER_H
 #define BESSEL_WRAPPER_H
 
+// Tests call these functions directly, so they must be exported from the DLL on Windows.
 #include "libhankel_export.h"
 
 LIBHANKEL_API double bessel_Jnu(double nu, double x);

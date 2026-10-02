@@ -11,6 +11,7 @@ sure a C++ exception raised inside Boost is caught at the boundary and turned
 into a NaN return value, rather than unwinding through C frames (undefined
 behavior / std::terminate).
 */
+// LIBHANKEL_API expands to dllimport here (no LIBHANKEL_BUILDING_DLL), letting the linker resolve these symbols from the DLL.
 #include "libhankel_export.h"
 LIBHANKEL_API double bessel_Jnu(double nu, double x);
 LIBHANKEL_API double bessel_Jnu_zero(double nu, int k);
