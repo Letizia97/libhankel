@@ -5,12 +5,28 @@
 #include "unity_config.h"
 
 // Standard library headers
-#include <fcntl.h>
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#ifdef _WIN32
+#include <fcntl.h>
+#include <io.h>
+#ifndef _SSIZE_T_DEFINED
+typedef int ssize_t;
+#define _SSIZE_T_DEFINED
+#endif
+#define STDERR_FILENO 2
+#define dup  _dup
+#define dup2 _dup2
+#define close _close
+#define read  _read
+static inline int pipe(int fds[2]) { return _pipe(fds, 4096, O_BINARY); }
+#else
+#include <fcntl.h>
 #include <unistd.h>
+#endif
 
 int arrays_close(double *actual, double *expected, size_t n, double tol) {
     for (size_t i = 0; i < n; ++i) {
@@ -201,4 +217,5 @@ double *read_values_by_rows(const char *filename, const char *column_name, const
     }
 
     fclose(fp);
+    return out;
 }

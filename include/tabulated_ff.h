@@ -2,6 +2,8 @@
 #define TABULATED_FF_H
 
 #include <stddef.h>
+// Provides LIBHANKEL_API: dllexport when building the DLL, dllimport when consuming it (no-op on non-Windows).
+#include "libhankel_export.h"
 
 /*
 Usable from C++ as well as C: without this guard a C++ compiler would mangle
@@ -124,9 +126,9 @@ typedef struct tabulated_ff tabulated_ff_t;
  *          true asymptote is 4. Extend the table, or pass the exponent you
  *          know applies.
  */
-int tabulated_ff_create(const double *q, const double *f, size_t n,
-                        tabulated_interp_type_t interp_type, tabulated_tail_t tail,
-                        double exponent, tabulated_ff_t **out);
+LIBHANKEL_API int tabulated_ff_create(const double *q, const double *f, size_t n,
+                                      tabulated_interp_type_t interp_type, tabulated_tail_t tail,
+                                      double exponent, tabulated_ff_t **out);
 
 /**
  * @brief Evaluates the tabulated form factor.
@@ -146,7 +148,7 @@ int tabulated_ff_create(const double *q, const double *f, size_t n,
  *
  * @return the form factor at @p q, or NaN if @p ctx is NULL
  */
-double tabulated_ff_eval(double q, void *ctx);
+LIBHANKEL_API double tabulated_ff_eval(double q, void *ctx);
 
 /**
  * @brief Releases a handle from @ref tabulated_ff_create.
@@ -156,7 +158,7 @@ double tabulated_ff_eval(double q, void *ctx);
  *
  * @param t  handle to destroy
  */
-void tabulated_ff_destroy(tabulated_ff_t *t);
+LIBHANKEL_API void tabulated_ff_destroy(tabulated_ff_t *t);
 
 #ifdef __cplusplus
 }

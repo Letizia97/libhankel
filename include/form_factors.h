@@ -36,7 +36,7 @@ typedef struct {
  *                  -   H : Hurst exponent (e.g., 0.5)
  *                  -   ETA : scattering length density contrast (e.g., 1e-4)
  */
-double form_factor_g_dab(double q, void *f_ctx);
+LIBHANKEL_API double form_factor_g_dab(double q, void *f_ctx);
 
 /**
  * @brief Computes the sphere form factor.
@@ -48,7 +48,7 @@ double form_factor_g_dab(double q, void *f_ctx);
  *                  -   R : radius (e.g., 10.0)
  *                  -   ETA : scattering contrast (e.g., 1.0)
  */
-double form_factor_sphere(double q, void *f_ctx);
+LIBHANKEL_API double form_factor_sphere(double q, void *f_ctx);
 
 /**
  * @brief Computes the broad_peak form factor.
@@ -66,8 +66,8 @@ double form_factor_sphere(double q, void *f_ctx);
  *                   - \f$ m \f$ : Exponent \f$m\f$ (e.g. 2)
  *                   - \f$ p \f$ : Exponent \f$p\f$ (e.g. 2)
  */
-double form_factor_broad_peak(double q, void *f_ctx);
+LIBHANKEL_API double form_factor_broad_peak(double q, void *f_ctx);
 
-form_factor_f get_form_factor_by_name(const char *name);
+LIBHANKEL_API form_factor_f get_form_factor_by_name(const char *name);
 
 #endif // FORM_FACTORS_H

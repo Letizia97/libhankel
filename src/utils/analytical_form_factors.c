@@ -1,6 +1,7 @@
 #include "src/utils/analytical_form_factors.h"
 
 #include <math.h>
+#include "compat.h"
 #include <stddef.h>
 #include <stdio.h>
 

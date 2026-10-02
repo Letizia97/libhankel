@@ -24,6 +24,8 @@
 #define INTERP_LOGLINEAR_H
 
 #include <stddef.h>
+// Provides LIBHANKEL_API: dllexport when building the DLL, dllimport when consuming it (no-op on non-Windows).
+#include "libhankel_export.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -54,7 +56,7 @@ typedef struct loglinear_interp loglinear_interp_t;
  *         or allocation failed. Every non-NULL return must eventually be passed
  *         to @ref loglinear_interp_destroy.
  */
-loglinear_interp_t *loglinear_interp_create(const double *x, const double *y, size_t n);
+LIBHANKEL_API loglinear_interp_t *loglinear_interp_create(const double *x, const double *y, size_t n);
 
 /**
  * @brief Evaluates the interpolant at @p xi.
@@ -70,14 +72,14 @@ loglinear_interp_t *loglinear_interp_create(const double *x, const double *y, si
  * @return the interpolated value, or NaN if @p h is NULL, @p xi is NaN, or
  *         @p xi lies outside `[x[0], x[n-1]]`. This does not extrapolate.
  */
-double loglinear_interp_eval(const loglinear_interp_t *h, double xi);
+LIBHANKEL_API double loglinear_interp_eval(const loglinear_interp_t *h, double xi);
 
 /**
  * @brief Frees an interpolant built by @ref loglinear_interp_create.
  *
  * @param h  handle to free; passing NULL is a safe no-op.
  */
-void loglinear_interp_destroy(loglinear_interp_t *h);
+LIBHANKEL_API void loglinear_interp_destroy(loglinear_interp_t *h);
 
 #ifdef __cplusplus
 }

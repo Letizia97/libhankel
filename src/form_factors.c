@@ -4,6 +4,7 @@
 
 // Standard library headers
 #include <math.h>
+#include "compat.h"
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>

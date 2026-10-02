@@ -2,6 +2,7 @@
 install_headers(
   files([
     'libhankel.h',
+    'libhankel_export.h',
     'form_factors.h',
     'interp_cubic.h',
     'interp_linear.h',

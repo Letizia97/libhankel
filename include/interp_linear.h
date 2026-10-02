@@ -23,6 +23,8 @@
 #define INTERP_LINEAR_H
 
 #include <stddef.h>
+// Provides LIBHANKEL_API: dllexport when building the DLL, dllimport when consuming it (no-op on non-Windows).
+#include "libhankel_export.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -52,7 +54,7 @@ typedef struct linear_interp linear_interp_t;
  *         or holds a non-finite value, or allocation failed. Every non-NULL
  *         return must eventually be passed to @ref linear_interp_destroy.
  */
-linear_interp_t *linear_interp_create(const double *x, const double *y, size_t n);
+LIBHANKEL_API linear_interp_t *linear_interp_create(const double *x, const double *y, size_t n);
 
 /**
  * @brief Evaluates the interpolant at @p xi.
@@ -68,14 +70,14 @@ linear_interp_t *linear_interp_create(const double *x, const double *y, size_t n
  * @return the interpolated value, or NaN if @p h is NULL, @p xi is NaN, or
  *         @p xi lies outside `[x[0], x[n-1]]`. This does not extrapolate.
  */
-double linear_interp_eval(const linear_interp_t *h, double xi);
+LIBHANKEL_API double linear_interp_eval(const linear_interp_t *h, double xi);
 
 /**
  * @brief Frees an interpolant built by @ref linear_interp_create.
  *
  * @param h  handle to free; passing NULL is a safe no-op.
  */
-void linear_interp_destroy(linear_interp_t *h);
+LIBHANKEL_API void linear_interp_destroy(linear_interp_t *h);
 
 #ifdef __cplusplus
 }
