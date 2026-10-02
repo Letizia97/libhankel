@@ -14,6 +14,10 @@
 
 extern "C" {
 
+// Including inside extern "C" so LIBHANKEL_API dllexport declarations are seen
+// with C linkage, causing the linker to export these symbols from the DLL.
+#include "boost_bessel_wrapper.h"
+
 double bessel_Jnu(double nu, double x) {
     try {
         return boost::math::cyl_bessel_j(nu, x);
