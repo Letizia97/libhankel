@@ -73,12 +73,12 @@ void setUp(void) {
     inputs.other_inputs[0] = nu;
     inputs.other_inputs[1] = 0;
 
-    G0_spheres = sasfit_integrate_ctm(0, INFINITY, spheres_ff_at_0, &inputs, 10000, 0.001, 1e-20);
+    G0_spheres = sasfit_integrate_ctm(0, INFINITY, spheres_ff_at_0, &inputs, 1e-20);
     ctx.actual_spheres = G0_spheres;
 
     inputs.function = form_factor_g_dab;
     inputs.f_params = params_gdab;
-    G0_gdab = sasfit_integrate_ctm(0, INFINITY, gdab_ff_at_0, &inputs, 10000, 0.001, 1e-20);
+    G0_gdab = sasfit_integrate_ctm(0, INFINITY, gdab_ff_at_0, &inputs, 1e-20);
     ctx.actual_gdab = G0_gdab;
 }
 

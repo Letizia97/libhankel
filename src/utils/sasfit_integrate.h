@@ -12,7 +12,7 @@ typedef struct {
 // Needed for sasfit strategy 12 and 13
 LIBHANKEL_API double sasfit_integrate_ctm(double int_start, double int_end,
                             double(intKern_fct)(double, hankel_inputs *), hankel_inputs *param,
-                            int limit, double epsabs, double epsrel);
+                            double epsrel);
 
 // input to sasfit_integrate_ctm
 LIBHANKEL_API double FrJnu(double r, hankel_inputs *inputs);
