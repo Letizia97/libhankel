@@ -28,6 +28,7 @@ module = Extension(
         "src/hankel_transform.c",
         "src/hankel_DE_quadrature.c",
         "src/hankel_DHT.c",
+        "src/hankel_G0.c",
         "src/hankel_QWE.c",
         "external_libs/DE-quadrature/intde.c",
         "external_libs/qwe_Chave/qwe_Chave.c",
