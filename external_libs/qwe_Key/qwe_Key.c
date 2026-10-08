@@ -230,7 +230,7 @@ double qwe_Key(int nu, form_factor_f f, double x, void *f_params, double *output
 
     // First compute idx_of_zero partial integrals before starting the Shanks
     // transformation iters
-    last_res = last_res + sasfit_integrate_ctm(r_min, r_max, &FrJnu, &inputs, 10000, atol, rtol);
+    last_res = last_res + sasfit_integrate_ctm(r_min, r_max, &FrJnu, &inputs, rtol);
     n_terms = n_max_iters - idx_of_zero - 1;
 
     S = calloc(n_terms + 1, sizeof(double));
@@ -254,7 +254,7 @@ double qwe_Key(int nu, form_factor_f f, double x, void *f_params, double *output
         r_max = bessel_Jnu_zero(nu, i) / inputs.other_inputs[1];
 
         // compute Guass quadrature of this interval
-        f_i = sasfit_integrate_ctm(r_min, r_max, &FrJnu, &inputs, 10000, atol, rtol);
+        f_i = sasfit_integrate_ctm(r_min, r_max, &FrJnu, &inputs, rtol);
 
         n = i - idx_of_zero; // order of the expansion
         S[n + 1] = S[n] + f_i;

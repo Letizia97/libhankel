@@ -228,7 +228,7 @@ double qwe_Chave(int nu, form_factor_f f, double r, void *f_params, double *outp
     for (nzero = 1; nzero <= n_max_iters; nzero++) {
         a = b;
         b = bessel_j_zero(nzero, nu) / r;
-        s[nzero] = sasfit_integrate_ctm(a, b, &FrJnu, &inputs, 10000, atol, rtol);
+        s[nzero] = sasfit_integrate_ctm(a, b, &FrJnu, &inputs, rtol);
         res = pade_sum(s, nzero);
 
         req_accuracy = rtol * fabs(res) + atol;

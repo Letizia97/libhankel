@@ -1,7 +1,6 @@
 #include "src/utils/sasfit_integrate.h"
 
 #include <math.h>
-#include <stdio.h>
 
 #include "../external_libs/utils/tanhsinh.h"
 #include "boost_bessel_wrapper.h"
@@ -14,23 +13,15 @@ typedef struct {
     sasfit_func_one_t *Kernel1D_fct;
 } int_cub;
 
-double Kernel_1D(double x, void *pam) {
-    /*
-    Auxiliary function.
-    Adapts a SASfit kernel function to the generic interface
-    required by the integration routine, forwarding x and the
-    real SASfit parameter structure to the actual kernel function.
-    */
+static double Kernel_1D(double x, void *pam) {
     int_cub *cub = (int_cub *)pam;
-    hankel_inputs *param = (hankel_inputs *)cub->param;
-    return cub->Kernel1D_fct(x, param);
+    return cub->Kernel1D_fct(x, cub->param);
 }
 
 double sasfit_integrate_ctm(double int_start, double int_end, sasfit_func_one_t intKern_fct,
-                            hankel_inputs *param, int limit, double epsabs, double epsrel) {
-    double res;
+                            hankel_inputs *param, double epsrel) {
     int_cub cubstruct;
-    double ferr[1];
+    double ferr;
 
     cubstruct.Kernel1D_fct = intKern_fct;
     cubstruct.param = param;
@@ -40,11 +31,7 @@ double sasfit_integrate_ctm(double int_start, double int_end, sasfit_func_one_t 
         return 0.0;
     }
 
-    cubstruct.Kernel1D_fct = intKern_fct;
-    cubstruct.param = param;
-
-    res = TanhSinhQuad(&Kernel_1D, &cubstruct, int_start, int_end, 7, epsrel, &ferr[0]);
-    return res;
+    return TanhSinhQuad(&Kernel_1D, &cubstruct, int_start, int_end, 7, epsrel, &ferr);
 }
 
 // Used in both sasfit_HankelChave and sasfit_qwe
