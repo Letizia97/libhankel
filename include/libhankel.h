@@ -206,4 +206,17 @@ LIBHANKEL_API int hankel_transform_QWE_Key(int nu, form_factor_f f, double x, vo
 LIBHANKEL_API int hankel_transform_QWE_Chave(int nu, form_factor_f f, double x, void *f_ctx,
                                              double *output, int n_eval, double eps_rel);
 
+/**
+ * @brief Computes G(0), the Hankel transform evaluated at r = 0.
+ *
+ * Computes \f$ G(0) = \int_0^\infty q \, f(q) \, dq \f$ using tanh-sinh quadrature.
+ *
+ * @param f       Form factor function to integrate.
+ * @param f_ctx   Context pointer passed to @p f on every evaluation.
+ * @param epsrel  Relative error tolerance (e.g. 1e-6).
+ *
+ * @return The value of G(0).
+ */
+LIBHANKEL_API double hankel_G0(form_factor_f f, void *f_ctx, double epsrel);
+
 #endif // LIBHANKEL_H

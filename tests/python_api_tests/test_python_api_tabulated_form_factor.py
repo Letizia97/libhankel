@@ -1,3 +1,5 @@
+import math
+
 import libhankel
 import numpy as np
 import pytest
@@ -199,6 +201,31 @@ def test_tabulated_invalid_tail():
             "DHT_Key_201",
             {},
         )
+
+
+def test_hankel_G0_tabulated():
+    """Test hankel_G0 returns a finite positive value for tabulated form factor."""
+    g0 = libhankel.hankel_G0(
+        {
+            "q": Q_DATA,
+            "f": F_DATA,
+            "interp_type": "linear",
+            "tail": "power_law",
+        },
+        [],
+        1e-6,
+    )
+    assert math.isfinite(g0)
+    assert g0 > 0
+
+
+def test_hankel_G0_builtin():
+    """Test hankel_G0 returns a finite positive value for a built-in form factor."""
+    radius = 10.0
+    scale = 1.0
+    g0 = libhankel.hankel_G0("sphere", [radius, scale], 1e-6)
+    assert math.isfinite(g0)
+    assert g0 > 0
 
 
 def test_tabulated_with_explicit_exponent():
