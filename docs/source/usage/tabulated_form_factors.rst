@@ -23,21 +23,25 @@ Within the tabulated range, the library offers three interpolators to choose fro
 when building the form factor with :c:func:`tabulated_ff_create`. Each makes
 different trade-offs:
 
-.. table:: Interpolation options.
+.. list-table:: Interpolation options.
+   :header-rows: 1
 
-    +---------------------------------+-------------------+-----------+---------------------+
-    | Method                          | Implementation    | Error     | Best for            |
-    +=================================+===================+===========+=====================+
-    | Linear                          | :c:func:`linear_\ | O(h²)     | Speed-critical code |
-    |                                 | interp_create`    |           | or small tables     |
-    +---------------------------------+-------------------+-----------+---------------------+
-    | Cubic (PCHIP)                   | :c:func:`cubic_\  | O(h⁴)     | Smooth curves or    |
-    |                                 | interp_create`    |           | when kinks matter   |
-    +---------------------------------+-------------------+-----------+---------------------+
-    | Log-linear                      | :c:func:`loglinear| Constant | Form factors across  |
-    |                                 | _interp_create`   | relative | wide ranges (SAX     |
-    |                                 |                   |           | S/SANS)             |
-    +---------------------------------+-------------------+-----------+---------------------+
+   * - Method
+     - Implementation
+     - Error
+     - Best for
+   * - Linear
+     - :c:func:`linear_interp_create`
+     - O(h²)
+     - Speed-critical code or small tables
+   * - Cubic (PCHIP)
+     - :c:func:`cubic_interp_create`
+     - O(h⁴)
+     - Smooth curves or when kinks matter
+   * - Log-linear
+     - :c:func:`loglinear_interp_create`
+     - Constant relative
+     - Form factors across wide ranges (SAX/SANS)
 
 **Linear** is simple and fast. The interpolated values are guaranteed to stay
 within the bracket of the tabulated endpoints, and monotonicity is preserved:
