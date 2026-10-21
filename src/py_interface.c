@@ -105,12 +105,18 @@ typedef struct {
 static int resolve_form_factor(PyObject *f_obj, PyObject *params_obj, resolved_ff *out) {
     *out = (resolved_ff){0};
 
+    // ---------------------------
+    // Convert params → C array
+    // ---------------------------
     Py_ssize_t n_params;
     out->f_params = python_sequence_to_c_array(params_obj, &n_params);
     if (!out->f_params) {
         return -1;
     }
 
+    // ---------------------------
+    // Form factor dispatch
+    // ---------------------------
     if (PyCallable_Check(f_obj)) {
         out->py_ctx = malloc(sizeof(py_f_ctx));
         if (!out->py_ctx) {
@@ -250,12 +256,18 @@ static PyObject *py_hankel_transform(PyObject *self, PyObject *args) {
     resolved_ff ff = {0};
     PyObject *out_list = NULL;
 
+    // ---------------------------
+    // Convert x → C array
+    // ---------------------------
     Py_ssize_t len_x;
     x = python_sequence_to_c_array(x_obj, &len_x);
     if (!x) {
         goto cleanup;
     }
 
+    // ---------------------------
+    // strategy_params struct
+    // ---------------------------
     if (!PyDict_Check(strategy_param_obj)) {
         PyErr_SetString(PyExc_TypeError, "strategy_params must be dict");
         goto cleanup;
@@ -274,12 +286,18 @@ static PyObject *py_hankel_transform(PyObject *self, PyObject *args) {
         goto cleanup;
     }
 
+    // ---------------------------
+    // Output allocation
+    // ---------------------------
     output = malloc(len_x * sizeof(double));
     if (!output) {
         PyErr_SetString(PyExc_MemoryError, "alloc output failed");
         goto cleanup;
     }
 
+    // ---------------------------
+    // Resolve form factor
+    // ---------------------------
     if (resolve_form_factor(f_obj, params_obj, &ff) < 0) {
         goto cleanup;
     }
