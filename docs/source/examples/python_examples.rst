@@ -85,3 +85,26 @@ Here is the content of the example:
 .. literalinclude:: ../../../examples/python/example_usage_tabulated_ff.py
    :language: python
    :lines: 1-1000
+
+
+.. _python-examples-G0:
+
+Example with G(0)
+-----------------
+
+The following example computes G(0), the Hankel transform evaluated at r = 0,
+using a built-in form factor.
+
+Assuming you have LibHankel installed, you should be able to run this example with:
+
+.. code-block:: bash
+
+   cd libhankel
+   python examples/python/example_usage_G0.py
+
+
+Here is the content of the example:
+
+.. literalinclude:: ../../../examples/python/example_usage_G0.py
+   :language: python
+   :lines: 1-1000

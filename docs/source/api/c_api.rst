@@ -25,6 +25,14 @@ Hankel transform function
 .. doxygenfunction:: hankel_transform
 
 
+.. _hankel_G0_c_api:
+
+G(0) function
+---------------------------
+
+.. doxygenfunction:: hankel_G0
+
+
 .. _form_factors_c_api:
 
 For form factors

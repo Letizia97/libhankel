@@ -430,6 +430,12 @@ static char hankel_t_doc[] =
     ":type strategy_params:  dict[str, float | int]\n"
     ":returns:               The hankel transform.\n"
     ":rtype:                 numpy.ndarray of float64\n"
+    "\n"
+    ".. note::\n"
+    "\n"
+    "   To evaluate the transform at r = 0, use :func:`hankel_G0` instead.\n"
+    "   Passing x = 0 to this function is not supported and will return an error.\n"
+    "\n"
     "Please refer to :ref:`python-examples` for examples on how to use this "
     "function with callable, built-in, or tabulated form factors."
     "\n";

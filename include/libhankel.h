@@ -75,6 +75,9 @@ typedef double (*form_factor_f)(double x, void *ctx);
          the three authors are independent designs, and accuracy is not
  *       monotonic in the tap count.
  *
+ * @note To evaluate the transform at r = 0, use @ref hankel_G0 instead.
+ *       Passing x = 0 to this function is not supported and will return an error.
+ *
  * @param nu               order of bessel function - must be 0 or 1
  * @param f                pointer to function to transform (see @ref form_factor_f).
  * @param x                pointer to array of x at which to compute the transform
