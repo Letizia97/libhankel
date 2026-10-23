@@ -8,6 +8,7 @@ include_dirs = [
     ".",
     "src/utils",
     "external_libs/utils",
+    "external_libs/fft_log" 
 ]
 
 # Boost.Math is used header-only. Its headers are on the compiler's default
@@ -30,10 +31,12 @@ module = Extension(
         "src/hankel_DHT.c",
         "src/hankel_G0.c",
         "src/hankel_QWE.c",
+        "src/hankel_fftlog.cpp",
         "external_libs/DE-quadrature/intde.c",
         "external_libs/qwe_Chave/qwe_Chave.c",
         "external_libs/qwe_Key/qwe_Key.c",
         "external_libs/utils/tanhsinh.c",
+        "external_libs/fft_log/fft_log.cpp",
         "src/utils/sasfit_integrate.c",
         "src/utils/sf_functions.c",
         "src/utils/validate_x.c",
