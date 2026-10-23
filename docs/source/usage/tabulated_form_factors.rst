@@ -1,20 +1,59 @@
 .. _tabulated-form-factors:
 
-Tabulated form factors (for C users)
-======================================
+Tabulated form factors
+======================
 
 When the form factor is a set of discrete points rather than a formula — measured
-data, or the output of another simulation — :c:func:`tabulated_ff_create` wraps it
-into a callable that ``hankel_transform`` can use. You supply two things: the table
-itself, and a rule for the high-:math:`q` tail beyond the last tabulated point.
-The function returns a handle you pass as ``f_ctx``; see
-:ref:`tabulated_ff <tabulated_ff_c_api>` for the API and
-:ref:`c-examples-tabulated-f` for a complete worked example.
+data, or the output of another simulation — LibHankel can interpolate the table
+and use it directly in ``hankel_transform``. Both the Python and C APIs support
+this; they share the same underlying concepts but differ in how the table is
+passed.
 
-Using the tabulated form factor involves two decisions: which **interpolation
-method** to use within the table, and which **tail rule** to apply outside it.
-Interpolation is straightforward; the tail requires more care, and the rest of
-this page is largely about that.
+Using a tabulated form factor involves two decisions: which **interpolation
+method** to use within the table, and which **tail rule** to apply beyond the
+last tabulated point. Interpolation is straightforward; the tail requires more
+care, and the rest of this page is largely about that.
+
+
+Python
+------
+
+Pass a dict as the ``form_factor`` argument to ``hankel_transform``. The dict
+must contain the following keys:
+
+- ``q``: array of q values (must be strictly increasing and positive)
+- ``f``: array of form factor values at each q
+- ``interp_type``: one of ``'linear'``, ``'cubic'``, or ``'loglinear'``
+- ``tail``: one of ``'power_law'`` or ``'zero'``
+- ``exponent`` (optional): the power-law exponent for the tail; omit to fit it automatically from the last few points of the table
+
+.. code-block:: python
+
+    result = libhankel.hankel_transform(
+        nu,
+        {
+            "q": q_data,
+            "f": f_data,
+            "interp_type": "loglinear",
+            "tail": "power_law",
+            "exponent": 4.0,   # Porod: omit to auto-fit
+        },
+        x_arr,
+        [],   # no form factor parameters needed
+        "QWE_Chave",
+        {"n_eval": 250, "eps_rel": 1e-9},
+    )
+
+See :ref:`python-examples-tabulated-ff` for a complete worked example.
+
+
+C
+-
+
+Call :c:func:`tabulated_ff_create` to build a handle from the table, then pass
+the handle as ``f_ctx`` to ``hankel_transform``. See
+:ref:`tabulated_ff <tabulated_ff_c_api>` for the full API and
+:ref:`c-examples-tabulated-f` for a complete worked example.
 
 
 Choosing an interpolation method
