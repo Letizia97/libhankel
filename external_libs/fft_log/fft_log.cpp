@@ -10,6 +10,7 @@
 
 #include <cmath>
 #include <cstdio>
+#include "compat.h"
 #include <cstring>
 #include <algorithm>
 #include <complex>
