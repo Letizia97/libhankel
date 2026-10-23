@@ -2,10 +2,10 @@ name: CI (Meson C Library)
 
 on:
   push:
-    branches: 
+    branches:
       - main
   pull_request:
-    branches: 
+    branches:
       - main
 
 jobs:
@@ -42,8 +42,7 @@ jobs:
         with:
           python-version: '3.11'
 
-      # Only the header-only Boost.Math special functions are used, so the
-      # headers alone are enough on both platforms.
+      # ---- Linux -------------------------------------------------------
       - name: Install dependencies (Linux)
         if: runner.os == 'Linux'
         run: |
@@ -52,39 +51,67 @@ jobs:
             ninja-build \
             libboost-dev
 
+      # ---- macOS -------------------------------------------------------
+      # Cache the Homebrew download directory so bottles are not re-fetched
+      # on every run; brew install still runs (to wire up symlinks etc.) but
+      # completes instantly when all bottles are already cached.
+      - name: Cache Homebrew downloads (macOS)
+        if: runner.os == 'macOS'
+        uses: actions/cache@v4
+        with:
+          path: ~/Library/Caches/Homebrew
+          key: brew-${{ runner.os }}-boost-ninja-${{ hashFiles('.github/workflows/meson.yml') }}
+          restore-keys: brew-${{ runner.os }}-boost-ninja-
+
       - name: Install dependencies (macOS)
         if: runner.os == 'macOS'
         run: |
           brew install ninja boost
 
+      # ---- Windows -----------------------------------------------------
+      # Cache the vcpkg binary archive directory so boost-math is not
+      # recompiled from source on every run.
+      - name: Cache vcpkg binary cache (Windows)
+        if: runner.os == 'Windows'
+        uses: actions/cache@v4
+        with:
+          path: C:\Users\runneradmin\AppData\Local\vcpkg\archives
+          key: vcpkg-${{ runner.os }}-boost-math-${{ hashFiles('.github/workflows/meson.yml') }}
+          restore-keys: vcpkg-${{ runner.os }}-boost-math-
+
       - name: Install dependencies (Windows)
         if: runner.os == 'Windows'
         run: vcpkg install boost-math:x64-windows
 
+      # ---- Build tools -------------------------------------------------
       - name: Install build tools
         run: |
           python -m pip install --upgrade pip
           python -m pip install meson pytest
 
-      # --------------------------
-      # Configure, build, test
-      # --------------------------
-      # -Dtests=true is required: the option defaults to false, so without it
-      # meson.build never descends into tests/ and the "meson test" step below
-      # passes without running anything.
+      # ---- Configure, build, test (C library via Meson) ----------------
       - name: Configure (meson setup)
         run: meson setup "$BUILD_DIR" --backend ninja -Dtests=true
 
       - name: Build (meson compile)
         run: meson compile -C "$BUILD_DIR"
 
-      - name: Install libhankel
-        run: |
-          python -m pip install -e .
+      # ---- Python extension --------------------------------------------
+      # Cache the setuptools build directory so the extension is not
+      # recompiled when only unrelated files change.
+      - name: Cache Python extension build artifacts
+        uses: actions/cache@v4
+        with:
+          path: build/
+          key: pip-build-${{ runner.os }}-py3.11-${{ hashFiles('setup.py', 'src/**', 'include/**', 'external_libs/**') }}
+          restore-keys: pip-build-${{ runner.os }}-py3.11-
+
+      - name: Install libhankel (Python extension)
+        run: python -m pip install -e .
 
       - name: Run pytest
-        run: |
-          pytest -v
+        run: pytest -v
 
+      # ---- C test suite ------------------------------------------------
       - name: Test (meson test)
         run: meson test -C "$BUILD_DIR" --print-errorlogs
