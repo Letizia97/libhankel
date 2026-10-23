@@ -40,6 +40,6 @@ Here is an explanation of each parameter:
    :members:
 
 
-Please note, for the digital-filter strategies (any name starting with **DHT_**) feel free to supply an
-empty struct in C (or an empty dict in Python) for ``strategy_params`` . Any field within it will be
-ignored in these strategies as they do not require such additional parameters.
+Please note, for the digital-filter strategies (any name starting with **DHT_**) and for **FFTLog**,
+feel free to supply an empty struct in C (or an empty dict in Python) for ``strategy_params``.
+Any field within it will be ignored, as these strategies do not require additional parameters.
