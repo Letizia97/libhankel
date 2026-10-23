@@ -68,7 +68,6 @@
 #include <new>
 #include <algorithm>
 #include <cstring>
-#include <gsl/gsl_sf_gamma.h>
 #include "interp_cubic.h"
 #include <fftw3.h>
 #include "sasfit_lru_cache.h"
@@ -77,10 +76,29 @@
 namespace {
 
 void lngamma_complex(double x, double y, double* lnr, double* arg) {
-    gsl_sf_result lnr_r, arg_r;
-    gsl_sf_lngamma_complex_e(x, y, &lnr_r, &arg_r);
-    *lnr = lnr_r.val;
-    *arg = arg_r.val;
+    // Lanczos approximation, g=7, N=9 (Numerical Recipes 3e, Table 6.1).
+    // Accurate to ~15 significant figures for Re(x+iy) >= 0.5, which
+    // holds here: x = (mu+1)/2 is 0.5 (mu=0) or 1.0 (mu=1).
+    static const double p[] = {
+        0.99999999999980993,
+        676.5203681218851,
+       -1259.1392167224028,
+        771.32342877765313,
+       -176.61502916214059,
+        12.507343278686905,
+       -0.13857109526572012,
+        9.9843695780195716e-6,
+        1.5056327351493116e-7
+    };
+    std::complex<double> z(x - 1.0, y);
+    std::complex<double> sum(p[0], 0.0);
+    for (int i = 1; i <= 8; ++i)
+        sum += p[i] / (z + (double)i);
+    std::complex<double> t = z + 7.5;
+    std::complex<double> result = 0.5 * std::log(2.0 * M_PI)
+                                + (z + 0.5) * std::log(t) - t + std::log(sum);
+    *lnr = result.real();
+    *arg = result.imag();
 }
 
 // Low-ringing kr: adjusts the trial value so the phase of the m=n/2
