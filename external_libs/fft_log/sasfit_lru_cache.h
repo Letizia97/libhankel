@@ -1,4 +1,4 @@
-
+/*
  * src/sasfit_common/include/sasfit_lru_cache.h
  *
  * Copyright (c) 2008-2026, Paul Scherrer Institute (PSI)

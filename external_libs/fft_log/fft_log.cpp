@@ -69,7 +69,7 @@
 #include <algorithm>
 #include <cstring>
 #include <gsl/gsl_sf_gamma.h>
-#include <gsl/gsl_spline.h>
+#include "interp_cubic.h"
 #include <fftw3.h>
 #include "sasfit_lru_cache.h"
 #include <cstdio>
@@ -351,8 +351,7 @@ std::vector<double> fftlog_apply_inverse_impl(FFTLogPlanImpl& plan, const std::v
 // "still valid" -- fparams is typically a long-lived struct mutated in
 // place across fit iterations).
 struct FftlogCacheEntry {
-    gsl_spline* spline = nullptr;
-    gsl_interp_accel* acc = nullptr;
+    cubic_interp_t* spline = nullptr;
     std::vector<double> k, val;
     double anchor_lo = 0.0, anchor_hi = 0.0, ratio = 0.0;
 
@@ -363,14 +362,12 @@ struct FftlogCacheEntry {
         if (this != &o) {
             reset();
             spline = o.spline;
-            acc = o.acc;
             k = std::move(o.k);
             val = std::move(o.val);
             anchor_lo = o.anchor_lo;
             anchor_hi = o.anchor_hi;
             ratio = o.ratio;
             o.spline = nullptr;
-            o.acc = nullptr;
         }
         return *this;
     }
@@ -378,8 +375,7 @@ struct FftlogCacheEntry {
     FftlogCacheEntry& operator=(const FftlogCacheEntry&) = delete;
 
     void reset() {
-        if (spline) { gsl_spline_free(spline); spline = nullptr; }
-        if (acc)    { gsl_interp_accel_free(acc); acc = nullptr; }
+        if (spline) { cubic_interp_destroy(spline); spline = nullptr; }
     }
 };
 
@@ -462,13 +458,11 @@ struct sasfit_fftlog_cache_slot {
     std::vector<unsigned char> key;
     unsigned long last_used = 0;
     sasfit_fftlog_plan* plan = nullptr;
-    gsl_spline* spline = nullptr;
-    gsl_interp_accel* accel = nullptr;
+    cubic_interp_t* spline = nullptr;
 };
 
 void sasfit_fftlog_cache_slot_release(sasfit_fftlog_cache_slot& slot) {
-    if (slot.spline) { gsl_spline_free(slot.spline); slot.spline = nullptr; }
-    if (slot.accel)  { gsl_interp_accel_free(slot.accel); slot.accel = nullptr; }
+    if (slot.spline) { cubic_interp_destroy(slot.spline); slot.spline = nullptr; }
     if (slot.plan)   { sasfit_fftlog_free_plan(slot.plan); slot.plan = nullptr; }
     slot.valid = false;
 }
@@ -502,8 +496,7 @@ void sasfit_fftlog_cache_free(sasfit_fftlog_cache* cache) {
 
 int sasfit_fftlog_cache_lookup(sasfit_fftlog_cache* cache, const void* key,
                                 sasfit_fftlog_plan** plan_out,
-                                gsl_spline** spline_out,
-                                gsl_interp_accel** accel_out) {
+                                cubic_interp_t** spline_out) {
     if (!cache || !key) return 0;
     for (auto& slot : cache->slots) {
         if (slot.valid && slot.key.size() == cache->key_size
@@ -511,7 +504,6 @@ int sasfit_fftlog_cache_lookup(sasfit_fftlog_cache* cache, const void* key,
             slot.last_used = ++cache->clock;
             if (plan_out)   *plan_out = slot.plan;
             if (spline_out) *spline_out = slot.spline;
-            if (accel_out)  *accel_out = slot.accel;
             return 1;
         }
     }
@@ -520,8 +512,7 @@ int sasfit_fftlog_cache_lookup(sasfit_fftlog_cache* cache, const void* key,
 
 void sasfit_fftlog_cache_insert(sasfit_fftlog_cache* cache, const void* key,
                                  sasfit_fftlog_plan* plan,
-                                 gsl_spline* spline,
-                                 gsl_interp_accel* accel) {
+                                 cubic_interp_t* spline) {
     if (!cache || !key) return;
 
     sasfit_fftlog_cache_slot* target = NULL;
@@ -541,7 +532,6 @@ void sasfit_fftlog_cache_insert(sasfit_fftlog_cache* cache, const void* key,
                         static_cast<const unsigned char*>(key) + cache->key_size);
     target->plan = plan;
     target->spline = spline;
-    target->accel = accel;
     target->last_used = ++cache->clock;
     target->valid = true;
 }
@@ -708,9 +698,7 @@ extern "C" double sasfit_fftlog(double nu, double (*f)(double, void *), double x
                 logv[j] = std::log(std::fabs(Ik) + 1e-300);
             }
 
-            new_entry.acc = gsl_interp_accel_alloc();
-            new_entry.spline = gsl_spline_alloc(gsl_interp_cspline, n);
-            gsl_spline_init(new_entry.spline, logk.data(), logv.data(), n);
+            new_entry.spline = cubic_interp_create(logk.data(), logv.data(), n);
 
             new_entry.anchor_lo = 0.5 * peak_r;
             new_entry.anchor_hi = peak_r;
@@ -724,7 +712,7 @@ extern "C" double sasfit_fftlog(double nu, double (*f)(double, void *), double x
         if (x < entry->k.front() || x > entry->k.back()) {
             return 0.0;
         }
-        const double logv = gsl_spline_eval(entry->spline, std::log(x), entry->acc);
+        const double logv = cubic_interp_eval(entry->spline, std::log(x));
         // Sign is tracked separately from the log-log spline magnitude
         // (needed for oscillatory transforms, e.g. a sphere's or
         // cylinder's form factor, which cross zero) via a binary search
