@@ -24,6 +24,7 @@ endif
 # Windows, so required: false avoids a build failure on those platforms.
 m_dep = cc.find_library('m', required: false)
 
+
 # ---- Main C library ----
 sources = files(
   'hankel_DHT.c',
@@ -44,7 +45,9 @@ sources = files(
   'utils/interp_cubic.cpp',
   'utils/interp_linear.c',
   'utils/interp_loglinear.c',
-  'utils/tabulated_ff.c'
+  'utils/tabulated_ff.c',
+  'hankel_fftlog.cpp',
+  '../external_libs/fft_log/fft_log.cpp'
 )
 
 libhankel = shared_library(

@@ -173,6 +173,13 @@ int hankel_transform(int nu, form_factor_f f, double *x, size_t len_x, void *f_c
             }
         }
 
+    } else if (strcmp(strategy_name, "FFTLog") == 0) {
+
+        status = hankel_transform_fftlog(nu, f, x, len_x, f_ctx, output);
+        if (status != 0) {
+            return status;
+        }
+
     } else {
         fprintf(stderr, "Invalid strategy name '%s', must be one of : %s.\n", strategy_name,
                 LIBHANKEL_ALL_STRATEGIES);

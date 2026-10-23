@@ -278,7 +278,7 @@ def test_hankel_transform_raises_correct_error_when_invalid_strategy_name(
         "Error: invalid strategy name, must be one of : 'DHT_Guptasarma', "
         "'DHT_Guptasarma_Fast', 'DHT_Key_51', 'DHT_Key_101', 'DHT_Key_201', "
         "'DHT_Anderson_801', 'Fixed_DE_Ogata', 'Adaptive_DE_Ooura', 'QWE_Chave', "
-        "'QWE_Key'."
+        "'QWE_Key', 'FFTLog'."
     )
 
     with pytest.raises(ValueError, match=re.escape(expected_error)):

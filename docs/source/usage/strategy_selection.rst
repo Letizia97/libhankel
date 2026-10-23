@@ -50,6 +50,9 @@ The column named *Index* refers to the numbering used in SASfit, for cross-refer
     | QWE_Chave            | QWE with Shanks transformation        | adaptive | up to          | 13                   |
     |                      |                                       |          | ``n_eval``     |                      |
     +----------------------+---------------------------------------+----------+----------------+----------------------+
+    | FFTLog               | FFTLog (Hamilton 2000)                | batch    | O(N log N)     | N/A                  |
+    |                      |                                       |          | total          |                      |
+    +----------------------+---------------------------------------+----------+----------------+----------------------+
 
 .. note::
 
@@ -101,3 +104,10 @@ once ``nu``, ``n_eval`` and ``f_max`` are known, whereas ``Adaptive_DE_Ooura`` i
 iterative. This is why they carry an explicit ``Fixed_`` / ``Adaptive_`` qualifier while
 the ``DHT_*`` (always fixed) and ``QWE_*`` (always adaptive) families do not.
 
+**Batch (FFT-based)** strategies (``FFTLog``) are neither fixed-node nor adaptive in the
+sense above. ``FFTLog`` processes the entire output array at once using a fast Fourier
+transform on a log-spaced grid (Hamilton 2000, MNRAS 312, 257). Its cost is O(N log N)
+across all N requested output points, rather than a per-point cost multiplied by N. It
+requires no ``strategy_params``. It is best suited to smooth, slowly-varying form factors
+on a wide dynamic range, and less accurate at the extremes of the x-range where the
+log-spaced grid is sparse.

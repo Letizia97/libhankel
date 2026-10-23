@@ -61,7 +61,7 @@ typedef double (*form_factor_f)(double x, void *ctx);
 #define LIBHANKEL_ALL_STRATEGIES                                                                   \
     "'DHT_Guptasarma', 'DHT_Guptasarma_Fast', 'DHT_Key_51', 'DHT_Key_101', "                       \
     "'DHT_Key_201', 'DHT_Anderson_801', 'Fixed_DE_Ogata', 'Adaptive_DE_Ooura', "                   \
-    "'QWE_Chave', 'QWE_Key'"
+    "'QWE_Chave', 'QWE_Key', 'FFTLog'"
 
 /**
  * @brief Computes Hankel transform using the method specified by the user.
@@ -221,5 +221,27 @@ LIBHANKEL_API int hankel_transform_QWE_Chave(int nu, form_factor_f f, double x, 
  * @return The value of G(0).
  */
 LIBHANKEL_API double hankel_G0(form_factor_f f, void *f_ctx, double epsrel);
+
+/**
+ * @brief Computes the Hankel transform using the FFTLog algorithm.
+ *
+ * Computes the whole transformed curve in one O(N log N) pass and returns
+ * values at individual x points via a cached spline.  Efficient when the
+ * same form factor is evaluated at many x values in sequence.
+ *
+ * @param nu     order of Bessel function — must be 0 or 1
+ * @param f      form factor callback
+ * @param x      array of x values at which to evaluate the transform
+ * @param len_x  number of entries in @p x and @p output
+ * @param f_ctx  context pointer passed through to @p f
+ * @param output result array
+ *
+ * @return 0 on success, or a negative status code.
+ */
+#ifdef __cplusplus
+extern "C"
+#endif
+LIBHANKEL_API int hankel_transform_fftlog(int nu, form_factor_f f, const double *x, size_t len_x,
+                                          void *f_ctx, double *output);
 
 #endif // LIBHANKEL_H
