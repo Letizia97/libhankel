@@ -75,6 +75,9 @@ typedef double (*form_factor_f)(double x, void *ctx);
          the three authors are independent designs, and accuracy is not
  *       monotonic in the tap count.
  *
+ * @note To evaluate the transform at r = 0, use @ref hankel_G0 instead.
+ *       Passing x = 0 to this function is not supported and will return an error.
+ *
  * @param nu               order of bessel function - must be 0 or 1
  * @param f                pointer to function to transform (see @ref form_factor_f).
  * @param x                pointer to array of x at which to compute the transform
@@ -205,5 +208,18 @@ LIBHANKEL_API int hankel_transform_QWE_Key(int nu, form_factor_f f, double x, vo
  */
 LIBHANKEL_API int hankel_transform_QWE_Chave(int nu, form_factor_f f, double x, void *f_ctx,
                                              double *output, int n_eval, double eps_rel);
+
+/**
+ * @brief Computes G(0), the Hankel transform evaluated at r = 0.
+ *
+ * Computes \f$ G(0) = \int_0^\infty q \, f(q) \, dq \f$ using tanh-sinh quadrature.
+ *
+ * @param f       Form factor function to integrate.
+ * @param f_ctx   Context pointer passed to @p f on every evaluation.
+ * @param epsrel  Relative error tolerance (e.g. 1e-6).
+ *
+ * @return The value of G(0).
+ */
+LIBHANKEL_API double hankel_G0(form_factor_f f, void *f_ctx, double epsrel);
 
 #endif // LIBHANKEL_H

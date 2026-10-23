@@ -26,10 +26,11 @@ m_dep = cc.find_library('m', required: false)
 
 # ---- Main C library ----
 sources = files(
-  'hankel_DHT.c', 
-  'form_factors.c', 
-  'hankel_DE_quadrature.c', 
-  'hankel_QWE.c', 
+  'hankel_DHT.c',
+  'form_factors.c',
+  'hankel_DE_quadrature.c',
+  'hankel_G0.c',
+  'hankel_QWE.c',
   'hankel_transform.c',
   '../external_libs/DE-quadrature/intde.c', 
   '../external_libs/qwe_Chave/qwe_Chave.c', 
