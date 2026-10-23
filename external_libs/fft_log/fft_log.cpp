@@ -1,732 +1,323 @@
-/*
- * src/sasfit_common/sasfit_fftlog.cpp
- *
- * Copyright (c) 2008-2026, Paul Scherrer Institute (PSI)
- *
- * This file is part of SASfit.
- *
- * SASfit is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * SASfit is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with SASfit.  If not, see <http://www.gnu.org/licenses/>.
- */
-
-// sasfit_fftlog(): a FFTLog-based Hankel transform strategy for
-// sasfit_hankel(). Implements the Hamilton (2000), MNRAS 312, 257
-// algorithm from scratch, using GSL (already linked via sasfit_bestlime)
-// for the complex log-Gamma function the kernel needs, and FFTW3
-// (already linked via sasfit_oz's FFTW_RODFT00-based solver) for the
-// actual FFT step.
+// FFTLog-based Hankel transform.
+// Public entry point: sasfit_fftlog(), declared in fft_log.h.
 //
-// Unlike sasfit_bestlime (and the other existing Hankel strategies),
-// which are efficient for "one q, many models", FFTLog is efficient for
-// the OPPOSITE access pattern: it computes the WHOLE transformed curve
-// across a log-spaced grid in one O(N log N) pass, then any individual
-// q is a cheap spline lookup. This matches SASfit's actual fitting
-// workload well: sasfit_hankel() is called once per q-point in a loop
-// over a whole measured q-array for one fixed parameter set, so caching
-// the whole computed curve (not just a grid-scale hint, as
-// sasfit_bestlime does) avoids almost all repeated work within a
-// q-sweep.
-//
-// IMPLEMENTATION NOTE ON VALIDATION: an existing third-party C/C++ port
-// of FFTLog (slosar/FFTLog, derived from J. Carlson's "Copter") was
-// evaluated and found to converge only as O(1/N) against known closed-
-// form references, far short of FFTLog's expected near-spectral
-// convergence for smooth functions -- and an independent from-scratch
-// reimplementation of the same textbook kernel formula reproduced that
-// same slow convergence exactly, ruling out a coding-level bug in
-// either. The actual root cause, found by comparing directly against
-// scipy.fft.fht (which converges correctly), was an off-by-one in the
-// circular-array index mapping between the FFT output and the physical
-// k-grid -- not a limitation of the FFTLog method itself. The
-// implementation below has been validated post-fix to match scipy's
-// accuracy (near machine precision for a smooth Gaussian even at
-// n=128) and has been checked against six diverse test cases: a smooth
-// Gaussian, a sphere's real-space correlation function (compact
-// support, mild edge singularity), a cylinder cross-section's
-// correlation function (compact support, sharper branch-point edge),
-// a DAB-type exponential correlation function (genuine infinite tail),
-// and both a sharp and a size-polydisperse spherical form factor
-// transformed in the q->r direction (oscillatory input, diffraction
-// minima). All six validate to well under 1% against independent
-// high-precision references; most to 1e-4 or better.
+// Algorithm: Hamilton (2000), MNRAS 312, 257.  Samples f on a log-spaced
+// grid, convolves with the Hankel kernel in DFT space, then returns
+// individual query values via a log-log PCHIP spline.  The whole computed
+// curve is cached across repeated calls with the same (f, fparams, nu)
+// so a q-sweep over many points costs one O(N log N) FFT pass plus cheap
+// spline lookups.
 
-#include <math.h>
-#include <stdexcept>
-#include <vector>
+#include <cmath>
+#include <cstdio>
+#include <cstring>
+#include <algorithm>
 #include <complex>
 #include <limits>
-#include <new>
-#include <algorithm>
-#include <cstring>
+#include <vector>
+
 #include "interp_cubic.h"
 #include "pocketfft_hdronly.h"
 #include "sasfit_lru_cache.h"
-#include <cstdio>
+
+// ---------------------------------------------------------------------------
+// Complex log-Gamma via the Lanczos approximation (g=7, N=9).
+// Coefficients from Numerical Recipes 3e, Table 6.1.
+// Accurate to ~15 significant figures for Re(z) >= 0.5, which holds for
+// the arguments used in the FFTLog kernel: x = (nu+1)/2 is 0.5 or 1.0.
+// ---------------------------------------------------------------------------
 
 namespace {
 
-void lngamma_complex(double x, double y, double* lnr, double* arg) {
-    // Lanczos approximation, g=7, N=9 (Numerical Recipes 3e, Table 6.1).
-    // Accurate to ~15 significant figures for Re(x+iy) >= 0.5, which
-    // holds here: x = (mu+1)/2 is 0.5 (mu=0) or 1.0 (mu=1).
-    static const double p[] = {
-        0.99999999999980993,
-        676.5203681218851,
-       -1259.1392167224028,
-        771.32342877765313,
-       -176.61502916214059,
-        12.507343278686905,
-       -0.13857109526572012,
-        9.9843695780195716e-6,
-        1.5056327351493116e-7
+void clngamma(double re, double im, double *out_re, double *out_im) {
+    static const double g[] = {
+        0.99999999999980993,  676.5203681218851,  -1259.1392167224028,
+        771.32342877765313,  -176.61502916214059,    12.507343278686905,
+        -0.13857109526572012,   9.9843695780195716e-6, 1.5056327351493116e-7
     };
-    std::complex<double> z(x - 1.0, y);
-    std::complex<double> sum(p[0], 0.0);
+    std::complex<double> z(re - 1.0, im);
+    std::complex<double> s(g[0], 0.0);
     for (int i = 1; i <= 8; ++i)
-        sum += p[i] / (z + (double)i);
+        s += g[i] / (z + double(i));
     std::complex<double> t = z + 7.5;
-    std::complex<double> result = 0.5 * std::log(2.0 * M_PI)
-                                + (z + 0.5) * std::log(t) - t + std::log(sum);
-    *lnr = result.real();
-    *arg = result.imag();
+    std::complex<double> r = 0.5 * std::log(2.0 * M_PI)
+                           + (z + 0.5) * std::log(t) - t + std::log(s);
+    *out_re = r.real();
+    *out_im = r.imag();
 }
 
-// Low-ringing kr: adjusts the trial value so the phase of the m=n/2
-// kernel coefficient lands on a multiple of pi/N (Hamilton 2000, sec 4).
-// This is what keeps the transform's implicit periodicity from causing
-// severe ringing artifacts for an otherwise-arbitrary domain choice.
-double good_kr(int n, double mu, double L, double kr) {
-    const double x = (mu + 1.0) / 2.0;
-    const double y = M_PI * n / (2.0 * L);
-    double lnr, arg;
-    lngamma_complex(x, y, &lnr, &arg);
-    const double a = std::log(2.0 / kr) * n / L + 2.0 * arg / M_PI;
+// ---------------------------------------------------------------------------
+// Low-ringing kr adjustment (Hamilton 2000, §4).
+// Shifts the central k·r product so the m=N/2 kernel coefficient's phase
+// lands on a multiple of π/N, suppressing ringing from the DFT's implicit
+// circular periodicity.
+// ---------------------------------------------------------------------------
+
+double adjusted_kr(int n, double nu, double log_span, double kr0) {
+    const double xg = (nu + 1.0) * 0.5;
+    const double yg = M_PI * n / (2.0 * log_span);
+    double ln_r, phi;
+    clngamma(xg, yg, &ln_r, &phi);
+    const double a  = std::log(2.0 / kr0) * n / log_span + 2.0 * phi / M_PI;
     const double ia = std::round(a);
-    if (a != ia) {
-        kr *= std::exp((a - ia) * L / n);
-    }
-    return kr;
+    if (a != ia)
+        return kr0 * std::exp((a - ia) * log_span / n);
+    return kr0;
 }
 
-struct FFTLogResult {
+// ---------------------------------------------------------------------------
+// Core FFTLog step.
+//
+// Input:  r_grid (n log-spaced abscissae), a_vals = r * f(r) at those points.
+// Output: k_grid (n log-spaced output abscissae), Ak_vals = ∫ a(r) J_nu(k r) k dr.
+//
+// To recover the standard Hankel transform I(k) = ∫ f(r) J_nu(kr) r dr,
+// the caller divides Ak by k.
+//
+// The output index mapping  out[(n-j) % n]  is required for correct phase
+// alignment between the DFT output array and the physical k-grid; using
+// the naive out[j] produces an apparent O(1/N) convergence instead of the
+// near-spectral convergence FFTLog achieves for smooth inputs.
+// ---------------------------------------------------------------------------
+
+struct HankelGrid {
     std::vector<double> k;
-    std::vector<double> Ak; // FFTLog's native convention: Ak = k * (standard Hankel transform)
+    std::vector<double> Ak;
 };
 
-// Computes the discrete Hankel transform of order mu via FFTLog.
-// Convention (matches GSL/scipy's documented FFTLog convention, NOT the
-// standard "r dr" Hankel transform): Ak(k) = int a(r) J_mu(kr) k dr.
-// To get the standard transform I(k) = int f(r) J_mu(kr) r dr, the
-// caller must feed a(r) = r*f(r) and divide the result by k.
-FFTLogResult fftlog_transform(const std::vector<double>& r, const std::vector<double>& a_of_r, double mu) {
-    const int n = static_cast<int>(r.size());
-    const double L = std::log(r[n - 1] / r[0]) * n / (n - 1.0);
-    const double kr = good_kr(n, mu, L, 1.0);
+HankelGrid fftlog_step(const std::vector<double>& r_grid,
+                        const std::vector<double>& a_vals,
+                        double nu) {
+    const int    n        = static_cast<int>(r_grid.size());
+    const int    nc       = n / 2 + 1;
+    const double log_span = std::log(r_grid[n-1] / r_grid[0]) * n / (n - 1.0);
+    const double kr       = adjusted_kr(n, nu, log_span, 1.0);
+    const double k0r0     = kr * std::exp(-log_span);
+    const double dfreq    = M_PI / log_span;
+    const double phase0   = -2.0 * dfreq * std::log(k0r0 / 2.0);
 
-    const double y = M_PI / L;
-    const double k0r0 = kr * std::exp(-L);
-    const double t = -2.0 * y * std::log(k0r0 / 2.0);
-
-    const int nc = n / 2 + 1;
+    // Kernel coefficients u_m (Hamilton 2000, eq. A6)
+    const double xg = (nu + 1.0) * 0.5;
     std::vector<std::complex<double>> u(nc);
-    const double x = (mu + 1.0) / 2.0;
     for (int m = 0; m < nc; ++m) {
-        double lnr_, phi;
-        lngamma_complex(x, m * y, &lnr_, &phi);
-        u[m] = std::polar(1.0, m * t + 2.0 * phi);
+        double ln_r, phi;
+        clngamma(xg, m * dfreq, &ln_r, &phi);
+        u[m] = std::polar(1.0, m * phase0 + 2.0 * phi);
     }
 
-    std::vector<double> in(a_of_r);
+    // Forward DFT of a(r)
+    std::vector<double> buf(a_vals);
     std::vector<std::complex<double>> c(nc);
     pocketfft::r2c({size_t(n)}, {ptrdiff_t(sizeof(double))},
                    {ptrdiff_t(sizeof(std::complex<double>))},
-                   0, true, in.data(), c.data(), 1.0, 1);
+                   0, true, buf.data(), c.data(), 1.0, 1);
 
+    // Multiply by kernel (1/n normalisation absorbed here)
     std::vector<std::complex<double>> cu(nc);
-    for (int m = 0; m < nc; ++m) {
-        cu[m] = c[m] * u[m] / static_cast<double>(n);
-    }
+    for (int m = 0; m < nc; ++m)
+        cu[m] = c[m] * u[m] / double(n);
 
+    // Inverse DFT
     std::vector<double> out(n);
     pocketfft::c2r({size_t(n)}, {ptrdiff_t(sizeof(std::complex<double>))},
                    {ptrdiff_t(sizeof(double))},
                    0, false, cu.data(), out.data(), 1.0, 1);
 
-    FFTLogResult res;
-    res.k.resize(n);
-    res.Ak.resize(n);
-    const double k0 = k0r0 / r[0];
+    const double k0 = k0r0 / r_grid[0];
+    HankelGrid hg;
+    hg.k.resize(n);
+    hg.Ak.resize(n);
     for (int j = 0; j < n; ++j) {
-        res.k[j] = k0 * std::exp(j * L / n);
-        // Circular-wraparound index mapping from the FFT output array
-        // back to the physical k-grid. Validated by direct comparison
-        // against scipy.fft.fht on a known closed form (Gaussian): this
-        // exact form (not the more "obvious" out[n-1-j]) is required to
-        // reach scipy's near-machine-precision accuracy; the naive form
-        // is off by one step and produces an apparent, but spurious,
-        // O(1/N) convergence instead.
-        res.Ak[j] = out[((n - j) % n + n) % n];
+        hg.k[j]  = k0 * std::exp(j * log_span / n);
+        hg.Ak[j] = out[((n - j) % n + n) % n];
     }
-    return res;
+    return hg;
 }
 
-// ============================================================
-// Self-reciprocal FFTLog grid: forward -> correct -> backward
-// ============================================================
-//
-// fftlog_transform() above recomputes its whole setup (kr, the u[]
-// kernel factors, the FFTW plans) from scratch on every call, which is
-// exactly right for sasfit_fftlog()'s own access pattern (one build,
-// many spline lookups) but wasteful for a round trip that needs the
-// SAME setup applied twice in a row (once Q->r, once r->Q, as
-// Gztransform()/integral_IQ_incl_Gztransform() already do via two
-// independent sasfit_hankel() calls today). FFTLogPlanImpl factors the
-// setup out so it is built once and the FFT itself -- the only part
-// that actually differs between the two calls -- is repeated cheaply.
-//
-// IMPORTANT, corrected from an earlier version of this file: forward
-// and inverse are NOT the same operation called twice, despite
-// FFTLog's reciprocal-grid construction giving the two grids the same
-// total log-span. See fftlog_apply_inverse_impl's comment below for
-// why, and for the confirmed numerical consequence of getting this
-// wrong.
-//
-// The FFTW plans are tied to this struct's OWN fixed scratch buffers
-// (in_buf/out_buf/c_buf/cu_buf), not to the caller's arrays -- this is
-// what makes the plans safely reusable across calls: FFTW's contract
-// guarantees fftw_execute() re-reads/re-writes whatever is currently
-// in the SAME buffers given at plan-creation time, so
-// fftlog_apply_forward_impl()/fftlog_apply_inverse_impl() just copy
-// the caller's data in beforehand and copy the result out afterward,
-// rather than re-planning every call.
+// ---------------------------------------------------------------------------
+// LRU cache of computed curves.
+// Each entry stores the full signed Hankel transform values and a log-log
+// PCHIP spline of their magnitude, so individual query points are cheap
+// spline lookups.  Cache validity is verified via an anchor-ratio check:
+// two fixed r-values are re-evaluated on every cache hit and their ratio
+// compared against what was recorded at build time.  Using a ratio (not a
+// raw value) makes the check invariant to pure scale changes in f, which
+// dominate finite-difference gradient evaluations and would otherwise
+// cause unnecessary cache misses.
+// ---------------------------------------------------------------------------
 
-struct FFTLogPlanImpl {
-    int n = 0;
-    double mu = 0.0;
-    double x_min = 0.0, x_max = 0.0, L = 0.0;
-    double kr = 0.0, k0r0 = 0.0, y0 = 0.0;
-    std::vector<double> x_nodes, y_nodes;
-    std::vector<std::complex<double>> u;
-    std::vector<double> in_buf, out_buf;
-    std::vector<std::complex<double>> c_buf, cu_buf;
-
-    FFTLogPlanImpl() = default;
-    FFTLogPlanImpl(FFTLogPlanImpl&&) = default;
-    FFTLogPlanImpl& operator=(FFTLogPlanImpl&&) = default;
-    FFTLogPlanImpl(const FFTLogPlanImpl&) = delete;
-    FFTLogPlanImpl& operator=(const FFTLogPlanImpl&) = delete;
+struct CacheKey {
+    double (*func)(double, void*) = nullptr;
+    void*  params                 = nullptr;
+    double order                  = 0.0;
 };
 
-FFTLogPlanImpl fftlog_build_plan_impl(int n, double mu, double x_min, double x_max) {
-    FFTLogPlanImpl plan;
-    plan.n = n;
-    plan.mu = mu;
-    plan.x_min = x_min;
-    plan.x_max = x_max;
-    plan.L = std::log(x_max / x_min) * n / (n - 1.0);
-    plan.kr = good_kr(n, mu, plan.L, 1.0);
+struct CacheEntry {
+    cubic_interp_t*     spline    = nullptr;
+    std::vector<double> k_pts;
+    std::vector<double> ht_vals;  // signed I(k) = Ak/k
+    double              anchor_lo = 0.0;
+    double              anchor_hi = 0.0;
+    double              ratio     = 0.0;
 
-    const double y = M_PI / plan.L;
-    plan.k0r0 = plan.kr * std::exp(-plan.L);
-    const double t = -2.0 * y * std::log(plan.k0r0 / 2.0);
-    plan.y0 = plan.k0r0 / x_min;
+    CacheEntry() = default;
 
-    const int nc = n / 2 + 1;
-    plan.u.resize(nc);
-    const double xg = (mu + 1.0) / 2.0;
-    for (int m = 0; m < nc; ++m) {
-        double lnr_, phi;
-        lngamma_complex(xg, m * y, &lnr_, &phi);
-        plan.u[m] = std::polar(1.0, m * t + 2.0 * phi);
-    }
+    ~CacheEntry() { drop(); }
 
-    plan.x_nodes.resize(n);
-    plan.y_nodes.resize(n);
-    for (int j = 0; j < n; ++j) {
-        plan.x_nodes[j] = x_min * std::exp(j * plan.L / n);
-        plan.y_nodes[j] = plan.y0 * std::exp(j * plan.L / n);
-    }
-
-    plan.in_buf.assign(n, 0.0);
-    plan.out_buf.assign(n, 0.0);
-    plan.c_buf.assign(nc, std::complex<double>(0.0, 0.0));
-    plan.cu_buf.assign(nc, std::complex<double>(0.0, 0.0));
-
-    return plan;
-}
-
-// Applies FFTLog's forward operation: f_x (values at plan.x_nodes) ->
-// F_y (values at plan.y_nodes). Uses the SAME circular-index mapping
-// validated in fftlog_transform() above.
-std::vector<double> fftlog_apply_forward_impl(FFTLogPlanImpl& plan, const std::vector<double>& f_x) {
-    const int n = plan.n;
-    for (int j = 0; j < n; ++j) {
-        plan.in_buf[j] = plan.x_nodes[j] * f_x[j];
-    }
-    pocketfft::r2c({size_t(n)}, {ptrdiff_t(sizeof(double))},
-                   {ptrdiff_t(sizeof(std::complex<double>))},
-                   0, true, plan.in_buf.data(), plan.c_buf.data(), 1.0, 1);
-    const int nc = n / 2 + 1;
-    for (int m = 0; m < nc; ++m) {
-        plan.cu_buf[m] = plan.c_buf[m] * plan.u[m] / static_cast<double>(n);
-    }
-    pocketfft::c2r({size_t(n)}, {ptrdiff_t(sizeof(std::complex<double>))},
-                   {ptrdiff_t(sizeof(double))},
-                   0, false, plan.cu_buf.data(), plan.out_buf.data(), 1.0, 1);
-    std::vector<double> F_y(n);
-    for (int j = 0; j < n; ++j) {
-        const double Ak = plan.out_buf[((n - j) % n + n) % n];
-        F_y[j] = Ak / plan.y_nodes[j];
-    }
-    return F_y;
-}
-
-// Applies FFTLog's INVERSE operation: F_y (values at plan.y_nodes) ->
-// f_x (values at plan.x_nodes). This is NOT the same as calling
-// fftlog_apply_forward_impl a second time -- it uses the SAME kernel
-// (u[], kr, L: the underlying continuous Hankel-transform kernel is
-// identical for both directions, exactly as for QDHT) but weights its
-// input by y_nodes and divides its output by x_nodes, i.e. the two
-// node arrays' roles are swapped relative to the forward direction.
-//
-// This distinction matters in practice, not just in principle: an
-// earlier version of this file called the forward operation twice for
-// a round trip, on the theory that FFTLog's log-spaced reciprocal grid
-// makes it "self-reciprocal" the way QDHT's orthogonal kernel is. That
-// reasoning was wrong. It happened to look almost right on a
-// symmetric self-transforming test function (a Gaussian, transformed
-// on a domain where x_nodes and y_nodes stay numerically close), which
-// is why the bug wasn't caught by that test -- but for a real Q<->r
-// round trip, where the two domains sit on very different physical
-// scales, calling the forward operation twice weights every sample by
-// the wrong node array and returns a result wrong by many orders of
-// magnitude (confirmed: a Python port of this exact algorithm,
-// checked against an independent reference, reproduced the true
-// function to 4+ significant figures using inverse_grid for the
-// return leg, and was off by ~1e-6x using a second forward_grid call).
-std::vector<double> fftlog_apply_inverse_impl(FFTLogPlanImpl& plan, const std::vector<double>& F_y) {
-    const int n = plan.n;
-    for (int j = 0; j < n; ++j) {
-        plan.in_buf[j] = plan.y_nodes[j] * F_y[j];
-    }
-    pocketfft::r2c({size_t(n)}, {ptrdiff_t(sizeof(double))},
-                   {ptrdiff_t(sizeof(std::complex<double>))},
-                   0, true, plan.in_buf.data(), plan.c_buf.data(), 1.0, 1);
-    const int nc = n / 2 + 1;
-    for (int m = 0; m < nc; ++m) {
-        plan.cu_buf[m] = plan.c_buf[m] * plan.u[m] / static_cast<double>(n);
-    }
-    pocketfft::c2r({size_t(n)}, {ptrdiff_t(sizeof(std::complex<double>))},
-                   {ptrdiff_t(sizeof(double))},
-                   0, false, plan.cu_buf.data(), plan.out_buf.data(), 1.0, 1);
-    std::vector<double> f_x(n);
-    for (int j = 0; j < n; ++j) {
-        const double Ak = plan.out_buf[((n - j) % n + n) % n];
-        f_x[j] = Ak / plan.x_nodes[j];
-    }
-    return f_x;
-}
-
-// Multi-slot LRU cache payload (see sasfit_lru_cache.h): owns the
-// whole computed curve (spline + backing vectors) via RAII, plus the
-// anchor-ratio validation state used to decide whether a cache hit is
-// still trustworthy for the CURRENT parameter values (a Key match only
-// means "this slot was built for the same (f, fparams, nu)", not
-// "still valid" -- fparams is typically a long-lived struct mutated in
-// place across fit iterations).
-struct FftlogCacheEntry {
-    cubic_interp_t* spline = nullptr;
-    std::vector<double> k, val;
-    double anchor_lo = 0.0, anchor_hi = 0.0, ratio = 0.0;
-
-    FftlogCacheEntry() = default;
-    ~FftlogCacheEntry() { reset(); }
-    FftlogCacheEntry(FftlogCacheEntry&& o) noexcept { *this = std::move(o); }
-    FftlogCacheEntry& operator=(FftlogCacheEntry&& o) noexcept {
+    CacheEntry(CacheEntry&& o) noexcept { *this = std::move(o); }
+    CacheEntry& operator=(CacheEntry&& o) noexcept {
         if (this != &o) {
-            reset();
-            spline = o.spline;
-            k = std::move(o.k);
-            val = std::move(o.val);
+            drop();
+            spline    = o.spline;  o.spline = nullptr;
+            k_pts     = std::move(o.k_pts);
+            ht_vals   = std::move(o.ht_vals);
             anchor_lo = o.anchor_lo;
             anchor_hi = o.anchor_hi;
-            ratio = o.ratio;
-            o.spline = nullptr;
+            ratio     = o.ratio;
         }
         return *this;
     }
-    FftlogCacheEntry(const FftlogCacheEntry&) = delete;
-    FftlogCacheEntry& operator=(const FftlogCacheEntry&) = delete;
 
-    void reset() {
+    CacheEntry(const CacheEntry&)            = delete;
+    CacheEntry& operator=(const CacheEntry&) = delete;
+
+    void drop() {
         if (spline) { cubic_interp_destroy(spline); spline = nullptr; }
     }
 };
 
-struct FftlogCacheKey {
-    double (*f)(double, void*) = nullptr;
-    void* fparams = nullptr;
-    double nu = 0.0;
-};
-
 } // namespace
 
-// ============================================================
-// Public C ABI (opaque handle + raw arrays), declared in
-// sasfit_hankel.h for use from sasfit.c and elsewhere.
-// ============================================================
+// ---------------------------------------------------------------------------
+// Public entry point.
+// ---------------------------------------------------------------------------
 
-struct sasfit_fftlog_plan {
-    FFTLogPlanImpl impl;
-};
-
-extern "C" {
-
-sasfit_fftlog_plan* sasfit_fftlog_build_plan(int N, double nu, double x_min, double x_max) {
-    if (N <= 0 || !(x_min > 0.0) || !(x_max > x_min) || (nu != 0.0 && nu != 1.0)) {
-        return NULL;
-    }
-    sasfit_fftlog_plan* plan = new (std::nothrow) sasfit_fftlog_plan();
-    if (!plan) return NULL;
-    plan->impl = fftlog_build_plan_impl(N, nu, x_min, x_max);
-    return plan;
-}
-
-void sasfit_fftlog_free_plan(sasfit_fftlog_plan* plan) {
-    delete plan;
-}
-
-int sasfit_fftlog_plan_size(const sasfit_fftlog_plan* plan) {
-    return plan ? plan->impl.n : 0;
-}
-
-double sasfit_fftlog_plan_x_node(const sasfit_fftlog_plan* plan, int n) {
-    if (!plan || n < 0 || n >= plan->impl.n) return 0.0;
-    return plan->impl.x_nodes[n];
-}
-
-double sasfit_fftlog_plan_y_node(const sasfit_fftlog_plan* plan, int n) {
-    if (!plan || n < 0 || n >= plan->impl.n) return 0.0;
-    return plan->impl.y_nodes[n];
-}
-
-void sasfit_fftlog_forward_grid(sasfit_fftlog_plan* plan, const double* f_x, double* F_y) {
-    if (!plan || !f_x || !F_y) return;
-    std::vector<double> f(f_x, f_x + plan->impl.n);
-    std::vector<double> F = fftlog_apply_forward_impl(plan->impl, f);
-    std::copy(F.begin(), F.end(), F_y);
-}
-
-void sasfit_fftlog_inverse_grid(sasfit_fftlog_plan* plan, const double* F_y, double* f_x) {
-    if (!plan || !F_y || !f_x) return;
-    std::vector<double> F(F_y, F_y + plan->impl.n);
-    std::vector<double> f = fftlog_apply_inverse_impl(plan->impl, F);
-    std::copy(f.begin(), f.end(), f_x);
-}
-
-} // extern "C"
-
-// ============================================================
-// Keyed LRU cache of (plan, spline) results -- same shape as
-// sasfit_qdht_cache in sasfit_qdht.cpp; see that file's comment for
-// the fingerprint/eviction rationale, which applies unchanged here.
-// Kept as a separate hand-rolled type rather than sharing code with
-// sasfit_qdht_cache, since C has no templates and the two wrap
-// different opaque plan types across the same C ABI boundary.
-// ============================================================
-
-namespace {
-
-struct sasfit_fftlog_cache_slot {
-    bool valid = false;
-    std::vector<unsigned char> key;
-    unsigned long last_used = 0;
-    sasfit_fftlog_plan* plan = nullptr;
-    cubic_interp_t* spline = nullptr;
-};
-
-void sasfit_fftlog_cache_slot_release(sasfit_fftlog_cache_slot& slot) {
-    if (slot.spline) { cubic_interp_destroy(slot.spline); slot.spline = nullptr; }
-    if (slot.plan)   { sasfit_fftlog_free_plan(slot.plan); slot.plan = nullptr; }
-    slot.valid = false;
-}
-
-} // namespace
-
-struct sasfit_fftlog_cache {
-    size_t key_size = 0;
-    unsigned long clock = 0;
-    std::vector<sasfit_fftlog_cache_slot> slots;
-};
-
-extern "C" {
-
-sasfit_fftlog_cache* sasfit_fftlog_cache_create(int capacity, size_t key_size) {
-    if (capacity <= 0 || key_size == 0) return NULL;
-    sasfit_fftlog_cache* cache = new (std::nothrow) sasfit_fftlog_cache();
-    if (!cache) return NULL;
-    cache->key_size = key_size;
-    cache->slots.resize(static_cast<size_t>(capacity));
-    return cache;
-}
-
-void sasfit_fftlog_cache_free(sasfit_fftlog_cache* cache) {
-    if (!cache) return;
-    for (auto& slot : cache->slots) {
-        sasfit_fftlog_cache_slot_release(slot);
-    }
-    delete cache;
-}
-
-int sasfit_fftlog_cache_lookup(sasfit_fftlog_cache* cache, const void* key,
-                                sasfit_fftlog_plan** plan_out,
-                                cubic_interp_t** spline_out) {
-    if (!cache || !key) return 0;
-    for (auto& slot : cache->slots) {
-        if (slot.valid && slot.key.size() == cache->key_size
-            && std::memcmp(slot.key.data(), key, cache->key_size) == 0) {
-            slot.last_used = ++cache->clock;
-            if (plan_out)   *plan_out = slot.plan;
-            if (spline_out) *spline_out = slot.spline;
-            return 1;
-        }
-    }
-    return 0;
-}
-
-void sasfit_fftlog_cache_insert(sasfit_fftlog_cache* cache, const void* key,
-                                 sasfit_fftlog_plan* plan,
-                                 cubic_interp_t* spline) {
-    if (!cache || !key) return;
-
-    sasfit_fftlog_cache_slot* target = NULL;
-    for (auto& slot : cache->slots) {
-        if (!slot.valid) { target = &slot; break; }
-    }
-    if (!target) {
-        sasfit_fftlog_cache_slot* oldest = &cache->slots[0];
-        for (auto& slot : cache->slots) {
-            if (slot.last_used < oldest->last_used) oldest = &slot;
-        }
-        target = oldest;
-    }
-
-    sasfit_fftlog_cache_slot_release(*target);
-    target->key.assign(static_cast<const unsigned char*>(key),
-                        static_cast<const unsigned char*>(key) + cache->key_size);
-    target->plan = plan;
-    target->spline = spline;
-    target->last_used = ++cache->clock;
-    target->valid = true;
-}
-
-} // extern "C"
-
-struct sasfit_fftlog_params {
-    double (*function)(double, void *);
-    void *fparams;
-};
-
-extern "C" double sasfit_fftlog(double nu, double (*f)(double, void *), double x, void *fparams) {
-    if (f == NULL || !(x > 0.0) || (nu != 0.0 && nu != 1.0)) {
-        return NAN;
-    }
+extern "C" double sasfit_fftlog(double nu, double (*f)(double, void*),
+                                 double x, void* fparams) {
+    if (!f || !(x > 0.0) || (nu != 0.0 && nu != 1.0))
+        return std::numeric_limits<double>::quiet_NaN();
 
     try {
-        // Cache the WHOLE computed curve (a log-log cubic spline), not
-        // just a grid-scale hint as sasfit_bestlime does -- this is
-        // FFTLog's real advantage for SASfit's access pattern (one
-        // parameter set, many q). Cache validity uses the same safe
-        // ratio-of-confirmed-nonzero-anchors check as sasfit_bestlime's
-        // r0 cache (see that file for the detailed rationale: it is
-        // invariant to pure scale/background-type parameter changes,
-        // which dominate a typical finite-difference gradient
-        // evaluation, while still catching genuine shape/size changes).
-        // Additionally invalidated whenever the requested x falls
-        // outside the previously-computed k-range, since the required
-        // padding depends on x as well as on f's own shape (see below).
-        //
-        // Multi-slot LRU cache (see sasfit_lru_cache.h), not a single
-        // static slot: calls that ALTERNATE between more than one
-        // distinct (f, fparams, nu) -- e.g. two coexisting populations
-        // in one fit, evaluated interleaved -- would otherwise thrash,
-        // rebuilding on every switch even though the other entry is
-        // still valid and wanted again next call. Capacity chosen
-        // generously relative to typical model complexity; tune if a
-        // fit routinely alternates more models than this at once.
-        //
-        // NOT thread-safe (function-local static state) -- fine only if
-        // this function is not called concurrently from multiple threads
-        // for different (f, fparams) at the same time.
-        static SasfitLruCache<FftlogCacheKey, FftlogCacheEntry> cache(8);
+        static SasfitLruCache<CacheKey, CacheEntry> cache(8);
 
-        FftlogCacheKey key{};
-        key.f = f;
-        key.fparams = fparams;
-        key.nu = nu;
+        CacheKey key{};
+        key.func   = f;
+        key.params = fparams;
+        key.order  = nu;
 
-        FftlogCacheEntry* entry = cache.lookup(key);
-        bool cache_hit = false;
-        if (entry && entry->spline && !entry->k.empty()
-            && x >= entry->k.front() && x <= entry->k.back()) {
-            const double val_lo = f(entry->anchor_lo, fparams);
-            const double val_hi = f(entry->anchor_hi, fparams);
-            const double ratio = val_hi / (val_lo + 1e-300);
-            constexpr double tol = 1e-3;
-            if (std::fabs(ratio - entry->ratio) <= tol * (std::fabs(ratio) + std::fabs(entry->ratio) + 1e-300)) {
-                cache_hit = true;
-            }
+        // Validate any existing cache entry
+        CacheEntry* entry     = cache.lookup(key);
+        bool        reuse     = false;
+        if (entry && entry->spline && !entry->k_pts.empty()
+                  && x >= entry->k_pts.front() && x <= entry->k_pts.back()) {
+            const double vlo   = f(entry->anchor_lo, fparams);
+            const double vhi   = f(entry->anchor_hi, fparams);
+            const double r     = vhi / (vlo + 1e-300);
+            const double tol   = 1e-3;
+            if (std::fabs(r - entry->ratio)
+                    <= tol * (std::fabs(r) + std::fabs(entry->ratio) + 1e-300))
+                reuse = true;
         }
 
-        if (!cache_hit) {
-            // Coarse log-spaced probe: find where |r*f(r)| peaks (r0),
-            // and detect genuine compact support (a persistent-zero
-            // region), exactly as in sasfit_bestlime.cpp -- see that
-            // file for the detailed rationale (in particular why the
-            // zero-check needs an extremely strict threshold rather than
-            // a fraction of the peak, to avoid misfiring on oscillatory
-            // q-space form factors that merely dip low without actually
-            // being zero).
-            std::vector<std::pair<double, double>> samples;
-            samples.reserve(121);
-            double r0 = 1.0;
-            double best_val = -1.0;
+        if (!reuse) {
+            // Locate the peak of |r·f(r)| and detect compact support.
+            // The 121-point coarse probe spans 1e-4 to 1e4 on a log scale.
+            std::vector<std::pair<double,double>> probe;
+            probe.reserve(121);
+            double peak_r = 1.0, peak_v = -1.0;
             for (int i = -60; i <= 60; ++i) {
-                const double r = pow(10.0, i / 15.0);
-                const double val = fabs(r * f(r, fparams));
-                if (std::isfinite(val)) {
-                    samples.push_back({r, val});
-                    if (val > best_val) {
-                        best_val = val;
-                        r0 = r;
-                    }
+                const double ri  = std::pow(10.0, i / 15.0);
+                const double vi  = std::fabs(ri * f(ri, fparams));
+                if (std::isfinite(vi)) {
+                    probe.push_back({ri, vi});
+                    if (vi > peak_v) { peak_v = vi; peak_r = ri; }
                 }
             }
-            const double peak_r = r0;
-            r0 *= 2.0;
 
-            double edge = -1.0;
-            constexpr double zero_threshold = 1e-300;
-            double bracket_lo = -1.0, bracket_hi = -1.0;
-            for (size_t i = 0; i < samples.size(); ++i) {
-                if (samples[i].first < r0) {
-                    continue;
-                }
-                if (samples[i].second < zero_threshold) {
-                    bool persistent = true;
-                    for (size_t j = i; j < samples.size(); ++j) {
-                        if (samples[j].second >= zero_threshold) {
-                            persistent = false;
-                            break;
-                        }
+            // Binary-search for the compact-support edge (if any).
+            // A value is treated as zero only if it is below 1e-300 and
+            // stays there for all larger r — avoids misfires on
+            // oscillatory inputs that merely dip low.
+            constexpr double ZERO = 1e-300;
+            double edge           = -1.0;
+            const double srch0    = peak_r * 2.0;
+            for (std::size_t i = 0; i < probe.size() && edge < 0.0; ++i) {
+                if (probe[i].first < srch0 || probe[i].second >= ZERO) continue;
+                bool persist = true;
+                for (std::size_t j = i; j < probe.size(); ++j)
+                    if (probe[j].second >= ZERO) { persist = false; break; }
+                if (persist) {
+                    double lo = (i > 0) ? probe[i-1].first : 0.0;
+                    double hi = probe[i].first;
+                    for (int it = 0; it < 60; ++it) {
+                        double mid = 0.5 * (lo + hi);
+                        (std::fabs(mid * f(mid, fparams)) < ZERO ? hi : lo) = mid;
                     }
-                    if (persistent) {
-                        bracket_hi = samples[i].first;
-                        bracket_lo = (i > 0) ? samples[i - 1].first : 0.0;
-                        break;
-                    }
+                    edge = hi;
                 }
             }
-            if (bracket_hi > 0.0) {
-                for (int iter = 0; iter < 60; ++iter) {
-                    const double mid = 0.5 * (bracket_lo + bracket_hi);
-                    const double val = fabs(mid * f(mid, fparams));
-                    if (val < zero_threshold) {
-                        bracket_hi = mid;
-                    } else {
-                        bracket_lo = mid;
-                    }
-                }
-                edge = bracket_hi;
+
+            // Build the log-spaced integration grid.
+            // FFTLog needs ~500x the function's natural scale for padding
+            // (the periodicity assumption causes large ringing otherwise).
+            // The query x also constrains the needed output range via the
+            // reciprocal relationship k ~ 1/r.
+            const double r_nat_min = peak_r * 1e-6;
+            const double r_nat_max = (edge > 0.0 ? edge : peak_r) * 500.0;
+            const double r_min     = std::min(r_nat_min, 0.1 / x);
+            const double r_max     = std::max(r_nat_max, 10.0  / x);
+            const int    n_pts     = 2048;
+
+            std::vector<double> r_grid(n_pts), a_grid(n_pts);
+            const double dlnr = std::log(r_max / r_min) / (n_pts - 1);
+            for (int j = 0; j < n_pts; ++j) {
+                r_grid[j] = r_min * std::exp(j * dlnr);
+                const double fv = f(r_grid[j], fparams);
+                a_grid[j] = std::isfinite(fv) ? r_grid[j] * fv : 0.0;
             }
 
-            // FFTLog needs MUCH more generous padding than
-            // sasfit_bestlime's grid (confirmed: ~500x the function's
-            // natural scale vs BestLime's 2-3x), because FFT's implicit
-            // periodicity assumption causes severe ringing on anything
-            // less -- an under-padded domain was measured at >1000%
-            // error, vs ~1% with generous padding, for the same problem.
-            //
-            // Padding must also cover the OUTPUT range implied by the
-            // requested x, not just f's own input-side scale: in a
-            // Hankel transform, input and output ranges are reciprocal
-            // (k_min ~ 1/r_max, k_max ~ 1/r_min -- note r_min's
-            // contribution to k_min cancels out almost entirely, since
-            // L=log(r_max/r_min) grows with it too). Confirmed bug
-            // otherwise: without this, a requested x far from f's own
-            // natural scale could fall outside the computed k-array
-            // entirely, silently returning 0 instead of the true value.
-            const double natural_min = r0 * 1e-6;
-            const double natural_max = (edge > 0.0 ? edge : r0) * 500.0;
-            const double r_min = std::min(natural_min, 0.1 / x);
-            const double r_max = std::max(natural_max, 10.0 / x);
-            const int n = 2048;
+            const HankelGrid hg = fftlog_step(r_grid, a_grid, nu);
 
-            std::vector<double> r(n), a_of_r(n);
-            const double dlnr = std::log(r_max / r_min) / (n - 1);
-            for (int j = 0; j < n; ++j) {
-                r[j] = r_min * std::exp(j * dlnr);
-                const double fv = f(r[j], fparams);
-                a_of_r[j] = std::isfinite(fv) ? r[j] * fv : 0.0;
+            // Store signed values and a log-log spline of the magnitude.
+            std::vector<double> log_k(n_pts), log_mag(n_pts);
+            CacheEntry& ce = cache.insert(key);
+            ce.k_pts.resize(n_pts);
+            ce.ht_vals.resize(n_pts);
+            for (int j = 0; j < n_pts; ++j) {
+                const double Ik = hg.Ak[j] / hg.k[j];
+                ce.k_pts[j]   = hg.k[j];
+                ce.ht_vals[j] = Ik;
+                log_k[j]      = std::log(hg.k[j]);
+                log_mag[j]    = std::log(std::fabs(Ik) + 1e-300);
             }
-            const FFTLogResult res = fftlog_transform(r, a_of_r, nu);
+            ce.spline = cubic_interp_create(log_k.data(), log_mag.data(), n_pts);
 
-            FftlogCacheEntry& new_entry = cache.insert(key);
-            new_entry.k.assign(res.k.begin(), res.k.end());
-            new_entry.val.resize(n);
-            std::vector<double> logk(n), logv(n);
-            for (int j = 0; j < n; ++j) {
-                const double Ik = res.Ak[j] / res.k[j];
-                new_entry.val[j] = Ik;
-                logk[j] = std::log(res.k[j]);
-                logv[j] = std::log(std::fabs(Ik) + 1e-300);
-            }
+            ce.anchor_lo = 0.5 * peak_r;
+            ce.anchor_hi = peak_r;
+            ce.ratio     = f(ce.anchor_hi, fparams) / (f(ce.anchor_lo, fparams) + 1e-300);
 
-            new_entry.spline = cubic_interp_create(logk.data(), logv.data(), n);
-
-            new_entry.anchor_lo = 0.5 * peak_r;
-            new_entry.anchor_hi = peak_r;
-            const double v_lo = f(new_entry.anchor_lo, fparams);
-            const double v_hi = f(new_entry.anchor_hi, fparams);
-            new_entry.ratio = v_hi / (v_lo + 1e-300);
-
-            entry = &new_entry;
+            entry = &ce;
         }
 
-        if (x < entry->k.front() || x > entry->k.back()) {
+        if (x < entry->k_pts.front() || x > entry->k_pts.back())
             return 0.0;
-        }
-        const double logv = cubic_interp_eval(entry->spline, std::log(x));
-        // Sign is tracked separately from the log-log spline magnitude
-        // (needed for oscillatory transforms, e.g. a sphere's or
-        // cylinder's form factor, which cross zero) via a binary search
-        // on the small pre-computed sample array.
-        size_t lo = 0, hi = entry->k.size() - 1;
+
+        const double log_mag = cubic_interp_eval(entry->spline, std::log(x));
+
+        // Recover sign via binary search on the pre-computed signed values.
+        std::size_t lo = 0, hi = entry->k_pts.size() - 1;
         while (hi - lo > 1) {
-            const size_t mid = (lo + hi) / 2;
-            if (entry->k[mid] < x) {
-                lo = mid;
-            } else {
-                hi = mid;
-            }
+            const std::size_t mid = (lo + hi) / 2;
+            if (entry->k_pts[mid] < x) lo = mid; else hi = mid;
         }
-        const double sign = (entry->val[lo] < 0.0) ? -1.0 : 1.0;
-        return sign * std::exp(logv);
-    } catch (const std::exception& error) {
-        fprintf(stderr, "sasfit_fftlog: %s\n", error.what());
-        return NAN;
+        const double sign = (entry->ht_vals[lo] < 0.0) ? -1.0 : 1.0;
+        return sign * std::exp(log_mag);
+
+    } catch (const std::exception& e) {
+        fprintf(stderr, "sasfit_fftlog: %s\n", e.what());
+        return std::numeric_limits<double>::quiet_NaN();
     } catch (...) {
         fprintf(stderr, "sasfit_fftlog: unknown exception\n");
-        return NAN;
+        return std::numeric_limits<double>::quiet_NaN();
     }
 }
