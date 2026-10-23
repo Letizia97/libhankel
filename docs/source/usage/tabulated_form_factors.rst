@@ -3,17 +3,18 @@
 Tabulated form factors (for C users)
 ======================================
 
-When the form factor is a set of points rather than a formula -- measured data,
-or the output of another code -- :c:func:`tabulated_ff_create` turns it into
-something ``hankel_transform`` can call. You give it two things: the table,
-and a rule for the high-:math:`q` tail. It returns a handle you pass straight
-through as ``f_ctx``; see :ref:`tabulated_ff <tabulated_ff_c_api>` for the API
-and :ref:`c-examples-tabulated-f` for a complete program.
+When the form factor is a set of discrete points rather than a formula — measured
+data, or the output of another simulation — :c:func:`tabulated_ff_create` wraps it
+into a callable that ``hankel_transform`` can use. You supply two things: the table
+itself, and a rule for the high-:math:`q` tail beyond the last tabulated point.
+The function returns a handle you pass as ``f_ctx``; see
+:ref:`tabulated_ff <tabulated_ff_c_api>` for the API and
+:ref:`c-examples-tabulated-f` for a complete worked example.
 
-Building a tabulated form factor requires two decisions: which **interpolation
-method** to use within the table, and which **tail rule** to use outside it.
-Interpolation is straightforward; the tail is subtle and the rest of this page
-is mostly about that.
+Using the tabulated form factor involves two decisions: which **interpolation
+method** to use within the table, and which **tail rule** to apply outside it.
+Interpolation is straightforward; the tail requires more care, and the rest of
+this page is largely about that.
 
 
 Choosing an interpolation method
@@ -68,16 +69,16 @@ See the :ref:`Interpolation section of the C API <interpolation_c_api>` for deta
 Choosing the tail
 -------------------
 
-Above the table you choose one of ``tabulated_tail_t``. The integrand is
-:math:`f(q)\,J_0(qr)\,q`, and for large argument
+Beyond the last tabulated point, you select a tail rule via ``tabulated_tail_t``.
+The integrand is :math:`f(q)\,J_0(qr)\,q`, and for large argument
 
 .. math::
 
     J_0(z) \sim \sqrt{\frac{2}{\pi z}} \cos\left(z - \frac{\pi}{4}\right),
 
-so a tail :math:`f(q) \sim q^{-p}` leaves an integrand going like
-:math:`q^{1/2 - p}`. That gives three possibilities, of which the library
-offers the two that work:
+so a tail :math:`f(q) \sim q^{-p}` leaves an integrand behaving like
+:math:`q^{1/2 - p}`. This gives three convergence cases, of which the library
+offers the two that are well-behaved:
 
 .. table:: High-q tail options.
 
@@ -97,35 +98,35 @@ offers the two that work:
     |                              |         | Recommended.                                 |
     +------------------------------+---------+----------------------------------------------+
 
-:c:func:`tabulated_ff_create` enforces the threshold: an exponent at or below
-3/2 is rejected with -14 rather than turned into a wrong answer later. Note
-that clamping to the endpoint value, the intuitive thing to reach for, is
-:math:`p = 0` -- the one option that is outright broken.
+:c:func:`tabulated_ff_create` enforces this threshold: an exponent at or below
+3/2 is rejected with an error code (-14) rather than silently producing a wrong
+answer. Note that clamping to the endpoint value — the intuitive fallback —
+corresponds to :math:`p = 0`, which is the one option that does not converge.
 
-Porod's law gives :math:`p = 4` for a sharp interface. If you would rather not
-assume that, pass ``0.0`` as the exponent and it is fitted from the last points
-of the table by least squares in log-log space.
+Porod's law gives :math:`p = 4` for a sharp interface. If that assumption does
+not apply, pass ``0.0`` as the exponent and the library will fit it from the
+last few points of the table by least squares in log-log space.
 
 .. note::
 
     A fit can only see the slope it was shown. The example's table stops at
-    :math:`q = 1` and fits :math:`p = 3.82`; the same curve carried out to
+    :math:`q = 1` and fits :math:`p = 3.82`; the same curve extended to
     :math:`q = 10` fits :math:`3.997`, against an analytic value of exactly 4.
-    So a -14 from a fitted exponent usually means the table stops before the
-    asymptotic regime, not that the physics diverges -- extend the table, or
-    pass the exponent you know applies.
+    An error code (-14) from a fitted exponent therefore usually means the table
+    stops before the asymptotic regime, not that the physics diverges — either
+    extend the table further into the tail, or pass the exponent you know applies.
 
 Below the table the value is held flat at the first tabulated point, the
 :math:`q \to 0` plateau. This is not configurable and does not need to be: the
 integrand's factor of :math:`q` suppresses that region regardless.
 
 
-Why the tail matters
----------------------
+Why ``tabulated_ff`` is needed
+------------------------------
 
-The tail choice matters because ``hankel_transform`` does not evaluate the form
-factor at the points you pass in ``x``. It evaluates it at quadrature nodes
-chosen by the strategy, and those go a very long way outside any real dataset:
+``hankel_transform`` does not evaluate the form factor at the points you pass in
+``x``. It evaluates it at quadrature nodes chosen by the strategy, and those reach
+far outside the range of any real dataset:
 
 .. table:: Arguments requested by each strategy, over 19 output points with ``n_eval = 250``.
 
@@ -147,18 +148,17 @@ chosen by the strategy, and those go a very long way outside any real dataset:
     | QWE_Chave            | 3.7e-10  to  2.3e+00       |
     +----------------------+----------------------------+
 
-No experimental dataset covers 35 decades, so the callback is asked for values
-outside the table on every single call. All interpolators return NaN
-there because they cannot extrapolate.
+No experimental dataset covers 35 decades. This means a bare interpolator —
+one with no tail rule — will return NaN for out-of-range queries on essentially
+every call. The consequences are not always obvious: some strategies propagate
+NaN to the output immediately, but others absorb it silently inside their
+convergence loop and return a finite, plausible-looking number that is simply
+wrong.
 
-.. warning::
-
-    Using a bare interpolator (without ``tabulated_ff``) fails **silently**. The
-    status code is 0 in every row below.
-
-Transforming a table of the ``g_dab`` form factor sampled over
-:math:`q \in [10^{-3}, 10]`, with ``n_eval = 250``, ``eps_rel = 1e-9`` and
-``f_max = 0.1``:
+The table below shows this concretely, using a table of the ``g_dab`` form
+factor sampled over :math:`q \in [10^{-3}, 10]`, with ``n_eval = 250``,
+``eps_rel = 1e-9`` and ``f_max = 0.1``. The status code is 0 in every case —
+the bare spline never raises an error.
 
 .. table:: Bare spline vs. the same table through ``tabulated_ff``.
 
@@ -176,8 +176,7 @@ Transforming a table of the ``g_dab`` form factor sampled over
     | QWE_Chave            | no NaN, **9.8 % wrong** | max rel. error 1.9e-05    |
     +----------------------+-------------------------+---------------------------+
 
-The NaN rows are obvious enough once you look at the output. The last two are
-the dangerous ones: the extrapolation-driven NaNs get absorbed by the
-convergence machinery, so the call returns finite, plausible-looking numbers
-that are wrong by about ten percent.
-
+The NaN rows are at least detectable once you inspect the output. The QWE rows
+are the dangerous case: the NaNs are absorbed by the convergence machinery and
+the call returns finite numbers that are wrong by ten percent with no indication
+that anything went wrong.
