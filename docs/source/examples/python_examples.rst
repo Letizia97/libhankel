@@ -5,12 +5,18 @@ Python examples
 ================
 
 
-Below are a couple of examples on how to use the hankel_transform function
-through the :ref:`python-api`, both with a built-in and a custom input function.
-Please note that both examples give the same (or very similar) result. The
-main difference between the two is the fact that one uses a built-in function called
-"gdab", while the other defines a custom Python function essentially containing the same
-code as the built-in "gdab" function.
+Below are several examples on how to use the hankel_transform function
+through the :ref:`python-api`, covering different ways to supply a form factor and
+different strategy choices.
+
+If you are unsure which strategy to start with, **FFTLog** is a good default: it requires
+no strategy parameters (just pass an empty dict), runs in O(N log N) time across the whole
+output array, and is typically the most accurate option for smooth, slowly-varying form
+factors on a wide dynamic range. Please check :ref:`python-examples-fftlog` for an 
+example that uses FFTLog.
+The adaptive strategies (``QWE_*``, ``Adaptive_DE_Ooura``)
+are better when the form factor is complex or oscillatory and you need fine control over
+the convergence tolerance.
 
 In order to run these examples, please install LibHankel through
 the instructions at :ref:`quickstart-python`.
@@ -21,7 +27,7 @@ in precision with respect to the examples below, but that is expected.
 
 .. _python-examples-builtin-f:
 
-Examples with built-in form factor
+Example with built-in form factor
 --------------------------
 
 The following is an example with a built-in form factor.
@@ -44,7 +50,7 @@ Here is the content of the example:
 
 .. _python-examples-custom-f:
 
-Examples with custom form factor
+Example with custom form factor
 ------------------------
 
 The following is an example with a custom form factor.
@@ -66,7 +72,7 @@ Here is the content of the example:
 
 .. _python-examples-tabulated-ff:
 
-Examples with tabulated form factor
+Example with tabulated form factor
 ------------------------------------
 
 The following is an example with a tabulated form factor, where the form factor
@@ -87,13 +93,40 @@ Here is the content of the example:
    :lines: 1-1000
 
 
+
+.. _python-examples-fftlog:
+
+Example on how to use the strategy FFTLog
+-----------------------------------------
+
+The following example runs the built-in ``gdab`` form factor through the FFTLog strategy.
+Unlike the adaptive strategies, FFTLog requires no convergence parameters — pass an empty
+dict ``{}`` and the library handles everything. It is also faster (O(N log N) across all
+output points rather than per-point quadrature) and typically more accurate for smooth form
+factors, making it the recommended starting point for most use cases.
+
+Assuming you have LibHankel installed, you should be able to run this example with:
+
+.. code-block:: bash
+
+   cd libhankel
+   python examples/python/example_usage_fftlog.py
+
+
+Here is the content of the example:
+
+.. literalinclude:: ../../../examples/python/example_usage_fftlog.py
+   :language: python
+   :lines: 1-1000
+
+
 .. _python-examples-G0:
 
-Example with G(0)
------------------
+Example on how to use hankel_G0
+-------------------------------
 
 The following example computes G(0), the Hankel transform evaluated at r = 0,
-using a built-in form factor.
+using the hankel_G0 function.
 
 Assuming you have LibHankel installed, you should be able to run this example with:
 

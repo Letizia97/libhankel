@@ -15,7 +15,7 @@ The column named *Strategy Name* contains the possible strings the user could pa
 ``strategy_name`` when calling the ``hankel_transform`` function.
 *Nodes* records whether the quadrature points are fixed or chosen adaptively (see
 :ref:`fixed-vs-adaptive` below), and *n_taps* how many times the integrand is
-evaluated per output point.
+evaluated per output point (``—`` for batch strategies, where cost is shared across all N points).
 The column named *Index* refers to the numbering used in SASfit, for cross-reference.
 
 
@@ -50,8 +50,7 @@ The column named *Index* refers to the numbering used in SASfit, for cross-refer
     | QWE_Chave            | QWE with Shanks transformation        | adaptive | up to          | 13                   |
     |                      |                                       |          | ``n_eval``     |                      |
     +----------------------+---------------------------------------+----------+----------------+----------------------+
-    | FFTLog               | FFTLog (Hamilton 2000)                | batch    | O(N log N)     | N/A                  |
-    |                      |                                       |          | total          |                      |
+    | FFTLog               | FFTLog (Hamilton 2000)                | batch    | —              | 16                   |
     +----------------------+---------------------------------------+----------+----------------+----------------------+
 
 .. note::
@@ -63,8 +62,8 @@ The column named *Index* refers to the numbering used in SASfit, for cross-refer
    Always compare candidates on your own form factor rather than assuming a bigger
    filter is better.
 
-   ``DHT_Guptasarma`` carries no tap count because theirs depends on the order of the
-   Bessel function - see the *n_taps* column.
+   ``DHT_Guptasarma`` carries no tap count here because the count depends on the order of the
+   Bessel function — see the *n_taps* column.
 
    The SASfit-indexed spellings (``DHT_6`` ... ``DHT_11``, ``DE_Ogata``, ``DE_Ooura``)
    are **no longer accepted**; use the names in the first column. The *Index* column is
@@ -109,5 +108,5 @@ sense above. ``FFTLog`` processes the entire output array at once using a fast F
 transform on a log-spaced grid (Hamilton 2000, MNRAS 312, 257). Its cost is O(N log N)
 across all N requested output points, rather than a per-point cost multiplied by N. It
 requires no ``strategy_params``. It is best suited to smooth, slowly-varying form factors
-on a wide dynamic range, and less accurate at the extremes of the x-range where the
+on a wide dynamic range, and less accurate at the edges of the x array where the
 log-spaced grid is sparse.
