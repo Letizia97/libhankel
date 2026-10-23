@@ -69,7 +69,7 @@
 #include <algorithm>
 #include <cstring>
 #include "interp_cubic.h"
-#include <fftw3.h>
+#include "pocketfft_hdronly.h"
 #include "sasfit_lru_cache.h"
 #include <cstdio>
 
@@ -148,10 +148,9 @@ FFTLogResult fftlog_transform(const std::vector<double>& r, const std::vector<do
 
     std::vector<double> in(a_of_r);
     std::vector<std::complex<double>> c(nc);
-    fftw_plan plan_fwd = fftw_plan_dft_r2c_1d(
-        n, in.data(), reinterpret_cast<fftw_complex*>(c.data()), FFTW_ESTIMATE);
-    fftw_execute(plan_fwd);
-    fftw_destroy_plan(plan_fwd);
+    pocketfft::r2c({size_t(n)}, {ptrdiff_t(sizeof(double))},
+                   {ptrdiff_t(sizeof(std::complex<double>))},
+                   0, true, in.data(), c.data(), 1.0, 1);
 
     std::vector<std::complex<double>> cu(nc);
     for (int m = 0; m < nc; ++m) {
@@ -159,10 +158,9 @@ FFTLogResult fftlog_transform(const std::vector<double>& r, const std::vector<do
     }
 
     std::vector<double> out(n);
-    fftw_plan plan_inv = fftw_plan_dft_c2r_1d(
-        n, reinterpret_cast<fftw_complex*>(cu.data()), out.data(), FFTW_ESTIMATE);
-    fftw_execute(plan_inv);
-    fftw_destroy_plan(plan_inv);
+    pocketfft::c2r({size_t(n)}, {ptrdiff_t(sizeof(std::complex<double>))},
+                   {ptrdiff_t(sizeof(double))},
+                   0, false, cu.data(), out.data(), 1.0, 1);
 
     FFTLogResult res;
     res.k.resize(n);
@@ -221,35 +219,10 @@ struct FFTLogPlanImpl {
     std::vector<std::complex<double>> u;
     std::vector<double> in_buf, out_buf;
     std::vector<std::complex<double>> c_buf, cu_buf;
-    fftw_plan plan_fwd = nullptr;
-    fftw_plan plan_inv = nullptr;
 
     FFTLogPlanImpl() = default;
-    ~FFTLogPlanImpl() {
-        if (plan_fwd) fftw_destroy_plan(plan_fwd);
-        if (plan_inv) fftw_destroy_plan(plan_inv);
-    }
-    FFTLogPlanImpl(FFTLogPlanImpl&& o) noexcept { *this = std::move(o); }
-    FFTLogPlanImpl& operator=(FFTLogPlanImpl&& o) noexcept {
-        if (this != &o) {
-            if (plan_fwd) fftw_destroy_plan(plan_fwd);
-            if (plan_inv) fftw_destroy_plan(plan_inv);
-            n = o.n; mu = o.mu; x_min = o.x_min; x_max = o.x_max; L = o.L;
-            kr = o.kr; k0r0 = o.k0r0; y0 = o.y0;
-            x_nodes = std::move(o.x_nodes);
-            y_nodes = std::move(o.y_nodes);
-            u = std::move(o.u);
-            in_buf = std::move(o.in_buf);
-            out_buf = std::move(o.out_buf);
-            c_buf = std::move(o.c_buf);
-            cu_buf = std::move(o.cu_buf);
-            plan_fwd = o.plan_fwd;
-            plan_inv = o.plan_inv;
-            o.plan_fwd = nullptr;
-            o.plan_inv = nullptr;
-        }
-        return *this;
-    }
+    FFTLogPlanImpl(FFTLogPlanImpl&&) = default;
+    FFTLogPlanImpl& operator=(FFTLogPlanImpl&&) = default;
     FFTLogPlanImpl(const FFTLogPlanImpl&) = delete;
     FFTLogPlanImpl& operator=(const FFTLogPlanImpl&) = delete;
 };
@@ -289,11 +262,6 @@ FFTLogPlanImpl fftlog_build_plan_impl(int n, double mu, double x_min, double x_m
     plan.c_buf.assign(nc, std::complex<double>(0.0, 0.0));
     plan.cu_buf.assign(nc, std::complex<double>(0.0, 0.0));
 
-    plan.plan_fwd = fftw_plan_dft_r2c_1d(
-        n, plan.in_buf.data(), reinterpret_cast<fftw_complex*>(plan.c_buf.data()), FFTW_ESTIMATE);
-    plan.plan_inv = fftw_plan_dft_c2r_1d(
-        n, reinterpret_cast<fftw_complex*>(plan.cu_buf.data()), plan.out_buf.data(), FFTW_ESTIMATE);
-
     return plan;
 }
 
@@ -305,12 +273,16 @@ std::vector<double> fftlog_apply_forward_impl(FFTLogPlanImpl& plan, const std::v
     for (int j = 0; j < n; ++j) {
         plan.in_buf[j] = plan.x_nodes[j] * f_x[j];
     }
-    fftw_execute(plan.plan_fwd);
+    pocketfft::r2c({size_t(n)}, {ptrdiff_t(sizeof(double))},
+                   {ptrdiff_t(sizeof(std::complex<double>))},
+                   0, true, plan.in_buf.data(), plan.c_buf.data(), 1.0, 1);
     const int nc = n / 2 + 1;
     for (int m = 0; m < nc; ++m) {
         plan.cu_buf[m] = plan.c_buf[m] * plan.u[m] / static_cast<double>(n);
     }
-    fftw_execute(plan.plan_inv);
+    pocketfft::c2r({size_t(n)}, {ptrdiff_t(sizeof(std::complex<double>))},
+                   {ptrdiff_t(sizeof(double))},
+                   0, false, plan.cu_buf.data(), plan.out_buf.data(), 1.0, 1);
     std::vector<double> F_y(n);
     for (int j = 0; j < n; ++j) {
         const double Ak = plan.out_buf[((n - j) % n + n) % n];
@@ -347,12 +319,16 @@ std::vector<double> fftlog_apply_inverse_impl(FFTLogPlanImpl& plan, const std::v
     for (int j = 0; j < n; ++j) {
         plan.in_buf[j] = plan.y_nodes[j] * F_y[j];
     }
-    fftw_execute(plan.plan_fwd);
+    pocketfft::r2c({size_t(n)}, {ptrdiff_t(sizeof(double))},
+                   {ptrdiff_t(sizeof(std::complex<double>))},
+                   0, true, plan.in_buf.data(), plan.c_buf.data(), 1.0, 1);
     const int nc = n / 2 + 1;
     for (int m = 0; m < nc; ++m) {
         plan.cu_buf[m] = plan.c_buf[m] * plan.u[m] / static_cast<double>(n);
     }
-    fftw_execute(plan.plan_inv);
+    pocketfft::c2r({size_t(n)}, {ptrdiff_t(sizeof(std::complex<double>))},
+                   {ptrdiff_t(sizeof(double))},
+                   0, false, plan.cu_buf.data(), plan.out_buf.data(), 1.0, 1);
     std::vector<double> f_x(n);
     for (int j = 0; j < n; ++j) {
         const double Ak = plan.out_buf[((n - j) % n + n) % n];

@@ -24,7 +24,6 @@ endif
 # Windows, so required: false avoids a build failure on those platforms.
 m_dep = cc.find_library('m', required: false)
 
-fftw3_dep = dependency('fftw3')
 
 # ---- Main C library ----
 sources = files(
@@ -57,7 +56,7 @@ libhankel = shared_library(
   include_directories: inc_dirs,
   c_args:   ['-DLIBHANKEL_BUILDING_DLL'],
   cpp_args: ['-DLIBHANKEL_BUILDING_DLL'],
-  dependencies: [m_dep, fftw3_dep],
+  dependencies: [m_dep],
   install: true,
 )
 
