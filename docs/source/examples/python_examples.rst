@@ -12,8 +12,7 @@ different strategy choices.
 If you are unsure which strategy to start with, **FFTLog** is a good default: it requires
 no strategy parameters (just pass an empty dict), runs in O(N log N) time across the whole
 output array, and is typically the most accurate option for smooth, slowly-varying form
-factors on a wide dynamic range. Please check :ref:`python-examples-fftlog` for an 
-example that uses FFTLog.
+factors on a wide dynamic range. Please check the :ref:`python-examples-fftlog`.
 The adaptive strategies (``QWE_*``, ``Adaptive_DE_Ooura``)
 are better when the form factor is complex or oscillatory and you need fine control over
 the convergence tolerance.
@@ -96,7 +95,7 @@ Here is the content of the example:
 
 .. _python-examples-fftlog:
 
-Example on how to use the strategy FFTLog
+How to use the strategy FFTLog
 -----------------------------------------
 
 The following example runs the built-in ``gdab`` form factor through the FFTLog strategy.
@@ -122,7 +121,7 @@ Here is the content of the example:
 
 .. _python-examples-G0:
 
-Example on how to use hankel_G0
+How to use hankel_G0
 -------------------------------
 
 The following example computes G(0), the Hankel transform evaluated at r = 0,

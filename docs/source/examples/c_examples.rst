@@ -10,8 +10,8 @@ as tabulated data, with the FFTLog strategy, and computing G(0) via :c:func:`han
 If you are unsure which strategy to start with, **FFTLog** is a good default: it requires
 no strategy parameters (pass a zero-initialised ``strategy_params`` struct), runs in
 O(N log N) time across the whole output array, and is typically the most accurate option
-for smooth, slowly-varying form factors on a wide dynamic range. Please check 
-:ref:`c-examples-fftlog` for an example that uses FFTLog.
+for smooth, slowly-varying form factors on a wide dynamic range. Please check the 
+:ref:`c-examples-fftlog`.
 
 
 To run the following examples, please install LibHankel following the instructions 
@@ -107,7 +107,7 @@ Here is the example itself:
 
 .. _c-examples-fftlog:
 
-Example on how to use the strategy FFTLog
+How to use the strategy FFTLog
 -----------------------------------------
 
 The following example runs the same ``g_dab`` form factor through the FFTLog strategy.
@@ -131,7 +131,7 @@ Here is the example itself:
 
 .. _c-examples-G0:
 
-Example on how to use hankel_G0
+How to use hankel_G0
 ---------------------------------
 
 The following example computes G(0), the Hankel transform evaluated at r = 0,
